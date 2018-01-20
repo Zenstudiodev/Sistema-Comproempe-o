@@ -148,7 +148,7 @@ $this->layout('admin/admin_master', [
 									<?php } ?>
 
 
-									<?php if (isset($enmpenos)) { ?>
+									<?php if (isset($productos)) { ?>
 
                                     <div class="row"></div>
                                     <table id="empenos_table" class="table table-bordered table-striped display">
@@ -156,12 +156,8 @@ $this->layout('admin/admin_master', [
                                         <tr>
                                             <th></th>
                                             <th>NOMBRE</th>
-                                            <th>FECHA AVALUO</th>
-                                            <th>AVALUO</th>
-                                            <th>MUTUO</th>
-                                            <th>CONTRATO ID</th>
-                                            <th>ACCIONES</th>
-
+                                            <th>CATEGORIA</th>
+                                            <th>EXISTENCIAS</th>
                                         </tr>
                                         </thead>
                                         <!-- <tfoot>
@@ -175,54 +171,12 @@ $this->layout('admin/admin_master', [
 										 </tr>
 										 </tfoot>-->
                                         <tbody>
-										<?php foreach ($enmpenos->result() as $producto) { ?>
+										<?php foreach ($productos->result() as $producto) { ?>
                                             <tr>
-                                                <td style="width: 10%">
-													<?php if ($producto->contrato_id == '0') { ?>
-                                                        <div class="form-group">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox"
-                                                                           id="<?php echo $producto->producto_id ?>"
-                                                                           name="producto_<?php echo $producto->producto_id ?>"
-                                                                           value="<?php echo $producto->producto_id ?>">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-													<?php } ?>
 
-
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-default popover_btn"
-                                                            data-container="body"
-                                                            data-toggle="popover" data-placement="top" data-html="true"
-                                                            data-content="
-                                                            <p>id: <?php echo $producto->producto_id ?></p>
-                                                            <p><?php echo $producto->categoria ?></p>
-                                                            <p><?php echo $producto->nombre_producto ?></p>
-                                                            <p><?php echo $producto->marca ?></p>
-                                                            <p><?php echo $producto->no_serie ?></p>
-                                                            <p><?php echo $producto->modelo ?></p>
-                                                            <p><?php echo $producto->descripcion ?></p>
-                                                            ">
-														<?php echo $producto->nombre_producto ?>
-                                                    </button>
-                                                </td>
-                                                <td><?php echo $producto->fecha_avaluo ?></td>
-                                                <td><?php echo $producto->avaluo_comercial ?></td>
-                                                <td><?php echo $producto->mutuo ?></td>
-                                                <td><?php echo $producto->contrato_id ?></td>
-                                                <td>
-													<?php if ($producto->contrato_id == '0') { ?>
-                                                        <a type="button" class="btn btn-default"
-                                                           href="<?php echo base_url() . 'productos/editar_producto/' . $producto->producto_id; ?>">
-                                                            <i class="fa fa-pencil-square-o"></i> Editar
-                                                        </a>
-													<?php } ?>
-                                                </td>
-
-
+                                                <td><?php echo $producto->nombre ?></td>
+                                                <td><?php echo $producto->categoria ?></td>
+                                                <td><?php echo $producto->existencias ?></td>
                                             </tr>
 
 

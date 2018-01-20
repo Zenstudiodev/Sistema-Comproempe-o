@@ -43,7 +43,7 @@ class Proveedor_model extends CI_Model
 	}
 	public function get_productos_provedor_by_id($proveedor_id){
 		$this->db->where('proveedor_id', $proveedor_id);
-		$query = $this->db->get('proveedores');
+		$query = $this->db->get('productos');
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
