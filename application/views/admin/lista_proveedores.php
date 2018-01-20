@@ -57,7 +57,7 @@ $this->layout('admin/admin_master', [
         <!-- Default box -->
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Data Table With Full Features</h3>
+                <h3 class="box-title">Listado de proveedores</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -86,9 +86,9 @@ $this->layout('admin/admin_master', [
 							<?php foreach ($proveedores->result() as $proveedor)
 							{ ?>
                                 <tr>
-                                    <td><?php echo $proveedor->id ?></td>
+                                    <td><?php echo $proveedor->proveedor_id ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $proveedor->id; ?>"><?php echo $proveedor->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/proveedores/detalle/' . $proveedor->proveedor_id; ?>"><?php echo $proveedor->nombre ?></a>
                                     </td>
                                     <td><?php echo $proveedor->razon_social ?></td>
                                     <td><?php echo $proveedor->nit ?></td>

@@ -32,10 +32,6 @@ class Proveedores extends Base_Controller
 	}
 
 	function Guardar(){
-		echo '<pre>';
-		print_r($_POST);
-		echo '</pre>';
-
 		$data = array(
 			'nombre'=> $this->input->post('nombre'),
 			'direccion'=> $this->input->post('direccion'),
@@ -44,11 +40,20 @@ class Proveedores extends Base_Controller
 			'email'=> $this->input->post('email'),
 			'nit'=> $this->input->post('nit'),
 		);
-
 		$cliente_id = $this->Proveedor_model->crear_proveedor($data);
+		redirect(base_url().'cliente/detalle/'.$cliente_id);
+	}
+
+	function detalle(){
+		$data = compobarSesion();
+
+		//id de proveedor
+		$proveedor_id = $data['segmento'] = $this->uri->segment(3);
+
+		$data['proveedor'] = $this->Proveedor_model->get_proveedor_data_by_id($proveedor_id);
 
 
-		//redirect(base_url().'cliente/detalle/'.$cliente_id);
+		echo $this->templates->render('admin/detalle_proveedor', $data);
 	}
 
 }

@@ -13,7 +13,6 @@ class Proveedor_model extends CI_Model
 		parent::__construct();
 		date_default_timezone_set('America/Guatemala');
 	}
-
 	public function crear_proveedor($form_data){
 		$fecha = new DateTime();
 		$cliente_data = array(
@@ -31,8 +30,13 @@ class Proveedor_model extends CI_Model
 		$insert_id = $this->db->insert_id();
 		return  $insert_id;
 	}
-
 	public function get_proveedores(){
+		$query = $this->db->get('proveedores');
+		if($query->num_rows() > 0) return $query;
+		else return false;
+	}
+	public function get_proveedor_data_by_id($proveedor_id){
+		$this->db->where('proveedor_id', $proveedor_id);
 		$query = $this->db->get('proveedores');
 		if($query->num_rows() > 0) return $query;
 		else return false;
