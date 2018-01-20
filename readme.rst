@@ -1,72 +1,39 @@
-###################
-Sistema de Gestion para casa de empeño
-###################
+########################################
+Sistema de Gestión para casa de empeño
+########################################
 
 Sistema de gestión para casa de empeños.
 control de las siguientes entidades.
--`Clientes`
--`Productos`
--`Contratos`
--`Facturas`
--`Recibos`
--`Provedores`
--`Contabilidad`
 
-
-*******************
-Release Information
-*******************
-
-Creado con el framework CodeIgniter `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
-
-**************************
-Changelog and New Features
-**************************
-
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- Clientes
+- Productos
+- Contratos
+- Facturas
+- Recibos
+- Proveedores
+- Contabilidad
 
 *******************
-Server Requirements
+Base de Código
 *******************
 
-PHP version 5.6 or newer is recommended.
+Creado con el framework CodeIgniter `CodeIgniter Downloads <https://codeigniter.com/download>`_ page.
+y el admin LTE.
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+Funcionalidades
+*****************
 
-************
-Installation
-************
+sistema ideado para facilitar:
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+- Captura de clientes.
+- Control de ingreso de productos.
+- Creación e impresión de contratos.
+- Creación e impresión de facturas.
+- Creación e impresión de recibos.
+- Control de estado de contratos.
+- Liquidación de productos de contratos vencidos.
+- Ingreso de productos comprados.
+- Venta de productos.
+- control de movimientos contables.
 
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+el sistema lleva un control automático de clientes, contratos, facturas recibos y productos. permite a los usuarios registrar todos los movimientos realizados en la tienda.
