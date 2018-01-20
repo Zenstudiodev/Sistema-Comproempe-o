@@ -1,21 +1,23 @@
 ###################
-What is CodeIgniter
+Sistema de Gestion para casa de empeño
 ###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Sistema de gestión para casa de empeños.
+control de las siguientes entidades.
+-`Clientes`
+-`Productos`
+-`Contratos`
+-`Facturas`
+-`Recibos`
+-`Provedores`
+-`Contabilidad`
+
 
 *******************
 Release Information
 *******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
+Creado con el framework CodeIgniter `CodeIgniter Downloads
 <https://codeigniter.com/download>`_ page.
 
 **************************
