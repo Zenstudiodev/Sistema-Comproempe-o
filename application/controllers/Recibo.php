@@ -27,6 +27,9 @@ class Recibo extends Base_Controller
 
 	function guardar_recibo_abono()
 	{
+		//Datos de session
+		$data   = compobarSesion();
+
 		$datos_recibo = array(
 			'cliente_id'          => $this->input->post('cliente_id'),
 			'contrato_id'         => $this->input->post('contrato_id'),
@@ -49,6 +52,15 @@ class Recibo extends Base_Controller
 
 		//actualñizar monto de contrato
 		$this->Contratos_model->actualizar_monto_contrato($datos_recibo['contrato_id'], $nuevo_monto);
+
+		//guardamos en el log de contraros
+		$datos_log = array(
+			'accion'=> 'abono',
+			'contrato'=> $this->input->post('contrato_id'),
+			'cliente'=>  $this->input->post('cliente_id'),
+			'usuario'=> $data['user_id'],
+		);
+		$this->Contratos_model->guardar_log($datos_log);
 
 		//redrigimos a detalle de cliente
 		redirect(base_url() . 'cliente/detalle/' . $datos_recibo['cliente_id']);

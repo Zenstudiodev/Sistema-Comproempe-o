@@ -41,6 +41,7 @@ class Proveedor_model extends CI_Model
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	public function get_productos_provedor_by_id(){}
 
 
 }
