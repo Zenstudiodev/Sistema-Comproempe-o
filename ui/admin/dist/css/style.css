@@ -1,0 +1,32 @@
+/*CONTRATO*/
+div#logo_print {
+    height: 160px;
+    width: 200px;
+    margin: 0 auto;
+}
+#logo_print img {
+    height: 100%;
+}
+div#logo_refrendo {
+    height: 80px;
+    width: 100px;
+    margin: 0;
+}
+
+.btn-app {
+    padding: 8px 8px;
+    margin: 0 0 0px 0px;
+    min-width: 64px;
+    height: 45px;
+}
+#logo_recibo{
+    width: 3cm;
+}
+
+.easy-autocomplete-container {
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 100 !important;
+    top: 38px;
+}
