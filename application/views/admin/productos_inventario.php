@@ -65,8 +65,6 @@ $this->layout('admin/admin_master', [
 	                'especial' => 'Especial',
                 );
 
-
-                // TODO categorias select desde tabla de productos
                 $categoria_select = array(
                     'type' => 'text',
                     'name' => 'categoria',
@@ -76,7 +74,6 @@ $this->layout('admin/admin_master', [
                     'required' => 'required'
 
                 );
-                //TODO descripcion textarea
                 $descripcion = array(
                     'type' => 'text',
                     'name' => 'descripcion',
