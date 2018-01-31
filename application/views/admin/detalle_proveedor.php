@@ -148,7 +148,7 @@ $this->layout('admin/admin_master', [
 									<?php } ?>
 
 
-									<?php if (isset($productos)) { ?>
+									<?php if ($productos) { ?>
 
                                     <div class="row"></div>
                                     <table id="empenos_table" class="table table-bordered table-striped display">
@@ -174,7 +174,7 @@ $this->layout('admin/admin_master', [
 										<?php foreach ($productos->result() as $producto) { ?>
                                             <tr>
 
-                                                <td><?php echo $producto->nombre ?></td>
+                                                <td><?php echo $producto->nombre_producto ?></td>
                                                 <td><?php echo $producto->categoria ?></td>
                                                 <td><?php echo $producto->existencias ?></td>
                                             </tr>

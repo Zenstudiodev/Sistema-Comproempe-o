@@ -22,6 +22,22 @@ class Factura_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	function get_facturas_liquidacion_by_cliente_id($cliente_id)
+	{
+		$this->db->where('cliente_id', $cliente_id);
+		$this->db->where('tipo', 'venta');
+		$query = $this->db->get('facturas');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
+	function get_facturas_liquidacion_r_by_cliente_id($cliente_id)
+	{
+		$this->db->where('cliente_id', $cliente_id);
+		$this->db->where('tipo', 'venta');
+		$query = $this->db->get('facturas_r');
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
 	public function guardar_factura($datos)
 	{
 

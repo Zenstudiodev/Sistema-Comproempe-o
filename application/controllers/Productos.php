@@ -253,7 +253,7 @@ class Productos extends Base_Controller
 			$detalle_factura .= '<tr>';
 			$detalle_factura .= '<td></td>';
 			$detalle_factura .= '<td colspan="2">'.'Gastos administrativos'.'</td>';
-			$detalle_factura .= '<td>'. display_formato_dinero($gastos_administrativos ). '<br>';
+			$detalle_factura .= '<td>'. formato_dinero($gastos_administrativos ). '<br>';
 			$detalle_factura .= '</tr>';
 
 			$contrados_recibo .= $datos_contrato->contrato_id.',';
@@ -262,7 +262,7 @@ class Productos extends Base_Controller
 		}
 
 		$detalle_recibo .= 'Liquidación de contratos: ' .$contrados_recibo.'<br>' ;
-		$detalle_recibo .= 'Suma de mutuos ' .  display_formato_dinero_return($suma_mutuos) ;
+		$detalle_recibo .= 'Suma de mutuos ' .  formato_dinero($suma_mutuos) ;
 
 
 		//echo 'Guardar Factura: <br>';
@@ -324,6 +324,9 @@ class Productos extends Base_Controller
 		//categorias
 		$data['categorias'] = $this->Productos_model->get_categorias();
 		echo $this->templates->render('admin/productos_inventario', $data);
+	}
+	function guardar_productos_inventario(){
+
 	}
 	function productos_excel()
 	{

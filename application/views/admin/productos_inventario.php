@@ -45,7 +45,7 @@ $this->layout('admin/admin_master', [
             <!-- general form elements -->
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Datos del producto</h3>
+                    <h3 class="box-title">Datos de Factura</h3>
                 </div>
                 <!-- /.box-header -->
 
@@ -74,6 +74,34 @@ $this->layout('admin/admin_master', [
                     'required' => 'required'
 
                 );
+                $proveedor        = array(
+	                'type'        => 'text',
+	                'name'        => 'proveedor',
+	                'id'          => 'proveedor',
+	                'class'       => 'form-control',
+	                'placeholder' => 'Proveedor',
+	                //'required' => 'required'
+                );
+
+                $proveedor_id        = array(
+	                'type'        => 'text',
+	                'name'        => 'proveedor_id',
+	                'id'          => 'proveedor_id',
+	                'class'       => 'form-control',
+	                'placeholder' => 'Proveedor',
+	                'required' => 'required'
+                );
+
+
+                $cantidad_productos = array(
+	                'type' => 'nomber',
+	                'name' => 'cantidad_productos',
+	                'id' => 'cantidad_productos',
+	                'class' => 'form-control',
+	                'placeholder' => 'Cantidad de productos',
+	                'required' => 'required'
+                );
+
                 $descripcion = array(
                     'type' => 'text',
                     'name' => 'descripcion',
@@ -128,136 +156,28 @@ $this->layout('admin/admin_master', [
                     'required' => 'required'
 
                 );
-                $avaluo_comercial = array(
-                    'type' => 'text',
-                    'name' => 'avaluo_comercial',
-                    'id' => 'avaluo_comercial',
-                    'class' => 'form-control pull-right',
-                    'placeholder' => 'Avaluo',
-                    'required' => 'required'
 
-                );
-                $avaluo_ce = array(
-                    'type' => 'text',
-                    'name' => 'avaluo_ce',
-                    'id' => 'avaluo_ce',
-                    'class' => 'form-control pull-right',
-                    'placeholder' => 'Avaluo',
-                    'required' => 'required'
-
-                );
-                $mutuo = array(
-                    'type' => 'text',
-                    'name' => 'mutuo',
-                    'id' => 'mutuo',
-                    'class' => 'form-control pull-right',
-                    'placeholder' => 'Motuo',
-                    'required' => 'required'
-                );
-                $almacenaje = array(
-                    'type' => 'text',
-                    'name' => 'almacenaje',
-                    'id' => 'almacenaje',
-                    'class' => 'form-control pull-right',
-                    'placeholder' => 'Almacenaje',
-                    'required' => 'required'
-                );
-                $gastos_administrativos = array(
-                    'type' => 'text',
-                    'name' => 'gastos_administrativos',
-                    'id' => 'gastos_administrativos',
-                    'class' => 'form-control pull-right',
-                    'placeholder' => 'Gastos administrativos',
-                    'required' => 'required'
-                );
-                $observaciones = array(
-                    'type' => 'text',
-                    'name' => 'observaciones',
-                    'id' => 'observaciones',
-                    'class' => 'form-control',
-                    'placeholder' => 'Observaciones',
-                    'data-validate-length-range' => '6',
-                    'data-validate-words' => '2'
-
-                );
-                $plazo = array(
-                    'type' => 'text',
-                    'name' => 'plazo',
-                    'id' => 'plazo',
-                    'class' => 'form-control',
-                    'placeholder' => 'Plazo',
-                    'required' => 'required'
-
-                );
-                $tasa_interes = array(
-                    'type' => 'text',
-                    'name' => 'tasa_interes',
-                    'id' => 'tasa_interes',
-                    'class' => 'form-control',
-                    'placeholder' => 'Tasa de interes',
-                    'required' => 'required'
-
-                );
-                $pago_interes = array(
-                    'type' => 'text',
-                    'name' => 'pago_interes',
-                    'id' => 'pago_interes',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
-                $costo_almacenaje = array(
-                    'type' => 'text',
-                    'name' => 'costo_almacenaje',
-                    'id' => 'costo_almacenaje',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
-                $pago_iva = array(
-                    'type' => 'text',
-                    'name' => 'pago_iva',
-                    'id' => 'pago_iva',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
-                $referendo = array(
-                    'type' => 'text',
-                    'name' => 'referendo',
-                    'id' => 'referendo',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
-                $desempeno = array(
-                    'type' => 'text',
-                    'name' => 'desempeno',
-                    'id' => 'desempeno',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
-                $fecha_pago = array(
-                    'type' => 'text',
-                    'name' => 'fecha_pago',
-                    'id' => 'fecha_pago',
-                    'class' => 'form-control',
-                    'placeholder' => '',
-                    'required' => 'required'
-
-                );
                 ?>
                 <!-- form start -->
-                <form role="form" action="<?php echo base_url() ?>/Productos/guardar_producto" method="post" id="producto_form"
+                <form role="form" action="<?php echo base_url() ?>/Productos/guardar_productos_inventario" method="post" id="producto_form"
                       name="producto_form">
 
                     <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="categoria">Proveedor</label>
+				                    <?php echo form_input($proveedor) ?>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                        <label for="categoria">Proveedor_id</label>
+		                                <?php echo form_input($proveedor_id) ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -282,97 +202,134 @@ $this->layout('admin/admin_master', [
                                 </div>
                             </div>
                         </div>
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Datos de Productos</h3>
+                        </div>
+
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="categoria">Categoría</label>
-                                    <?php echo form_input($categoria_select); ?>
+			                        <?php echo form_input($categoria_select); ?>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="categoria">Nombre del producto</label>
-                                    <?php echo form_input($nombre_producto); ?>
+			                        <?php echo form_input($nombre_producto); ?>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="no_serie">No de serie</label>
-                                    <?php echo form_input($no_serie); ?>
+			                        <?php echo form_input($no_serie); ?>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="modelo">Modelo</label>
-                                    <?php echo form_input($modelo); ?>
+			                        <?php echo form_input($modelo); ?>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="modelo">Marca</label>
-                                    <?php echo form_input($marca); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-		                    <?php echo form_textarea($descripcion_t); ?>
-                        </div>
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <?php echo form_textarea($descripcion); ?>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Fecha de avaluó:</label>
-
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <?php $fecha_avaluo = new DateTime(); ?>
-                                        <input type="text" class="form-control pull-right" id="avaluopicker"
-                                               value="<?php echo $fecha_avaluo->format('Y-m-d') ?>" name="fecha_avaluo">
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="avaluo">Avalúo comercial</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-                                        <?php echo form_input($avaluo_comercial); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="avaluo">Avalúo Compro Empeño</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-                                        <?php echo form_input($avaluo_ce); ?>
-                                    </div>
+			                        <?php echo form_input($marca); ?>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="avaluo">Mutuo</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-                                        <?php echo form_input($mutuo); ?>
-                                    </div>
+                                    <label for="descripcion">Descripción</label>
+		                            <?php echo form_textarea($descripcion_t); ?>
                                 </div>
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">No de  productos</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Precio sin IVA</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Precio de venta</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                        </div>
 
 
+                        <div class="row">
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-success">Agregar Producto</button>
+                            </div>
+                        </div>
+
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Cargos extra</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Flete sin iva</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Gastos no deducibles</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Flete sin iva</label>
+				                    <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Seguro</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">DAI</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Multas</label>
+			                        <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="categoria">Otros</label>
+				                    <?php echo form_input($cantidad_productos); ?>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -422,30 +379,7 @@ $this->layout('admin/admin_master', [
     });
 
     $("#producto_form").change(function () {
-        fecha_avaluo = $("#fecha_avaluo").val();
-        plazo = $("#plazo").val();
-        avaluo_comercial = $("#avaluo_comercial").val();
-        avaluo_ce = $("#avaluo_ce").val();
-        motuo_minimo = (avaluo_comercial / 2);
-        //el valor del mutuo debe ser mayor a 50% de avaluo comercial
 
-        motuo = $("#mutuo").val();
-        if (motuo >= motuo_minimo) {
-            $("#mutuo").val(motuo_minimo);
-            console.log(motuo + ' es mayor');
-        } else {
-
-            console.log(motuo + ' es menor');
-        }
-        nombre_producto = $("#nombre_producto").val();
-        no_serie = $("#no_serie").val();
-        modelo = $("#modelo").val();
-        marca = $("#marca").val();
-        descripcion = $("#descripcion_t").val();
-
-        descripcion_dp = 'Nombre: '+ nombre_producto+' No de serie: '+no_serie +' Modelo: '+modelo +' Marca: '+marca;
-        descipcion_text = descripcion_dp +'\n'+descripcion;
-        $("#descripcion").val(descipcion_text);
     });
 
 
@@ -461,10 +395,40 @@ $this->layout('admin/admin_master', [
             }
         },
 
-        theme: "square"
+        theme: "plate-dark"
     };
 
     $("#categoria").easyAutocomplete(options);
+
+
+
+    var proveedores = {
+
+        url: "<?php echo base_url()?>index.php/Proveedores/proveedores_json",
+        theme: "plate-dark",
+        getValue: 'nombre',
+        template: {
+            type: "custom",
+            method: function (value, item) {
+                return "ID: " + item.proveedor_id + " | " + "Nombre: " + item.nombre + " | "
+            }
+        },
+        list: {
+            match: {
+                enabled: true
+            },
+            onSelectItemEvent: function () {
+                var selectedItemValue = $("#proveedor").getSelectedItemData().proveedor_id;
+
+                $("#proveedor_id").val(selectedItemValue).trigger("click");
+            },
+            onHideListEvent: function () {
+                // $("#cliente_id").val("").trigger("change");
+            }
+        }
+    };
+    $("#proveedor").easyAutocomplete(proveedores);
+
     $(function () {
         //Date picker
         $('#avaluopicker').datepicker({

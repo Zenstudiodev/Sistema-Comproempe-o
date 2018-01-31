@@ -56,4 +56,11 @@ class Proveedores extends Base_Controller
 		echo $this->templates->render('admin/detalle_proveedor', $data);
 	}
 
+	function proveedores_json()
+	{
+		$data['provedores'] = $this->Proveedor_model->proveedores_json();
+		$provedores         = $data['provedores']->result();
+		echo json_encode($provedores);
+	}
+
 }

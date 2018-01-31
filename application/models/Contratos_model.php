@@ -141,10 +141,25 @@ class Contratos_model extends CI_Model
 	{
 
 		$serie_factura = 'A';
+		$tabla_de_factura='facturas';
 
 		if (isset($data['serie_factura']))
 		{
 			$serie_factura = $data['serie_factura'];
+
+			switch ($serie_factura) {
+				case 'A':
+					$tabla_de_factura='facturas';
+					break;
+				case 'B':
+					$tabla_de_factura='facturas';
+					break;
+				case 'R':
+					$tabla_de_factura='facturas_r';
+					break;
+			}
+
+
 		}
 
 		$datos_de_factura = array(
@@ -164,8 +179,12 @@ class Contratos_model extends CI_Model
 			'serie'        => $serie_factura
 
 		);
+
+
+
+
 		// insertamon en la base de datos
-		$this->db->insert('facturas', $datos_de_factura);
+		$this->db->insert($tabla_de_factura, $datos_de_factura);
 		$insert_id = $this->db->insert_id();
 
 		return $insert_id;

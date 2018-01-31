@@ -16,6 +16,7 @@ class Cliente extends Base_Controller
 		$this->load->model('Cliente_model');
 		$this->load->model('Productos_model');
 		$this->load->model('Contratos_model');
+		$this->load->model('Factura_model');
 	}
 
 	function index()
@@ -107,6 +108,10 @@ class Cliente extends Base_Controller
 		$data['contratos'] = $this->Contratos_model->get_contratos_by_cliente_id($data['segmento']);
 		//Facturas
 		$data['facturas'] = $this->Contratos_model->get_facturas_by_cliente_id($data['segmento']);
+		//Facturas Liquidacion
+		$data['facturas_l'] = $this->Factura_model->get_facturas_liquidacion_by_cliente_id($data['segmento']);
+		$data['facturas_l_r'] = $this->Factura_model->get_facturas_liquidacion_r_by_cliente_id($data['segmento']);
+
 		//Recibos
 		$data['recibos']        = $this->Contratos_model->get_recibos_by_cliente_id($data['segmento']);
 		$data['Numero_empenos'] = $this->Cliente_model->listar_empenos($data['segmento']);

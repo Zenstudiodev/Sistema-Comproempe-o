@@ -598,12 +598,14 @@ $this->layout('admin/admin_master', [
                                         Facturas
                                     </h2>
                                 </div>
-								<?php if ($facturas) { ?>
+								<?php if ($facturas_l || $facturas_l_r) { ?>
                                     <div class="row"></div>
                                     <table id="contratos_table" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th>ID FACTURA</th>
+                                            <th>SERIE</th>
+                                            <th>MONTO</th>
                                             <th>FECHA</th>
                                             <th>ESTADO</th>
                                             <th>TIPO</th>
@@ -621,13 +623,17 @@ $this->layout('admin/admin_master', [
 											 <th></th>
 										 </tr>
 										 </tfoot>-->
+
                                         <tbody>
-										<?php foreach ($facturas->result() as $factura) { ?>
+                                        <?php if($facturas_l){?>
+										<?php foreach ($facturas_l->result() as $factura) { ?>
 											<?php if ($factura->tipo == 'venta') { ?>
                                                 <tr>
                                                     <td style="width: 10%">
 														<?php echo $factura->factura_id ?>
                                                     </td>
+                                                    <td><?php echo $factura->serie ?></td>
+                                                    <td><?php echo $factura->total ?></td>
                                                     <td ><?php echo $factura->fecha ?></td>
                                                     <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
                                                     <td><?php echo $factura->tipo; ?></a></td>
@@ -646,6 +652,35 @@ $this->layout('admin/admin_master', [
 											<?php
 											}
 										} ?>
+                                        <?php } ?>
+                                        <?php if($facturas_l_r){?>
+										<?php foreach ($facturas_l_r->result() as $factura) { ?>
+											<?php if ($factura->tipo == 'venta') { ?>
+                                                <tr>
+                                                    <td style="width: 10%">
+														<?php echo $factura->factura_id ?>
+                                                    </td>
+                                                    <td><?php echo $factura->serie ?></td>
+                                                    <td><?php echo $factura->total ?></td>
+                                                    <td ><?php echo $factura->fecha ?></td>
+                                                    <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
+                                                    <td><?php echo $factura->tipo; ?></a></td>
+                                                    <td><?php echo $factura->contrato_id; ?></a></td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="btn btn-default"
+                                                               href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                        class="fa fa-print"></i> Imprimir</a>
+                                                            <a type="button" class="btn btn-default"
+                                                               href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                        class="fa fa-print"></i> Anular</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+												<?php
+											}
+										} ?>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
 								<?php }
