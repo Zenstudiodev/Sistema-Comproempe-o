@@ -414,7 +414,8 @@ class Contrato extends Base_Controller
 	}
 	function guardar_factura_desempeno()
 	{
-		$data   = compobarSesion();
+		$data                     = compobarSesion();
+
 		//
 		$datos_factura = array(
 			'no_factura'   => $this->input->post('no_factura'),
