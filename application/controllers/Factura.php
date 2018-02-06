@@ -28,6 +28,12 @@ class Factura extends Base_Controller
 
 		echo $this->templates->render('admin/lista_facturas', $data);
 	}
+	function serie_r(){
+		$data = compobarSesion();
+		$data['facturas'] = $this->Factura_model->listar_facturas_serie_r();
+
+		echo $this->templates->render('admin/lista_facturas_r', $data);
+	}
 
 	function guardar_factura()
 	{

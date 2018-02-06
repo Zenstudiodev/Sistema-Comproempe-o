@@ -48,8 +48,8 @@ $this->layout('admin/admin_master', [
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="<?php echo base_url()?>/factura">Serie A</a></li>
-                        <li class=""><a href="<?php echo base_url()?>/factura/serie_r">Serie R</a></li>
+                        <li class=""><a href="<?php echo base_url()?>/factura">Serie A</a></li>
+                        <li class="active"><a href="<?php echo base_url()?>/factura/serie_r">Serie R</a></li>
                     </ul>
                     <!-- /.tab-content -->
                 </div>

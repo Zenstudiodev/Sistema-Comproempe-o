@@ -22,6 +22,14 @@ class Factura_model extends CI_Model
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
+	public function listar_facturas_serie_r()
+	{
+		$this->db->from('facturas_r');
+		$this->db->join('cliente', 'cliente.id = facturas_r.cliente_id');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) return $query;
+		else return false;
+	}
 	function get_facturas_liquidacion_by_cliente_id($cliente_id)
 	{
 		$this->db->where('cliente_id', $cliente_id);
