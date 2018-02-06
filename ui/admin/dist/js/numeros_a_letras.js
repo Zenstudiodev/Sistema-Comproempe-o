@@ -1,13 +1,13 @@
 // Función modulo, regresa el residuo de una división
 function mod(dividendo, divisor) {
     resDiv = dividendo / divisor;
-    console.log(resDiv);
+  //  console.log(resDiv);
     parteEnt = Math.floor(resDiv);            // Obtiene la parte Entera de resDiv
-    console.log(parteEnt);
+   // console.log(parteEnt);
     parteFrac = resDiv - parteEnt;      // Obtiene la parte Fraccionaria de la división
-    console.log(parteFrac);
+  //  console.log(parteFrac);
     modulo = Math.round(parteFrac * divisor);  // Regresa la parte fraccionaria * la división (modulo)
-    console.log(modulo);
+   // console.log(modulo);
     return modulo;
 } // Fin de función mod
 
@@ -262,9 +262,9 @@ function covertirNumLetras(number) {
     else {
 
         millions = ObtenerParteEntDiv(number, 1000000); // first, send the millions to the string
-        console.log(number);
+       // console.log(number);
         number = mod(number, 1000000);           // conversion function
-        console.log(number);
+       // console.log(number);
 
         if (millions != 0) {
             // This condition handles the plural case
@@ -282,7 +282,7 @@ function covertirNumLetras(number) {
 
 
         thousands = ObtenerParteEntDiv(number, 1000);  // now, send the thousands to the string
-        console.log(thousands);
+       // console.log(thousands);
         number = mod(number, 1000);            // conversion function.
         //number = mod(number, 1000);            // conversion function.
 
@@ -304,7 +304,7 @@ function covertirNumLetras(number) {
         centenas = number;
         //TODO fix
         //centenas = centenas - 1;
-        console.log(centenas)
+//        console.log(centenas)
         centenas_final_string = string_literal_conversion(centenas);
 
     } //end if (number ==0)
@@ -340,7 +340,7 @@ function covertirNumLetras(number) {
 
 
     centavos_final_string = string_literal_conversion(centavos);
-    console.log(centavos_final_string);
+//    console.log(centavos_final_string);
     if(centavos_final_string == ''){
         centavos_final_string = 'cero';
     }

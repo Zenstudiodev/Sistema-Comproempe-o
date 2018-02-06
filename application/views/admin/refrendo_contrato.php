@@ -85,6 +85,18 @@ if ($contrato)
 
 	$total_en_letras = NumeroALetras::convertir($total);
 
+	$cargos_extra = array(
+		'type'        => 'number',
+		'name'        => 'cargos_extra',
+		'id'          => 'cargos_extra',
+		'class'       => 'form-control',
+		'placeholder' => 'Cargos Extra',
+		'required'    => 'required',
+		'value'       => '0',
+		'step'        => 'any'
+		//'disabled'    => 'disabled'
+	);
+
 	$descuento = array(
 		'type'        => 'number',
 		'name'        => 'descuento',
@@ -116,7 +128,7 @@ if ($contrato)
 	<?php if ($productos) { ?>
         <!-- Main content -->
         <section class="invoice">
-            <form action="<?php echo base_url() ?>contrato/guardar_factura" method="post">
+            <form action="<?php echo base_url() ?>contrato/guardar_factura" method="post" id="refrendo_form">
                 <!-- title row -->
                 <div class="row">
                     <div class="col-xs-12">
@@ -164,10 +176,16 @@ if ($contrato)
                             <thead>
                             <tr>
                                 <th>Descripción</th>
-                                <th>Total</th>
+                                <th>Monto</th>
                             </tr>
                             </thead>
                             <tbody>
+                            <tr>
+                                <td>Cargos Extra</td>
+                                <td>
+	                                <?php echo form_input($cargos_extra); ?>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>Intereses por refrendo</td>
                                 <td>
@@ -307,6 +325,7 @@ if ($contrato)
     var plazo;
     var total_en_letras;
     var serie_facturas;
+    var cargos_extra;
 
     moment.locale('es');
 
@@ -318,7 +337,7 @@ if ($contrato)
         plazo = $("#plazo").val();
         tasa_interes = $("#tasa_interes").val();
         almacenaje = $("#almacenaje").val();
-        console.log(plazo);
+       // console.log(plazo);
         //fecha de pago =
         fecha_contrato = moment(fecha_contrato);
         fecha_pago = fecha_contrato.add(plazo, 'days').format('YYYY-MM-DD');
@@ -377,10 +396,15 @@ if ($contrato)
     });
 
 
-    $("#descuento").change(function () {
+    $("#refrendo_form").change(function () {
         var descuento = $("#descuento").val();
         var subtotal = parseFloat(<?php echo($total); ?>);
         var total;
+        cargos_extra = $("#cargos_extra").val();
+        cargos_extra = parseFloat(cargos_extra);
+        console.log(cargos_extra);
+        subtotal = subtotal +cargos_extra;
+
         total = subtotal - descuento;
         total = parseFloat(total).toFixed(2);
         $("#total").html(total);
