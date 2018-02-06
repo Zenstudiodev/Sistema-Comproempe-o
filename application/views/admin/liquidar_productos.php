@@ -220,7 +220,7 @@ $this->layout('admin/admin_master', [
                                                        name="producto_<?php echo $producto_numero ?>_p"
                                                        id="producto_<?php echo $producto_numero ?>_p"
                                                        value="<?php echo $producto->avaluo_comercial ?>"
-                                                       min="<?php echo $producto->mutuo ?>">
+                                                       min="<?php echo $producto->mutuo ?>" step="any">
                                             </div>
                                         </div>
 
