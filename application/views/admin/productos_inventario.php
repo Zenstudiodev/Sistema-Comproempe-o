@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title' => $title,
-	'nombre' => $nombre,
-	'user_id' => $user_id,
+	'title'    => $title,
+	'nombre'   => $nombre,
+	'user_id'  => $user_id,
 	'username' => $username,
-	'rol' => $rol,
+	'rol'      => $rol,
 ]);
 
 ?>
@@ -31,318 +31,313 @@ $this->layout('admin/admin_master', [
 <div class="content-wrapper">
 
 
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                ingresar producto
-                <small></small>
-            </h1>
-        </section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            ingresar producto
+            <small></small>
+        </h1>
+    </section>
 
-        <!-- Main content -->
-        <section class="content">
+    <!-- Main content -->
+    <section class="content">
 
-            <!-- general form elements -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Datos de Factura</h3>
-                </div>
-                <!-- /.box-header -->
-
-                <?php
-
-
-                //Tipo de factura
-                $tipo_factura_select         = array(
-	                'name'     => 'factura_tipo',
-	                'id'       => 'factura_tipo',
-	                'class'    => ' form-control',
-	                'required' => 'required'
-                );
-                $tipo_factura_select_options = array(
-	                'local' => 'Local',
-	                'importacion' => 'Importacion',
-	                'especial' => 'Especial',
-                );
-
-                $categoria_select = array(
-                    'type' => 'text',
-                    'name' => 'categoria',
-                    'id' => 'categoria',
-                    'class' => 'form-control',
-                    'placeholder' => 'Categoría',
-                    'required' => 'required'
-
-                );
-                $proveedor        = array(
-	                'type'        => 'text',
-	                'name'        => 'proveedor',
-	                'id'          => 'proveedor',
-	                'class'       => 'form-control',
-	                'placeholder' => 'Proveedor',
-	                //'required' => 'required'
-                );
-
-                $proveedor_id        = array(
-	                'type'        => 'text',
-	                'name'        => 'proveedor_id',
-	                'id'          => 'proveedor_id',
-	                'class'       => 'form-control',
-	                'placeholder' => 'Proveedor',
-	                'required' => 'required'
-                );
-
-
-                $cantidad_productos = array(
-	                'type' => 'nomber',
-	                'name' => 'cantidad_productos',
-	                'id' => 'cantidad_productos',
-	                'class' => 'form-control',
-	                'placeholder' => 'Cantidad de productos',
-	                'required' => 'required'
-                );
-
-                $descripcion = array(
-                    'type' => 'text',
-                    'name' => 'descripcion',
-                    'id' => 'descripcion',
-                    'class' => 'form-control',
-                    'placeholder' => 'Descripción'
-                );
-                $descripcion_t = array(
-	                'type' => 'text',
-	                'name' => 'descripcion_t',
-	                'id' => 'descripcion_t',
-	                'class' => 'form-control',
-	                'placeholder' => 'Descripción',
-	                'required' => 'required'
-
-                );
-                $nombre_producto = array(
-                    'type' => 'text',
-                    'name' => 'nombre_producto',
-                    'id' => 'nombre_producto',
-                    'class' => 'form-control',
-                    'placeholder' => 'Nombre del producto',
-                    'data-validate-length-range' => '6',
-                    'data-validate-words' => '2',
-                    'required' => 'required'
-
-                );
-                $no_serie = array(
-                    'type' => 'text',
-                    'name' => 'no_serie',
-                    'id' => 'no_serie',
-                    'class' => 'form-control',
-                    'placeholder' => 'No. de serie',
-                    'required' => 'required'
-
-                );
-                $modelo = array(
-                    'type' => 'text',
-                    'name' => 'modelo',
-                    'id' => 'modelo',
-                    'class' => 'form-control',
-                    'placeholder' => 'Modelo',
-                    'required' => 'required'
-
-                );
-                $marca = array(
-                    'type' => 'text',
-                    'name' => 'marca',
-                    'id' => 'marca',
-                    'class' => 'form-control',
-                    'placeholder' => 'Marca',
-                    'required' => 'required'
-
-                );
-
-                ?>
-                <!-- form start -->
-                <form role="form" action="<?php echo base_url() ?>/Productos/guardar_productos_inventario" method="post" id="producto_form"
-                      name="producto_form">
-
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="categoria">Proveedor</label>
-				                    <?php echo form_input($proveedor) ?>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                        <label for="categoria">Proveedor_id</label>
-		                                <?php echo form_input($proveedor_id) ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="categoria">Tipo de factura</label>
-		                            <?php echo form_dropdown($tipo_factura_select, $tipo_factura_select_options) ?>
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Fecha:</label>
-
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <?php $fecha = new DateTime(); ?>
-                                        <input type="text" class="form-control pull-right" id="fecha" name="fecha"
-                                               value="<?php echo $fecha->format('Y-m-d') ?>" >
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Datos de Productos</h3>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="categoria">Categoría</label>
-			                        <?php echo form_input($categoria_select); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="categoria">Nombre del producto</label>
-			                        <?php echo form_input($nombre_producto); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="no_serie">No de serie</label>
-			                        <?php echo form_input($no_serie); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="modelo">Modelo</label>
-			                        <?php echo form_input($modelo); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="modelo">Marca</label>
-			                        <?php echo form_input($marca); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="descripcion">Descripción</label>
-		                            <?php echo form_textarea($descripcion_t); ?>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">No de  productos</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Precio sin IVA</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Precio de venta</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-4">
-                            </div>
-                            <div class="col-md-4">
-
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-success">Agregar Producto</button>
-                            </div>
-                        </div>
-
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Cargos extra</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Flete sin iva</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Gastos no deducibles</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Flete sin iva</label>
-				                    <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Seguro</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">DAI</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Multas</label>
-			                        <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="categoria">Otros</label>
-				                    <?php echo form_input($cantidad_productos); ?>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.box-body -->
-
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                    </div>
-                </form>
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Datos de Factura</h3>
             </div>
-            <!-- /.box -->
+            <!-- /.box-header -->
 
-        </section>
-        <!-- /.content -->
+			<?php
+
+
+			//Tipo de factura
+			$tipo_factura_select         = array(
+				'name'     => 'factura_tipo',
+				'id'       => 'factura_tipo',
+				'class'    => ' form-control',
+				'required' => 'required'
+			);
+			$tipo_factura_select_options = array(
+				'local'       => 'Local',
+				'importacion' => 'Importacion',
+				'especial'    => 'Especial',
+			);
+
+			$proveedor        = array(
+				'type'        => 'text',
+				'name'        => 'proveedor',
+				'id'          => 'proveedor',
+				'class'       => 'form-control',
+				'placeholder' => 'Proveedor',
+				//'required' => 'required'
+			);
+			$proveedor_id = array(
+				'type'        => 'text',
+				'name'        => 'proveedor_id',
+				'id'          => 'proveedor_id',
+				'class'       => 'form-control',
+				'placeholder' => 'Proveedor',
+				'required'    => 'required'
+			);
+
+			$cantidad_productos = array(
+				'type'        => 'nomber',
+				'name'        => 'cantidad_productos',
+				'id'          => 'cantidad_productos',
+				'class'       => 'form-control',
+				'placeholder' => 'Cantidad de productos',
+				'required'    => 'required'
+			);
+
+			$descripcion     = array(
+				'type'        => 'text',
+				'name'        => 'descripcion',
+				'id'          => 'descripcion',
+				'class'       => 'form-control',
+				'placeholder' => 'Descripción'
+			);
+			$descripcion_t   = array(
+				'type'        => 'text',
+				'name'        => 'descripcion_t',
+				'id'          => 'descripcion_t',
+				'class'       => 'form-control',
+				'placeholder' => 'Descripción',
+				'required'    => 'required'
+
+			);
+			$nombre_producto = array(
+				'type'                       => 'text',
+				'name'                       => 'nombre_producto',
+				'id'                         => 'nombre_producto',
+				'class'                      => 'form-control',
+				'placeholder'                => 'Nombre del producto',
+				'data-validate-length-range' => '6',
+				'data-validate-words'        => '2',
+				'required'                   => 'required'
+
+			);
+			$no_serie        = array(
+				'type'        => 'text',
+				'name'        => 'no_serie',
+				'id'          => 'no_serie',
+				'class'       => 'form-control',
+				'placeholder' => 'No. de serie',
+				'required'    => 'required'
+
+			);
+			$modelo          = array(
+				'type'        => 'text',
+				'name'        => 'modelo',
+				'id'          => 'modelo',
+				'class'       => 'form-control',
+				'placeholder' => 'Modelo',
+				'required'    => 'required'
+
+			);
+			$marca           = array(
+				'type'        => 'text',
+				'name'        => 'marca',
+				'id'          => 'marca',
+				'class'       => 'form-control',
+				'placeholder' => 'Marca',
+				'required'    => 'required'
+
+			);
+
+			?>
+            <!-- form start -->
+            <form role="form" action="<?php echo base_url() ?>/Productos/guardar_productos_inventario" method="post"
+                  id="producto_form"
+                  name="producto_form">
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="categoria">Proveedor</label>
+								<?php echo form_input($proveedor) ?>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="categoria">Proveedor_id</label>
+								<?php echo form_input($proveedor_id) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="categoria">Tipo de factura</label>
+								<?php echo form_dropdown($tipo_factura_select, $tipo_factura_select_options) ?>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fecha:</label>
+
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+									<?php $fecha = new DateTime(); ?>
+                                    <input type="text" class="form-control pull-right" id="fecha" name="fecha"
+                                           value="<?php echo $fecha->format('Y-m-d') ?>">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Datos de Productos</h3>
+                    </div>
+                    <div id="productos_holder">
+                        <div id="product_1">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="categoria">Categoría</label>
+                                        <input type="text" id="categoria_p1" name="categoria_p1" class="categoria form-control" placeholder="Categoria" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="categoria">Nombre del producto</label>
+                                        <input type="text" id="nombre_producto_p1" name="nombre_producto_p1" class="form-control" placeholder="Nombre del producto" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="no_serie">No de serie</label>
+                                        no_serie
+                                        <input type="text" id="no_serie_p1" name="no_serie_p1" class="form-control" placeholder="No. de serie" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="modelo">Modelo</label>
+                                        <input type="text" id="modelo_p1" name="modelo_p1" class="form-control" placeholder="Modelo" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="modelo">Marca</label>
+                                        <input type="text" id="marca_p1" name="marca_p1" class="form-control" placeholder="Marca" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción</label>
+                                        <textarea name="descripcion_p1" cols="40" rows="10"  id="descripcion_p1" class="form-control" placeholder="Descripción" required="required"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="categoria">No de productos</label>
+                                        <input type="number" id="no_productos_p1" name="no_productos_p1" class="form-control" placeholder="Marca" step="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="categoria">Precio sin IVA</label>
+                                        <input type="number" id="precio_p1" name="precio_p1" class="form-control" placeholder="Marca" step="any" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="categoria">Precio de venta</label>
+                                        <input type="number" id="precio_venta_p1" name="precio_venta_p1" class="form-control" placeholder="Marca" step="any" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-success" id="add_product_btn">Agregar Producto</button>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Cargos extra</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Flete sin iva</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Gastos no deducibles</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Flete sin iva</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Seguro</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">DAI</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Multas</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Otros</label>
+								<?php echo form_input($cantidad_productos); ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.box -->
+
+    </section>
+    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 <?php $this->stop() ?>
@@ -357,51 +352,114 @@ $this->layout('admin/admin_master', [
 <?php $this->start('js_ps') ?>
 <!-- page script -->
 <script>
-    //variables
-    var nombre_producto;
-    var no_serie;
-    var modelo;
-    var marca;
-    var descipcion;
-    var fecha_avaluo;
-    var avaluo_comercial;
-    var avaluo_ce;
-    var motuo_minimo
-    var motuo;
-    var descripcion_dp;
-    var descripcion;
-
+    //variables factura
+    var proveedor_id;
+    var tipo_factura;
+    var fecha;
+    //variable de producto
+    var conteo_productos;
+    var product_template;
+    conteo_productos = 1;
+    //vargos extra
+    var flete_sin_iva;
     moment.locale('es');
 
+    $(document).ready(function () {
 
-    $("#nombre_producto").change(function () {
-        descripcion_dp = 'Nombre: '+ nombre_producto+' No de serie: '+no_serie +' Modelo: '+modelo +' Marca: '+marca;
     });
 
     $("#producto_form").change(function () {
-
+        console.log(conteo_productos);
     });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#add_product_btn").click(function () {
+        conteo_productos += 1;
+
+        product_template  ='<div id="product_'+ conteo_productos +'">';
+        product_template +='<div class="row">';
+        product_template +='<button type="button" class="btn btn-success  delete_btn" >Borrar</button>';
+        product_template +='</div>';
+        product_template +='<div class="row">';
+        product_template +='<div class="col-md-3"><div class="form-group">';
+        product_template +='<label for="categoria">Categoría</label>';
+        product_template +='<input type="text" id="categoria_p'+ conteo_productos +'" name="categoria_p'+ conteo_productos +'" class="categoria form-control" placeholder="Categoria" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-3"><div class="form-group">';
+        product_template +='<label for="categoria">Nombre del producto</label>';
+        product_template +='<input type="text" id="nombre_producto_p'+ conteo_productos +'" name="nombre_producto_p'+ conteo_productos +'" class="form-control" placeholder="Nombre del producto" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="no_serie">No de serie</label>';
+        product_template +='<input type="text" id="no_serie_p'+ conteo_productos +'" name="no_serie_p'+ conteo_productos +'" class="form-control" placeholder="No. de serie" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="modelo">Modelo</label>';
+        product_template +='<input type="text" id="modelo_p'+ conteo_productos +'" name="modelo_p'+ conteo_productos +'" class="form-control" placeholder="Modelo" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="modelo">Marca</label>';
+        product_template +='<input type="text" id="marca_p'+ conteo_productos +'" name="marca_p'+ conteo_productos +'" class="form-control" placeholder="Marca" required>';
+        product_template +='</div></div>';
+        product_template +='</div>';
+        product_template +='<div class="row">';
+        product_template +='<div class="col-md-12"><div class="form-group">';
+        product_template +='<label for="descripcion">Descripción</label>';
+        product_template +='<textarea name="descripcion_p'+ conteo_productos +'" cols="40" rows="10"  id="descripcion_p'+ conteo_productos +'" class="form-control" placeholder="Descripción" required="required"></textarea>';
+        product_template +='</div></div>';
+        product_template +='</div>';
+        product_template +='<div class="row">';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="categoria">No de productos</label>';
+        product_template +='<input type="number" id="no_productos_p'+ conteo_productos +'" name="no_productos_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="1" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="categoria">Precio sin IVA</label>';
+        product_template +='<input type="number" id="precio_p'+ conteo_productos +'" name="precio_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="any" required>';
+        product_template +='</div></div>';
+        product_template +='<div class="col-md-2"><div class="form-group">';
+        product_template +='<label for="categoria">Precio de venta</label>';
+        product_template +='<input type="number" id="precio_venta_p'+ conteo_productos +'" name="precio_venta_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="any" required>';
+        product_template +='</div></div>';
+        product_template +='</div>';
+        product_template +='</div>';
+
+
+        console.log(conteo_productos);
+        $("#productos_holder").append(product_template);
+    });
+
+    $('#productos_holder').on('click', '.delete_btn', function() {
+        var producto_id = $(this).attr('id');
+        alert('borrar producto'+producto_id);
+    });
+
+
+    //auto compete categoria
     var options = {
-
         url: "<?php echo base_url()?>index.php/Productos/categorias_json",
-
         getValue: "categoria",
-
         list: {
             match: {
                 enabled: true
             }
         },
-
         theme: "plate-dark"
     };
-
-    $("#categoria").easyAutocomplete(options);
-
-
-
+    $(".categoria").easyAutocomplete(options);
+    //auto complete proveedores
     var proveedores = {
 
         url: "<?php echo base_url()?>index.php/Proveedores/proveedores_json",
@@ -429,12 +487,6 @@ $this->layout('admin/admin_master', [
     };
     $("#proveedor").easyAutocomplete(proveedores);
 
-    $(function () {
-        //Date picker
-        $('#avaluopicker').datepicker({
-            autoclose: true,
-            format: "yyyy-mm-dd"
-        });
-    });
+
 </script>
 <?php $this->stop() ?>
