@@ -326,7 +326,9 @@ class Productos extends Base_Controller
 		echo $this->templates->render('admin/productos_inventario', $data);
 	}
 	function guardar_productos_inventario(){
-
+		echo '<pre>';
+		print_r($_POST);
+		echo '</pre>';
 	}
 	function productos_excel()
 	{
