@@ -65,7 +65,7 @@ $this->layout('admin/admin_master', [
 				'especial'    => 'Especial',
 			);
 
-			$proveedor        = array(
+			$proveedor    = array(
 				'type'        => 'text',
 				'name'        => 'proveedor',
 				'id'          => 'proveedor',
@@ -196,71 +196,105 @@ $this->layout('admin/admin_master', [
                     <div class="box-header with-border">
                         <h3 class="box-title">Datos de Productos</h3>
                     </div>
-                    <div id="productos_holder">
-                        <div id="product_1">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="categoria">Categoría</label>
-                                        <input type="text" id="categoria_p1" name="categoria_p1" class="categoria form-control" placeholder="Categoria" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="categoria">Nombre del producto</label>
-                                        <input type="text" id="nombre_producto_p1" name="nombre_producto_p1" class="form-control" placeholder="Nombre del producto" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="no_serie">No de serie</label>
-                                        no_serie
-                                        <input type="text" id="no_serie_p1" name="no_serie_p1" class="form-control" placeholder="No. de serie" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="modelo">Modelo</label>
-                                        <input type="text" id="modelo_p1" name="modelo_p1" class="form-control" placeholder="Modelo" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="modelo">Marca</label>
-                                        <input type="text" id="marca_p1" name="marca_p1" class="form-control" placeholder="Marca" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="descripcion">Descripción</label>
-                                        <textarea name="descripcion_p1" cols="40" rows="10"  id="descripcion_p1" class="form-control" placeholder="Descripción" required="required"></textarea>
-                                    </div>
-                                </div>
 
+
+                    <div id="productos_holder">
+
+                        <div class="box box-success">
+                            <div class="box-header with-border">
+                                <div class="user-block">
+                                    <span class="username">Producto 1</span>
+                                </div>
+                                <!-- /.user-block -->
+                                <div class="box-tools">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                                class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="categoria">No de productos</label>
-                                        <input type="number" id="no_productos_p1" name="no_productos_p1" class="form-control" placeholder="Marca" step="1" required>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="display: block;">
+                                <div id="product_1">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="categoria">Categoría</label>
+                                                <input type="text" id="categoria_p1" name="categoria_p1"
+                                                       class="categoria form-control" placeholder="Categoria" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="categoria">Nombre del producto</label>
+                                                <input type="text" id="nombre_producto_p1" name="nombre_producto_p1"
+                                                       class="form-control" placeholder="Nombre del producto" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="no_serie">No de serie</label>
+                                                no_serie
+                                                <input type="text" id="no_serie_p1" name="no_serie_p1"
+                                                       class="form-control"
+                                                       placeholder="No. de serie" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="modelo">Modelo</label>
+                                                <input type="text" id="modelo_p1" name="modelo_p1" class="form-control"
+                                                       placeholder="Modelo" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="modelo">Marca</label>
+                                                <input type="text" id="marca_p1" name="marca_p1" class="form-control"
+                                                       placeholder="Marca" required>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="categoria">Precio sin IVA</label>
-                                        <input type="number" id="precio_p1" name="precio_p1" class="form-control" placeholder="Marca" step="any" required>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="descripcion">Descripción</label>
+                                                <textarea name="descripcion_p1" cols="40" rows="10" id="descripcion_p1"
+                                                          class="form-control" placeholder="Descripción"
+                                                          required="required"></textarea>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="categoria">Precio de venta</label>
-                                        <input type="number" id="precio_venta_p1" name="precio_venta_p1" class="form-control" placeholder="Marca" step="any" required>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">No de productos</label>
+                                                <input type="number" id="no_productos_p1" name="no_productos_p1"
+                                                       class="form-control" placeholder="Marca" step="1" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">Precio sin IVA</label>
+                                                <input type="number" id="precio_p1" name="precio_p1"
+                                                       class="form-control"
+                                                       placeholder="Marca" step="any" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">Precio de venta</label>
+                                                <input type="number" id="precio_venta_p1" name="precio_venta_p1"
+                                                       class="form-control" placeholder="Marca" step="any" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
+
 
                     </div>
 
@@ -373,77 +407,91 @@ $this->layout('admin/admin_master', [
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     $("#add_product_btn").click(function () {
         conteo_productos += 1;
 
-        product_template  ='<div id="product_'+ conteo_productos +'">';
-        product_template +='<div class="row">';
-        product_template +='<button type="button" class="btn btn-success  delete_btn" >Borrar</button>';
-        product_template +='</div>';
-        product_template +='<div class="row">';
-        product_template +='<div class="col-md-3"><div class="form-group">';
-        product_template +='<label for="categoria">Categoría</label>';
-        product_template +='<input type="text" id="categoria_p'+ conteo_productos +'" name="categoria_p'+ conteo_productos +'" class="categoria form-control" placeholder="Categoria" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-3"><div class="form-group">';
-        product_template +='<label for="categoria">Nombre del producto</label>';
-        product_template +='<input type="text" id="nombre_producto_p'+ conteo_productos +'" name="nombre_producto_p'+ conteo_productos +'" class="form-control" placeholder="Nombre del producto" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="no_serie">No de serie</label>';
-        product_template +='<input type="text" id="no_serie_p'+ conteo_productos +'" name="no_serie_p'+ conteo_productos +'" class="form-control" placeholder="No. de serie" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="modelo">Modelo</label>';
-        product_template +='<input type="text" id="modelo_p'+ conteo_productos +'" name="modelo_p'+ conteo_productos +'" class="form-control" placeholder="Modelo" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="modelo">Marca</label>';
-        product_template +='<input type="text" id="marca_p'+ conteo_productos +'" name="marca_p'+ conteo_productos +'" class="form-control" placeholder="Marca" required>';
-        product_template +='</div></div>';
-        product_template +='</div>';
-        product_template +='<div class="row">';
-        product_template +='<div class="col-md-12"><div class="form-group">';
-        product_template +='<label for="descripcion">Descripción</label>';
-        product_template +='<textarea name="descripcion_p'+ conteo_productos +'" cols="40" rows="10"  id="descripcion_p'+ conteo_productos +'" class="form-control" placeholder="Descripción" required="required"></textarea>';
-        product_template +='</div></div>';
-        product_template +='</div>';
-        product_template +='<div class="row">';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="categoria">No de productos</label>';
-        product_template +='<input type="number" id="no_productos_p'+ conteo_productos +'" name="no_productos_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="1" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="categoria">Precio sin IVA</label>';
-        product_template +='<input type="number" id="precio_p'+ conteo_productos +'" name="precio_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="any" required>';
-        product_template +='</div></div>';
-        product_template +='<div class="col-md-2"><div class="form-group">';
-        product_template +='<label for="categoria">Precio de venta</label>';
-        product_template +='<input type="number" id="precio_venta_p'+ conteo_productos +'" name="precio_venta_p'+ conteo_productos +'" class="form-control" placeholder="Marca" step="any" required>';
-        product_template +='</div></div>';
-        product_template +='</div>';
-        product_template +='</div>';
-
+        product_template  = '<div id="product_' + conteo_productos + '" >';
+        product_template  = '<div class="box box-success">';
+        product_template += '<div class="box-header with-border">';
+        product_template += '<div class="user-block">';
+        product_template += '<span class="username">Producto ' + conteo_productos + '</span>';
+        product_template += '</div>';
+        product_template += '<div class="box-tools">';
+        product_template += '<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>';
+        product_template += '<button type="button" class="btn btn-success  delete_btn" data-widget="remove" product_id="' + conteo_productos + '">Borrar</button>';
+        product_template += '</div>';
+        product_template += '</div>';
+        product_template += '<div class="box-body" style="display: block;">';
+        product_template += '<div class="row">';
+        product_template += '<div class="col-md-3"><div class="form-group">';
+        product_template += '<label>Categoría</label>';
+        product_template += '<input type="text" id="categoria_p' + conteo_productos + '" name="categoria_p' + conteo_productos + '" class="categoria form-control" placeholder="Categoria" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-3"><div class="form-group">';
+        product_template += '<label for="categoria">Nombre del producto</label>';
+        product_template += '<input type="text" id="nombre_producto_p' + conteo_productos + '" name="nombre_producto_p' + conteo_productos + '" class="form-control" placeholder="Nombre del producto" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="no_serie">No de serie</label>';
+        product_template += '<input type="text" id="no_serie_p' + conteo_productos + '" name="no_serie_p' + conteo_productos + '" class="form-control" placeholder="No. de serie" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="modelo">Modelo</label>';
+        product_template += '<input type="text" id="modelo_p' + conteo_productos + '" name="modelo_p' + conteo_productos + '" class="form-control" placeholder="Modelo" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="modelo">Marca</label>';
+        product_template += '<input type="text" id="marca_p' + conteo_productos + '" name="marca_p' + conteo_productos + '" class="form-control" placeholder="Marca" required>';
+        product_template += '</div></div>';
+        product_template += '</div>';
+        product_template += '<div class="row">';
+        product_template += '<div class="col-md-12"><div class="form-group">';
+        product_template += '<label for="descripcion">Descripción</label>';
+        product_template += '<textarea name="descripcion_p' + conteo_productos + '" cols="40" rows="10"  id="descripcion_p' + conteo_productos + '" class="form-control" placeholder="Descripción" required="required"></textarea>';
+        product_template += '</div></div>';
+        product_template += '</div>';
+        product_template += '<div class="row">';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label>No de productos</label>';
+        product_template += '<input type="number" id="no_productos_p' + conteo_productos + '" name="no_productos_p' + conteo_productos + '" class="form-control" placeholder="Marca" step="1" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="categoria">Precio sin IVA</label>';
+        product_template += '<input type="number" id="precio_p' + conteo_productos + '" name="precio_p' + conteo_productos + '" class="form-control" placeholder="Marca" step="any" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="categoria">Precio de venta</label>';
+        product_template += '<input type="number" id="precio_venta_p' + conteo_productos + '" name="precio_venta_p' + conteo_productos + '" class="form-control" placeholder="Marca" step="any" required>';
+        product_template += '</div></div>';//row
+        product_template += '</div>';//modal body
+        product_template += '</div>';//container
+        product_template += '</div>';
+        product_template += '</div>';
 
         console.log(conteo_productos);
         $("#productos_holder").append(product_template);
+        //auto compete categoria
+        var options = {
+            url: "<?php echo base_url()?>index.php/Productos/categorias_json",
+            getValue: "categoria",
+            list: {
+                match: {
+                    enabled: true
+                }
+            },
+            theme: "plate-dark"
+        };
+        $(".categoria").easyAutocomplete(options);
     });
 
-    $('#productos_holder').on('click', '.delete_btn', function() {
-        var producto_id = $(this).attr('id');
-        alert('borrar producto'+producto_id);
+    $('#productos_holder').on('click', '.delete_btn', function () {
+        conteo_productos -= 1;
+        var producto_id = $(this).attr('product_id');
+        var product_container = '#product_' + producto_id;
+        console.log(conteo_productos);
+        $(product_container).hide('slow');
+        $(product_container).remove();
+
     });
 
 
