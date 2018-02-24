@@ -103,7 +103,7 @@ $this->layout('admin/admin_master', [
                                 <tr>
                                     <td><?php echo $cliente->id ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $cliente->id; ?>"><?php echo $cliente->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $cliente->id; ?>" target="_blank"><?php echo $cliente->nombre ?></a>
                                     </td>
                                     <td><?php echo $cliente->dpi ?></td>
                                     <td><?php echo $cliente->nit ?></td>

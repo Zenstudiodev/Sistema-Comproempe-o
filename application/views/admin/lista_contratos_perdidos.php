@@ -111,7 +111,7 @@ $this->layout('admin/admin_master', [
                                     <td><?php echo $contrato->fecha_pago ?></td>
                                     <td><?php echo $contrato->dias_gracia ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $contrato->id; ?>"><?php echo $contrato->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $contrato->id; ?>" target="_blank"><?php echo $contrato->nombre ?></a>
                                     </td>
                                 </tr>
 							<?php } ?>

@@ -86,7 +86,7 @@ $this->layout('admin/admin_master', [
                                 <tr>
                                     <td><?php echo $factura->factura_id ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $factura->id; ?>"><?php echo $factura->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $factura->id; ?>" target="_blank"><?php echo $factura->nombre ?></a>
                                     </td>
                                     <td><?php echo $factura->fecha ?></td>
                                     <td><?php echo $factura->total ?></td>

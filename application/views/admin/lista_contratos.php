@@ -110,7 +110,7 @@ $this->layout('admin/admin_master', [
                                 <tr>
                                     <td><?php echo $contrato->contrato_id ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $contrato->id; ?>"><?php echo $contrato->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $contrato->id; ?>" target="_blank"><?php echo $contrato->nombre ?></a>
                                     </td>
                                     <td class="<?php color_por_estaado($contrato->estado); ?>"><?php echo texto_estado($contrato->estado); ?></td>
                                     <td><?php echo ($contrato->total_mutuo); ?></td>
