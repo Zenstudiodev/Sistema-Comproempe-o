@@ -326,6 +326,18 @@ class Productos extends Base_Controller
 		echo $this->templates->render('admin/productos_inventario', $data);
 	}
 	function guardar_productos_inventario(){
+
+		$productos_distintos = $_POST['productos_distintos'];
+
+		for ($i = 1; $i <= $productos_distintos; $i++) {
+			//echo $i;
+			echo '<br>';
+			echo $_POST['categoria_p'.$i];
+			echo '<br>';
+			echo $_POST['nombre_producto_p'.$i];
+		}
+
+
 		echo '<pre>';
 		print_r($_POST);
 		echo '</pre>';

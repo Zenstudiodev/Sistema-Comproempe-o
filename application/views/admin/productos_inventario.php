@@ -92,10 +92,6 @@ $this->layout('admin/admin_master', [
 			);
 
 
-
-
-
-
 			?>
             <!-- form start -->
             <form role="form" action="<?php echo base_url() ?>/Productos/guardar_productos_inventario" method="post"
@@ -184,7 +180,6 @@ $this->layout('admin/admin_master', [
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="no_serie">No de serie</label>
-                                                no_serie
                                                 <input type="text" id="no_serie_p1" name="no_serie_p1"
                                                        class="form-control"
                                                        placeholder="No. de serie" required>
@@ -221,22 +216,48 @@ $this->layout('admin/admin_master', [
                                             <div class="form-group">
                                                 <label for="categoria">No de productos</label>
                                                 <input type="number" id="no_productos_p1" name="no_productos_p1"
-                                                       class="form-control" placeholder="Marca" step="1" min="1" required>
+                                                       class="form-control no_prductos" placeholder="No. productos"
+                                                       step="1" min="1" required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <label for="categoria">Precio sin IVA</label>
-                                                <input type="number" id="precio_p1" name="precio_p1"
-                                                       class="form-control"
-                                                       placeholder="Precio sin IVA" step="any" required>
+                                                <label for="categoria">Costo bruto</label>
+                                                <input type="number" id="costo_b_p1" name="costo_b_p1"
+                                                       class="form-control precio_s_iva"
+                                                       placeholder="Costo en factura de Provedor" step="any" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">Iva</label>
+                                                <input type="number" id="iva_p1" name="iva_p1"
+                                                       class="form-control iva"
+                                                       placeholder="IVA" step="any" required readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">Costo neto</label>
+                                                <input type="number" id="costo_n_p1" name="costo_n_p1"
+                                                       class="form-control precio_neto"
+                                                       placeholder="Costo sin IVA" step="any" required readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="categoria">Precio de venta</label>
                                                 <input type="number" id="precio_venta_p1" name="precio_venta_p1"
-                                                       class="form-control" placeholder="Precio de venta" step="any" required>
+                                                       class="form-control precio_venta" placeholder="Precio de venta"
+                                                       step="any" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="categoria">Total de producto</label>
+                                                <input type="number" id="total_propducto_p1" name="total_propducto_p1"
+                                                       class="form-control total_producto"
+                                                       placeholder="Total de producto" step="any" required readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -250,6 +271,7 @@ $this->layout('admin/admin_master', [
 
                     <div class="row">
                         <div class="col-md-4">
+                            <input type="hidden" name="productos_distintos" id="productos_distintos">
                             <button type="button" class="btn btn-success" id="add_product_btn">Agregar Producto</button>
                         </div>
                         <div class="col-md-4">
@@ -264,16 +286,49 @@ $this->layout('admin/admin_master', [
                         <h3 class="box-title">Cargos extra</h3>
                     </div>
 
-                   <div id="cargos_extra_holder">
+                    <div id="cargos_extra_holder">
 
-                   </div>
+                    </div>
 
                 </div>
                 <!-- /.box-body -->
 
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
+
+        </div>
+        <!-- /.box -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Calculos</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Total de productos</h4>
+                        <input type="hidden" name="total_productos" id="total_productos">
+                        <div class="" id="total_productos_t"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Total de precio sin IVA</h4>
+                        <div class="" id="total_precio_sin_iva_t"></div>
+                        <input type="hidden" name="total_precio_sin_iva" id="total_precio_sin_iva">
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Total de precio de venta</h4>
+                        <div class="" id="total_precio_de_venta_t"></div>
+                        <input type="hidden" name="total_precio_de_venta" id="total_precio_de_venta">
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Total de Total de producto</h4>
+                        <div class="" id="total_total_prpoducto_t"></div>
+                        <input type="hidden" name="total_precios_total" id="total_precios_total">
+                    </div>
                 </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
             </form>
         </div>
         <!-- /.box -->
@@ -302,26 +357,117 @@ $this->layout('admin/admin_master', [
     var conteo_productos;
     var product_template;
     conteo_productos = 1;
+
+
     //vargos extra
+    var factura_tipo
     var cargos_locales;
     var cargos_importacion;
+    var total_cargos;
+    var cargo_por_producto;
     moment.locale('es');
 
-    $(document).ready(function () {
-       // $("#cargos_local").hide();
-       // $("#cargos_importacion").hide();
+    function display_cargos() {
+        factura_tipo = $("#factura_tipo").val();
+        $("#cargos_extra_holder").html();
 
+        if (factura_tipo == 'local') {
+            $("#cargos_extra_holder").html(cargos_locales);
+        }
+        if (factura_tipo == 'importacion') {
+            $("#cargos_extra_holder").html(cargos_importacion);
+        }
+    }
+
+    function calcular_factura() {
+        $("#productos_distintos").val(conteo_productos);
+        var total_productos = 0;
+        var total_precio_sin_iva = 0;
+        var total_precio_de_venta = 0;
+        var total_precios_total = 0;
+        // console.log(conteo_productos);
+
+        $(".no_prductos").each(function () {
+            var numero_prductos = parseInt($(this).val());
+            total_productos = parseInt(total_productos + numero_prductos);
+        });
+
+        factura_tipo = $("#factura_tipo").val();
+        if (factura_tipo == 'local') {
+            var flete_sin_iva;
+            var gastos_no_deducibles;
+            flete_sin_iva = parseFloat($("#flete_sin_iva_local").val());
+            gastos_no_deducibles = parseFloat($("#gasto_no_deducible_local").val());
+            total_cargos =parseFloat(flete_sin_iva + gastos_no_deducibles);
+        }
+        if (factura_tipo == 'importacion') {
+        }
+        console.log(total_cargos);
+        cargo_por_producto = total_cargos / total_productos ;
+        console.log(cargo_por_producto);
+
+        $(".precio_s_iva").each(function () {
+            var precio_con_iva = parseFloat($(this).val());
+            var iva;
+            var precio_sin_iva;
+            console.log(precio_con_iva);
+
+            //agregamos otros Gastos
+            precio_con_iva = parseFloat(precio_con_iva + cargo_por_producto);
+            iva =  parseFloat(precio_con_iva * 0.12);
+            precio_sin_iva = parseFloat(precio_con_iva / 1.12);
+
+            console.log('Iva '+ iva);
+            console.log('precio sin Iva '+ precio_sin_iva);
+
+            $(this).parent().parent().parent().find('.iva').val(iva);
+            $(this).parent().parent().parent().find('.precio_neto').val(precio_sin_iva);
+            console.log(precio_con_iva);
+            total_precio_sin_iva = parseFloat(total_precio_sin_iva + precio_con_iva);
+
+        });
+        $(".precio_venta").each(function () {
+            var precio_de_venta = parseFloat($(this).val());
+            total_precio_de_venta = parseFloat(total_precio_de_venta + precio_de_venta);
+
+        });
+        $(".total_producto").each(function () {
+            var numero_productos;
+            var precio_sin_iva;
+
+            numero_productos = parseInt($(this).parent().parent().parent().find(".no_prductos").val());
+            precio_sin_iva = parseFloat($(this).parent().parent().parent().find(".precio_s_iva").val());
+            precio_sin_iva = precio_sin_iva + cargo_por_producto;
+            var total_producto = parseFloat(numero_productos * precio_sin_iva);
+            $(this).val(total_producto);
+            total_precios_total = parseFloat(total_precios_total + total_producto);
+            // var precio_total = parseFloat($(this).siblings(".precio_s_iva").val());
+            // total_precios_total = parseFloat(total_precios_total + precio_total);
+        });
+        //Diplay totales
+        $("#total_productos_t").html(total_productos);
+        $("#total_precio_sin_iva_t").html(total_precio_sin_iva);
+        $("#total_precio_de_venta_t").html(total_precio_de_venta);
+        $("#total_total_prpoducto_t").html(total_precios_total);
+        //
+
+
+    }
+
+
+    $(document).ready(function () {
+        display_cargos();
     });
 
     $("#productos_form").change(function () {
-        console.log(conteo_productos);
+        calcular_factura();
     });
 
 
     $("#add_product_btn").click(function () {
         conteo_productos += 1;
 
-        product_template  = '<div id="product_' + conteo_productos + '" >';
+        product_template = '<div id="product_' + conteo_productos + '" >';
         product_template += '<div class="box box-success">';
         product_template += '<div class="box-header with-border">';
         product_template += '<div class="user-block">';
@@ -364,15 +510,27 @@ $this->layout('admin/admin_master', [
         product_template += '<div class="row">';
         product_template += '<div class="col-md-2"><div class="form-group">';
         product_template += '<label>No de productos</label>';
-        product_template += '<input type="number" id="no_productos_p' + conteo_productos + '" name="no_productos_p' + conteo_productos + '" class="form-control" placeholder="No. de productos" step="1" min="1" required>';
+        product_template += '<input type="number" id="no_productos_p' + conteo_productos + '" name="no_productos_p' + conteo_productos + '" class="form-control no_prductos" placeholder="No. de productos" step="1" min="1" required>';
         product_template += '</div></div>';
         product_template += '<div class="col-md-2"><div class="form-group">';
-        product_template += '<label for="categoria">Precio sin IVA</label>';
-        product_template += '<input type="number" id="precio_p' + conteo_productos + '" name="precio_p' + conteo_productos + '" class="form-control" placeholder="Precio sin IVA" step="any" required>';
+        product_template += '<label for="categoria">Costo bruto</label>';
+        product_template += '<input type="number" id="costo_b_p' + conteo_productos + '" name="costo_b_p' + conteo_productos + '" class="form-control precio_s_iva" placeholder="Precio sin IVA" step="any" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="categoria">Iva</label>';
+        product_template += '<input type="number" id="iva_p1" name="iva_p1" class="form-control iva" placeholder="IVA" step="any" required readonly>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="categoria">Costo neto</label>';
+        product_template += '<input type="number" id="costo_n_p1" name="costo_n_p1" class="form-control precio_neto" placeholder="Costo con IVA" step="any" required readonly>';
         product_template += '</div></div>';
         product_template += '<div class="col-md-2"><div class="form-group">';
         product_template += '<label for="categoria">Precio de venta</label>';
-        product_template += '<input type="number" id="precio_venta_p' + conteo_productos + '" name="precio_venta_p' + conteo_productos + '" class="form-control" placeholder="Precio de venta" step="any" required>';
+        product_template += '<input type="number" id="precio_venta_p' + conteo_productos + '" name="precio_venta_p' + conteo_productos + '" class="form-control precio_venta" placeholder="Precio de venta" step="any" required>';
+        product_template += '</div></div>';
+        product_template += '<div class="col-md-2"><div class="form-group">';
+        product_template += '<label for="categoria">Total de producto</label>';
+        product_template += '<input type="number" id="total_propducto_p' + conteo_productos + '" name="total_propducto_p' + conteo_productos + '" class="form-control total_producto" placeholder="Total de producto" step="any" required readonly>';
         product_template += '</div></div>';//row
         product_template += '</div>';//modal body
         product_template += '</div>';//container
@@ -396,40 +554,39 @@ $this->layout('admin/admin_master', [
     });
 
 
+    cargos_locales = '<div class="row" id="cargos_local">';
+    cargos_locales += '<div class="col-md-2"> <div class="form-group">';
+    cargos_locales += '<label for="categoria">Flete sin iva</label>';
+    cargos_locales += '<input type="number" name="flete_sin_iva_local" value="0" id="flete_sin_iva_local" class="form-control" placeholder="Flete sin IVA" step="any" required="required">';
+    cargos_locales += '</div></div>';
+    cargos_locales += '<div class="col-md-2"><div class="form-group">';
+    cargos_locales += '<label for="categoria">Gastos no deducibles</label>';
+    cargos_locales += '<input type="number" name="gasto_no_deducible_local" value="0" id="gasto_no_deducible_local" class="form-control" placeholder="Gastos no deducibles" step="any" required="required">';
+    cargos_locales += '</div></div>';
+    cargos_locales += '</div>';
 
-    cargos_locales  = '<div class="row" id="cargos_local">';
-    cargos_locales +='<div class="col-md-2"> <div class="form-group">';
-    cargos_locales +='<label for="categoria">Flete sin iva</label>';
-    cargos_locales +='<input type="number" name="flete_sin_iva_local" value="" id="flete_sin_iva_local" class="form-control" placeholder="Flete sin IVA" step="any" required="required">';
-    cargos_locales +='</div></div>';
-    cargos_locales +='<div class="col-md-2"><div class="form-group">';
-    cargos_locales +='<label for="categoria">Gastos no deducibles</label>';
-    cargos_locales +='<input type="number" name="gasto_no_deducible_local" value="" id="gasto_no_deducible_local" class="form-control" placeholder="Gastos no deducibles" step="any" required="required">';
-    cargos_locales +='</div></div>';
-    cargos_locales +='</div>';
-
-    cargos_importacion ='<div class="row" id="cargos_importacion">';
-    cargos_importacion +='<div class="col-md-2"><div class="form-group">';
-    cargos_importacion +='<label for="categoria">Flete sin iva</label>';
-    cargos_importacion +='<input type="number" name="flete_sin_iva_importacion" value="" id="flete_sin_iva_importacion" class="form-control" placeholder="Flete" required="required">';
-    cargos_importacion +='</div></div>';
-    cargos_importacion +='<div class="col-md-2"><div class="form-group">';
-    cargos_importacion +='<label for="categoria">Seguro</label>';
-    cargos_importacion +='<input type="number" name="seguro_importacion" value="" id="seguro_importacion" class="form-control" placeholder="Seguro" required="required">';
-    cargos_importacion +='</div></div>';
-    cargos_importacion +='<div class="col-md-2"><div class="form-group">';
-    cargos_importacion +='<label for="categoria">DAI</label>';
-    cargos_importacion +='<input type="number" name="dai_importacion" value="" id="dai_importacion" class="form-control" placeholder="DAI" required="required">';
-    cargos_importacion +='</div></div>';
-    cargos_importacion +='<div class="col-md-2"><div class="form-group">';
-    cargos_importacion +='<label for="categoria">Multas</label>';
-    cargos_importacion +='<input type="number" name="multas_importacion" value="" id="multas_importacion" class="form-control" placeholder="Multas" required="required">';
-    cargos_importacion +='</div></div>';
-    cargos_importacion +='<div class="col-md-2"><div class="form-group">';
-    cargos_importacion +='<label for="categoria">Otros</label>';
-    cargos_importacion +='<input type="number" name="otros_importacion" value="" id="otros_importacion" class="form-control" placeholder="Otros" required="required">';
-    cargos_importacion +='</div></div>';
-    cargos_importacion +='</div>';
+    cargos_importacion = '<div class="row" id="cargos_importacion">';
+    cargos_importacion += '<div class="col-md-2"><div class="form-group">';
+    cargos_importacion += '<label for="categoria">Flete sin iva</label>';
+    cargos_importacion += '<input type="number" name="flete_sin_iva_importacion" value="0" id="flete_sin_iva_importacion" class="form-control" placeholder="Flete" required="required">';
+    cargos_importacion += '</div></div>';
+    cargos_importacion += '<div class="col-md-2"><div class="form-group">';
+    cargos_importacion += '<label for="categoria">Seguro</label>';
+    cargos_importacion += '<input type="number" name="seguro_importacion" value="0" id="seguro_importacion" class="form-control" placeholder="Seguro" required="required">';
+    cargos_importacion += '</div></div>';
+    cargos_importacion += '<div class="col-md-2"><div class="form-group">';
+    cargos_importacion += '<label for="categoria">DAI</label>';
+    cargos_importacion += '<input type="number" name="dai_importacion" value="0" id="dai_importacion" class="form-control" placeholder="DAI" required="required">';
+    cargos_importacion += '</div></div>';
+    cargos_importacion += '<div class="col-md-2"><div class="form-group">';
+    cargos_importacion += '<label for="categoria">Multas</label>';
+    cargos_importacion += '<input type="number" name="multas_importacion" value="0" id="multas_importacion" class="form-control" placeholder="Multas" required="required">';
+    cargos_importacion += '</div></div>';
+    cargos_importacion += '<div class="col-md-2"><div class="form-group">';
+    cargos_importacion += '<label for="categoria">Otros</label>';
+    cargos_importacion += '<input type="number" name="otros_importacion" value="0" id="otros_importacion" class="form-control" placeholder="Otros" required="required">';
+    cargos_importacion += '</div></div>';
+    cargos_importacion += '</div>';
 
     $('#productos_holder').on('click', '.delete_btn', function () {
         conteo_productos -= 1;
@@ -437,23 +594,12 @@ $this->layout('admin/admin_master', [
         var product_container = '#product_' + producto_id;
         console.log(conteo_productos);
         $(product_container).hide('slow');
-        s
         $(product_container).remove();
 
     });
     $("#factura_tipo").change(function () {
-        var factura_tipo = $(this).val();
-        $("#cargos_extra_holder").html();
-
-        if(factura_tipo == 'local'){
-            $("#cargos_extra_holder").html(cargos_locales);
-        }
-        if(factura_tipo == 'importacion'){
-            $("#cargos_extra_holder").html(cargos_importacion);
-        }
+        display_cargos();
     });
-
-
 
 
     //auto compete categoria
@@ -495,9 +641,6 @@ $this->layout('admin/admin_master', [
         }
     };
     $("#proveedor").easyAutocomplete(proveedores);
-
-
-
 
 
 </script>

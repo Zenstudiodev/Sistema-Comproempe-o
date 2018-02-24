@@ -145,5 +145,4 @@ class Factura_model extends CI_Model
 		$query  = $this->db->select('*')->get('facturas');
 		return array("fields" => $fields, "query" => $query);
 	}
-
 }
