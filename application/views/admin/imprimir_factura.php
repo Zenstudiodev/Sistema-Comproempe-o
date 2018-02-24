@@ -50,7 +50,8 @@ if ($contrato)
 	<?php if ($factura) { ?>
 	<?php
 	setlocale(LC_TIME, "es_ES");
-	$fecha = new DateTime();
+	$fecha_actual = new DateTime();
+	$fecha_factura = new DateTime($factura->fecha);
 	setlocale(LC_ALL, 'es_GT.UTF-8');
 	?>
 
@@ -62,9 +63,9 @@ if ($contrato)
             </tr>
             <tr style="text-align: center">
                 <td style="width: 14cm;"></td>
-                <td style="width: 1cm;"><?php echo $fecha->format('d'); ?></td>
-                <td style="width: 4.30cm"><?php echo $fecha->format('m'); ?></td>
-                <td style="width: 2cm"><?php echo $fecha->format('y'); ?></td>
+                <td style="width: 1cm;"><?php echo $fecha_factura->format('d'); ?></td>
+                <td style="width: 4.30cm"><?php echo $fecha_factura->format('m'); ?></td>
+                <td style="width: 2cm"><?php echo $fecha_factura->format('y'); ?></td>
             </tr>
         </table>
         <table>
