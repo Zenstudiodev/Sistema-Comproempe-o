@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title'    => $title,
-	'nombre'   => $nombre,
-	'user_id'  => $user_id,
-	'username' => $username,
-	'rol'      => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 
 ?>
@@ -49,50 +49,50 @@ $this->layout('admin/admin_master', [
             </div>
             <!-- /.box-header -->
 
-			<?php
+            <?php
 
 
-			//Tipo de factura
-			$tipo_factura_select         = array(
-				'name'     => 'factura_tipo',
-				'id'       => 'factura_tipo',
-				'class'    => ' form-control',
-				'required' => 'required'
-			);
-			$tipo_factura_select_options = array(
-				'local'       => 'Local',
-				'importacion' => 'Importacion',
-				'especial'    => 'Especial',
-			);
+            //Tipo de factura
+            $tipo_factura_select = array(
+                'name' => 'factura_tipo',
+                'id' => 'factura_tipo',
+                'class' => ' form-control',
+                'required' => 'required'
+            );
+            $tipo_factura_select_options = array(
+                'local' => 'Local',
+                'importacion' => 'Importacion',
+                'especial' => 'Especial',
+            );
 
-			$proveedor    = array(
-				'type'        => 'text',
-				'name'        => 'proveedor',
-				'id'          => 'proveedor',
-				'class'       => 'form-control',
-				'placeholder' => 'Proveedor',
-				//'required' => 'required'
-			);
-			$proveedor_id = array(
-				'type'        => 'text',
-				'name'        => 'proveedor_id',
-				'id'          => 'proveedor_id',
-				'class'       => 'form-control',
-				'placeholder' => 'Proveedor',
-				'required'    => 'required'
-			);
+            $proveedor = array(
+                'type' => 'text',
+                'name' => 'proveedor',
+                'id' => 'proveedor',
+                'class' => 'form-control',
+                'placeholder' => 'Proveedor',
+                //'required' => 'required'
+            );
+            $proveedor_id = array(
+                'type' => 'text',
+                'name' => 'proveedor_id',
+                'id' => 'proveedor_id',
+                'class' => 'form-control',
+                'placeholder' => 'Proveedor',
+                'required' => 'required'
+            );
 
-			$cantidad_productos = array(
-				'type'        => 'number',
-				'name'        => 'cantidad_productos',
-				'id'          => 'cantidad_productos',
-				'class'       => 'form-control',
-				'placeholder' => 'Cantidad de productos',
-				'required'    => 'required'
-			);
+            $cantidad_productos = array(
+                'type' => 'number',
+                'name' => 'cantidad_productos',
+                'id' => 'cantidad_productos',
+                'class' => 'form-control',
+                'placeholder' => 'Cantidad de productos',
+                'required' => 'required'
+            );
 
 
-			?>
+            ?>
             <!-- form start -->
             <form role="form" action="<?php echo base_url() ?>/Productos/guardar_productos_inventario" method="post"
                   id="productos_form"
@@ -103,14 +103,14 @@ $this->layout('admin/admin_master', [
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="categoria">Proveedor</label>
-								<?php echo form_input($proveedor) ?>
+                                <?php echo form_input($proveedor) ?>
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="categoria">Proveedor_id</label>
-								<?php echo form_input($proveedor_id) ?>
+                                <?php echo form_input($proveedor_id) ?>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ $this->layout('admin/admin_master', [
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="categoria">Tipo de factura</label>
-								<?php echo form_dropdown($tipo_factura_select, $tipo_factura_select_options) ?>
+                                <?php echo form_dropdown($tipo_factura_select, $tipo_factura_select_options) ?>
                             </div>
 
                         </div>
@@ -130,7 +130,7 @@ $this->layout('admin/admin_master', [
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-									<?php $fecha = new DateTime(); ?>
+                                    <?php $fecha = new DateTime(); ?>
                                     <input type="text" class="form-control pull-right" id="fecha" name="fecha"
                                            value="<?php echo $fecha->format('Y-m-d') ?>">
                                 </div>
@@ -301,6 +301,26 @@ $this->layout('admin/admin_master', [
                 <h3 class="box-title">Calculos</h3>
             </div>
             <div class="box-body">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Cargos extra</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Total de cargos extra</h4>
+                        <input type="hidden" name="total_cargo_extra" id="total_cargo_extra">
+                        <div class="" id="total_cargo_extra_t"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Costo por producto</h4>
+                        <div class="" id="cargo_extra_por_producto_t"></div>
+                        <input type="hidden" name="cargo_extra_por_producto" id="cargo_extra_por_producto">
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Productos</h3>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <h4>Total de productos</h4>
@@ -398,13 +418,14 @@ $this->layout('admin/admin_master', [
             var gastos_no_deducibles;
             flete_sin_iva = parseFloat($("#flete_sin_iva_local").val());
             gastos_no_deducibles = parseFloat($("#gasto_no_deducible_local").val());
-            total_cargos =parseFloat(flete_sin_iva + gastos_no_deducibles);
+            total_cargos = parseFloat(flete_sin_iva + gastos_no_deducibles);
         }
         if (factura_tipo == 'importacion') {
         }
-        console.log(total_cargos);
-        cargo_por_producto = total_cargos / total_productos ;
+        $("#total_cargo_extra_t").html(total_cargos);
+        cargo_por_producto = total_cargos / total_productos;
         console.log(cargo_por_producto);
+        $("#cargo_extra_por_producto_t").html(cargo_por_producto);
 
         $(".precio_s_iva").each(function () {
             var precio_con_iva = parseFloat($(this).val());
@@ -414,11 +435,11 @@ $this->layout('admin/admin_master', [
 
             //agregamos otros Gastos
             precio_con_iva = parseFloat(precio_con_iva + cargo_por_producto);
-            iva =  parseFloat(precio_con_iva * 0.12);
+            iva = parseFloat(precio_con_iva * 0.12);
             precio_sin_iva = parseFloat(precio_con_iva / 1.12);
 
-            console.log('Iva '+ iva);
-            console.log('precio sin Iva '+ precio_sin_iva);
+            console.log('Iva ' + iva);
+            console.log('precio sin Iva ' + precio_sin_iva);
 
             $(this).parent().parent().parent().find('.iva').val(iva);
             $(this).parent().parent().parent().find('.precio_neto').val(precio_sin_iva);
