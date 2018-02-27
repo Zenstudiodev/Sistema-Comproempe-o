@@ -53,5 +53,9 @@ class Proveedor_model extends CI_Model
 		else return false;
 	}
 
+	public function guardar_prorateo($form_data){
+	    $proveedor_data = array();
+    }
+
 
 }

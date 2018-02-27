@@ -325,8 +325,28 @@ class Productos extends Base_Controller
 
     function guardar_productos_inventario()
     {
-        $fecha = new DateTime();
+        $datos_de_prorateo= array(
+            'proveedor_id'=>$_POST['proveedor_id'],
+            'no_factura'=>$_POST['no_factura'],
+            'serie_factura'=>$_POST['serie_factura'],
+            'fecha_factura'=>$_POST['fecha_factura'],
+            'factura_tipo'=>$_POST['factura_tipo'],
+            'fecha'=>$_POST['factura_tipo'],
+            'no_productos'=>$_POST['productos_distintos'],
+            'flete_sin_iva_local'=>$_POST['flete_sin_iva_local'],
+            'gasto_no_deducible_local'=>$_POST['gasto_no_deducible_local'],
+            'total_cargo_extra'=>$_POST['total_cargo_extra'],
+            'cargo_extra_por_producto'=>$_POST['cargo_extra_por_producto'],
+            'total_productos'=>$_POST['total_productos'],
+            'total_precio_sin_iva'=>$_POST['total_precio_sin_iva'],
+            'total_iva'=>$_POST['total_iva'],
+            'total_costo_neto'=>$_POST['total_costo_neto'],
+            'total_precio_venta'=>$_POST['total_precio_venta'],
+            'total_total_producto'=>$_POST['total_total_producto'],
+        );
+        $factura_id = $this->Contratos_model->guardar_factura($datos_de_prorateo);
 
+        $fecha = new DateTime();
         $productos_distintos = $_POST['productos_distintos'];
 
         for ($i = 1; $i <= $productos_distintos; $i++) {
@@ -352,8 +372,9 @@ class Productos extends Base_Controller
         }
 
 
+
         echo '<pre>';
-        print_r($_POST);
+        print_r($datos_de_prorateo);
         echo '</pre>';
     }
 

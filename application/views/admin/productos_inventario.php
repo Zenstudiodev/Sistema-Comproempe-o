@@ -81,6 +81,33 @@ $this->layout('admin/admin_master', [
                 'placeholder' => 'Proveedor',
                 'required' => 'required'
             );
+            $no_factura = array(
+                'type' => 'text',
+                'name' => 'no_factura',
+                'id' => 'no_factura',
+                'class' => 'form-control',
+                'placeholder' => '# de factura',
+                'required' => 'required'
+            );
+            $serie_factura = array(
+                'type' => 'text',
+                'name' => 'serie_factura',
+                'id' => 'serie_factura',
+                'class' => 'form-control',
+                'placeholder' => 'Serie de factura',
+                'required' => 'required'
+            );
+
+            $fecha_factura_d = new  DateTime();
+            $fecha_factura = array(
+                'type' => 'text',
+                'name' => 'fecha_factura',
+                'id' => 'fecha_factura',
+                'class' => 'form-control',
+                'placeholder' => 'Fecha de factura',
+                'value' => $fecha_factura_d->format('Y-m-d'),
+                'required' => 'required'
+            );
 
             $cantidad_productos = array(
                 'type' => 'number',
@@ -100,17 +127,35 @@ $this->layout('admin/admin_master', [
 
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="categoria">Proveedor</label>
                                 <?php echo form_input($proveedor) ?>
                             </div>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-1">
                             <div class="form-group">
                                 <label for="categoria">Proveedor_id</label>
                                 <?php echo form_input($proveedor_id) ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">No. Factura</label>
+                                <?php echo form_input($no_factura) ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Serie</label>
+                                <?php echo form_input($serie_factura) ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="categoria">Fecha de factura</label>
+                                <?php echo form_input($fecha_factura) ?>
                             </div>
                         </div>
                     </div>
@@ -322,25 +367,35 @@ $this->layout('admin/admin_master', [
                     <h3 class="box-title">Productos</h3>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <h4>Total de productos</h4>
                         <input type="hidden" name="total_productos" id="total_productos">
                         <div class="" id="total_productos_t"></div>
                     </div>
-                    <div class="col-md-3">
-                        <h4>Total de precio sin IVA</h4>
+                    <div class="col-md-2">
+                        <h4>Total de costo bruto</h4>
                         <div class="" id="total_precio_sin_iva_t"></div>
                         <input type="hidden" name="total_precio_sin_iva" id="total_precio_sin_iva">
                     </div>
-                    <div class="col-md-3">
-                        <h4>Total de precio de venta</h4>
-                        <div class="" id="total_precio_de_venta_t"></div>
-                        <input type="hidden" name="total_precio_de_venta" id="total_precio_de_venta">
+                    <div class="col-md-2">
+                        <h4>Total de iva</h4>
+                        <div class="" id="total_iva_t"></div>
+                        <input type="hidden" name="total_iva" id="total_iva">
                     </div>
-                    <div class="col-md-3">
-                        <h4>Total de Total de producto</h4>
-                        <div class="" id="total_total_prpoducto_t"></div>
-                        <input type="hidden" name="total_precios_total" id="total_precios_total">
+                    <div class="col-md-2">
+                        <h4>Total de Total de costo neto</h4>
+                        <div class="" id="total_costo_neto_t"></div>
+                        <input type="hidden" name="total_costo_neto" id="total_costo_neto">
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Total de Total de precio venta</h4>
+                        <div class="" id="total_precio_venta_t"></div>
+                        <input type="hidden" name="total_precio_venta" id="total_precio_venta">
+                    </div>
+                    <div class="col-md-2">
+                        <h4>Total de Total de total de producto</h4>
+                        <div class="" id="total_total_producto_t"></div>
+                        <input type="hidden" name="total_total_producto" id="total_total_producto">
                     </div>
                 </div>
             </div>
@@ -402,9 +457,11 @@ $this->layout('admin/admin_master', [
     function calcular_factura() {
         $("#productos_distintos").val(conteo_productos);
         var total_productos = 0;
-        var total_precio_sin_iva = 0;
+        var tota_costo_bruto = 0;
         var total_precio_de_venta = 0;
-        var total_precios_total = 0;
+        var total_iva = 0;
+        var total_costo_neto = 0;
+        var total_total_productos =0;
         // console.log(conteo_productos);
 
         $(".no_prductos").each(function () {
@@ -419,6 +476,7 @@ $this->layout('admin/admin_master', [
             flete_sin_iva = parseFloat($("#flete_sin_iva_local").val());
             otros_gastos = parseFloat($("#gasto_no_deducible_local").val());
             total_cargos = parseFloat(flete_sin_iva + otros_gastos);
+            $("#total_cargo_extra").val(total_cargos);
         }
         if (factura_tipo == 'importacion') {
 
@@ -427,6 +485,7 @@ $this->layout('admin/admin_master', [
         cargo_por_producto = total_cargos / total_productos;
         console.log(cargo_por_producto);
         $("#cargo_extra_por_producto_t").html(cargo_por_producto);
+        $("#cargo_extra_por_producto").val(cargo_por_producto);
 
         $(".precio_s_iva").each(function () {
             var precio_con_iva = parseFloat($(this).val());
@@ -449,7 +508,7 @@ $this->layout('admin/admin_master', [
             $(this).parent().parent().parent().find('.precio_neto').val(precio_sin_iva);
             $(this).parent().parent().parent().find('.precio_venta').val(precio_venta);
             console.log(precio_con_iva);
-            total_precio_sin_iva = parseFloat(total_precio_sin_iva + precio_con_iva);
+            tota_costo_bruto = parseFloat(tota_costo_bruto + precio_con_iva);
 
         });
         $(".precio_venta").each(function () {
@@ -457,27 +516,45 @@ $this->layout('admin/admin_master', [
             total_precio_de_venta = parseFloat(total_precio_de_venta + precio_de_venta);
 
         });
+        $(".iva").each(function () {
+            var iva = parseFloat($(this).val());
+            total_iva = parseFloat(total_iva + iva);
+
+        });
+
+        $(".precio_neto").each(function () {
+            var costo_neto = parseFloat($(this).val());
+            total_costo_neto = parseFloat(total_costo_neto + costo_neto).toFixed(2);
+        });
         $(".total_producto").each(function () {
             var numero_productos;
-            var precio_sin_iva;
+            var costo_bruto;
 
             numero_productos = parseInt($(this).parent().parent().parent().find(".no_prductos").val());
-            precio_sin_iva = parseFloat($(this).parent().parent().parent().find(".precio_s_iva").val());
-            precio_sin_iva = precio_sin_iva + cargo_por_producto;
-            var total_producto = parseFloat(numero_productos * precio_sin_iva);
+            costo_bruto = parseFloat($(this).parent().parent().parent().find(".precio_s_iva").val());
+            costo_bruto = parseFloat(costo_bruto + cargo_por_producto);
+            var total_producto = parseFloat(numero_productos * costo_bruto);
             $(this).val(total_producto);
-            total_precios_total = parseFloat(total_precios_total + total_producto);
+            total_total_productos = parseFloat(total_total_productos + total_producto);
+
+
+            //total_costo_neto = parseFloat(total_costo_neto + total_producto);
             // var precio_total = parseFloat($(this).siblings(".precio_s_iva").val());
             // total_precios_total = parseFloat(total_precios_total + precio_total);
         });
         //Diplay totales
         $("#total_productos_t").html(total_productos);
-        $("#total_precio_sin_iva_t").html(total_precio_sin_iva);
-        $("#total_precio_de_venta_t").html(total_precio_de_venta);
-        $("#total_total_prpoducto_t").html(total_precios_total);
-        //
-
-
+        $("#total_productos").val(total_productos);
+        $("#total_precio_sin_iva_t").html(tota_costo_bruto);
+        $("#total_precio_sin_iva").val(tota_costo_bruto);
+        $("#total_iva_t").html(total_iva);
+        $("#total_iva").val(total_iva);
+        $("#total_costo_neto_t").html(total_costo_neto);
+        $("#total_costo_neto").val(total_costo_neto);
+        $("#total_precio_venta_t").html(total_precio_de_venta);
+        $("#total_precio_venta").val(total_precio_de_venta);
+        $("#total_total_producto_t").html(total_total_productos);
+        $("#total_total_producto").val(total_total_productos);
     }
 
 
@@ -667,6 +744,13 @@ $this->layout('admin/admin_master', [
         }
     };
     $("#proveedor").easyAutocomplete(proveedores);
+    $(function () {
+        //Date picker
+         $('#fecha_factura').datepicker({
+         autoclose: true,
+         format: "yyyy-mm-dd"
+         });
+    });
 
 
 </script>
