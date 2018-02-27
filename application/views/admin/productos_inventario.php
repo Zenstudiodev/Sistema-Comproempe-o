@@ -415,12 +415,13 @@ $this->layout('admin/admin_master', [
         factura_tipo = $("#factura_tipo").val();
         if (factura_tipo == 'local') {
             var flete_sin_iva;
-            var gastos_no_deducibles;
+            var otros_gastos;
             flete_sin_iva = parseFloat($("#flete_sin_iva_local").val());
-            gastos_no_deducibles = parseFloat($("#gasto_no_deducible_local").val());
-            total_cargos = parseFloat(flete_sin_iva + gastos_no_deducibles);
+            otros_gastos = parseFloat($("#gasto_no_deducible_local").val());
+            total_cargos = parseFloat(flete_sin_iva + otros_gastos);
         }
         if (factura_tipo == 'importacion') {
+
         }
         $("#total_cargo_extra_t").html(total_cargos);
         cargo_por_producto = total_cargos / total_productos;
@@ -431,18 +432,22 @@ $this->layout('admin/admin_master', [
             var precio_con_iva = parseFloat($(this).val());
             var iva;
             var precio_sin_iva;
+            var precio_venta;
             console.log(precio_con_iva);
+
+            precio_venta = parseFloat(precio_con_iva * 2).toFixed(2);
 
             //agregamos otros Gastos
             precio_con_iva = parseFloat(precio_con_iva + cargo_por_producto);
-            iva = parseFloat(precio_con_iva * 0.12);
-            precio_sin_iva = parseFloat(precio_con_iva / 1.12);
+            iva = parseFloat(precio_con_iva * 0.12).toFixed(2);;
+            precio_sin_iva = parseFloat(precio_con_iva / 1.12).toFixed(2);;
 
             console.log('Iva ' + iva);
             console.log('precio sin Iva ' + precio_sin_iva);
 
             $(this).parent().parent().parent().find('.iva').val(iva);
             $(this).parent().parent().parent().find('.precio_neto').val(precio_sin_iva);
+            $(this).parent().parent().parent().find('.precio_venta').val(precio_venta);
             console.log(precio_con_iva);
             total_precio_sin_iva = parseFloat(total_precio_sin_iva + precio_con_iva);
 
@@ -581,7 +586,7 @@ $this->layout('admin/admin_master', [
     cargos_locales += '<input type="number" name="flete_sin_iva_local" value="0" id="flete_sin_iva_local" class="form-control" placeholder="Flete sin IVA" step="any" required="required">';
     cargos_locales += '</div></div>';
     cargos_locales += '<div class="col-md-2"><div class="form-group">';
-    cargos_locales += '<label for="categoria">Gastos no deducibles</label>';
+    cargos_locales += '<label for="categoria">Otros gastos</label>';
     cargos_locales += '<input type="number" name="gasto_no_deducible_local" value="0" id="gasto_no_deducible_local" class="form-control" placeholder="Gastos no deducibles" step="any" required="required">';
     cargos_locales += '</div></div>';
     cargos_locales += '</div>';

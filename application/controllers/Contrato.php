@@ -527,7 +527,6 @@ class Contrato extends Base_Controller
 	}
 	function guardar_editar()
 	{
-
 		//print_r($_POST);
 		$datos = array(
 			'cliente_id'       => $this->input->post('cliente_id     '),
