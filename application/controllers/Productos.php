@@ -16,6 +16,7 @@ class Productos extends Base_Controller
         $this->load->model('Productos_model');
         $this->load->model('Contratos_model');
         $this->load->model('Factura_model');
+        $this->load->model('Proveedor_model');
     }
 
     function index()
@@ -344,7 +345,7 @@ class Productos extends Base_Controller
             'total_precio_venta'=>$_POST['total_precio_venta'],
             'total_total_producto'=>$_POST['total_total_producto'],
         );
-        $factura_id = $this->Contratos_model->guardar_factura($datos_de_prorateo);
+        $prorateo_id = $this->Proveedor_model->guardar_prorateo($datos_de_prorateo);
 
         $fecha = new DateTime();
         $productos_distintos = $_POST['productos_distintos'];
@@ -363,19 +364,34 @@ class Productos extends Base_Controller
                 'descripcion' => $_POST['descripcion_p' . $i],
                 'precio_compra' => $_POST['costo_b_p' . $i],
                 'precio_venta' => $_POST['precio_venta_p' . $i],
+                'id_prorateo' => $prorateo_id,
                 'tipo ' => 'compra',
             );
-
-            echo '<pre>';
+           /* echo '<pre>';
             print_r($datos_de_producto);
-            echo '</pre>';
+            echo '</pre>';*/
+
+            $this->Productos_model->guardar_producto_inventario($datos_de_producto);
+
+
         }
 
+        redirect(base_url() . 'index.php/proveedores/detalle/' . $_POST['proveedor_id']);
 
 
-        echo '<pre>';
+
+       /* echo '<pre>';
         print_r($datos_de_prorateo);
-        echo '</pre>';
+        echo '</pre>';*/
+    }
+
+    function productos_en_venta(){
+        $data = compobarSesion();
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        $data['productos'] = $this->Productos_model->get_productos_venta();
+        echo $this->templates->render('admin/lista_productos_venta', $data);
     }
 
     function productos_excel()
