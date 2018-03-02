@@ -45,7 +45,7 @@ $this->layout('admin/admin_master', [
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>">
+                <form method="post" action="<? echo base_url() . 'index.php/Productos/productos_vender/' ?>">
 					<?php if ($productos) { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                             <i class="fa fa-file-text-o"></i> Liquidar productos

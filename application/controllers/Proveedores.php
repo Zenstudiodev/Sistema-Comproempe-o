@@ -51,6 +51,7 @@ class Proveedores extends Base_Controller
 		$proveedor_id = $data['segmento'] = $this->uri->segment(3);
 
 		$data['proveedor'] = $this->Proveedor_model->get_proveedor_data_by_id($proveedor_id);
+		$data['prorateos'] = $this->Proveedor_model->get_prorateos_by_id($proveedor_id);
 		$data['productos']= $this->Proveedor_model->get_productos_provedor_by_id($proveedor_id);
 
 		echo $this->templates->render('admin/detalle_proveedor', $data);

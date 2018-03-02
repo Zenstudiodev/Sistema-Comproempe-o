@@ -129,7 +129,7 @@ $this->layout('admin/admin_master', [
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <h2 class="page-header">
-                                                Productos
+                                                Prorrateos
                                             </h2>
                                         </div>
                                     </div>
@@ -147,6 +147,62 @@ $this->layout('admin/admin_master', [
 
 									<?php } ?>
 
+                                    <?php if ($prorateos) { ?>
+
+                                    <div class="row"></div>
+                                    <table id="empenos_table" class="table table-bordered table-striped display">
+                                        <thead>
+                                        <tr>
+                                            <th>ID PRORRATEO</th>
+                                            <th>NO FACTURA</th>
+                                            <th>SERIE</th>
+                                            <th>FECHA</th>
+                                        </tr>
+                                        </thead>
+                                        <!-- <tfoot>
+										 <tr>
+											 <th></th>
+											 <th>NOMBRE</th>
+											 <th>FECHA AVALUO</th>
+											 <th>AVALUO</th>
+											 <th>MUTUO</th>
+											 <th>CONTRATO ID</th>
+										 </tr>
+										 </tfoot>-->
+                                        <tbody>
+                                        <?php foreach ($prorateos->result() as $prorateo) { ?>
+                                            <tr>
+
+                                                <td><?php echo $prorateo->id_prorateo ?></td>
+                                                <td><?php echo $prorateo->p_no_factura ?></td>
+                                                <td><?php echo $prorateo->p_serie_factura ?></td>
+                                                <td><?php echo $prorateo->p_fecha_factura ?></td>
+                                            </tr>
+
+
+                                        <?php } ?>
+
+
+                                        </tbody>
+                                    </table>
+
+
+                                </form>
+
+                                <? }
+                                else
+                                {
+                                    echo 'Aún no tiene productos';
+                                } ?>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h2 class="page-header">
+                                            Productos
+                                        </h2>
+                                    </div>
+                                </div>
+
 
 									<?php if ($productos) { ?>
 
@@ -154,10 +210,11 @@ $this->layout('admin/admin_master', [
                                     <table id="empenos_table" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
-                                            <th></th>
+
                                             <th>NOMBRE</th>
                                             <th>CATEGORIA</th>
                                             <th>EXISTENCIAS</th>
+                                            <th>PRORRATEO</th>
                                         </tr>
                                         </thead>
                                         <!-- <tfoot>
@@ -177,6 +234,7 @@ $this->layout('admin/admin_master', [
                                                 <td><?php echo $producto->nombre_producto ?></td>
                                                 <td><?php echo $producto->categoria ?></td>
                                                 <td><?php echo $producto->existencias ?></td>
+                                                <td><?php echo $producto->id_prorateo ?></td>
                                             </tr>
 
 
@@ -192,7 +250,7 @@ $this->layout('admin/admin_master', [
 								<? }
 								else
 								{
-									echo 'Aún no tiene productos empeñados';
+									echo 'Aún no tiene productos';
 								} ?>
                             </div>
                             <!-- /.tab-pane -->

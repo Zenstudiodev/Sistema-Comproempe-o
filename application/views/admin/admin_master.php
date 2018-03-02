@@ -103,7 +103,7 @@
                                         class="fa fa-shopping-cart"></i> <span>Productos<br> en liquidación</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url() ?>index.php/contrato/contratos_vencidos"><i
+                            <a href="<?php echo base_url() ?>index.php/productos/productos_en_venta"><i
                                         class="fa fa-shopping-cart"></i>
                                 Productos en venta
                             </a>

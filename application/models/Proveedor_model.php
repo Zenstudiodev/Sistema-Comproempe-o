@@ -90,6 +90,12 @@ class Proveedor_model extends CI_Model
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
+    function get_prorateos_by_id($proveedor_id){
+        $this->db->where('p_proveedor_id', $proveedor_id);
+        $query = $this->db->get('prorateos');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
 
 }

@@ -58,7 +58,7 @@ if ($contrato)
 
     <div id="imprimir_factura">
         <table>
-            <tr style="height: 1.9cm;">
+            <tr style="height: 2.5cm;">
                 <td colspan="4"></td>
             </tr>
             <tr style="text-align: center">
@@ -70,14 +70,14 @@ if ($contrato)
         </table>
         <table>
             <tr style="height: 1cm;">
-                <td style="padding-left: 2.2cm;  " colspan="4"><?php echo $cliente->nombre; ?></td>
+                <td style="padding-left: 2.4cm;  " colspan="4"><?php echo $cliente->nombre; ?></td>
             </tr>
             <tr style="height: 1cm;">
-                <td style="padding-left: 2.2cm; width: 17.60cm;"><?php echo $cliente->direccion ?></td>
+                <td style="padding-left: 2.4cm; width: 17.60cm;"><?php echo $cliente->direccion ?></td>
                 <td><?php echo $cliente->nit ?></td>
             </tr>
         </table>
-        <table style="width: 21.59cm; height: 7.83cm;" id="detalle_factura">
+        <table style="width: 21.59cm; height: 7.3cm;" id="detalle_factura">
             <tr style="height:0.63cm;">
                 <td colspan="4"></td>
             </tr>
@@ -92,7 +92,7 @@ if ($contrato)
 			{
 				?>
                 <tr>
-                    <td style="width: 1.90cm"></td>
+                    <td style="width: 2.2cm"></td>
                     <td colspan="2" style="width: 15.90cm">Intereses
                         por <?php echo tipo_factura_text($factura->tipo) ?>
                         de contrato <?php echo $factura->contrato_id ?></td>
