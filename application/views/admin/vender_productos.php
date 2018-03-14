@@ -241,8 +241,8 @@ $this->layout('admin/admin_master', [
                                             <label for="avaluo">Cantidad de productos</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon">#</span>
-                                                <input type="number" class="form-control pull-right precio_venta"
-                                                       placeholder="Precio de venta"
+                                                <input type="number" class="form-control pull-right cantidad_productos"
+                                                       placeholder="Cantidad de productos"
                                                        name="cantidad_producto_<?php echo $producto_numero ?>_p"
                                                        id="cantidad_producto_<?php echo $producto_numero ?>_p"
                                                        value="1"
@@ -355,12 +355,6 @@ $this->layout('admin/admin_master', [
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>liquidacion de empeños</th>
-                                            <td><?php echo display_formato_dinero($total_mutuos) ?></td>
-                                            <input type="hidden" name="total_mutuos" id="total_mutuos"
-                                                   value="<?php echo $total_mutuos; ?>">
-                                        </tr>
-                                        <tr>
                                             <th>Sub total:</th>
                                             <td>
                                                 <span id="sub_total_t"><?php echo display_formato_dinero($sub_total) ?></span>
@@ -443,22 +437,11 @@ $this->layout('admin/admin_master', [
 <!-- page script -->
 <script>
     //variables
-    var precio_venta;
-    var descuento;
-    var precio_final;
-    var precio_articulo;
+    var total_de_productos;
     var serie_facturas;
-
-
-    $(".precio_venta").change(function () {
-        console.log('cambio precio');
-    });
-
-
 
     $(document).ready(function () {
         serie_facturas = $("#serie_factura").val();
-        //$('#marca_carro option').remove();
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -502,46 +485,44 @@ $this->layout('admin/admin_master', [
         });
     });
 
-    //console.log(precio_venta);
     $("#producto_venta_form").change(function () {
-        precio_venta = 0;
-        $(".precio_venta").each(function () {
-            precio_articulo = $(this).val();
-            if (precio_articulo === undefined) {
-                precio_articulo = 0;
-            }
-            if (precio_venta === undefined) {
-                precio_venta = 0;
-            }
-            //console.log(precio_articulo);
-            precio_venta = precio_venta + parseFloat(precio_articulo);
-        });
-        console.log(precio_venta);
-        precio_venta_string = numeral(precio_venta).format('0,0.00');
+        total_de_productos = 0;
 
-        $("#precio_venta").val(precio_venta);
-        $("#total_orecio_venta").html(precio_venta_string);
+        $(".total_producto").each(function () {
+
+            var numero_productos;
+            var precio_venta;
+            var total_producto;
+            numero_productos = parseInt($(this).parent().parent().parent().parent().parent().find(".cantidad_productos").val());
+            precio_venta = parseFloat($(this).parent().parent().parent().parent().parent().find(".precio_venta").val());
+
+            total_producto = parseFloat(precio_venta * numero_productos).toFixed(2);
+            $(this).val(total_producto);
+            console.log(total_producto);
+            total_producto = parseFloat($(this).val());
+
+            total_de_productos = parseFloat(total_de_productos + total_producto);
+            console.log(total_de_productos);
+        });
+
+        console.log(total_de_productos);
+        total_de_productos_string = numeral(total_de_productos).format('0,0.00');
+
+
+        $("#precio_venta").val(total_de_productos);
+        $("#total_orecio_venta").html(total_de_productos_string);
 
         //descuento
         descuento = parseFloat($("#descuento").val());
         descuento_string = numeral(descuento).format('0,0.00');
         $("#descuento_t").html(descuento_string);
 
-
-       // suma_mutuos = parseFloat(<?php echo $total_mutuos?>).toFixed(2);
-        monto_recibo_en_letras = covertirNumLetras(precio_venta);
-
-       console.log(monto_recibo_en_letras);
-
-        $("#monto_recibo_letras").val(monto_recibo_en_letras);
-
         //sub total
-        sub_total = precio_venta ;
+        sub_total = total_de_productos ;
         sub_total_string = numeral(sub_total).format('0,0.00');
         $("#sub_total_t").html(sub_total_string);
         $("#sub_total").val(sub_total);
-        console.log(precio_venta);
-        console.log(descuento);
+
 
         total_final = sub_total - descuento;
 

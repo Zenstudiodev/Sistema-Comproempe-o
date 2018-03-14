@@ -326,24 +326,24 @@ class Productos extends Base_Controller
 
     function guardar_productos_inventario()
     {
-        $datos_de_prorateo= array(
-            'proveedor_id'=>$_POST['proveedor_id'],
-            'no_factura'=>$_POST['no_factura'],
-            'serie_factura'=>$_POST['serie_factura'],
-            'fecha_factura'=>$_POST['fecha_factura'],
-            'factura_tipo'=>$_POST['factura_tipo'],
-            'fecha'=>$_POST['factura_tipo'],
-            'no_productos'=>$_POST['productos_distintos'],
-            'flete_sin_iva_local'=>$_POST['flete_sin_iva_local'],
-            'gasto_no_deducible_local'=>$_POST['gasto_no_deducible_local'],
-            'total_cargo_extra'=>$_POST['total_cargo_extra'],
-            'cargo_extra_por_producto'=>$_POST['cargo_extra_por_producto'],
-            'total_productos'=>$_POST['total_productos'],
-            'total_precio_sin_iva'=>$_POST['total_precio_sin_iva'],
-            'total_iva'=>$_POST['total_iva'],
-            'total_costo_neto'=>$_POST['total_costo_neto'],
-            'total_precio_venta'=>$_POST['total_precio_venta'],
-            'total_total_producto'=>$_POST['total_total_producto'],
+        $datos_de_prorateo = array(
+            'proveedor_id' => $_POST['proveedor_id'],
+            'no_factura' => $_POST['no_factura'],
+            'serie_factura' => $_POST['serie_factura'],
+            'fecha_factura' => $_POST['fecha_factura'],
+            'factura_tipo' => $_POST['factura_tipo'],
+            'fecha' => $_POST['factura_tipo'],
+            'no_productos' => $_POST['productos_distintos'],
+            'flete_sin_iva_local' => $_POST['flete_sin_iva_local'],
+            'gasto_no_deducible_local' => $_POST['gasto_no_deducible_local'],
+            'total_cargo_extra' => $_POST['total_cargo_extra'],
+            'cargo_extra_por_producto' => $_POST['cargo_extra_por_producto'],
+            'total_productos' => $_POST['total_productos'],
+            'total_precio_sin_iva' => $_POST['total_precio_sin_iva'],
+            'total_iva' => $_POST['total_iva'],
+            'total_costo_neto' => $_POST['total_costo_neto'],
+            'total_precio_venta' => $_POST['total_precio_venta'],
+            'total_total_producto' => $_POST['total_total_producto'],
         );
         $prorateo_id = $this->Proveedor_model->guardar_prorateo($datos_de_prorateo);
 
@@ -367,9 +367,9 @@ class Productos extends Base_Controller
                 'id_prorateo' => $prorateo_id,
                 'tipo ' => 'compra',
             );
-           /* echo '<pre>';
-            print_r($datos_de_producto);
-            echo '</pre>';*/
+            /* echo '<pre>';
+             print_r($datos_de_producto);
+             echo '</pre>';*/
 
             $this->Productos_model->guardar_producto_inventario($datos_de_producto);
 
@@ -379,13 +379,13 @@ class Productos extends Base_Controller
         redirect(base_url() . 'index.php/proveedores/detalle/' . $_POST['proveedor_id']);
 
 
-
-       /* echo '<pre>';
-        print_r($datos_de_prorateo);
-        echo '</pre>';*/
+        /* echo '<pre>';
+         print_r($datos_de_prorateo);
+         echo '</pre>';*/
     }
 
-    function productos_en_venta(){
+    function productos_en_venta()
+    {
         $data = compobarSesion();
         if ($this->session->flashdata('error')) {
             $data['error'] = $this->session->flashdata('error');
@@ -393,7 +393,9 @@ class Productos extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_venta();
         echo $this->templates->render('admin/lista_productos_venta', $data);
     }
-    function productos_vender(){
+
+    function productos_vender()
+    {
         $data = compobarSesion();
         $productos = array();
         if (!empty($_POST)) {
@@ -428,15 +430,11 @@ class Productos extends Base_Controller
 
     function guardar_venta()
     {
-        echo'<pre>';
+        echo '<pre>';
         print_r($_POST);
-        echo'</pre>';
+        echo '</pre>';
 
-        if($_POST['comprobante']=='factura'){
-            echo '<p>generar detalle de factura</p>';
-        }else if ($_POST['comprobante']=='recibo'){
-            echo 'generar detalle de recibo';
-        }
+
 
         $fecha = New DateTime();
 
@@ -444,7 +442,6 @@ class Productos extends Base_Controller
         $detalle_recibo = '';
         $contrados_recibo = '';
         $suma_mutuos = 0;
-
 
 
         $numero_de_productos = $this->input->post('numero_productos');
@@ -463,7 +460,7 @@ class Productos extends Base_Controller
 
             //echo '<hr>';
             $detalle_factura .= '<tr>';
-           $detalle_factura .= '<td style="width: 1.90cm">' . $this->input->post('cantidad_producto_' . $i . '_p'). '</td>';//TODO CANTIDAD
+            $detalle_factura .= '<td style="width: 1.90cm">' . $this->input->post('cantidad_producto_' . $i . '_p') . '</td>';//TODO CANTIDAD
             $detalle_factura .= '<td colspan="3">' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '</td>'; //TODO DESCRIPCION PRODUCTO
             $detalle_factura .= '<td style="width: 3.51cm">' . formato_dinero($monto_producto) . '</td>';
             $detalle_factura .= '</tr>';
@@ -471,19 +468,14 @@ class Productos extends Base_Controller
             $detalle_factura .= '<td></td>';
             $detalle_factura .= '</tr>';
 
+            $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
+            $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
+
             $i++;
         }
 
-        echo '<table>'.$detalle_factura.'</table>';
+        echo '<table>' . $detalle_factura . '</table>';
 
-
-
-        $detalle_recibo .= 'Producto: '. $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
-        $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
-
-
-        //echo 'Guardar Factura: <br>';
-        //echo $detalle_factura;
         $datos_factura = array(
             'no_factura' => $this->input->post('no_factura'),
             'cliente_id' => $this->input->post('cliente_id'),
@@ -510,21 +502,22 @@ class Productos extends Base_Controller
             'cliente_id' => $this->input->post('cliente_id'),
             'contrato_id' => '0',
             'fecha' => $this->input->post('fecha'),
-            'monto_recibo' => $monto_producto,
+            'monto_recibo' => $this->input->post('total'),
             'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
             'tipo' => 'venta',
             'detalle' => $detalle_recibo
         );
-        echo'<pre>';
+        echo '<pre>';
         print_r($datos_recibo);
-        echo'</pre>';
+        echo '</pre>';
         exit();
 
-        //guardamos factura
-        $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
-        $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
-        //Guardamos la transaccion de factura y recibo
-        $this->Factura_model->guardar_factura_recibo($factura_id, $recibo_id);
+        if ($_POST['comprobante'] == 'factura') {
+            //guardamos factura
+            $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
+        } else if ($_POST['comprobante'] == 'recibo') {
+            $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
+        }
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
 
