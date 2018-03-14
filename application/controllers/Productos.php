@@ -404,7 +404,6 @@ class Productos extends Base_Controller
                 } else {
                     $productos[] = $value;
                 }
-
             }
             //echo is_array($productos) ? 'Array' : 'No es un array';
             if (empty($productos)) {
@@ -433,12 +432,20 @@ class Productos extends Base_Controller
         print_r($_POST);
         echo'</pre>';
 
+        if($_POST['comprobante']=='factura'){
+            echo '<p>generar detalle de factura</p>';
+        }else if ($_POST['comprobante']=='recibo'){
+            echo 'generar detalle de recibo';
+        }
+
         $fecha = New DateTime();
 
         $detalle_factura = '';
         $detalle_recibo = '';
         $contrados_recibo = '';
         $suma_mutuos = 0;
+
+
 
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
@@ -451,70 +458,28 @@ class Productos extends Base_Controller
             $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
             $datos_producto = $datos_producto->row();
 
-            //guardar liquidacion producto
-            $datos_de_liquidacion = array(
-                'id_factura' => $this->input->post('no_factura'),
-                'id_producto' => $this->input->post('producto_' . $i),
-            );
-            //$this->Productos_model->guardar_liquidacion_factura_producto($datos_de_liquidacion);
-
-            //echo '<pre>';
-            //print_r($datos_producto);
-            //echo '</pre>';
-            //echo 'Contrato: ' . $datos_producto->contrato_id;
-
-            $datos_contrato = $this->Contratos_model->get_info_contrato($datos_producto->contrato_id);
-            $datos_contrato = $datos_contrato->row();
-            //echo '<pre>';
-            //print_r($datos_contrato);
-            //echo '</pre>';
-            //echo 'modificar contrato <br>';
-            //echo 'Restar mutuo de producto ' . $datos_producto->mutuo . ' de contrato' . $datos_contrato->contrato_id . ' ' . $datos_contrato->total_mutuo . '<br>';
-            $resultado_mutuo = (floatval($datos_contrato->total_mutuo) - floatval($datos_producto->mutuo));
-            $resultado_liquidado = (floatval($datos_contrato->tototal_liquidado) + floatval($datos_producto->mutuo));
-            $suma_mutuos = (floatval($suma_mutuos) + floatval($datos_producto->mutuo));
-            //echo 'Resultado = ' . $resultado_mutuo . '<br>';
-            $estado_contrato = 'perdido';
-            if ($resultado_mutuo == 0) {
-                $estado_contrato = 'liquidado';
-            } else {
-                $estado_contrato = 'liquidado_parcial';
-            }
-            //echo $estado_contrato;
-
-            $nuevos_datos_de_contrato = array(
-                'contrato_id' => $datos_contrato->contrato_id,
-                'tototal_liquidado' => $resultado_liquidado,
-                'total_mutuo' => $resultado_mutuo,
-                'estado' => $estado_contrato,
-            );
-            $this->Contratos_model->actualizar_estado_liquidacion($nuevos_datos_de_contrato);
-
             $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
+            $monto_producto = $this->input->post('cantidad_producto_' . $i . '_p') * $this->input->post('producto_' . $i . '_p');
 
             //echo '<hr>';
             $detalle_factura .= '<tr>';
-            $detalle_factura .= '<td style="width: 1.90cm"></td>';
-            $detalle_factura .= '<td colspan="2">Liquidacion de contrato  ' . $datos_contrato->contrato_id . '</td>';
-            $detalle_factura .= '<td style="width: 3.51cm">' . formato_dinero($datos_producto->mutuo) . '</td>';
+           $detalle_factura .= '<td style="width: 1.90cm">' . $this->input->post('cantidad_producto_' . $i . '_p'). '</td>';//TODO CANTIDAD
+            $detalle_factura .= '<td colspan="3">' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '</td>'; //TODO DESCRIPCION PRODUCTO
+            $detalle_factura .= '<td style="width: 3.51cm">' . formato_dinero($monto_producto) . '</td>';
             $detalle_factura .= '</tr>';
             $detalle_factura .= '<tr>';
             $detalle_factura .= '<td></td>';
-            $detalle_factura .= '<td colspan="3">' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '</td>';
             $detalle_factura .= '</tr>';
-            $detalle_factura .= '<tr>';
-            $detalle_factura .= '<td></td>';
-            $detalle_factura .= '<td colspan="2">' . 'Gastos administrativos' . '</td>';
-            $detalle_factura .= '<td>' . formato_dinero($gastos_administrativos) . '<br>';
-            $detalle_factura .= '</tr>';
-
-            $contrados_recibo .= $datos_contrato->contrato_id . ',';
 
             $i++;
         }
 
-        $detalle_recibo .= 'Liquidación de contratos: ' . $contrados_recibo . '<br>';
-        $detalle_recibo .= 'Suma de mutuos ' . formato_dinero($suma_mutuos);
+        echo '<table>'.$detalle_factura.'</table>';
+
+
+
+        $detalle_recibo .= 'Producto: '. $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
+        $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
 
 
         //echo 'Guardar Factura: <br>';
@@ -535,24 +500,25 @@ class Productos extends Base_Controller
             'tipo' => 'venta',
             'serie_factura' => $this->input->post('serie_factura'),
         );
-        //echo '<pre>';
-        //print_r($datos_factura);
-        //echo '</pre>';
+        echo '<pre>';
+        print_r($datos_factura);
+        echo '</pre>';
 
-        //echo '<hr>';
+        echo '<hr>';
 
         $datos_recibo = array(
             'cliente_id' => $this->input->post('cliente_id'),
             'contrato_id' => '0',
             'fecha' => $this->input->post('fecha'),
-            'monto_recibo' => $suma_mutuos,
+            'monto_recibo' => $monto_producto,
             'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
-            'tipo' => 'liquidacion',
+            'tipo' => 'venta',
             'detalle' => $detalle_recibo
         );
-        /*echo'<pre>';
+        echo'<pre>';
         print_r($datos_recibo);
-        echo'</pre>';*/
+        echo'</pre>';
+        exit();
 
         //guardamos factura
         $factura_id = $this->Contratos_model->guardar_factura($datos_factura);

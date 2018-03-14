@@ -235,6 +235,37 @@ $this->layout('admin/admin_master', [
 
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="avaluo">Cantidad de productos</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">#</span>
+                                                <input type="number" class="form-control pull-right precio_venta"
+                                                       placeholder="Precio de venta"
+                                                       name="cantidad_producto_<?php echo $producto_numero ?>_p"
+                                                       id="cantidad_producto_<?php echo $producto_numero ?>_p"
+                                                       value="1"
+                                                       max="<?php echo $producto->existencias ?>" step="1">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="avaluo">Total de productos</label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Q</span>
+                                                <input type="number" class="form-control pull-right total_producto"
+                                                       placeholder="Total de producto"
+                                                       name="total_producto_<?php echo $producto_numero ?>_p"
+                                                       id="total_producto_<?php echo $producto_numero ?>_p" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <input type="hidden" name="producto_<?php echo $producto_numero ?>"
                                    id="producto_<?php echo $producto_numero ?>"
@@ -418,6 +449,13 @@ $this->layout('admin/admin_master', [
     var precio_articulo;
     var serie_facturas;
 
+
+    $(".precio_venta").change(function () {
+        console.log('cambio precio');
+    });
+
+
+
     $(document).ready(function () {
         serie_facturas = $("#serie_factura").val();
         //$('#marca_carro option').remove();
@@ -477,7 +515,6 @@ $this->layout('admin/admin_master', [
             }
             //console.log(precio_articulo);
             precio_venta = precio_venta + parseFloat(precio_articulo);
-
         });
         console.log(precio_venta);
         precio_venta_string = numeral(precio_venta).format('0,0.00');
@@ -491,15 +528,15 @@ $this->layout('admin/admin_master', [
         $("#descuento_t").html(descuento_string);
 
 
-        suma_mutuos = parseFloat(<?php echo $total_mutuos?>).toFixed(2);
-        suma_mutuos_letras = covertirNumLetras(suma_mutuos);
+       // suma_mutuos = parseFloat(<?php echo $total_mutuos?>).toFixed(2);
+        monto_recibo_en_letras = covertirNumLetras(precio_venta);
 
-        console.log(suma_mutuos_letras);
+       console.log(monto_recibo_en_letras);
 
-        $("#monto_recibo_letras").val(suma_mutuos_letras);
+        $("#monto_recibo_letras").val(monto_recibo_en_letras);
 
         //sub total
-        sub_total = precio_venta - suma_mutuos;
+        sub_total = precio_venta ;
         sub_total_string = numeral(sub_total).format('0,0.00');
         $("#sub_total_t").html(sub_total_string);
         $("#sub_total").val(sub_total);

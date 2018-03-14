@@ -280,11 +280,11 @@ if ($contrato)
         $(".abono").html('Q.'+descuento);
         $("#monto_recibo").val(descuento);
         console.log(descuento);
-        total = parseInt(descuento);
+        total = parseFloat(descuento).toFixed(2);
         //total = parseInt(descuento) + 1;
         console.log(total);
         descuento = parseFloat(total).toFixed(2);
-        console.log(descuento);
+        console.log('descuento'+descuento);
 
         total_en_letras = covertirNumLetras(descuento);
 
