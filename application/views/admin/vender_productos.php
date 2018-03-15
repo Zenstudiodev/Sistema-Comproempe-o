@@ -524,11 +524,16 @@ $this->layout('admin/admin_master', [
         $("#sub_total").val(sub_total);
 
 
-        total_final = sub_total - descuento;
+        total_final = parseFloat(sub_total - descuento).toFixed(2);
 
         precio_final_string = numeral(total_final).format('0,0.00');
         $("#total_t").html(precio_final_string);
         $("#total").val(total_final);
+        console.log('a letras '+total_final);
+
+        total_a_letras = covertirNumLetras(total_final);
+
+        $("#monto_recibo_letras").val(total_a_letras);
         //console.log(sub_total);
     });
 

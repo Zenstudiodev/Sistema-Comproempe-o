@@ -86,6 +86,15 @@ class productos_model extends CI_Model
         $this->db->where('producto_id', $producto_id);
         $query = $this->db->update('producto', $datos);
     }
+    function producto_vendido($datos_venta_producto){
+        $datos = array(
+            'precio_venta' => $datos_venta_producto['precio_venta'],
+            'existencias' => $datos_venta_producto['cantidad_productos'],
+            'tipo' => 'vendido',
+        );
+        $this->db->where('producto_id', $datos_venta_producto['id']);
+        $query = $this->db->update('producto', $datos);
+    }
 
     function asignar_contrato($producto_id, $contrato_id)
     {

@@ -430,34 +430,41 @@ class Productos extends Base_Controller
 
     function guardar_venta()
     {
-        echo '<pre>';
+        /*echo '<pre>';
         print_r($_POST);
         echo '</pre>';
+        exit();
+        */
 
 
 
         $fecha = New DateTime();
-
         $detalle_factura = '';
         $detalle_recibo = '';
         $contrados_recibo = '';
         $suma_mutuos = 0;
 
-
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
-
         while ($i <= $numero_de_productos) {
-            //echo 'Producto: ' . $this->input->post('producto_' . $i);
-            //echo ' Guardar precio de venta: ' . $this->input->post('producto_' . $i . '_p');
 
-            //$this->Productos_model->guardar_precio_venta($this->input->post('producto_' . $i), $this->input->post('producto_' . $i . '_p'));
+            //obtenemos datos del producto
             $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
             $datos_producto = $datos_producto->row();
 
+            //actualizamos el producto
+            $nueva_existencia = $datos_producto->existencias - $this->input->post('cantidad_producto_' . $i . '_p');
+            $datos_venta_producto = array(
+                'id' => $this->input->post('producto_' . $i),
+                'precio_venta' => $this->input->post('producto_' . $i . '_p'),
+                'cantidad_productos' => $nueva_existencia
+            );
+
+            $this->Productos_model->producto_vendido($datos_venta_producto);
+
+
             $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
             $monto_producto = $this->input->post('cantidad_producto_' . $i . '_p') * $this->input->post('producto_' . $i . '_p');
-
             //echo '<hr>';
             $detalle_factura .= '<tr>';
             $detalle_factura .= '<td style="width: 1.90cm">' . $this->input->post('cantidad_producto_' . $i . '_p') . '</td>';//TODO CANTIDAD
@@ -467,15 +474,13 @@ class Productos extends Base_Controller
             $detalle_factura .= '<tr>';
             $detalle_factura .= '<td></td>';
             $detalle_factura .= '</tr>';
-
             $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
             $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
-
             $i++;
         }
 
-        echo '<table>' . $detalle_factura . '</table>';
 
+        //echo '<table>' . $detalle_factura . '</table>';
         $datos_factura = array(
             'no_factura' => $this->input->post('no_factura'),
             'cliente_id' => $this->input->post('cliente_id'),
@@ -492,12 +497,10 @@ class Productos extends Base_Controller
             'tipo' => 'venta',
             'serie_factura' => $this->input->post('serie_factura'),
         );
-        echo '<pre>';
-        print_r($datos_factura);
-        echo '</pre>';
-
-        echo '<hr>';
-
+        /* echo '<pre>';
+         print_r($datos_factura);
+         echo '</pre>';
+         echo '<hr>';*/
         $datos_recibo = array(
             'cliente_id' => $this->input->post('cliente_id'),
             'contrato_id' => '0',
@@ -507,10 +510,9 @@ class Productos extends Base_Controller
             'tipo' => 'venta',
             'detalle' => $detalle_recibo
         );
-        echo '<pre>';
+        /*echo '<pre>';
         print_r($datos_recibo);
-        echo '</pre>';
-        exit();
+        echo '</pre>';*/
 
         if ($_POST['comprobante'] == 'factura') {
             //guardamos factura
@@ -518,6 +520,7 @@ class Productos extends Base_Controller
         } else if ($_POST['comprobante'] == 'recibo') {
             $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
         }
+
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
 
