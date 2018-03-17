@@ -534,10 +534,20 @@ if ($cliente)
                                     <p>Dudas, aclaraciones y reclamaciones:</p>
                                     <p>Para cualquier duda, aclaración, reclamación, queja o sugerencia, favor dirigirse
                                         a:</p>
-                                    <p>Domicilio: 23 CALLE 1-55 LOCAL 74PB INTERIOR CENTRAL DE MAYOREO ZONA 12, VILLA
-                                        NUEVA,
-                                        GUATEMALA</p>
-                                    <p>Teléfono: 24771855</p>
+                                    <?php
+                                    $tienda = tienda_id_h();
+                                    // insertamon en la base de datos
+                                    if($tienda == '1'){?>
+                                        <p>Domicilio: 23 CALLE 1-55 LOCAL 74PB INTERIOR CENTRAL DE MAYOREO ZONA 12, VILLA
+                                            NUEVA,
+                                            GUATEMALA</p>
+                                        <p>Teléfono: 24771855</p>
+                                   <?php }
+                                    elseif ($tienda =='2'){ ?>
+                                        <p>Domicilio: RUTA AL ATLANTICO 4-26, ZONA 17, CENTRA NORTE, LOCAL U-15,  GUATEMALA, GUATEMALA</p>
+                                        <p>Teléfono: 2233-1050</p>
+                                   <?php }  ?>
+
                                 </td>
                             </tr>
                             </tbody>

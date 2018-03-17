@@ -46,6 +46,11 @@ $this->layout('admin/admin_master', [
             <!-- /.box-header -->
             <div class="box-body">
                 <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>">
+                    <?php
+                    print_r($productos);
+                    echo'print'
+                    ?>
+
 					<?php if ($productos) { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                             <i class="fa fa-file-text-o"></i> Liquidar productos
@@ -119,7 +124,7 @@ $this->layout('admin/admin_master', [
 					<?php }
 					else
 					{
-						echo 'Aún no hay facturas';
+						echo 'Aún no hay productos';
 					} ?>
             </div>
             <!-- /.box-body -->

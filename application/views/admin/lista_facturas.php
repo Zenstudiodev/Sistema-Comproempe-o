@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title'    => $title,
-	'nombre'   => $nombre,
-	'user_id'  => $user_id,
-	'username' => $username,
-	'rol'      => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 
 ?>
@@ -48,16 +48,26 @@ $this->layout('admin/admin_master', [
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="<?php echo base_url()?>/factura">Serie A</a></li>
-                        <li class=""><a href="<?php echo base_url()?>/factura/serie_r">Serie R</a></li>
+                        <li class="active"><a href="<?php echo base_url() ?>/factura">
+                                <?php
+                                $tienda = tienda_id_h();
+                                // insertamon en la base de datos
+                                if ($tienda == '1') {
+                                    ?>
+                                    Serie A
+                                <?php } elseif ($tienda == '2') { ?>
+                                    Serie CN
+                                <?php } ?>
+                            </a></li>
+                        <li class=""><a href="<?php echo base_url() ?>/factura/serie_r">Serie R</a></li>
                     </ul>
                     <!-- /.tab-content -->
                 </div>
                 <!-- nav-tabs-custom -->
-				<?php if ($facturas) { ?>
-                   <!-- <pre>
+                <?php if ($facturas) { ?>
+                    <!-- <pre>
 
-                    <?php /*//print_r($facturas->result()) */?>
+                    <?php /*//print_r($facturas->result()) */ ?>
                     </pre>-->
                     <div class="table-responsive">
 
@@ -81,27 +91,25 @@ $this->layout('admin/admin_master', [
                             </tr>
                             </tfoot>
                             <tbody>
-							<?php foreach ($facturas->result() as $factura)
-							{ ?>
+                            <?php foreach ($facturas->result() as $factura) { ?>
                                 <tr>
                                     <td><?php echo $factura->factura_id ?></td>
                                     <td>
-                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $factura->id; ?>" target="_blank"><?php echo $factura->nombre ?></a>
+                                        <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $factura->id; ?>"
+                                           target="_blank"><?php echo $factura->nombre ?></a>
                                     </td>
                                     <td><?php echo $factura->fecha ?></td>
                                     <td><?php echo $factura->total ?></td>
                                     <td><?php echo $factura->estado ?></td>
                                 </tr>
-							<?php } ?>
+                            <?php } ?>
                             </tbody>
                         </table>
                     </div>
 
-				<?php }
-				else
-				{
-					echo 'Aún no hay facturas';
-				} ?>
+                <?php } else {
+                    echo 'Aún no hay facturas';
+                } ?>
             </div>
             <!-- /.box-body -->
         </div>
@@ -113,21 +121,20 @@ $this->layout('admin/admin_master', [
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-	            <?php if ($facturas) { ?>
+                <?php if ($facturas) { ?>
 
-	            <?php
-                    $total_de_facturas = 0;
-                    foreach ($facturas->result() as $factura)
-	            { ?>
                     <?php
-                    if ($factura->estado == 'activa'){
-	                    $total_de_facturas = $total_de_facturas + $factura->total;
-                    }
+                    $total_de_facturas = 0;
+                    foreach ($facturas->result() as $factura) { ?>
+                        <?php
+                        if ($factura->estado == 'activa') {
+                            $total_de_facturas = $total_de_facturas + $factura->total;
+                        }
 
-                    ?>
+                        ?>
 
 
-	            <?php } ?>
+                    <?php } ?>
 
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -136,7 +143,7 @@ $this->layout('admin/admin_master', [
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Facturas</span>
-                                    <span class="info-box-number">Total: Q.<?php echo $total_de_facturas;?></span>
+                                    <span class="info-box-number">Total: Q.<?php echo $total_de_facturas; ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -144,11 +151,9 @@ $this->layout('admin/admin_master', [
                         </div>
                         <!-- /.col -->
                     </div>
-	            <?php }
-	            else
-	            {
-		            echo 'Aún no hay facturas';
-	            } ?>
+                <?php } else {
+                    echo 'Aún no hay facturas';
+                } ?>
 
             </div>
 

@@ -15,32 +15,45 @@ class Recibo_model  extends CI_Model
 	}
 
 	public function listar_recibos(){
-		$this->db->from('recibos');
-		$this->db->join('cliente', 'cliente.id = recibos.cliente_id');
+        $tienda = tienda_id_h();
+        if ($tienda == '1') {
+            $this->db->from('recibos');
+            $this->db->join('cliente', 'cliente.id = recibos.cliente_id');
+
+        } elseif ($tienda == '2') {
+            $this->db->from('recibos_tienda_2');
+            $this->db->join('cliente', 'cliente.id = recibos_tienda_2.cliente_id');
+        }
+
 		$query = $this->db->get();
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
-	public function guardar_factura($datos){
-
-	}
-
 	public function get_info_recibo($recibo_id){
 		$this->db->where('recibo_id',$recibo_id);
-		$query = $this->db->get('recibos');
+        $tienda = tienda_id_h();
+        if ($tienda == '1') {
+            $query = $this->db->get('recibos');
+
+        } elseif ($tienda == '2') {
+            $query = $this->db->get('recibos_tienda_2');
+        }
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	public function anular_recibo($recibo_id){
 		$datos = array(
 			'estado' => 'anulada'
 		);
 		$this->db->where('recibo_id', $recibo_id);
-		$query = $this->db->update('recibos', $datos);
-	}
+        $tienda = tienda_id_h();
+        if ($tienda == '1') {
+            $query = $this->db->update('recibos', $datos);
 
+        } elseif ($tienda == '2') {
+            $query = $this->db->update('recibos_tienda_2', $datos);
+        }
+	}
 	function recibos_excel()
 	{
 		$fields = $this->db->field_data('recibos');

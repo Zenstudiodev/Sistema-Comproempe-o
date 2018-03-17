@@ -496,6 +496,11 @@ $this->layout('admin/admin_master', [
 
             precio_venta = parseFloat(precio_con_iva * 2).toFixed(2);
 
+            precio_venta_input = $(this).parent().parent().parent().find('.precio_venta').val();
+            if (precio_venta_input > precio_venta){
+                precio_venta = precio_venta_input;
+            }
+
             //agregamos otros Gastos
             precio_con_iva = parseFloat(precio_con_iva + cargo_por_producto);
             iva = parseFloat(precio_con_iva * 0.12).toFixed(2);;

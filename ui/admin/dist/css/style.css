@@ -30,3 +30,11 @@ div#logo_refrendo {
     z-index: 100 !important;
     top: 38px;
 }
+
+div#tienda_id {
+    font-size: 4rem;
+    text-align: center;
+    color: #ffe200;
+    margin: 17px 8px;
+    border: 2px dashed;
+}

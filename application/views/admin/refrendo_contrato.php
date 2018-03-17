@@ -122,8 +122,21 @@ if ($contrato)
 	{
 		$serie_factura_options[$serie->serie] = $serie->serie;
 	}
+	$slected_factura='';
+
+    // Get tienda data
+    $tienda = tienda_id_h();
+
+    // insertamon en la base de datos
+    if($tienda == '1'){
+        $slected_factura='A';
+    }
+    elseif ($tienda =='2'){
+        $slected_factura='CN';
+    }
 
 	?>
+
 
 	<?php if ($productos) { ?>
         <!-- Main content -->
@@ -268,7 +281,7 @@ if ($contrato)
                                            value="" required>
                                 </td>
                                 <td>Serie</td>
-                                <td><?php echo form_dropdown($serie_factura, $serie_factura_options) ?></td>
+                                <td><?php echo form_dropdown($serie_factura, $serie_factura_options, $slected_factura) ?></td>
                             </tr>
                             </tbody>
                         </table>

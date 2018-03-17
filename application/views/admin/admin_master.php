@@ -85,6 +85,9 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
+            <div id="tienda_id">
+                <?php mostrar_tienda(); ?>
+            </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">SECCIONES</li>

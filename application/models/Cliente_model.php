@@ -15,6 +15,8 @@ class Cliente_model extends CI_Model
     }
     public function crear_cliente($form_data){
         $fecha = new DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
         $cliente_data = array(
             'fecha' => $fecha->format('Y-m-d H:i:s'),
             'nombre' => $form_data['nombre'],
@@ -29,12 +31,18 @@ class Cliente_model extends CI_Model
             'ciudad' => $form_data['ciudad'],
             'zona' => $form_data['zona'],
             'colonia' => $form_data['colonia'],
+            'tienda_id' => $tienda,
         );
+
         $this->db->insert('cliente', $cliente_data);
 	    $insert_id = $this->db->insert_id();
 	    return  $insert_id;
     }
 	public function listar_clientes(){
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('tienda_id',$tienda);
+
         $query = $this->db->get('cliente');
         if($query->num_rows() > 0) return $query;
         else return false;
@@ -49,6 +57,9 @@ class Cliente_model extends CI_Model
 		{
 			$this->db->where('fecha  <=', $to);
 		}
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('tienda_id',$tienda);
 		$query = $this->db->get('cliente');
 		if ($query->num_rows() > 0) return $query;
 		else return false;
@@ -99,7 +110,14 @@ class Cliente_model extends CI_Model
     public function listar_empenos($cliente_id){
 	    $this->db->where('cliente_id',$cliente_id);
 	    $this->db->where('tipo','Empeno');
-	    $query = $this->db->get('contrato');
+        // Get tienda data
+        $tienda = tienda_id_h();
+        // actualizamos en la base de datos
+        if ($tienda == '1') {
+            $query = $this->db->get('contrato');
+        } elseif ($tienda == '2') {
+            $query = $this->db->get('contrato_tienda_2');
+        }
 	    if($query->num_rows() > 0) return $query->num_rows();
 	    else return 0;
     }

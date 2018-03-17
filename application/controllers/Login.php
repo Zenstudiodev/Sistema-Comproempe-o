@@ -61,6 +61,7 @@ class Login extends Base_Controller
 						'email' => $result[0]->email,
 						'nombre' => $result[0]->nombre,
 						'rol' => $result[0]->rol,
+						'tienda_id' => $result[0]->tienda_id,
 					);
 					// Add user data in session
 					$this->session->set_userdata('logged_in', $session_data);
