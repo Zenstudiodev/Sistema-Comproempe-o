@@ -44,7 +44,12 @@ class Factura_model extends CI_Model
     {
         $this->db->where('cliente_id', $cliente_id);
         $this->db->where('tipo', 'venta');
-        $query = $this->db->get('facturas');
+        $tienda = tienda_id_h();
+        if ($tienda == '1') {
+            $query = $this->db->get('facturas');
+        } elseif ($tienda == '2') {
+            $query = $this->db->get('facturas_tienda_2');
+        }
         if ($query->num_rows() > 0) return $query;
         else return false;
     }//TODO liquidacion

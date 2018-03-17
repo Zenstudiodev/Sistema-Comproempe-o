@@ -147,15 +147,16 @@ class productos_model extends CI_Model
             $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
             $this->db->from('producto');
             $this->db->where('producto.tipo', 'venta');
-            $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id','left');
+            $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
             $this->db->where('contrato.tienda_id', '1');
         }
         elseif ($tienda =='2'){
-            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_2.estado');
+            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
             $this->db->from('producto');
             $this->db->where('producto.tipo', 'venta');
-            $this->db->where('contrato_tienda_2.tienda_id', '2');
-            $this->db->join('contrato_tienda_2', 'producto.contrato_id = contrato_tienda_2.contrato_id');
+            $this->db->where('producto.tienda_id', '2');
+           // $this->db->where('contrato.tienda_id', '2');
+            $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         }
 
         $query = $this->db->get();
@@ -242,6 +243,13 @@ class productos_model extends CI_Model
         //$this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'compra');
+        $tienda = tienda_id_h();
+        // insertamos en la base de datos
+        if ($tienda == '1') {
+            $this->db->where('producto.tienda_id', '1');
+        } elseif ($tienda == '2') {
+            $this->db->where('producto.tienda_id', '2');
+        }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;

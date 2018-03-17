@@ -38,3 +38,9 @@ function tienda_id_h(){
     $tienda_id = $user_data['tienda_id'];
     return $tienda_id;
 }
+function user_rol(){
+    $ci =& get_instance();
+    $user_data =$ci->session->userdata('logged_in');
+    $rol = $user_data['rol'];
+    return $rol;
+}

@@ -542,7 +542,7 @@ $this->layout('admin/admin_master', [
                                     </h2>
                                 </div>
 
-	                            <?php if ($recibos) { ?>
+	                            <?php if ($recibos_liquidacion) { ?>
                                     <div class="row"></div>
                                     <table id="contratos_table" class="table table-bordered table-striped display">
                                         <thead>
@@ -565,7 +565,7 @@ $this->layout('admin/admin_master', [
 										 </tr>
 										 </tfoot>-->
                                         <tbody>
-			                            <?php foreach ($recibos->result() as $recibo) { ?>
+			                            <?php foreach ($recibos_liquidacion->result() as $recibo) { ?>
 			                            <?php if ($recibo->tipo == 'liquidacion') { ?>
 
                                             <tr>

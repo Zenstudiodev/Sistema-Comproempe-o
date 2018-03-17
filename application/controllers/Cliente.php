@@ -114,6 +114,7 @@ class Cliente extends Base_Controller
 
 		//Recibos
 		$data['recibos']        = $this->Contratos_model->get_recibos_by_cliente_id($data['segmento']);
+		$data['recibos_liquidacion']        = $this->Contratos_model->get_recibos_liquidacion_by_client_id($data['segmento']);
 		$data['Numero_empenos'] = $this->Cliente_model->listar_empenos($data['segmento']);
 		if ($this->session->flashdata('error'))
 		{

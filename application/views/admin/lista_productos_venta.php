@@ -27,7 +27,7 @@ $this->layout('admin/admin_master', [
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Lista de productos a liquidar
+            Lista de productos en venta
             <small></small>
         </h1>
         <!-- TODO breadCrumb

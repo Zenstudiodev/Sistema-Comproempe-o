@@ -47,8 +47,7 @@ $this->layout('admin/admin_master', [
             <div class="box-body">
                 <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>">
                     <?php
-                    print_r($productos);
-                    echo'print'
+
                     ?>
 
 					<?php if ($productos) { ?>

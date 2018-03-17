@@ -277,10 +277,11 @@ class Productos extends Base_Controller
             'tipo' => 'venta',
             'serie_factura' => $this->input->post('serie_factura'),
         );
-        //echo '<pre>';
-        //print_r($datos_factura);
-        //echo '</pre>';
-
+       /* echo '<pre>';
+        print_r($datos_factura);
+        echo '</pre>';
+        exit();
+       */
         //echo '<hr>';
 
         $datos_recibo = array(

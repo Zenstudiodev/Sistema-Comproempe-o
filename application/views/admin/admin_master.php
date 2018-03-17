@@ -88,6 +88,25 @@
             <div id="tienda_id">
                 <?php mostrar_tienda(); ?>
             </div>
+            <?php
+            if(user_rol() =='developer' || user_rol() =='gerencia'){
+                $tienda_id = tienda_id_h();
+
+                if ($tienda_id =='1'){
+                    $tienda_id ='2';
+                }elseif ($tienda_id =='2'){
+                    $tienda_id = '1';
+                }
+
+                ?>
+
+
+                <div id="cambiar_tienda">
+                    <a class="btn btn-block btn-success" href="<?php echo base_url().'user/cambiar_tienda/'.$tienda_id?>">
+                        Cambiar tienda
+                    </a>
+                </div>
+            <?php }?>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">SECCIONES</li>
@@ -162,12 +181,19 @@
                         <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i class="fa fa-circle-o"></i> ingresar Productos</a></li>
                     </ul>
                 </li>
+                <?php
+                if(user_rol() =='developer' || user_rol() =='gerencia'){ ?>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-line-chart"></i> <span>Sistema</span>
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
+                        <li>
+                            <a href="<?php echo base_url() ?>user/lista_de_usuarios">
+                                <i class="fa fa-circle-o"></i>Control de usuarios
+                            </a>
+                        </li>
                         <li>
                             <a href="<?php echo base_url() ?>index.php/home/exportar">
                                 <i class="fa fa-circle-o"></i>Exportar
@@ -180,6 +206,7 @@
                         </li>
                     </ul>
                 </li>
+                <?php }?>
                 <li>
                     <a href="<?php echo base_url() ?>index.php/login/logout">
                         <i class="fa fa-file"></i>
