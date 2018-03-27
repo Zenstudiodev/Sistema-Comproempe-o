@@ -65,6 +65,7 @@ class Proveedor_model extends CI_Model
 
     public function guardar_prorateo($form_data)
     {
+        $tienda = tienda_id_h();
         $prorateo_data = array(
             'p_proveedor_id' => $form_data['proveedor_id'],
             'p_no_factura' => $form_data['no_factura'],
@@ -83,6 +84,7 @@ class Proveedor_model extends CI_Model
             'p_total_costo_neto' => $form_data['total_costo_neto'],
             'p_total_precio_venta' => $form_data['total_precio_venta'],
             'p_total_total_producto' => $form_data['total_total_producto'],
+            'tienda_id' => $tienda,
         );
 
         // insertamon en la base de datos

@@ -235,16 +235,16 @@ class Productos extends Base_Controller
             $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
 
             //echo '<hr>';
-            $detalle_factura .= '<tr>';
+            $detalle_factura .= '<tr style="height: auto;">';
             $detalle_factura .= '<td style="width: 1.90cm"></td>';
             $detalle_factura .= '<td colspan="2">Liquidacion de contrato  ' . $datos_contrato->contrato_id . '</td>';
             $detalle_factura .= '<td style="width: 3.51cm">' . formato_dinero($datos_producto->mutuo) . '</td>';
             $detalle_factura .= '</tr>';
-            $detalle_factura .= '<tr>';
+            $detalle_factura .= '<tr style="height: auto;">';
             $detalle_factura .= '<td></td>';
             $detalle_factura .= '<td colspan="3">' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '</td>';
             $detalle_factura .= '</tr>';
-            $detalle_factura .= '<tr>';
+            $detalle_factura .= '<tr style="height: auto;">';
             $detalle_factura .= '<td></td>';
             $detalle_factura .= '<td colspan="2">' . 'Gastos administrativos' . '</td>';
             $detalle_factura .= '<td>' . formato_dinero($gastos_administrativos) . '<br>';

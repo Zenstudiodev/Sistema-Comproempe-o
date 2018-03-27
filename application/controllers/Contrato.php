@@ -45,7 +45,7 @@ class Contrato extends Base_Controller
 	}
 	function actualizar_estado()
 	{
-		$data['contratos'] = $this->Contratos_model->listar_contratos();
+		$data['contratos'] = $this->Contratos_model->contratos_actuaizador_t1();
 
 		$fecha_actual = new DateTime();
 

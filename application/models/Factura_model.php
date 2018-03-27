@@ -86,7 +86,11 @@ class Factura_model extends CI_Model
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2');
             if ($query->num_rows() > 0) return $query;
-            else return false;
+            else {
+                $query = $this->db->get('facturas_r');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
         }
     }
 

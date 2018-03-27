@@ -181,6 +181,17 @@
                         <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i class="fa fa-circle-o"></i> ingresar Productos</a></li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-money"></i> <span>Caja</span>
+                        <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                Cierre</a></li>
+                        <li><a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a></li>
+                    </ul>
+                </li>
                 <?php
                 if(user_rol() =='developer' || user_rol() =='gerencia'){ ?>
                 <li class="treeview">

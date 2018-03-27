@@ -217,6 +217,7 @@ class productos_model extends CI_Model
     //Productos por inventario
     function guardar_producto_inventario($form_data)
     {
+        $tienda = tienda_id_h();
 
         $datos_de_producto = array(
             'proveedor_id' => $form_data['proveedor_id'],
@@ -232,6 +233,7 @@ class productos_model extends CI_Model
             'precio_venta' => $form_data['precio_venta'],
             'id_prorateo' => $form_data['id_prorateo'],
             'tipo ' => 'compra',
+            'tienda_id' => $tienda,
         );
 
         // insertamon en la base de datos

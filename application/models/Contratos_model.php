@@ -37,6 +37,14 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function contratos_actuaizador_t1(){
+        $this->db->select('contrato.contrato_id, contrato.estado, contrato.total_mutuo, contrato.fecha, contrato.fecha_pago, contrato.tipo, contrato.dias_gracia, contrato.tototal_liquidado, cliente.id, cliente.nombre');
+        $this->db->from('contrato');
+        $this->db->join('cliente', 'cliente.id = contrato.cliente_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
     function listar_contratos_by_date($from, $to)
     {
@@ -294,7 +302,6 @@ class Contratos_model extends CI_Model
 
     function get_recibos_by_cliente_id($cliente_id)
     {
-
         $tienda = tienda_id_h();
         // insertamos en la base de datos
         if ($tienda == '1') {
@@ -303,9 +310,9 @@ class Contratos_model extends CI_Model
             $this->db->join('contrato', 'recibos.contrato_id = contrato.contrato_id');
             $this->db->where('recibos.cliente_id', $cliente_id);
         } elseif ($tienda == '2') {
-            $this->db->select('recibos_tienda_2.recibo_id, recibos_tienda_2.estado, recibos_tienda_2.fecha_recibo, recibos_tienda_2.contrato_id, recibos_tienda_2.monto, recibos_tienda_2.tipo, contrato.total_mutuo');
+            $this->db->select('recibos_tienda_2.recibo_id, recibos_tienda_2.estado, recibos_tienda_2.fecha_recibo, recibos_tienda_2.contrato_id, recibos_tienda_2.monto, recibos_tienda_2.tipo, contrato_tienda_2.total_mutuo');
             $this->db->from('recibos_tienda_2');
-            $this->db->join('contrato', 'recibos_tienda_2.contrato_id = contrato.contrato_id');
+            $this->db->join('contrato_tienda_2', 'recibos_tienda_2.contrato_id = contrato_tienda_2.contrato_id');
             $this->db->where('recibos_tienda_2.cliente_id', $cliente_id);
         }
 
