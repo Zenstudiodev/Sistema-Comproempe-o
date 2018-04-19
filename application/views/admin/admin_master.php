@@ -146,11 +146,18 @@
                             </a>
                         </li>
                         <li>
+                            <a href="<?php echo base_url() ?>index.php/contrato/contratos_vigentes"><i
+                                        class="fa fa-circle-o"></i>
+                                Contratos Vigentes
+                            </a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url() ?>index.php/contrato/contratos_vencidos"><i
                                         class="fa fa-circle-o"></i>
                                 Contratos vencidos
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <li class="treeview">

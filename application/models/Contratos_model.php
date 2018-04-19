@@ -91,6 +91,19 @@ class Contratos_model extends CI_Model
 
     }
 
+    function listar_contratos_vigentes(){
+       $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato.fecha, contrato.estado, contrato.fecha_pago, contrato.dias_gracia, cliente.nombre, cliente.id');
+       // $this->db->select('*');
+        $this->db->from('contrato');
+        $this->db->where('contrato.estado', 'vigente');
+        $this->db->join('producto', 'producto.contrato_id  = contrato.contrato_id');
+       $this->db->join('cliente', 'cliente.id = contrato.cliente_id');
+        $this->db->order_by("producto.contrato_id", "asc");
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
     function listar_contratos_perdidos_by_date($from, $to)
     {
         if ($from != null) {

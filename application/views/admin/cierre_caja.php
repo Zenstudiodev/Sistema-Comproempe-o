@@ -151,7 +151,7 @@ $m_5 = array(
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cierre Caja
+            Cierre Caja -
             <small></small>
         </h1>
     </section>
@@ -169,39 +169,47 @@ $m_5 = array(
                 <div class="row">
                     <div class="col-md-6">
                         <h2 class="page-header">
-                            Ingreos
+                            Ingresos
                         </h2>
 
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Ventas</h3>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Factura</th>
-                                    <th>Monto</th>
-                                    <th>Cod. Producto</th>
-                                    <th>Nombre Producto</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>0</td>
-                                    <td>20</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>150</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Total</td>
-                                    <td id="totaL_ingresos">-</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <?php if ($ventas) {
+                                $total_ventas= 0;
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Factura</th>
+                                        <th>Monto</th>
+                                        <th>Cod. Producto</th>
+                                        <th>Nombre Producto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($ventas->result() as $venta) {
+                                        $total_ventas = $total_ventas + $venta->monto;
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $venta->factura_id ?></td>
+                                                <td><?php echo display_formato_dinero($venta->monto); ?></td>
+                                                <td><?php echo $venta->id_producto ?></td>
+                                                <td><?php echo $venta->nombre_producto ?></td>
+                                            </tr>
+                                            <?php
+                                        } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_ingresos"><?php echo  display_formato_dinero($total_ventas); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php }else
+                            {
+                            echo 'No hay ventas';
+                            } ?>
+
                         </div>
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Apartado</h3>
@@ -216,24 +224,42 @@ $m_5 = array(
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Total</td>
-                                    <td id="totaL_apartado">-</td>
-                                </tr>
+                                <?php if ($apartados) {
+                                    $total_apartados= 0;
+                                    ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Factura</th>
+                                            <th>Monto</th>
+                                            <th>Cod. Producto</th>
+                                            <th>Nombre Producto</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <?php foreach ($apartados->result() as $apartado) {
+                                            $total_apartados = $total_apartados + $apartado->monto;
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $apartado->recibo_id ?></td>
+                                                <td><?php echo display_formato_dinero($apartado->monto); ?></td>
+                                                <td><?php echo $apartado->id_producto ?></td>
+                                                <td><?php echo $apartado->saldo ?></td>
+                                                <td><?php echo $apartado->fecha_vencimiento ?></td>
+                                            </tr>
+                                            <?php
+                                        } ?>
+                                        <tr>
+                                            <td colspan="3">Total</td>
+                                            <td id="totaL_ingresos"><?php echo  display_formato_dinero($total_apartados); ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                <?php }else
+                                {
+                                    echo 'No hay apartados';
+                                } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -249,22 +275,42 @@ $m_5 = array(
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">Total</td>
-                                    <td id="totaL_abono_empeño">-</td>
-                                </tr>
+                                <?php if ($abonos_enpenos) {
+                                    $total_abonos_enpenos= 0;
+                                    ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Factura</th>
+                                            <th>Monto</th>
+                                            <th>Cod. Producto</th>
+                                            <th>Nombre Producto</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <?php foreach ($abonos_enpenos->result() as $abono) {
+                                            $total_abonos_enpenos = $total_abonos_enpenos + $abono->monto;
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $abono->recibo_id ?></td>
+                                                <td><?php echo display_formato_dinero($abono->monto); ?></td>
+                                                <td><?php echo $abono->id_producto ?></td>
+                                                <td><?php echo $abono->saldo ?></td>
+                                                <td><?php echo $abono->fecha_vencimiento ?></td>
+                                            </tr>
+                                            <?php
+                                        } ?>
+                                        <tr>
+                                            <td colspan="3">Total</td>
+                                            <td id="totaL_ingresos"><?php echo  display_formato_dinero($total_abonos_enpenos); ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                <?php }else
+                                {
+                                    echo 'No hay abonos';
+                                } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -309,6 +355,43 @@ $m_5 = array(
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php if ($abonos_enpenos) {
+                                    $total_abonos_enpenos= 0;
+                                    ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Factura</th>
+                                            <th>Monto</th>
+                                            <th>Cod. Producto</th>
+                                            <th>Nombre Producto</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <?php foreach ($abonos_enpenos->result() as $abono) {
+                                            $total_abonos_enpenos = $total_abonos_enpenos + $abono->monto;
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $abono->recibo_id ?></td>
+                                                <td><?php echo display_formato_dinero($abono->monto); ?></td>
+                                                <td><?php echo $abono->id_producto ?></td>
+                                                <td><?php echo $abono->saldo ?></td>
+                                                <td><?php echo $abono->fecha_vencimiento ?></td>
+                                            </tr>
+                                            <?php
+                                        } ?>
+                                        <tr>
+                                            <td colspan="3">Total</td>
+                                            <td id="totaL_ingresos"><?php echo  display_formato_dinero($total_abonos_enpenos); ?></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                <?php }else
+                                {
+                                    echo 'No hay abonos';
+                                } ?>
+
                                 <tr>
                                     <td>0</td>
                                     <td>0</td>

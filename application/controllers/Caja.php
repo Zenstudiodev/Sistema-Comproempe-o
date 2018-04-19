@@ -17,6 +17,7 @@ class Caja extends Base_Controller
         $this->load->model('Contratos_model');
         $this->load->model('Factura_model');
         $this->load->model('Recibo_model');
+        $this->load->model('Caja_model');
     }
 
     function index()
@@ -25,10 +26,16 @@ class Caja extends Base_Controller
     }
     function cierre(){
         $data = compobarSesion();
-        echo $this->templates->render('admin/cierre_caja', $data);
 
+        $data['ventas']= $this->Caja_model->get_ventas_dia();
+        $data['apartados']= $this->Caja_model->get_apartados_dia();
+        $data['abonos_enpenos']= $this->Caja_model->get_abono_empeno_dia();
+        $data['desenpeños']= $this->Caja_model->get_desempeno();
+        echo $this->templates->render('admin/cierre_caja', $data);
     }
     function reporte(){
 
     }
+
+
 }

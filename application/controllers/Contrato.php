@@ -661,6 +661,11 @@ class Contrato extends Base_Controller
 		}
 		echo $this->templates->render('admin/lista_contratos_perdidos', $data);
 	}
+	function contratos_vigentes(){
+        $data = compobarSesion();
+        $data['contratos']= $this->Contratos_model->listar_contratos_vigentes();
+        echo $this->templates->render('admin/lista_contratos_vigentes', $data);
+    }
 
 
 	function contratos_excel()

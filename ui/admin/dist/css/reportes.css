@@ -1,0 +1,135 @@
+@media print {
+    @page {
+        size: letter portrait;
+        margin: 0.5cm;
+    }
+
+    html {
+        font-family: Calibri, Arial;
+    }
+    body{
+        width: 21.59cm;
+        margin: 0.5cm;
+    }
+
+    .box-header, .main-footer {
+        display: none;
+    }
+
+    .box.box-primary {
+        border: none;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 3px;
+    }
+
+    #contrato::-webkit-scrollbar {
+        display: none;
+    }
+
+    div#logo_print {
+        height: 80px;
+        width: 100px;
+        margin: 0 auto;
+    }
+
+    div#logo_refrendo {
+        height: 80px;
+        width: 100px;
+        margin: 0;
+    }
+
+    table {
+        font-size: 8px;
+    }
+
+    thead {
+        text-align: center;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .wrapper {
+        overflow: hidden;
+    }
+
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 3px;
+        line-height: 1.42857143;
+        vertical-align: middle;
+        border-top: 1px solid #ddd;
+    }
+
+    .table-bordered {
+        border: 2px solid #2f2f2f;
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #2f2f2f !important;
+    }
+
+    .input-group .input-group-addon {
+        border-radius: 0;
+        border: none;
+    }
+
+    .form-control {
+        border: none;
+        padding: 0;
+    }
+
+    .input-group-addon {
+        padding: 0;
+    }
+
+    /*FACTURA*/
+    #imprimir_factura {
+        width: 21.59cm;
+        /*border:0.25pt solid black;*/
+        border: 0;
+    }
+
+    #imprimir_factura table {
+        width: 21.59cm;
+    }
+
+    table#detalle_factura {
+        /* border: 1px solid black;*/
+        border: 0;
+    }
+
+    #detalle_factura tr {
+        height: 1.5cm;
+    }
+
+    #detalle_factura td {
+        padding: 0.2cm;
+    }
+
+    /*RECIBO*/
+    #logo_recibo {
+        width: 3cm;
+    }
+
+    #imprimir_recibo table {
+        margin: 0.8cm 0cm;
+    }
+    .content {
+        padding: 0;
+    }
+
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    p.codigo_p {
+        font-size: 23pt;
+    }
+
+}
