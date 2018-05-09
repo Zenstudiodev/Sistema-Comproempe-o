@@ -48,7 +48,7 @@ $this->layout('admin/admin_master', [
                 <form method="post" action="<? echo base_url() . 'index.php/Productos/productos_vender/' ?>">
 					<?php if ($productos) { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
-                            <i class="fa fa-file-text-o"></i> Liquidar productos
+                            <i class="fa fa-file-text-o"></i> Vender productos
                         </button>
                         <!-- <pre>
 

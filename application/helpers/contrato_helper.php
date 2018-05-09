@@ -92,6 +92,7 @@ function diferencia_dias($fecha_pago)
 
 	$d1        = $fecha_actual;
 	$d2        = new DateTime($fecha_pago);
+	//$d2->modify('+1 days');
 	$diff      = $d1->diff($d2);
 	$d1_format = $d1->format('Y-m-d');
 	$d2_format = $d2->format('Y-m-d');
@@ -114,7 +115,8 @@ function descuento_sugerido($fecha_pago){
 
 	$d1        = $fecha_actual;
 	$d2        = new DateTime($fecha_pago);
-	$diff      = $d1->diff($d2);
+    //$d2->modify('+1 days');
+    $diff      = $d1->diff($d2);
 	$d1_format = $d1->format('Y-m-d');
 	$d2_format = $d2->format('Y-m-d');
 	$diferencia_dias = intval($diff->format('%R%a'));

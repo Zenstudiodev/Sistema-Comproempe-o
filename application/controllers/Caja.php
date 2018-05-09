@@ -30,7 +30,14 @@ class Caja extends Base_Controller
         $data['ventas']= $this->Caja_model->get_ventas_dia();
         $data['apartados']= $this->Caja_model->get_apartados_dia();
         $data['abonos_enpenos']= $this->Caja_model->get_abono_empeno_dia();
-        $data['desenpeños']= $this->Caja_model->get_desempeno();
+        $data['desenpenos']= $this->Caja_model->get_desempeno();
+        $data['intereses_refrendo']= $this->Caja_model->get_intereses_refrendo();
+        $data['intereses_desempeno']= $this->Caja_model->get_intereses_desempeno();
+        $data['empenos']= $this->Caja_model->get_empenos();
+        $data['compras']= $this->Caja_model->get_compras();
+        $data['otros_gastos']= $this->Caja_model->get_otros_gastos();
+        $data['depositos']= $this->Caja_model->get_depositos();
+        $data['visanets']= $this->Caja_model->get_visanet();
         echo $this->templates->render('admin/cierre_caja', $data);
     }
     function reporte(){

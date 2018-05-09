@@ -195,6 +195,12 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                Ingresar otros gastos</a></li>
+                        <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                Ingresar Depósito</a></li>
+                        <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                Ingresar Visanet</a></li>
+                        <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
                                 Cierre</a></li>
                         <li><a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a></li>
                     </ul>
