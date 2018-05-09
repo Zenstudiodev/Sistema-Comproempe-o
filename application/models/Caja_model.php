@@ -16,6 +16,43 @@ class Caja_model extends CI_Model
     }
 
     //guardar registros del dia
+    function guardar_ventas_dia($data){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $datos_venta= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'factura_id'=>$data['factura_id'],
+            'monto'=>$data['monto'],
+            'id_producto'=>$data['id_producto'],
+            'nombre_producto'=>$data['nombre_producto'],
+            'tienda_id'=>$tienda
+        );
+
+        $this->db->insert('ingresos', $datos_venta);
+    }
+    function guardar_intereses_refrendo($data){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $datos_venta= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'factura_id'=>$data['factura_id'],
+            'monto'=>$data['monto'],
+            'id_contrato'=>$data['contrato'],
+            'mutuo'=>$data['monto_refrendado'],
+            'tipo'=>'intereses_refrendo',
+            'tienda_id'=>$tienda
+        );
+
+        $this->db->insert('ingresos', $datos_venta);
+    }
+
+
     //Obtener registros del día
     function get_ventas_dia(){
         //fecha

@@ -266,16 +266,6 @@ $m_5 = array(
                         </div>
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Abono Empeño</h3>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Recibo</th>
-                                    <th>Monto</th>
-                                    <th>Contrato</th>
-                                    <th>Saldo capital</th>
-                                </tr>
-                                </thead>
-                                <tbody>
                                 <?php
                                 $total_abonos_enpenos = 0;
                                 if ($abonos_enpenos) {
@@ -284,10 +274,10 @@ $m_5 = array(
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>Factura</th>
+                                            <th>Recibo</th>
                                             <th>Monto</th>
-                                            <th>Cod. Producto</th>
-                                            <th>Nombre Producto</th>
+                                            <th>Contrato</th>
+                                            <th>Saldo capital</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -298,9 +288,8 @@ $m_5 = array(
                                             <tr>
                                                 <td><?php echo $abono->recibo_id ?></td>
                                                 <td><?php echo display_formato_dinero($abono->monto); ?></td>
-                                                <td><?php echo $abono->id_producto ?></td>
+                                                <td><?php echo $abono->id_contrato ?></td>
                                                 <td><?php echo $abono->saldo ?></td>
-                                                <td><?php echo $abono->fecha_vencimiento ?></td>
                                             </tr>
                                             <?php
                                         } ?>
@@ -313,8 +302,6 @@ $m_5 = array(
                                 <?php } else {
                                     echo 'No hay abonos';
                                 } ?>
-                                </tbody>
-                            </table>
                         </div>
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Desempeño</h3>
@@ -462,6 +449,8 @@ $m_5 = array(
                                             <td><?php echo $empeno->contrato_id ?></td>
                                             <td><?php echo display_formato_dinero($empeno->monto); ?></td>
                                             <td><?php echo $empeno->intereses ?></td>
+                                            <td><?php echo $empeno->dias ?></td>
+                                            <td><?php echo $empeno->monto_refrendo ?></td>
                                         </tr>
                                         <?php
                                     } ?>

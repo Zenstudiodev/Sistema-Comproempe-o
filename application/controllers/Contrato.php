@@ -17,6 +17,7 @@ class Contrato extends Base_Controller
 		$this->load->model('Productos_model');
 		$this->load->model('Contratos_model');
 		$this->load->model('Factura_model');
+		$this->load->model('Caja_model');
 		$this->load->library('NumeroALetras');
 	}
 
@@ -393,6 +394,17 @@ class Contrato extends Base_Controller
 			'usuario'=> $data['user_id'],
 		);
 		$this->Contratos_model->guardar_log($datos_log);
+
+		//guardamos el movimiento en caja
+        $intereses_refrendo = array(
+            'factura_id'=>$datos_factura['no_factura'],
+            'monto'=>$datos_factura['total'],
+            'contrato'=>$datos_factura['contrato_id'],
+            'monto_refrendado'=>$contrato->total_mutuo,
+        );
+        $this->Caja_model->guardar_intereses_refrendo($intereses_refrendo);
+
+
 
 		//redrigimos a detalle de cliente
 		redirect(base_url() . 'cliente/detalle/' . $datos_factura['cliente_id']);
