@@ -139,9 +139,6 @@ $m_5 = array(
 ?>
 <!--Css Personalizadoc para vista-->
 <?php $this->start('css_p') ?>
-<!-- DataTables -->
-<link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/plugins/datatables/dataTables.bootstrap.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/plugins/daterangepicker/daterangepicker.css">
 <?php $this->stop() ?>
 
 <?php $this->start('page_content') ?>

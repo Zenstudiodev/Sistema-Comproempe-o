@@ -43,6 +43,26 @@ class Caja extends Base_Controller
     function reporte(){
 
     }
+    function ingreso_deposito(){
+        $data = compobarSesion();
+        $data['depositos']= $this->Caja_model->get_depositos();
+        echo $this->templates->render('admin/ingreso_depositos', $data);
+    }
+    function guardar_deposito(){
+        $data                     = compobarSesion();
+        $datos_deposito = array(
+            'boleta'    => $this->input->post('boleta'),
+            'monto'    => $this->input->post('monto'),
+            'banco'   => $this->input->post('banco'),
+            'tipo'         => $this->input->post('tipo'),
+            'documento'       => $this->input->post('documento'),
+
+        );
+        //guardamos deposito
+        $this->Caja_model->guardar_deposito($datos_deposito);
+        //redirigimos a depositos
+        redirect(base_url() . 'Caja/ingreso_deposito');
+    }
 
 
 }

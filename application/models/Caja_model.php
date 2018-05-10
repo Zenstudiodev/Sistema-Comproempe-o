@@ -52,6 +52,23 @@ class Caja_model extends CI_Model
         $this->db->insert('ingresos', $datos_venta);
     }
 
+    function guardar_deposito($data){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $datos_venta= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'no_boleta'=>$data['boleta'],
+            'monto'=>$data['monto'],
+            'banco'=>$data['banco'],
+            'tipo'=>$data['tipo'],
+            'documento'=>$data['documento'],
+            'tienda_id'=>$tienda
+        );
+        $this->db->insert('depositos', $datos_venta);
+    }
+
 
     //Obtener registros del día
     function get_ventas_dia(){
