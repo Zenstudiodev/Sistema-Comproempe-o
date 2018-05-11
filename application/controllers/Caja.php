@@ -64,5 +64,39 @@ class Caja extends Base_Controller
         redirect(base_url() . 'Caja/ingreso_deposito');
     }
 
+    function ingreso_visanet(){
+        $data = compobarSesion();
+        $data['visanets']= $this->Caja_model->get_visanet();
+        echo $this->templates->render('admin/ingreso_visanet', $data);
+    }
+    function guardar_visanet(){
+        $data                     = compobarSesion();
+        $datos_visanet = array(
+            'factura_id'    => $this->input->post('factura_id'),
+            'recibo_id'    => $this->input->post('recibo_id'),
+            'monto'    => $this->input->post('monto'),
+        );
+        //guardamos visanet
+        $this->Caja_model->guardar_visanet($datos_visanet);
+        //redirigimos a visanet
+        redirect(base_url() . 'Caja/ingreso_visanet');
+    }
+    function ingreso_otros_gastos(){
+        $data = compobarSesion();
+        $data['otros_gastos']= $this->Caja_model->get_otros_gastos();
+        echo $this->templates->render('admin/ingreso_otros_gastos', $data);
+    }
+    function guardar_otros_gastos(){
+        $data                     = compobarSesion();
+        $datos_otros_gastos = array(
+            'detalle'    => $this->input->post('datalle'),
+            'monto'    => $this->input->post('monto'),
+        );
+        //guardamos visanet
+        $this->Caja_model->guardar_otros_gastos($datos_otros_gastos);
+        //redirigimos a visanet
+        redirect(base_url() . 'Caja/ingreso_otros_gastos');
+    }
+
 
 }

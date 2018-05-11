@@ -40,7 +40,7 @@ class Caja_model extends CI_Model
         $tienda = tienda_id_h();
 
         $datos_venta= array(
-            'fecha'=>$fecha->format('Y-m-d'),
+            'ingreso_fecha'=>$fecha->format('Y-m-d'),
             'factura_id'=>$data['factura_id'],
             'monto'=>$data['monto'],
             'id_contrato'=>$data['contrato'],
@@ -67,6 +67,34 @@ class Caja_model extends CI_Model
             'tienda_id'=>$tienda
         );
         $this->db->insert('depositos', $datos_venta);
+    }
+    function guardar_visanet($data){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $datos_venta= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'factura_id'=>$data['factura_id'],
+            'recibo_id'=>$data['recibo_id'],
+            'monto'=>$data['monto'],
+            'tienda_id'=>$tienda
+        );
+        $this->db->insert('visanet', $datos_venta);
+    }
+    function guardar_otros_gastos($data){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $datos_venta= array(
+            'fecha'=>$fecha->format('Y-m-d'),
+            'tipo'=>'otros_gastos',
+            'detalle'=>$data['detalle'],
+            'monto'=>$data['monto'],
+            'tienda_id'=>$tienda
+        );
+        $this->db->insert('egresos', $datos_venta);
     }
 
 

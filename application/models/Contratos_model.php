@@ -45,6 +45,14 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function contratos_actuaizador_t2(){
+        $this->db->select('contrato_tienda_2.contrato_id, contrato_tienda_2.estado, contrato_tienda_2.total_mutuo, contrato_tienda_2.fecha, contrato_tienda_2.fecha_pago, contrato_tienda_2.tipo, contrato_tienda_2.dias_gracia, contrato_tienda_2.tototal_liquidado, cliente.id, cliente.nombre');
+        $this->db->from('contrato_tienda_2');
+        $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
     function listar_contratos_by_date($from, $to)
     {

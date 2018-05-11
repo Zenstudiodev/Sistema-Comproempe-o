@@ -46,14 +46,20 @@ class Contrato extends Base_Controller
 	}
 	function actualizar_estado()
 	{
-		$data['contratos'] = $this->Contratos_model->contratos_actuaizador_t1();
+        $contratos_tienda_1 = $this->Contratos_model->contratos_actuaizador_t1();
+
+		$contratos_tienda_2 = $this->Contratos_model->contratos_actuaizador_t2();
+
+        echo '<p>'.$contratos_tienda_1->num_rows(). ' Contratos en tienda 1</p>';
+        echo '<p>'.$contratos_tienda_2->num_rows(). ' Contratos en tienda 2</p>';
 
 		$fecha_actual = new DateTime();
 
-		if ($data['contratos'])
+		if ($contratos_tienda_1)
 		{
+		    echo '<h1>CONTRATOS TIENDA 1</h1>';
 
-			foreach ($data['contratos']->result() as $contrato)
+			foreach ($contratos_tienda_1->result() as $contrato)
 			{
 				$fecha_contrato = new DateTime($contrato->fecha_pago);
 
@@ -81,7 +87,7 @@ class Contrato extends Base_Controller
 							echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
 
 
-							if ($diferencia_dias < 7)
+							if ($diferencia_dias < 8)
 							{
 
 								$this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
@@ -104,6 +110,61 @@ class Contrato extends Base_Controller
 				}
 			}
 		}
+        if ($contratos_tienda_2)
+        {
+            echo '<h1>CONTRATOS TIENDA 2</h1>';
+
+            foreach ($contratos_tienda_2->result() as $contrato)
+            {
+                $fecha_contrato = new DateTime($contrato->fecha_pago);
+
+                if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado')
+                {
+                    echo '<p>' . $contrato->contrato_id . '</p>';
+                    echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
+                    echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
+
+                    if ($fecha_actual < $fecha_contrato)
+                    {
+                        echo '<p>Aun no se ha pasado la fecha de pago</p>';
+                    }
+                    else
+                    {
+                        echo '<p>ya se paso la fecha de pago</p>';
+
+                        $interval        = $fecha_contrato->diff($fecha_actual);
+                        $diferencia_dias = intval($interval->format('%R%a'));
+                        if ($contrato->tipo == 'Empeno')
+                        {
+                            //echo '<p>Es un empeño</p>';
+
+                            echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
+
+
+                            if ($diferencia_dias < 8)
+                            {
+
+                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
+
+                                echo '<p>en dias de gracia</p>';
+                            }
+                            else
+                            {
+                                echo '<p>Contrato Vencido</p>';
+                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'perdido');
+                                $productos = $this->Productos_model->get_productos_by_contrato($contrato->contrato_id);
+                                foreach ($productos->result() as $producto)
+                                {
+                                    $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                }
+                            }
+                        }
+                    }
+                    echo '<hr>';
+                }
+            }
+        }
 
 		$this->email->from('info@xn--comproempeo-beb.com', 'Comproempeño');
 		$this->email->to('la_samayoa@hotmail.com');
@@ -581,25 +642,27 @@ class Contrato extends Base_Controller
 		$data['productos'] = $this->Productos_model->get_productos_by_contrato($data['segmento_contrato']);
 
 		$contrato = $data['contrato']->row();
+		$cliente = $data['cliente']->row();
+
 
 		//echo $contrato->contrato_id;
-
-
 		//echo '<pre>';
 		//print_r($data['productos']->result());
 		//echo '</pre>';
+        if($data['productos']){
 
-		foreach ($data['productos']->result() as $producto)
-		{
+            foreach ($data['productos']->result() as $producto)
+            {
+                $this->Productos_model->liberar_producto_de_contrato($producto->producto_id);
+                //echo 'Asignar contrato 0 a producto '. $producto->producto_id.' del contrato '.$contrato->contrato_id.'<br>';
+            }
 
-			$this->Productos_model->liberar_producto_de_contrato($producto->producto_id);
-			//echo 'Asignar contrato 0 a producto '. $producto->producto_id.' del contrato '.$contrato->contrato_id.'<br>';
-
-		}
+        }else{
+            //echo'no hay productos';
+        }
 		$estado_contrato = 'anulado';
-
 		$this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, $estado_contrato);
-		redirect(base_url() . 'cliente/detalle/' . $producto->cliente_id);
+		redirect(base_url() . 'cliente/detalle/' . $cliente->id);
 
 	}
 	function guardar_seguimiento()
