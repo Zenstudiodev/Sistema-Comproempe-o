@@ -45,10 +45,13 @@ $this->layout('admin/admin_master', [
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="post" action="<? echo base_url() . 'index.php/Productos/productos_vender/' ?>">
+                <form method="post" action="<? echo base_url() . 'index.php/Productos/productos_vender/' ?>" id="productList_form">
 					<?php if ($productos) { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                             <i class="fa fa-file-text-o"></i> Vender productos
+                        </button>
+                        <button type="submit" class="btn btn-app" id="apartar_btn">
+                            <i class="fa fa-file-text-o"></i> Apartar productos
                         </button>
                         <!-- <pre>
 
@@ -186,6 +189,12 @@ $this->layout('admin/admin_master', [
 <?php $this->start('js_ps') ?>
 <!-- page script -->
 <script>
+    $("#apartar_btn").click(function () {
+        event.preventDefault();
+        $("#productList_form").attr('action', '<?php echo base_url()."productos/productos_apartar"?>');
+        $("#productList_form").submit();
+    });
+
     $(document).ready(function () {
         // Setup - add a text input to each footer cell
         $('#example1 tfoot th').each(function () {

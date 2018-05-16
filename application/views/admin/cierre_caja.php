@@ -136,6 +136,7 @@ $m_5 = array(
     'min' => '0'
 );
 
+
 ?>
 <!--Css Personalizadoc para vista-->
 <?php $this->start('css_p') ?>
@@ -167,6 +168,48 @@ $m_5 = array(
                         <h2 class="page-header">
                             Ingresos
                         </h2>
+
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Ingresos a caja</h3>
+                            <?php
+                            $total_ingresos_caja = 0;
+                            if ($ingresos_caja) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Monto</th>
+                                        <th>Banco</th>
+                                        <th>No. Cheque</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($ingresos_caja->result() as $ingreso) {
+                                        $total_ingresos_caja = $total_ingresos_caja + $ingreso->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo display_formato_dinero($ingreso->monto); ?></td>
+                                            <td><?php echo $ingreso->banco ?></td>
+                                            <td><?php echo $ingreso->no_cheque ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_ingresos_caja); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay Ingresos';
+                            } ?>
+
+                        </div>
+
+
+
 
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Ventas</h3>
@@ -662,10 +705,13 @@ $m_5 = array(
                 </div>
 
                 <?php
+
+
                 //calculos de totales
                 //ingresps
                 $total_ingresos
-                    = $total_ventas
+                    = $total_ingresos_caja
+                    + $total_ventas
                     + $total_apartados
                     + $total_abonos_enpenos
                     + $total_desenpeno

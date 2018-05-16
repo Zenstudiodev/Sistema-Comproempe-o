@@ -27,6 +27,7 @@ class Caja extends Base_Controller
     function cierre(){
         $data = compobarSesion();
 
+        $data['ingresos_caja']= $this->Caja_model->get_fondos_caja();
         $data['ventas']= $this->Caja_model->get_ventas_dia();
         $data['apartados']= $this->Caja_model->get_apartados_dia();
         $data['abonos_enpenos']= $this->Caja_model->get_abono_empeno_dia();
@@ -38,6 +39,7 @@ class Caja extends Base_Controller
         $data['otros_gastos']= $this->Caja_model->get_otros_gastos();
         $data['depositos']= $this->Caja_model->get_depositos();
         $data['visanets']= $this->Caja_model->get_visanet();
+
         echo $this->templates->render('admin/cierre_caja', $data);
     }
     function reporte(){
@@ -96,6 +98,23 @@ class Caja extends Base_Controller
         $this->Caja_model->guardar_otros_gastos($datos_otros_gastos);
         //redirigimos a visanet
         redirect(base_url() . 'Caja/ingreso_otros_gastos');
+    }
+    function ingresar_fondo_caja(){
+        $data = compobarSesion();
+        $data['ingresos']= $this->Caja_model->get_fondos_caja();
+        echo $this->templates->render('admin/ingresar_fondo_caja', $data);
+    }
+    function guardar_fondo_caja(){
+        $data                     = compobarSesion();
+        $datos_fondos_caja = array(
+            'no_cheque'    => $this->input->post('no_cheque'),
+            'monto'    => $this->input->post('monto'),
+            'banco'    => $this->input->post('banco'),
+        );
+        //guardamos visanet
+        $this->Caja_model->guardar_fondo_caja($datos_fondos_caja);
+        //redirigimos a visanet
+        redirect(base_url() . 'Caja/ingresar_fondo_caja');
     }
 
 

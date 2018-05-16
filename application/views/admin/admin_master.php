@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/dist/css/skins/_all-skins.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/dist/css/style.css" type="text/css">
     <!--Css Personalizadoc para vista-->
-	<?php echo $this->section('css_p') ?>
+    <?php echo $this->section('css_p') ?>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -89,12 +89,12 @@
                 <?php mostrar_tienda(); ?>
             </div>
             <?php
-            if(user_rol() =='developer' || user_rol() =='gerencia'){
+            if (user_rol() == 'developer' || user_rol() == 'gerencia') {
                 $tienda_id = tienda_id_h();
 
-                if ($tienda_id =='1'){
-                    $tienda_id ='2';
-                }elseif ($tienda_id =='2'){
+                if ($tienda_id == '1') {
+                    $tienda_id = '2';
+                } elseif ($tienda_id == '2') {
                     $tienda_id = '1';
                 }
 
@@ -102,11 +102,12 @@
 
 
                 <div id="cambiar_tienda">
-                    <a class="btn btn-block btn-success" href="<?php echo base_url().'user/cambiar_tienda/'.$tienda_id?>">
+                    <a class="btn btn-block btn-success"
+                       href="<?php echo base_url() . 'user/cambiar_tienda/' . $tienda_id ?>">
                         Cambiar tienda
                     </a>
                 </div>
-            <?php }?>
+            <?php } ?>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">SECCIONES</li>
@@ -185,7 +186,8 @@
                     <ul class="treeview-menu">
                         <li><a href="<?php echo base_url() ?>index.php/proveedores"><i class="fa fa-circle-o"></i>
                                 Proveedores</a></li>
-                        <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i class="fa fa-circle-o"></i> ingresar Productos</a></li>
+                        <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i
+                                        class="fa fa-circle-o"></i> ingresar Productos</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -194,43 +196,57 @@
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?php echo base_url() ?>Caja/ingreso_otros_gastos"><i class="fa fa-circle-o"></i>
-                                Ingresar otros gastos</a></li>
-                        <li><a href="<?php echo base_url() ?>Caja/ingreso_deposito"><i class="fa fa-circle-o"></i>
-                                Ingresar Depósito</a></li>
-                        <li><a href="<?php echo base_url() ?>Caja/ingreso_visanet"><i class="fa fa-circle-o"></i>
-                                Ingresar Visanet</a></li>
-                        <li><a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
-                                Cierre</a></li>
-                        <li><a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a></li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/ingresar_fondo_caja"><i class="fa fa-circle-o"></i>
+                                Ingresar fondos a caja</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/ingreso_otros_gastos"><i class="fa fa-circle-o"></i>
+                                Ingresar otros gastos</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/ingreso_deposito"><i class="fa fa-circle-o"></i>
+                                Ingresar Depósito</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/ingreso_visanet"><i class="fa fa-circle-o"></i>
+                                Ingresar Visanet</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                Cierre</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a>
+                        </li>
                     </ul>
                 </li>
                 <?php
-                if(user_rol() =='developer' || user_rol() =='gerencia'){ ?>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-line-chart"></i> <span>Sistema</span>
-                        <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="<?php echo base_url() ?>user/lista_de_usuarios">
-                                <i class="fa fa-circle-o"></i>Control de usuarios
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>index.php/home/exportar">
-                                <i class="fa fa-circle-o"></i>Exportar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>index.php/home/registros">
-                                <i class="fa fa-circle-o"></i>Registros
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <?php }?>
+                if (user_rol() == 'developer' || user_rol() == 'gerencia') { ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-line-chart"></i> <span>Sistema</span>
+                            <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="<?php echo base_url() ?>user/lista_de_usuarios">
+                                    <i class="fa fa-circle-o"></i>Control de usuarios
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>index.php/home/exportar">
+                                    <i class="fa fa-circle-o"></i>Exportar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>index.php/home/registros">
+                                    <i class="fa fa-circle-o"></i>Registros
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } ?>
                 <li>
                     <a href="<?php echo base_url() ?>index.php/login/logout">
                         <i class="fa fa-file"></i>
@@ -246,7 +262,7 @@
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
-	<?php echo $this->section('page_content') ?>
+    <?php echo $this->section('page_content') ?>
     <!-- /.content-wrapper -->
 
     <footer class="main-footer">

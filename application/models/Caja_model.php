@@ -83,18 +83,32 @@ class Caja_model extends CI_Model
         $this->db->insert('visanet', $datos_venta);
     }
     function guardar_otros_gastos($data){
+    //fecha
+    $fecha = New DateTime();
+    // Get tienda data
+    $tienda = tienda_id_h();
+    $datos_venta= array(
+        'fecha'=>$fecha->format('Y-m-d'),
+        'tipo'=>'otros_gastos',
+        'detalle'=>$data['detalle'],
+        'monto'=>$data['monto'],
+        'tienda_id'=>$tienda
+    );
+    $this->db->insert('egresos', $datos_venta);
+}
+    function guardar_fondo_caja($data){
         //fecha
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $datos_venta= array(
             'fecha'=>$fecha->format('Y-m-d'),
-            'tipo'=>'otros_gastos',
-            'detalle'=>$data['detalle'],
+            'no_cheque'=>$data['no_cheque'],
             'monto'=>$data['monto'],
+            'banco'=>$data['banco'],
             'tienda_id'=>$tienda
         );
-        $this->db->insert('egresos', $datos_venta);
+        $this->db->insert('fondos_a_caja', $datos_venta);
     }
 
 
@@ -230,6 +244,17 @@ class Caja_model extends CI_Model
         $this->db->where('fecha',$fecha->format('Y-m-d'));
         $this->db->where('tienda_id',$tienda);
         $query = $this->db->get('visanet');
+        if($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_fondos_caja(){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('fecha',$fecha->format('Y-m-d'));
+        $this->db->where('tienda_id',$tienda);
+        $query = $this->db->get('fondos_a_caja');
         if($query->num_rows() > 0) return $query;
         else return false;
     }
