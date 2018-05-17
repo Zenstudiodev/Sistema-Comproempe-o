@@ -150,7 +150,8 @@ class Contratos_model extends CI_Model
             'fecha_pago' => $data['fecha_pago'],
             'dias_gracia' => $data['dias_gracia'],
             'tipo' => $data['tipo'],
-            'cotitular' => $data['cotitular']
+            'cotitular' => $data['cotitular'],
+            'estado' => $data['estado']
         );
 
         // Get tienda data

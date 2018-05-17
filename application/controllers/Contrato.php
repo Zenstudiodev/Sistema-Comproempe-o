@@ -256,6 +256,14 @@ class Contrato extends Base_Controller
 		}
 
 		//print_r($_POST);
+        $estado_contrato='vigente';
+		//tomamos el plazo del contrato
+        $plazo = $this->input->post('plazo');
+
+        if($plazo == '1'){//si el plazo del contrato es 1 dia se genera perdido
+            $estado_contrato='perdido';
+        }
+
 		$datos = array(
 			'contrato_id'         => $this->input->post('no_contrato'),
 			'cliente_id'          => $this->input->post('cliente_id'),
@@ -275,9 +283,12 @@ class Contrato extends Base_Controller
 			'dias_gracia'         => $this->input->post('dias_gracia'),
 			'tipo'                => $this->input->post('tipo'),
 			'estado'              => $this->input->post('tipo'),
-			'cotitular'           => $this->input->post('cotitular')
-
+			'cotitular'           => $this->input->post('cotitular'),
+            'estado'              => $estado_contrato,
 		);
+
+
+		//
 
 		$contrato_id = $this->Contratos_model->guardar_contrato($datos);
 		//echo $contrato_id;
@@ -290,6 +301,10 @@ class Contrato extends Base_Controller
 			$producto_id     = $this->input->post($producto_numero);
 			//echo "asignar contrato id:". $contrato_id.' a producto' . $producto_id;
 			$this->Productos_model->asignar_contrato($producto_id, $contrato_id);
+            //si el plazo del contrato es 1 dia pasar producto a liquidación
+			if($plazo == '1'){
+                $this->Productos_model->cambiar_producto_a_venta($producto_id);
+            }
 		}
 		else
 		{ //loop asignar contrato a productos
@@ -300,6 +315,10 @@ class Contrato extends Base_Controller
 				$producto_id     = $this->input->post($producto_numero);
 				//echo "asignar contrato id:". $contrato_id.' a producto' . $producto_id;
 				$this->Productos_model->asignar_contrato($producto_id, $contrato_id);
+                //si el plazo del contrato es 1 dia pasar producto a liquidación
+				if($plazo == '1'){
+                    $this->Productos_model->cambiar_producto_a_venta($producto_id);
+                }
 				$x++;
 			}
 		}

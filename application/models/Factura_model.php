@@ -185,6 +185,10 @@ class Factura_model extends CI_Model
 
     function get_lote_activo()
     {
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $this->db->where('tienda_id',$tienda);
         $this->db->where('estado', 'activo');
         $query = $this->db->get('control_facturas');
         if ($query->num_rows() > 0) return $query;
