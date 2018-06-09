@@ -107,6 +107,17 @@ $this->layout('admin/admin_master', [
 					'required'    => 'required',
 					'step'        => 'any'
 				);
+
+                $total    = array(
+                    'type'        => 'number',
+                    'name'        => 'total',
+                    'id'          => 'total',
+                    'class'       => 'form-control pull-right',
+                    'placeholder' => 'Descuento',
+                    'value'       => '0',
+                    'required'    => 'required',
+                    'step'        => 'any'
+                );
 				$precio_final = array(
 					'type'        => 'number',
 					'name'        => 'precio_final',
@@ -335,7 +346,16 @@ $this->layout('admin/admin_master', [
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td><span id="total_t"></span></td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Q.</span>
+                                                        <?php echo form_input($total); ?>
+                                                    </div>
+                                                </div>
+                                                <span id="total_t"></span>
+
+                                            </td>
                                             <input type="hidden" name="total" id="total" value="">
                                         </tr>
                                         </tbody>
@@ -501,9 +521,20 @@ $this->layout('admin/admin_master', [
 
         total_final = sub_total - descuento;
 
-        precio_final_string = numeral(total_final).format('0,0.00');
-        $("#total_t").html(precio_final_string);
-        $("#total").val(total_final);
+        if($("#total").val() == 0){
+            precio_final_string = numeral(total_final).format('0,0.00');
+            $("#total_t").html(precio_final_string);
+            $("#total").val(total_final);
+        }else{
+            descuento = parseFloat($("#descuento").val()).toFixed(2);
+            total_input = parseFloat($("#total").val()).toFixed(2);
+            total_final = total_input - descuento;
+
+
+            precio_final_string = numeral(total_final).format('0,0.00');
+            $("#total_t").html(precio_final_string);
+            $("#total").val(total_final);
+        }
         //console.log(sub_total);
     });
 

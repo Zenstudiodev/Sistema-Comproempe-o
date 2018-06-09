@@ -131,6 +131,12 @@
                                 Productos en venta
                             </a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>index.php/productos/productos_apartados"><i
+                                        class="fa fa-shopping-cart"></i>
+                                Productos apartados
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -222,7 +228,7 @@
                     </ul>
                 </li>
                 <?php
-                if (user_rol() == 'developer' || user_rol() == 'gerencia') { ?>
+                if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-line-chart"></i> <span>Sistema</span>

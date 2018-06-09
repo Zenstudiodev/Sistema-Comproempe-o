@@ -511,6 +511,74 @@ class Productos extends Base_Controller
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
 
     }
+    function productos_apartados(){
+        $data = compobarSesion();
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        $data['productos'] = $this->Productos_model->get_productos_apartados();
+        echo $this->templates->render('admin/lista_productos_apartados', $data);
+    }
+    function guardar_apartado(){
+        $fecha = New DateTime();
+        $detalle_recibo = ''; //detalle de recibo a guardar
+
+        // numero de productos y loop por producto
+        $numero_de_productos = $this->input->post('numero_productos');
+        $i = 1;
+        while ($i <= $numero_de_productos) {
+
+            //obtenemos datos del producto
+            $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
+            $datos_producto = $datos_producto->row();
+
+            //actualizamos el producto
+            $nueva_existencia = $datos_producto->existencias - 1;
+            if($datos_producto->existencias == '0'){
+                $nueva_existencia = 0;
+            }else{
+                $nueva_existencia = $datos_producto->existencias - 1;
+            }
+            $datos_venta_producto = array(
+                'id' => $this->input->post('cliente_id'),
+                'cliente_id' => $this->input->post('producto_' . $i . '_p'),
+                'precio_venta' => $this->input->post('producto_' . $i . '_p'),
+                'apartado' => $this->input->post('producto_' . $i . '_pa'),
+                'cantidad_productos' => $nueva_existencia
+            );
+
+           $this->Productos_model->producto_apartado($datos_venta_producto);
+
+
+            $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
+            $monto_producto =  $this->input->post('producto_' . $i . '_p');
+
+            $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
+            $detalle_recibo .= 'Total de apartado ' . formato_dinero($monto_producto).'<br>';
+            $i++;
+        }
+
+        $datos_recibo = array(
+            'cliente_id' => $this->input->post('cliente_id'),
+            'contrato_id' => '0',
+            'fecha' => $this->input->post('fecha'),
+            'monto_recibo' => $this->input->post('total_apartado'),
+            'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
+            'tipo' => 'apartado',
+            'detalle' => $detalle_recibo
+        );
+
+        $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
+
+        redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
+
+       /* echo '<pre>';
+        print_r($_POST);
+        print_r($datos_recibo);
+        echo '</pre>';
+        exit();*/
+
+    }
     function productos_apartar(){
         $data = compobarSesion();
         $productos = array();
@@ -594,6 +662,70 @@ class Productos extends Base_Controller
 
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
+    }
+    function facturar_parartado(){
+        $data = compobarSesion();
+        $productos = array();
+        if (!empty($_POST)) {
+            //pasamos todos los post a un array
+            foreach ($_POST as $key => $value) {
+                //quitamos el valor de vista en la tabla
+                if ($key == 'example1_length') {
+                } else {
+                    $productos[] = $value;
+                }
+            }
+            //echo is_array($productos) ? 'Array' : 'No es un array';
+            if (empty($productos)) {
+                $this->session->set_flashdata('error', 'Para vender debe seleccionar un producto');
+                // user hasen't submitted anything yet!
+                redirect(base_url() . 'index.php/productos/productos_en_venta');
+            }
+            //print_r($productos);
+            $data['productos'] = $this->Productos_model->datos_de_productos($productos);
+        } else {
+        }
+
+        if (isset($data['productos'])) {
+            $data['facturas_activas'] = $this->Factura_model->get_lote_activo();
+            echo $this->templates->render('admin/vender_productos', $data);
+        } else {
+            $this->session->set_flashdata('error', 'Para vender debe seleccionar un producto');
+            // user hasen't submitted anything yet!
+            //redirect(base_url() . 'index.php/productos/liquidacion', 'refresh');
+        }
+    }
+    function abonar_apartado(){
+        $data = compobarSesion();
+        $productos = array();
+        if (!empty($_POST)) {
+            //pasamos todos los post a un array
+            foreach ($_POST as $key => $value) {
+                //quitamos el valor de vista en la tabla
+                if ($key == 'example1_length') {
+                } else {
+                    $productos[] = $value;
+                }
+            }
+            //echo is_array($productos) ? 'Array' : 'No es un array';
+            if (empty($productos)) {
+                $this->session->set_flashdata('error', 'Para vender debe seleccionar un producto');
+                // user hasen't submitted anything yet!
+                redirect(base_url() . 'index.php/productos/productos_en_venta');
+            }
+            //print_r($productos);
+            $data['productos'] = $this->Productos_model->datos_de_productos($productos);
+        } else {
+        }
+
+        if (isset($data['productos'])) {
+            $data['facturas_activas'] = $this->Factura_model->get_lote_activo();
+            echo $this->templates->render('admin/vender_productos', $data);
+        } else {
+            $this->session->set_flashdata('error', 'Para vender debe seleccionar un producto');
+            // user hasen't submitted anything yet!
+            //redirect(base_url() . 'index.php/productos/liquidacion', 'refresh');
+        }
     }
     function productos_excel()
     {

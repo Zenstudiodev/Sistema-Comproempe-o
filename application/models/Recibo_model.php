@@ -54,11 +54,26 @@ class Recibo_model  extends CI_Model
             $query = $this->db->update('recibos_tienda_2', $datos);
         }
 	}
+    function get_recibos_apartado_by_client_id($cliente_id){
+        $tienda = tienda_id_h();
+        // insertamos en la base de datos
+        if ($tienda == '1') {
+            $this->db->from('recibos');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where('tipo', 'apartado');
+        } elseif ($tienda == '2') {
+            $this->db->from('recibos_tienda_2');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where('tipo', 'apartado');
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 	function recibos_excel()
 	{
 		$fields = $this->db->field_data('recibos');
 		$query  = $this->db->select('*')->get('recibos');
 		return array("fields" => $fields, "query" => $query);
 	}
-
 }

@@ -152,7 +152,7 @@ $this->layout('admin/admin_master', [
 
                 <!-- form start -->
 
-                <form role="form" action="<?php echo base_url() . 'productos/guardar_venta' ?>" method="post"
+                <form role="form" action="<?php echo base_url() . 'productos/guardar_apartado' ?>" method="post"
                       id="producto_venta_form"
                       name="producto_form">
                     <div class="box-body">
@@ -245,15 +245,22 @@ $this->layout('admin/admin_master', [
                             </div>
                             <div class="row">
                                 <?php
+                                $precio_venta = 0;
+                                $minimo_venta = 0;
                                 $valor_apartado=0;
                                 $valor_apartado_minimo=0;
                                 if($producto->precio_venta == 0){
                                     //echo'no tiene precio de venta <br> tomar mutuo';
-                                    $valor_apartado = $producto->mutuo;
-                                    $valor_apartado_minimo = $valor_apartado *0.50;
+                                    $precio_venta = $producto->avaluo_comercial;
+                                    $minimo_venta = $producto->mutuo;
+                                    $valor_apartado= $precio_venta *0.20;
+                                    $valor_apartado_minimo = $valor_apartado;
                                 }else{
+                                    $precio_venta = $producto->precio_venta;
+                                    $minimo_venta = $producto->precio_venta;
                                     $valor_apartado = $producto->precio_venta;
-                                    $valor_apartado_minimo = $valor_apartado *0.20;
+                                    $valor_apartado= $precio_venta *0.20;
+                                    $valor_apartado_minimo = $valor_apartado;
                                 }
 
                             //    echo'<p>apartado minimo '.$valor_apartado_minimo.' </p>';
@@ -262,7 +269,7 @@ $this->layout('admin/admin_master', [
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="avaluo">Valor de apartado</label>
+                                            <label for="avaluo">Valor de venta</label>
                                             <div class="input-group">
 
 
@@ -271,6 +278,25 @@ $this->layout('admin/admin_master', [
                                                        placeholder="Precio de venta"
                                                        name="producto_<?php echo $producto_numero ?>_p"
                                                        id="producto_<?php echo $producto_numero ?>_p"
+                                                       value="<?php echo $precio_venta ?>"
+                                                       min="<?php echo $minimo_venta ?>" step="any">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="avaluo">Valor de apartado</label>
+                                            <div class="input-group">
+
+
+                                                <span class="input-group-addon">Q.</span>
+                                                <input type="number" class="form-control pull-right valor_apartado"
+                                                       placeholder="Valor apartado"
+                                                       name="producto_<?php echo $producto_numero ?>_pa"
+                                                       id="producto_<?php echo $producto_numero ?>_pa"
                                                        value="<?php echo $valor_apartado ?>"
                                                        min="<?php echo $valor_apartado_minimo ?>" step="any">
                                             </div>
@@ -330,7 +356,8 @@ $this->layout('admin/admin_master', [
                                             <th style="width:50%">Monto de apartado:</th>
                                             <td>
                                                 <span id="total_orecio_venta"><?php echo display_formato_dinero($total_avaluos) ?></span>
-                                                <input type="hidden" name="precio_venta" id="precio_venta">
+                                                <input type="hidden" name="total_apartado" id="total_apartado">
+                                                <input type="hidden" name="monto_recibo_letras" id="monto_recibo_letras">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -381,39 +408,32 @@ $this->layout('admin/admin_master', [
 
     moment.locale('es');
 
-    $("#producto_venta_form").change(function () {
+    $("#producto_venta_form").change(function () {//loop a los productos
         total_de_productos = 0;
 
-        $(".precio_venta").each(function () {
-
-            var precio_venta;
-            precio_venta = parseFloat($(this).val());
-
-
-            total_de_productos = parseFloat(total_de_productos + precio_venta);
+        $(".valor_apartado").each(function () {
+            //tomamos el valor de apartado de cada producto
+            var valor_apartado;
+            valor_apartado = parseFloat($(this).val());
+            //dumamos el valor de cada producto al total global de prodictos
+            total_de_productos = parseFloat(total_de_productos + valor_apartado);
             console.log(total_de_productos);
         });
-
-        console.log(total_de_productos);
+        //damos formato al total de apartado
         total_de_productos_string = numeral(total_de_productos).format('0,0.00');
-
-
-        $("#precio_venta").val(total_de_productos);
+        total_de_productos = parseFloat(total_de_productos).toFixed(2);
+        //asignamos el valor total a un campo oculto
+        $("#total_apartado").val(total_de_productos);
+        //mostramos el valor total con formato en pantalla
         $("#total_orecio_venta").html(total_de_productos_string);
 
-        total_final = parseFloat(sub_total - descuento).toFixed(2);
-
-        precio_final_string = numeral(total_final).format('0,0.00');
-        $("#total_t").html(precio_final_string);
-        $("#total").val(total_final);
-        console.log('a letras '+total_final);
-
-        total_a_letras = covertirNumLetras(total_final);
+        total_a_letras = covertirNumLetras(total_de_productos);
 
         $("#monto_recibo_letras").val(total_a_letras);
         //console.log(sub_total);
     });
 
+    //obtenemos los clientes y los inicializamos en el autocomplete
     var options = {
 
         url: "<?php echo base_url()?>index.php/cliente/clientes_json",

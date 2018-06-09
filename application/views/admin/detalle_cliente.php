@@ -33,7 +33,6 @@ $this->layout('admin/admin_master', [
             <li class="active">Detalle</li>
         </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
 		<?php if ($cliente)
@@ -42,6 +41,7 @@ $this->layout('admin/admin_master', [
 			$cliente = $cliente->row();
 			?>
 
+            <!--Datos del cliente-->
             <div class="row">
                 <div class="col-md-3">
 
@@ -137,6 +137,7 @@ $this->layout('admin/admin_master', [
 
                 </div>
             </div>
+
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-12">
@@ -144,14 +145,13 @@ $this->layout('admin/admin_master', [
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#activity" data-toggle="tab">Empeños</a></li>
                             <li><a href="#timeline" data-toggle="tab">Ventas</a></li>
-                            <li><a href="#settings" data-toggle="tab">Compras</a></li>
+                            <li><a href="#settings" data-toggle="tab">Apartado</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="active tab-pane" id="activity">
                                 <!-- Post -->
 
-                                <form method="post" action="<?
-								echo base_url() . 'index.php/Contrato/nuevo/' . $cliente->id ?>">
+                                <form method="post" action="<? echo base_url() . 'index.php/Contrato/nuevo/' . $cliente->id ?>">
                                     <a class="btn btn-app"
                                        href="<?php echo base_url() . "index.php/Productos/agregar/" . $cliente->id; ?>">
                                         <i class="fa fa-plus"></i> Agregar producto
@@ -437,8 +437,6 @@ $this->layout('admin/admin_master', [
                                         </div>
 
 									<?php } ?>
-
-
 									<?php if ($enmpenos) { ?>
 
                                     <div class="row"></div>
@@ -532,7 +530,7 @@ $this->layout('admin/admin_master', [
 									echo 'Aún no tiene productos empeñados';
 								} ?>
                             </div>
-                            <!-- /.tab-pane -->
+                            <!-- /.empeño -->
                             <div class="tab-pane" id="timeline">
                                 <h2>Ventas</h2>
 
@@ -690,13 +688,128 @@ $this->layout('admin/admin_master', [
 								} ?>
 
                             </div>
-                            <!-- /.tab-pane -->
-
+                            <!-- /.compra -->
                             <div class="tab-pane" id="settings">
-                                <h2>Compras</h2>
+                                <h2>Apartado</h2>
+
+                                <div class="col-xs-12">
+                                    <h2 class="page-header">
+                                        Recibos
+                                    </h2>
+                                </div>
+
+
+                                <?php if ($recibos_apartado) { ?>
+                                    <div class="row"></div>
+                                    <table id="contratos_table" class="table table-bordered table-striped display">
+                                        <thead>
+                                        <tr>
+                                            <th>ID RECIBO</th>
+                                            <th>FECHA</th>
+                                            <th>MONTO</th>
+                                            <th>ID CONTRATO</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($recibos_apartado->result() as $recibo) { ?>
+
+                                                <tr>
+                                                    <td style="width: 10%">
+                                                        <?php echo $recibo->recibo_id ?>
+                                                    </td>
+                                                    <td><?php echo $recibo->fecha_recibo; ?></td>
+                                                    <td><?php echo $recibo->monto; ?></td>
+                                                    <td><?php echo $recibo->contrato_id; ?></td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="btn btn-default"
+                                                               href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                        class="fa fa-print"></i> Imprimir</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php   } ?>
+                                        </tbody>
+                                    </table>
+                                <?php }
+                                else
+                                {
+                                    echo 'Aún no tiene Recibos';
+                                } ?>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h2 class="page-header">
+                                            Productos
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <?php if ($productos_apartado) { ?>
+
+                                    <div class="row"></div>
+                                    <table id="empenos_table" class="table table-bordered table-striped display">
+                                        <thead>
+                                        <tr>
+                                            <th>NOMBRE</th>
+                                            <th>PRECIO DE VENTA</th>
+                                            <th>ABONO DE APARTADO</th>
+                                            <th>SALDO PENDIENTE</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($productos_apartado->result() as $producto) { ?>
+                                            <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-default popover_btn"
+                                                            data-container="body"
+                                                            data-toggle="popover" data-placement="top" data-html="true"
+                                                            data-content="
+                                                            <p>id: <?php echo $producto->producto_id ?></p>
+                                                            <p><?php echo $producto->categoria ?></p>
+                                                            <p><?php echo $producto->nombre_producto ?></p>
+                                                            <p><?php echo $producto->marca ?></p>
+                                                            <p><?php echo $producto->no_serie ?></p>
+                                                            <p><?php echo $producto->modelo ?></p>
+                                                            <p><?php echo $producto->descripcion ?></p>
+                                                            ">
+                                                        <?php echo $producto->nombre_producto ?>
+                                                    </button>
+                                                </td>
+                                                <td><?php echo $producto->precio_venta ?></td>
+                                                <td><?php echo $producto->apartado ?></td>
+                                                <?php $saldo_pendiente = $producto->precio_venta - $producto->apartado?>
+                                                <td><?php echo $saldo_pendiente?></td>
+                                                <td>
+                                                    <a type="button" class="btn btn-default"
+                                                       href="<?php echo base_url() . 'productos/facturar_parartado/' . $producto->producto_id; ?>">
+                                                        <i class="fa fa-pencil-square-o"></i> facturar
+                                                    </a>
+                                                    <a type="button" class="btn btn-default"
+                                                       href="<?php echo base_url() . 'productos/abonar_apartado/' . $producto->producto_id; ?>">
+                                                        <i class="fa fa-pencil-square-o"></i> abonar
+                                                    </a>
+                                                </td>
+
+
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+
+
+                                    </form>
+
+                                <? }
+                                else
+                                {
+                                    echo 'Aún no tiene productos empeñados';
+                                } ?>
 
                             </div>
-                            <!-- /.tab-pane -->
+                            <!-- /.apartado -->
                         </div>
                         <!-- /.tab-content -->
                     </div>

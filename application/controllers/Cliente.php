@@ -17,6 +17,7 @@ class Cliente extends Base_Controller
 		$this->load->model('Productos_model');
 		$this->load->model('Contratos_model');
 		$this->load->model('Factura_model');
+		$this->load->model('Recibo_model');
 	}
 
 	function index()
@@ -43,7 +44,6 @@ class Cliente extends Base_Controller
 
 		echo $this->templates->render('admin/lista_clientes', $data);
 	}
-
 	function lista_completa()
 	{
 		$data             = compobarSesion();
@@ -51,13 +51,11 @@ class Cliente extends Base_Controller
 
 		echo $this->templates->render('admin/lista_completa', $data);
 	}
-
 	function Crear()
 	{
 		$data = compobarSesion();
 		echo $this->templates->render('admin/nuevo_cliente', $data);
 	}
-
 	function Guardar()
 	{
 		$data       = array(
@@ -79,7 +77,6 @@ class Cliente extends Base_Controller
 
 		redirect(base_url() . 'cliente/detalle/' . $cliente_id);
 	}
-
 	function datos_cliente($id)
 	{
 		$this->db->where('id', $id);
@@ -87,7 +84,6 @@ class Cliente extends Base_Controller
 		if ($query->num_rows() > 0) return $query;
 		else return false;
 	}
-
 	function Detalle()
 	{
 		$data = compobarSesion();
@@ -115,6 +111,8 @@ class Cliente extends Base_Controller
 		//Recibos
 		$data['recibos']        = $this->Contratos_model->get_recibos_by_cliente_id($data['segmento']);
 		$data['recibos_liquidacion']        = $this->Contratos_model->get_recibos_liquidacion_by_client_id($data['segmento']);
+		$data['recibos_apartado']        = $this->Recibo_model->get_recibos_apartado_by_client_id($data['segmento']);
+		$data['productos_apartado']        = $this->Productos_model->get_porductos_apartado_by_client_id($data['segmento']);
 		$data['Numero_empenos'] = $this->Cliente_model->listar_empenos($data['segmento']);
 		if ($this->session->flashdata('error'))
 		{
@@ -124,7 +122,6 @@ class Cliente extends Base_Controller
 		echo $this->templates->render('admin/detalle_cliente', $data);
 
 	}
-
 	function Editar()
 	{
 		$data = compobarSesion();
@@ -144,7 +141,6 @@ class Cliente extends Base_Controller
 
 		echo $this->templates->render('admin/editar_cliente', $data);
 	}
-
 	function Actualizar()
 	{
 		$datos = array(
@@ -164,7 +160,6 @@ class Cliente extends Base_Controller
 
 		redirect(base_url() . 'cliente/detalle/' . $datos['cliente_id']);
 	}
-
 	function clientes_json()
 	{
 		$data['clientes'] = $this->Cliente_model->listar_clientes_json();
@@ -181,12 +176,10 @@ class Cliente extends Base_Controller
 		$colonias        = $data['colonias']->result();
 		echo json_encode($colonias);
 	}
-
 	function clientes_excel()
 	{
 		$fecha = new DateTime();
 		to_excel($this->Cliente_model->clientes_excel(), "Clientes_" . $fecha->format('Y-m-d'));
 	}
-
 
 }
