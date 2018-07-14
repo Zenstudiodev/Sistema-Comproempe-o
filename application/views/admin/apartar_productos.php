@@ -305,6 +305,9 @@ $this->layout('admin/admin_master', [
                                     </div>
                                 </div>
 
+                                <!--TODO AGREGAR CALCUAR Y MOSTRAR SALDO-->
+                                <!--TODO AGREGAR DIAS DE APARTADO-->
+                                <!--TODO AGREGAR DIAS -->
                             </div>
                             <input type="hidden" name="producto_<?php echo $producto_numero ?>"
                                    id="producto_<?php echo $producto_numero ?>"

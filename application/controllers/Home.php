@@ -26,9 +26,7 @@ class home extends Base_Controller
     function exportar(){
 
 	    $data = compobarSesion();
-
 	    echo $this->templates->render('admin/exportar_datos', $data);
-
     }
     function registros(){
 	    $data = compobarSesion();

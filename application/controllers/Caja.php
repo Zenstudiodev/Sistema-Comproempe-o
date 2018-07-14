@@ -65,7 +65,29 @@ class Caja extends Base_Controller
         //redirigimos a depositos
         redirect(base_url() . 'Caja/ingreso_deposito');
     }
-
+    function crear_vale(){
+        $data = compobarSesion();
+        //$data['depositos']= $this->Caja_model->get_depositos();
+        echo $this->templates->render('admin/crear_vale', $data);
+    }
+    function guardar_vale(){
+       // print_contenido($_POST);
+        $data                     = compobarSesion();
+        $datos_vale = array(
+            'nombre'    => $this->input->post('nombre'),
+            'detalle'    => $this->input->post('datalle'),
+            'monto'   => $this->input->post('monto'),
+        );
+        //guardamos deposito
+        $this->Caja_model->guardar_vale($datos_vale);
+        //redirigimos a depositos
+        redirect(base_url() . 'Caja/crear_vale');
+    }
+    function cobrar_vale(){
+        $data = compobarSesion();
+        //$data['depositos']= $this->Caja_model->get_depositos();
+        echo $this->templates->render('admin/cobrar_vale', $data);
+    }
     function ingreso_visanet(){
         $data = compobarSesion();
         $data['visanets']= $this->Caja_model->get_visanet();

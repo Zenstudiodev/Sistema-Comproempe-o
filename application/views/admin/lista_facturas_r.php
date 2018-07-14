@@ -48,8 +48,28 @@ $this->layout('admin/admin_master', [
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class=""><a href="<?php echo base_url()?>/factura">Serie A</a></li>
-                        <li class="active"><a href="<?php echo base_url()?>/factura/serie_r">Serie R</a></li>
+                        <li class=""><a href="<?php echo base_url()?>factura">
+                                <?php
+                                $tienda = tienda_id_h();
+                                // insertamon en la base de datos
+                                if ($tienda == '1') {
+                                    ?>
+                                    Serie A
+                                <?php } elseif ($tienda == '2') { ?>
+                                    Serie CN
+                                <?php } ?>
+                            </a></li>
+                        <li class="active"><a href="<?php echo base_url()?>factura/serie_r">
+                                <?php
+                                $tienda = tienda_id_h();
+                                // insertamon en la base de datos
+                                if ($tienda == '1') {
+                                    ?>
+                                    Serie R
+                                <?php } elseif ($tienda == '2') { ?>
+                                    Serie RE
+                                <?php } ?>
+                            </a></li>
                     </ul>
                     <!-- /.tab-content -->
                 </div>
@@ -65,6 +85,7 @@ $this->layout('admin/admin_master', [
                             <thead>
                             <tr>
                                 <th>FACTURA No</th>
+                                <th>SERIE</th>
                                 <th>NOMBRE</th>
                                 <th>FECHA</th>
                                 <th>TOTAL</th>
@@ -74,6 +95,7 @@ $this->layout('admin/admin_master', [
                             <tfoot>
                             <tr>
                                 <th>FACTURA No</th>
+                                <th>SERIE</th>
                                 <th>NOMBRE</th>
                                 <th>FECHA</th>
                                 <th>TOTAL</th>
@@ -85,6 +107,7 @@ $this->layout('admin/admin_master', [
 							{ ?>
                                 <tr>
                                     <td><?php echo $factura->factura_id ?></td>
+                                    <td><?php echo $factura->serie ?></td>
                                     <td>
                                         <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $factura->id; ?>" target="_blank"><?php echo $factura->nombre ?></a>
                                     </td>

@@ -183,5 +183,9 @@ function tipo_factura_text($tipo){
 	return $tipo_text;
 }
 
-
+function print_contenido($var){
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+}
 ?>

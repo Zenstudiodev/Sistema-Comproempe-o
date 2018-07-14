@@ -84,7 +84,16 @@ $this->layout('admin/admin_master', [
                             <td>Facturas</td>
                             <td>
                                 <a class="btn btn-app bg-olive"
-                                   href="<?php echo base_url() ?>index.php/factura/facturas_excel" target="_blank">
+                                   href="<?php echo base_url() ?>index.php/factura/facturas_html_excel" target="_blank">
+                                    <i class="fa fa-edit"></i> Exportar excel
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Facturas R</td>
+                            <td>
+                                <a class="btn btn-app bg-olive"
+                                   href="<?php echo base_url() ?>index.php/factura/facturas_r_html_excel" target="_blank">
                                     <i class="fa fa-edit"></i> Exportar excel
                                 </a>
                             </td>

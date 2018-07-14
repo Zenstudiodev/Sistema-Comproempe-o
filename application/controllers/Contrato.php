@@ -44,6 +44,8 @@ class Contrato extends Base_Controller
 		}
 		echo $this->templates->render('admin/lista_contratos', $data);
 	}
+
+
 	function actualizar_estado()
 	{
         $contratos_tienda_1 = $this->Contratos_model->contratos_actuaizador_t1();
@@ -97,10 +99,13 @@ class Contrato extends Base_Controller
 							else
 							{
 								echo '<p>Contrato Vencido</p>';
-								$this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'perdido');
+								$this->Contratos_model->actualizar_estado_contrato_t1($contrato->contrato_id, 'perdido');
+								echo'<p>Contrato actualizado</p>';
 								$productos = $this->Productos_model->get_productos_by_contrato($contrato->contrato_id);
+
 								foreach ($productos->result() as $producto)
 								{
+								    echo $producto->tienda_id.'<br>';
 									$this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
 								}
 							}
@@ -152,7 +157,7 @@ class Contrato extends Base_Controller
                             else
                             {
                                 echo '<p>Contrato Vencido</p>';
-                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'perdido');
+                                $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'perdido');
                                 $productos = $this->Productos_model->get_productos_by_contrato($contrato->contrato_id);
                                 foreach ($productos->result() as $producto)
                                 {
@@ -760,7 +765,6 @@ class Contrato extends Base_Controller
         $data['contratos']= $this->Contratos_model->listar_contratos_vigentes();
         echo $this->templates->render('admin/lista_contratos_vigentes', $data);
     }
-
 
 	function contratos_excel()
 	{

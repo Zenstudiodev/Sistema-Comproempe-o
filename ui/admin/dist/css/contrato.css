@@ -115,6 +115,7 @@
     #imprimir_recibo table {
         margin: 0.8cm 0cm;
     }
+
     .content {
         padding: 0;
     }
@@ -128,4 +129,13 @@
         font-size: 23pt;
     }
 
+    .hide_print {
+        display: none;
+    }
+    .hide_print_dt{
+        display: none;
+    }
+    .hide_print_ga{
+        display: none;
+    }
 }

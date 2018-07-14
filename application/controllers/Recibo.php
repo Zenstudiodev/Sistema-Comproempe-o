@@ -50,7 +50,7 @@ class Recibo extends Base_Controller
 
 		$nuevo_monto = $montoactual - $datos_recibo['monto_recibo'];
 
-		//actualñizar monto de contrato
+		//actualizar monto de contrato
 		$this->Contratos_model->actualizar_monto_contrato($datos_recibo['contrato_id'], $nuevo_monto);
 
 		//guardamos en el log de contraros

@@ -89,7 +89,7 @@
                 <?php mostrar_tienda(); ?>
             </div>
             <?php
-            if (user_rol() == 'developer' || user_rol() == 'gerencia') {
+            if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') {
                 $tienda_id = tienda_id_h();
 
                 if ($tienda_id == '1') {
@@ -184,24 +184,39 @@
 
                 <li><a href="<?php echo base_url() ?>index.php/recibo"><i class="fa fa-file"></i>
                         <span>Recibos</span></a></li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-line-chart"></i> <span>Inventario</span>
-                        <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="<?php echo base_url() ?>index.php/proveedores"><i class="fa fa-circle-o"></i>
-                                Proveedores</a></li>
-                        <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i
-                                        class="fa fa-circle-o"></i> ingresar Productos</a></li>
-                    </ul>
-                </li>
+                <?php if (user_rol() == 'developer' || user_rol() == 'conta' || user_rol() == 'gerente') { ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-line-chart"></i> <span>Inventario</span>
+                            <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="<?php echo base_url() ?>index.php/proveedores"><i class="fa fa-circle-o"></i>
+                                    Proveedores</a></li>
+                            <li><a href="<?php echo base_url() ?>index.php/productos/ingresar_producto_inventario"><i
+                                            class="fa fa-circle-o"></i> ingresar Productos</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-money"></i> <span>Caja</span>
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
+                        <?php if(user_rol() == 'developer' || user_rol() =='gerente' || user_rol() == 'vendedor'){?>
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Vales
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo base_url() ?>Caja/crear_vale"><i class="fa fa-circle-o"></i>
+                                        Crear vales</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Cobrar vales</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="<?php echo base_url() ?>Caja/ingresar_fondo_caja"><i class="fa fa-circle-o"></i>
                                 Ingresar fondos a caja</a>
@@ -222,6 +237,7 @@
                             <a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
                                 Cierre</a>
                         </li>
+                        <?php }?>
                         <li>
                             <a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a>
                         </li>
@@ -235,11 +251,13 @@
                             <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
+                            <?php if(user_rol() != 'conta'){?>
                             <li>
                                 <a href="<?php echo base_url() ?>user/lista_de_usuarios">
                                     <i class="fa fa-circle-o"></i>Control de usuarios
                                 </a>
                             </li>
+                            <?php }?>
                             <li>
                                 <a href="<?php echo base_url() ?>index.php/home/exportar">
                                     <i class="fa fa-circle-o"></i>Exportar

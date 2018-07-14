@@ -104,6 +104,7 @@ class Cliente extends Base_Controller
 		$data['contratos'] = $this->Contratos_model->get_contratos_by_cliente_id($data['segmento']);
 		//Facturas
 		$data['facturas'] = $this->Contratos_model->get_facturas_by_cliente_id($data['segmento']);
+
 		//Facturas Liquidacion
 		$data['facturas_l'] = $this->Factura_model->get_facturas_liquidacion_by_cliente_id($data['segmento']);
 		$data['facturas_l_r'] = $this->Factura_model->get_facturas_liquidacion_r_by_cliente_id($data['segmento']);
@@ -153,7 +154,10 @@ class Cliente extends Base_Controller
 			'email'            => $this->input->post('email'),
 			'direccion'        => $this->input->post('direccion'),
 			'cliente_id'       => $this->input->post('cliente_id'),
-			'publicidad'       => $this->input->post('publicidad')
+			'publicidad'       => $this->input->post('publicidad'),
+            'ciudad'       => $this->input->post('ciudad'),
+            'zona'       => $this->input->post('zona'),
+            'colonia'       => $this->input->post('colonia'),
 
 		);
 		$this->Cliente_model->actualizar_cliente($datos);

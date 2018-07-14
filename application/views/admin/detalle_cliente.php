@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title'    => $title,
-	'nombre'   => $nombre,
-	'user_id'  => $user_id,
-	'username' => $username,
-	'rol'      => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 
 ?>
@@ -35,11 +35,10 @@ $this->layout('admin/admin_master', [
     </section>
     <!-- Main content -->
     <section class="content">
-		<?php if ($cliente)
-		{
+        <?php if ($cliente) {
 
-			$cliente = $cliente->row();
-			?>
+            $cliente = $cliente->row();
+            ?>
 
             <!--Datos del cliente-->
             <div class="row">
@@ -82,41 +81,41 @@ $this->layout('admin/admin_master', [
                                 <div class="col-md-3">
                                     <strong><i class="fa fa-birthday-cake margin-r-5"></i> Cumpleaños</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->fecha_nacimiento; ?>
+                                        <?php echo $cliente->fecha_nacimiento; ?>
                                     </p>
                                     <hr>
                                     <strong><i class="fa fa-book margin-r-5"></i> DPI</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->dpi; ?>
+                                        <?php echo $cliente->dpi; ?>
                                     </p>
                                 </div>
                                 <div class="col-md-3">
                                     <strong><i class="fa fa-book margin-r-5"></i>NIT</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->nit; ?>
+                                        <?php echo $cliente->nit; ?>
                                     </p>
                                     <hr>
 
                                     <strong><i class="fa fa-map-marker margin-r-5"></i> Dirección</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->direccion; ?>
+                                        <?php echo $cliente->direccion; ?>
                                     </p>
                                     <hr>
                                 </div>
                                 <div class="col-md-3">
                                     <strong><i class="fa fa-phone margin-r-5"></i> Teléfono</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->telefono; ?>
+                                        <?php echo $cliente->telefono; ?>
                                     </p>
                                     <hr>
                                     <strong><i class="fa fa-phone margin-r-5"></i> Celular</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->celular; ?>
+                                        <?php echo $cliente->celular; ?>
                                     </p>
                                     <hr>
                                     <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
                                     <p class="text-muted">
-										<?php echo $cliente->email; ?>
+                                        <?php echo $cliente->email; ?>
                                     </p>
                                 </div>
                             </div>
@@ -125,9 +124,11 @@ $this->layout('admin/admin_master', [
                             <hr>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <a type="button"
-                                       href="<?php echo base_url() . 'index.php/cliente/editar/' . $cliente->id; ?>"
-                                       class="btn btn-block btn-success">Editar</a>
+                                    <?php if ($rol != 'conta') { ?>
+                                        <a type="button"
+                                           href="<?php echo base_url() . 'index.php/cliente/editar/' . $cliente->id; ?>"
+                                           class="btn btn-block btn-success">Editar</a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +152,9 @@ $this->layout('admin/admin_master', [
                             <div class="active tab-pane" id="activity">
                                 <!-- Post -->
 
-                                <form method="post" action="<? echo base_url() . 'index.php/Contrato/nuevo/' . $cliente->id ?>">
+                                <form method="post"
+                                      action="<? echo base_url() . 'index.php/Contrato/nuevo/' . $cliente->id ?>">
+                                    <?php if($rol !='conta'){?>
                                     <a class="btn btn-app"
                                        href="<?php echo base_url() . "index.php/Productos/agregar/" . $cliente->id; ?>">
                                         <i class="fa fa-plus"></i> Agregar producto
@@ -159,13 +162,14 @@ $this->layout('admin/admin_master', [
                                     <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                                         <i class="fa fa-file-text-o"></i> Crear contrato
                                     </button>
+                                    <?php }?>
                                     <hr>
                                     <div class="col-xs-12">
                                         <h2 class="page-header">
                                             Recibos
                                         </h2>
                                     </div>
-									<?php if ($recibos) { ?>
+                                    <?php if ($recibos) { ?>
 
                                         <div class="row"></div>
                                         <table id="contratos_table" class="table table-bordered table-striped display">
@@ -192,58 +196,58 @@ $this->layout('admin/admin_master', [
 											 </tr>
 											 </tfoot>-->
                                             <tbody>
-											<?php foreach ($recibos->result() as $recibo) { ?>
-											<?php if ($recibo->tipo != 'liquidacion') { ?>
+                                            <?php foreach ($recibos->result() as $recibo) { ?>
+                                                <?php if ($recibo->tipo != 'liquidacion') { ?>
 
 
-                                                <tr>
-                                                    <td style="width: 10%">
-														<?php echo $recibo->recibo_id ?>
-                                                    </td>
-                                                    <td><?php echo $recibo->estado; ?></td>
-                                                    <td><?php echo $recibo->tipo; ?></td>
-                                                    <td><?php echo $recibo->fecha_recibo; ?></td>
-                                                    <td><?php echo $recibo->monto; ?></td>
-                                                    <td><?php echo $recibo->contrato_id; ?></td>
-                                                    <td><?php echo $recibo->total_mutuo; ?></td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
-                                                                        class="fa fa-print"></i> Imprimir</a>
-                                                        </div>
-                                                        <?php
-                                                        if($recibo->tipo == 'abono'){?>
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'recibo/anular_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
-                                                                        class="fa fa-print"></i> Anular Recibo</a>
-                                                        <?php }
-                                                        ?>
+                                                    <tr>
+                                                        <td style="width: 10%">
+                                                            <?php echo $recibo->recibo_id ?>
+                                                        </td>
+                                                        <td><?php echo $recibo->estado; ?></td>
+                                                        <td><?php echo $recibo->tipo; ?></td>
+                                                        <td><?php echo $recibo->fecha_recibo; ?></td>
+                                                        <td><?php echo $recibo->monto; ?></td>
+                                                        <td><?php echo $recibo->contrato_id; ?></td>
+                                                        <td><?php echo $recibo->total_mutuo; ?></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                            class="fa fa-print"></i> Imprimir</a>
+                                                            </div>
+                                                            <?php
+                                                            if ($recibo->tipo == 'abono') {
+                                                                ?>
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'recibo/anular_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                            class="fa fa-print"></i> Anular Recibo</a>
+                                                            <?php }
+                                                            ?>
 
-                                                    </td>
-                                                </tr>
-											<?php }
-											} ?>
+                                                        </td>
+                                                    </tr>
+                                                <?php }
+                                            } ?>
                                             </tbody>
                                         </table>
-									<?php }
-									else
-									{
-										echo 'Aún no tiene Recibos';
-									} ?>
+                                    <?php } else {
+                                        echo 'Aún no tiene Recibos';
+                                    } ?>
                                     <hr>
                                     <div class="col-xs-12">
                                         <h2 class="page-header">
                                             Facturas
                                         </h2>
                                     </div>
-									<?php if ($facturas) { ?>
+                                    <?php if ($facturas) { ?>
                                         <div class="row"></div>
                                         <table id="contratos_table" class="table table-bordered table-striped display">
                                             <thead>
                                             <tr>
                                                 <th>ID FACTURA</th>
                                                 <th>FECHA</th>
+                                                <th>SERIE</th>
                                                 <th>ESTADO</th>
                                                 <th>TIPO</th>
                                                 <th>NO CONTRATO</th>
@@ -261,43 +265,42 @@ $this->layout('admin/admin_master', [
 											 </tr>
 											 </tfoot>-->
                                             <tbody>
-											<?php foreach ($facturas->result() as $factura) { ?>
-											<?php if ($factura->tipo != 'venta') { ?>
-                                                <tr>
-                                                    <td style="width: 10%">
-														<?php echo $factura->factura_id ?>
-                                                    </td>
-                                                    <td><?php echo $factura->fecha; ?></a></td>
-                                                    <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
-                                                    <td><?php echo $factura->tipo; ?></a></td>
-                                                    <td><?php echo $factura->contrato_id; ?></a></td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Imprimir</a>
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Anular</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-											<?php }
-											} ?>
+                                            <?php foreach ($facturas->result() as $factura) { ?>
+                                                <?php if ($factura->tipo != 'venta') { ?>
+                                                    <tr>
+                                                        <td style="width: 10%">
+                                                            <?php echo $factura->factura_id ?>
+                                                        </td>
+                                                        <td><?php echo $factura->fecha; ?></a></td>
+                                                        <td><?php echo $factura->serie; ?></a></td>
+                                                        <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
+                                                        <td><?php echo $factura->tipo; ?></a></td>
+                                                        <td><?php echo $factura->contrato_id; ?></a></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Imprimir</a>
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Anular</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php }
+                                            } ?>
                                             </tbody>
                                         </table>
-									<?php }
-									else
-									{
-										echo 'Aún no tiene facturas';
-									} ?>
+                                    <?php } else {
+                                        echo 'Aún no tiene facturas';
+                                    } ?>
                                     <hr>
                                     <div class="col-xs-12">
                                         <h2 class="page-header">
                                             Contratos
                                         </h2>
                                     </div>
-									<?php if ($contratos) { ?>
+                                    <?php if ($contratos) { ?>
                                         <div class="row"></div>
                                         <div class="table-responsive">
                                             <table id="contratos_table"
@@ -326,16 +329,16 @@ $this->layout('admin/admin_master', [
 												 </tr>
 												 </tfoot>-->
                                                 <tbody>
-												<?php foreach ($contratos->result() as $contrato) { ?>
+                                                <?php foreach ($contratos->result() as $contrato) { ?>
                                                     <tr>
                                                         <td style="width: 10%">
-															<?php echo $contrato->contrato_id ?>
+                                                            <?php echo $contrato->contrato_id ?>
                                                         </td>
                                                         <td><?php echo $contrato->fecha ?></td>
                                                         <td><?php echo $contrato->fecha_pago ?></td>
                                                         <td class="<?php color_por_estaado($contrato->estado); ?>"><?php echo $contrato->estado ?></td>
                                                         <td><?php echo $contrato->referendo ?></a></td>
-                                                        <td><?php echo $contrato->desempeno ?></td>
+                                                        <td class="contrato_desempeno"><?php echo $contrato->desempeno ?></td>
                                                         <td class="contrato_mutuo"><?php echo $contrato->total_mutuo ?></td>
                                                         <td>
 
@@ -350,32 +353,35 @@ $this->layout('admin/admin_master', [
                                                                     <span class="sr-only">Toggle Dropdown</span>
                                                                 </button>
                                                                 <ul class="dropdown-menu" role="menu">
-																	<?php if ($contrato->estado == 'vigente' || $contrato->estado == 'refrendado' || $contrato->estado == 'gracia' || $contrato->estado == 'perdido') { ?>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url() . 'contrato/refrendo/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
-                                                                                <i class="fa fa-plus-square"></i>
-                                                                                Refrendo</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url() . 'contrato/desempeno/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
-                                                                                <i class="fa fa-money"></i>
-                                                                                Desempeño</a></li>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url() . 'contrato/abono_a_apital/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
-                                                                                <i class="fa fa-money"></i>
-                                                                                Abono a capital</a></li>
-																	<?php } ?>
-																	<?php if ($contrato->estado == 'vigente') { ?>
-                                                                        <li class="divider"></li>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url() . 'contrato/editar/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
-                                                                                <i class="fa fa-edit"></i> Editar</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a href="<?php echo base_url() . 'contrato/anular/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
-                                                                                <i class="fa fa-minus-square"></i>
-                                                                                Anular</a></li>
-																	<?php } ?>
+                                                                    <?php if ($rol !='conta') { ?>
+                                                                        <?php if ($contrato->estado == 'vigente' || $contrato->estado == 'refrendado' || $contrato->estado == 'gracia' || $contrato->estado == 'perdido') { ?>
+                                                                            <li>
+                                                                                <a href="<?php echo base_url() . 'contrato/refrendo/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
+                                                                                    <i class="fa fa-plus-square"></i>
+                                                                                    Refrendo</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="<?php echo base_url() . 'contrato/desempeno/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
+                                                                                    <i class="fa fa-money"></i>
+                                                                                    Desempeño</a></li>
+                                                                            <li>
+                                                                                <a href="<?php echo base_url() . 'contrato/abono_a_apital/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
+                                                                                    <i class="fa fa-money"></i>
+                                                                                    Abono a capital</a></li>
+                                                                        <?php } ?>
+                                                                        <?php if ($contrato->estado == 'vigente') { ?>
+                                                                            <li class="divider"></li>
+                                                                            <li>
+                                                                                <a href="<?php echo base_url() . 'contrato/editar/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
+                                                                                    <i class="fa fa-edit"></i>
+                                                                                    Editar</a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="<?php echo base_url() . 'contrato/anular/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
+                                                                                    <i class="fa fa-minus-square"></i>
+                                                                                    Anular</a></li>
+                                                                        <?php }
+                                                                    } ?>
                                                                 </ul>
                                                             </div>
 
@@ -404,7 +410,7 @@ $this->layout('admin/admin_master', [
                                                             </div>
                                                         </td>
                                                     </tr>
-												<?php } ?>
+                                                <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -414,8 +420,12 @@ $this->layout('admin/admin_master', [
                                                 <td>Total mutuos</td>
                                                 <td id="total_mutuos"></td>
                                             </tr>
+                                            <tr>
+                                                <td>Total desempeños</td>
+                                                <td id="total_desempenos"></td>
+                                            </tr>
                                         </table>
-									<?php } ?>
+                                    <?php } ?>
                                     <hr>
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -425,19 +435,19 @@ $this->layout('admin/admin_master', [
                                         </div>
                                     </div>
 
-									<?php if (isset($error)) { ?>
+                                    <?php if (isset($error)) { ?>
                                         <div class="row">
                                             <div class="alert alert-danger alert-dismissible">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                         aria-hidden="true">×
                                                 </button>
                                                 <h4><i class="icon fa fa-ban"></i> Contrato vacio!</h4>
-												<?php echo $error ?>
+                                                <?php echo $error ?>
                                             </div>
                                         </div>
 
-									<?php } ?>
-									<?php if ($enmpenos) { ?>
+                                    <?php } ?>
+                                    <?php if ($enmpenos) { ?>
 
                                     <div class="row"></div>
                                     <table id="empenos_table" class="table table-bordered table-striped display">
@@ -464,10 +474,10 @@ $this->layout('admin/admin_master', [
 										 </tr>
 										 </tfoot>-->
                                         <tbody>
-										<?php foreach ($enmpenos->result() as $producto) { ?>
+                                        <?php foreach ($enmpenos->result() as $producto) { ?>
                                             <tr>
                                                 <td style="width: 10%">
-													<?php if ($producto->contrato_id == '0') { ?>
+                                                    <?php if ($producto->contrato_id == '0') { ?>
                                                         <div class="form-group">
                                                             <div class="checkbox">
                                                                 <label>
@@ -478,7 +488,7 @@ $this->layout('admin/admin_master', [
                                                                 </label>
                                                             </div>
                                                         </div>
-													<?php } ?>
+                                                    <?php } ?>
 
 
                                                 </td>
@@ -495,7 +505,7 @@ $this->layout('admin/admin_master', [
                                                             <p><?php echo $producto->modelo ?></p>
                                                             <p><?php echo $producto->descripcion ?></p>
                                                             ">
-														<?php echo $producto->nombre_producto ?>
+                                                        <?php echo $producto->nombre_producto ?>
                                                     </button>
                                                 </td>
                                                 <td><?php echo $producto->fecha_avaluo ?></td>
@@ -503,19 +513,19 @@ $this->layout('admin/admin_master', [
                                                 <td><?php echo $producto->mutuo ?></td>
                                                 <td><?php echo $producto->contrato_id ?></td>
                                                 <td>
-													<?php if ($producto->contrato_id == '0') { ?>
+                                                    <?php if ($producto->contrato_id == '0') { ?>
                                                         <a type="button" class="btn btn-default"
                                                            href="<?php echo base_url() . 'productos/editar_producto/' . $producto->producto_id; ?>">
                                                             <i class="fa fa-pencil-square-o"></i> Editar
                                                         </a>
-													<?php } ?>
+                                                    <?php } ?>
                                                 </td>
 
 
                                             </tr>
 
 
-										<?php } ?>
+                                        <?php } ?>
 
 
                                         </tbody>
@@ -524,11 +534,10 @@ $this->layout('admin/admin_master', [
 
                                 </form>
 
-								<? }
-								else
-								{
-									echo 'Aún no tiene productos empeñados';
-								} ?>
+                                <? }
+                                else {
+                                    echo 'Aún no tiene productos empeñados';
+                                } ?>
                             </div>
                             <!-- /.empeño -->
                             <div class="tab-pane" id="timeline">
@@ -540,7 +549,7 @@ $this->layout('admin/admin_master', [
                                     </h2>
                                 </div>
 
-	                            <?php if ($recibos_liquidacion) { ?>
+                                <?php if ($recibos_liquidacion) { ?>
                                     <div class="row"></div>
                                     <table id="contratos_table" class="table table-bordered table-striped display">
                                         <thead>
@@ -563,40 +572,38 @@ $this->layout('admin/admin_master', [
 										 </tr>
 										 </tfoot>-->
                                         <tbody>
-			                            <?php foreach ($recibos_liquidacion->result() as $recibo) { ?>
-			                            <?php if ($recibo->tipo == 'liquidacion') { ?>
+                                        <?php foreach ($recibos_liquidacion->result() as $recibo) { ?>
+                                            <?php if ($recibo->tipo == 'liquidacion') { ?>
 
-                                            <tr>
-                                                <td style="width: 10%">
-						                            <?php echo $recibo->recibo_id ?>
-                                                </td>
-                                                <td><?php echo $recibo->fecha_recibo; ?></td>
-                                                <td><?php echo $recibo->monto; ?></td>
-                                                <td><?php echo $recibo->contrato_id; ?></td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a type="button" class="btn btn-default"
-                                                           href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
-                                                                    class="fa fa-print"></i> Imprimir</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-			                            <?php }
-			                            } ?>
+                                                <tr>
+                                                    <td style="width: 10%">
+                                                        <?php echo $recibo->recibo_id ?>
+                                                    </td>
+                                                    <td><?php echo $recibo->fecha_recibo; ?></td>
+                                                    <td><?php echo $recibo->monto; ?></td>
+                                                    <td><?php echo $recibo->contrato_id; ?></td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <a type="button" class="btn btn-default"
+                                                               href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                        class="fa fa-print"></i> Imprimir</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php }
+                                        } ?>
                                         </tbody>
                                     </table>
-	                            <?php }
-	                            else
-	                            {
-		                            echo 'Aún no tiene Recibos';
-	                            } ?>
+                                <?php } else {
+                                    echo 'Aún no tiene Recibos';
+                                } ?>
 
                                 <div class="col-xs-12">
                                     <h2 class="page-header">
                                         Facturas
                                     </h2>
                                 </div>
-								<?php if ($facturas_l || $facturas_l_r) { ?>
+                                <?php if ($facturas_l || $facturas_l_r) { ?>
                                     <div class="row"></div>
                                     <table id="contratos_table" class="table table-bordered table-striped display">
                                         <thead>
@@ -623,69 +630,67 @@ $this->layout('admin/admin_master', [
 										 </tfoot>-->
 
                                         <tbody>
-                                        <?php if($facturas_l){?>
-										<?php foreach ($facturas_l->result() as $factura) { ?>
-											<?php if ($factura->tipo == 'venta') { ?>
-                                                <tr>
-                                                    <td style="width: 10%">
-														<?php echo $factura->factura_id ?>
-                                                    </td>
-                                                    <td><?php echo $factura->serie ?></td>
-                                                    <td><?php echo $factura->total ?></td>
-                                                    <td ><?php echo $factura->fecha ?></td>
-                                                    <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
-                                                    <td><?php echo $factura->tipo; ?></a></td>
-                                                    <td><?php echo $factura->contrato_id; ?></a></td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Imprimir</a>
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Anular</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-											<?php
-											}
-										} ?>
+                                        <?php if ($facturas_l) { ?>
+                                            <?php foreach ($facturas_l->result() as $factura) { ?>
+                                                <?php if ($factura->tipo == 'venta') { ?>
+                                                    <tr>
+                                                        <td style="width: 10%">
+                                                            <?php echo $factura->factura_id ?>
+                                                        </td>
+                                                        <td><?php echo $factura->serie ?></td>
+                                                        <td><?php echo $factura->total ?></td>
+                                                        <td><?php echo $factura->fecha ?></td>
+                                                        <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
+                                                        <td><?php echo $factura->tipo; ?></a></td>
+                                                        <td><?php echo $factura->contrato_id; ?></a></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Imprimir</a>
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Anular</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            } ?>
                                         <?php } ?>
-                                        <?php if($facturas_l_r){?>
-										<?php foreach ($facturas_l_r->result() as $factura) { ?>
-											<?php if ($factura->tipo == 'venta') { ?>
-                                                <tr>
-                                                    <td style="width: 10%">
-														<?php echo $factura->factura_id ?>
-                                                    </td>
-                                                    <td><?php echo $factura->serie ?></td>
-                                                    <td><?php echo $factura->total ?></td>
-                                                    <td ><?php echo $factura->fecha ?></td>
-                                                    <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
-                                                    <td><?php echo $factura->tipo; ?></a></td>
-                                                    <td><?php echo $factura->contrato_id; ?></a></td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Imprimir</a>
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
-                                                                        class="fa fa-print"></i> Anular</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-												<?php
-											}
-										} ?>
+                                        <?php if ($facturas_l_r) { ?>
+                                            <?php foreach ($facturas_l_r->result() as $factura) { ?>
+                                                <?php if ($factura->tipo == 'venta') { ?>
+                                                    <tr>
+                                                        <td style="width: 10%">
+                                                            <?php echo $factura->factura_id ?>
+                                                        </td>
+                                                        <td><?php echo $factura->serie ?></td>
+                                                        <td><?php echo $factura->total ?></td>
+                                                        <td><?php echo $factura->fecha ?></td>
+                                                        <td class="<?php color_por_estaado($factura->estado); ?>"><?php echo $factura->estado ?></td>
+                                                        <td><?php echo $factura->tipo; ?></a></td>
+                                                        <td><?php echo $factura->contrato_id; ?></a></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura_r/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Imprimir</a>
+                                                                <a type="button" class="btn btn-default"
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                            class="fa fa-print"></i> Anular</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            } ?>
                                         <?php } ?>
                                         </tbody>
                                     </table>
-								<?php }
-								else
-								{
-									echo 'Aún no tiene facturas';
-								} ?>
+                                <?php } else {
+                                    echo 'Aún no tiene facturas';
+                                } ?>
 
                             </div>
                             <!-- /.compra -->
@@ -714,27 +719,25 @@ $this->layout('admin/admin_master', [
                                         <tbody>
                                         <?php foreach ($recibos_apartado->result() as $recibo) { ?>
 
-                                                <tr>
-                                                    <td style="width: 10%">
-                                                        <?php echo $recibo->recibo_id ?>
-                                                    </td>
-                                                    <td><?php echo $recibo->fecha_recibo; ?></td>
-                                                    <td><?php echo $recibo->monto; ?></td>
-                                                    <td><?php echo $recibo->contrato_id; ?></td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <a type="button" class="btn btn-default"
-                                                               href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
-                                                                        class="fa fa-print"></i> Imprimir</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            <?php   } ?>
+                                            <tr>
+                                                <td style="width: 10%">
+                                                    <?php echo $recibo->recibo_id ?>
+                                                </td>
+                                                <td><?php echo $recibo->fecha_recibo; ?></td>
+                                                <td><?php echo $recibo->monto; ?></td>
+                                                <td><?php echo $recibo->contrato_id; ?></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a type="button" class="btn btn-default"
+                                                           href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                    class="fa fa-print"></i> Imprimir</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
-                                <?php }
-                                else
-                                {
+                                <?php } else {
                                     echo 'Aún no tiene Recibos';
                                 } ?>
 
@@ -780,15 +783,15 @@ $this->layout('admin/admin_master', [
                                                 </td>
                                                 <td><?php echo $producto->precio_venta ?></td>
                                                 <td><?php echo $producto->apartado ?></td>
-                                                <?php $saldo_pendiente = $producto->precio_venta - $producto->apartado?>
-                                                <td><?php echo $saldo_pendiente?></td>
+                                                <?php $saldo_pendiente = $producto->precio_venta - $producto->apartado ?>
+                                                <td><?php echo $saldo_pendiente ?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-default"
-                                                       href="<?php echo base_url() . 'productos/facturar_parartado/' . $producto->producto_id; ?>">
+                                                       href="<?php echo base_url() . 'productos/facturar_parartado/' . $cliente->id . '/' . $producto->producto_id; ?>">
                                                         <i class="fa fa-pencil-square-o"></i> facturar
                                                     </a>
                                                     <a type="button" class="btn btn-default"
-                                                       href="<?php echo base_url() . 'productos/abonar_apartado/' . $producto->producto_id; ?>">
+                                                       href="<?php echo base_url() . 'productos/abonar_apartado/' . $cliente->id . '/' . $producto->producto_id; ?>">
                                                         <i class="fa fa-pencil-square-o"></i> abonar
                                                     </a>
                                                 </td>
@@ -802,9 +805,7 @@ $this->layout('admin/admin_master', [
 
                                     </form>
 
-                                <? }
-                                else
-                                {
+                                <? } else {
                                     echo 'Aún no tiene productos empeñados';
                                 } ?>
 
@@ -818,11 +819,9 @@ $this->layout('admin/admin_master', [
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-		<?php }
-		else
-		{
-			echo 'no existe ese cliente';
-		} ?>
+        <?php } else {
+            echo 'no existe ese cliente';
+        } ?>
     </section>
     <!-- /.content -->
 </div>
@@ -910,6 +909,8 @@ $this->layout('admin/admin_master', [
 <!-- page script -->
 <script>
     var total_mutuos;
+    var total_desempenos;
+
 
     //Seguimientos
     var cliente_id;
@@ -917,12 +918,18 @@ $this->layout('admin/admin_master', [
     var comentario;
     var contrato_id;
     total_mutuos = parseInt('0');
+    total_desempenos = parseInt('0');
     $(".contrato_mutuo").each(function () {
         total_mutuos = total_mutuos + parseInt($(this).text());
     });
+    $(".contrato_desempeno").each(function () {
+        total_desempenos = total_desempenos + parseInt($(this).text());
+    });
     total_mutuos_string = numeral(total_mutuos).format('0,0.00');
+    total_desempeno_string = numeral(total_desempenos).format('0,0.00');
     //$(".total_avaluo").html('Q.'+monto_avaluo_string);
     $("#total_mutuos").html('Q.' + total_mutuos_string);
+    $("#total_desempenos").html('Q.' + total_desempeno_string);
     console.log(total_mutuos);
     $(document).ready(function () {
         $('.popover_btn').popover();
@@ -934,21 +941,21 @@ $this->layout('admin/admin_master', [
             }
         );
         /*// Setup - add a text input to each footer cell
-        $('#contratos_table tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Buscar: ' + title + '" />');
-        });
-        // Apply the search COTRATOS
-        table_contratos.columns().every(function () {
-            var that = this;
-            $('input', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
-                    that
-                        .search(this.value)
-                        .draw();
-                }
-            });
-        });*/
+         $('#contratos_table tfoot th').each(function () {
+         var title = $(this).text();
+         $(this).html('<input type="text" placeholder="Buscar: ' + title + '" />');
+         });
+         // Apply the search COTRATOS
+         table_contratos.columns().every(function () {
+         var that = this;
+         $('input', this.footer()).on('keyup change', function () {
+         if (that.search() !== this.value) {
+         that
+         .search(this.value)
+         .draw();
+         }
+         });
+         });*/
         table_contratos.columns.adjust().draw();
 
         // DataTable
@@ -960,20 +967,20 @@ $this->layout('admin/admin_master', [
         table_empenos.columns.adjust().draw();
         // Setup - add a text input to each footer cell
         /*$('#empenos_table tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Buscar: ' + title + '" />');
-        });
-        // Apply the search PRODUCTOS
-        table_empenos.columns().every(function () {
-            var that = this;
-            $('input', this.footer()).on('keyup change', function () {
-                if (that.search() !== this.value) {
-                    that
-                        .search(this.value)
-                        .draw();
-                }
-            });
-        });*/
+         var title = $(this).text();
+         $(this).html('<input type="text" placeholder="Buscar: ' + title + '" />');
+         });
+         // Apply the search PRODUCTOS
+         table_empenos.columns().every(function () {
+         var that = this;
+         $('input', this.footer()).on('keyup change', function () {
+         if (that.search() !== this.value) {
+         that
+         .search(this.value)
+         .draw();
+         }
+         });
+         });*/
 
 
     });

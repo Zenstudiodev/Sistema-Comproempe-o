@@ -50,13 +50,18 @@ $this->layout('admin/admin_master', [
 
                     ?>
 
-					<?php if ($productos) { ?>
+					<?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2) { ?>
+					<?php if ($rol !='conta') { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                             <i class="fa fa-file-text-o"></i> Liquidar productos
                         </button>
                         <button type="submit" class="btn btn-app" id="apartar_btn">
                             <i class="fa fa-file-text-o"></i> Apartar productos
                         </button>
+                        <button type="submit" class="btn btn-app" id="trasladar_btn">
+                            <i class="fa fa-file-text-o"></i> Trasladar productos
+                        </button>
+                        <?php } ?>
                         <!-- <pre>
 
                     <?php /*//print_r($facturas->result()) */ ?>
@@ -67,7 +72,7 @@ $this->layout('admin/admin_master', [
                                     <button type="button" class="close" data-dismiss="alert"
                                             aria-hidden="true">×
                                     </button>
-                                    <h4><i class="icon fa fa-ban"></i> Liquidación vacia!</h4>
+                                    <h4><i class="icon fa fa-ban"></i> Transacción vacia!</h4>
 									<?php echo $error ?>
                                 </div>
                             </div>
@@ -98,7 +103,8 @@ $this->layout('admin/admin_master', [
                                 </tr>
                                 </tfoot>
                                 <tbody>
-								<?php foreach ($productos->result() as $producto)
+                                <?php if($productos_contrato_tienda_1){?>
+								<?php foreach ($productos_contrato_tienda_1->result() as $producto)
 								{ ?>
                                     <tr>
                                         <td>
@@ -119,6 +125,30 @@ $this->layout('admin/admin_master', [
                                         <td><?php echo $producto->mutuo ?></td>
                                     </tr>
 								<?php } ?>
+                                <?php }?>
+                                <?php if($productos_contrato_tienda_2){?>
+                                 <?php foreach ($productos_contrato_tienda_2->result() as $producto)
+                                 { ?>
+                                     <tr>
+                                         <td>
+                                             <label>
+                                                 <input type="checkbox"
+                                                        id="<?php echo $producto->producto_id ?>"
+                                                        name="producto_<?php echo $producto->producto_id ?>"
+                                                        value="<?php echo $producto->producto_id ?>">
+                                             </label>
+                                         </td>
+                                         <td><?php echo $producto->producto_id ?></td>
+                                         <td><?php echo $producto->contrato_id ?></td>
+                                         <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                         <td>
+                                             <?php echo $producto->nombre_producto ?>
+                                         </td>
+                                         <td><?php echo $producto->avaluo_ce ?></td>
+                                         <td><?php echo $producto->mutuo ?></td>
+                                     </tr>
+                                 <?php } ?>
+                                <?php }?>
                                 </tbody>
                             </table>
                         </div>
@@ -139,7 +169,8 @@ $this->layout('admin/admin_master', [
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-				<?php if ($productos) { ?>
+				<?php //if ($productos) { ?>
+				<?php if (false) { ?>
 
 					<?php
 					$total_de_inventario = 0;
@@ -202,6 +233,11 @@ $this->layout('admin/admin_master', [
     $("#apartar_btn").click(function () {
         event.preventDefault();
         $("#productList_form").attr('action', '<?php echo base_url()."productos/productos_apartar"?>');
+        $("#productList_form").submit();
+    });
+    $("#trasladar_btn").click(function () {
+        event.preventDefault();
+        $("#productList_form").attr('action', '<?php echo base_url()."productos/productos_trasladar"?>');
         $("#productList_form").submit();
     });
 

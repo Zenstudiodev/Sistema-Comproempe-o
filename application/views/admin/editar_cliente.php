@@ -139,6 +139,33 @@ $this->layout('admin/admin_master', [
                 'required' => 'required',
                 'value' => $cliente->email
             );
+            $ciudad = array(
+                'type' => 'text',
+                'name' => 'ciudad',
+                'id' => 'ciudad',
+                'class' => 'form-control',
+                'placeholder' => 'Ciudad',
+                'required' => 'required',
+                'value' => $cliente->ciudad
+            );
+            $zona = array(
+                'type' => 'number',
+                'name' => 'zona',
+                'id' => 'zona',
+                'class' => 'form-control',
+                'placeholder' => 'Zona',
+                'required' => 'required',
+                'value' => $cliente->zona
+            );
+            $colonia = array(
+                'type' => 'text',
+                'name' => 'colonia',
+                'id' => 'coloinia',
+                'class' => 'form-control',
+                'placeholder' => 'Colonia',
+                'required' => 'required',
+                'value' => $cliente->colonia
+            );
 
 
             ?>
@@ -185,6 +212,26 @@ $this->layout('admin/admin_master', [
                     <div class="form-group">
                         <label for="dpi">Email</label>
                         <?php echo form_input($email);?>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dpi">Ciudad</label>
+                                <?php echo form_input($ciudad);?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dpi">Zona</label>
+                                <?php echo form_input($zona);?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dpi">Colonia</label>
+                                <?php echo form_input($colonia);?>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -242,5 +289,29 @@ $this->layout('admin/admin_master', [
             format: "yyyy-mm-dd"
         });
     });
+    var ciudades = {
+        url: "<?php echo base_url()?>index.php/cliente/ciudad_json/",
+        getValue: "ciudad",
+
+        list: {
+            match: {
+                enabled: true
+            }
+        },
+        theme: "square"
+    };
+    $("#ciudad").easyAutocomplete(ciudades);
+    var colonias = {
+        url: "<?php echo base_url()?>index.php/cliente/colonia_json/",
+        getValue: "colonia",
+
+        list: {
+            match: {
+                enabled: true
+            }
+        },
+        theme: "square"
+    };
+    $("#coloinia").easyAutocomplete(colonias);
 </script>
 <?php $this->stop() ?>

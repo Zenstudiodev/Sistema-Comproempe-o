@@ -103,6 +103,9 @@ class Cliente_model extends CI_Model
 		    'email'=> $post_data['email'],
 		    'direccion'=> $post_data['direccion'],
 		    'publicidad' => $post_data['publicidad'],
+            'ciudad' => $post_data['ciudad'],
+            'zona' => $post_data['zona'],
+            'colonia' => $post_data['colonia'],
 	    );
 	    $this->db->where('id', $post_data['cliente_id']);
 	    $query = $this->db->update('cliente',$datos);

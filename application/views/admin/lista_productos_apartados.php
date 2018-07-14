@@ -51,9 +51,11 @@ $this->layout('admin/admin_master', [
                     ?>
 
 					<?php if ($productos) { ?>
+					<?php if ($rol !='conta') { ?>
                         <button type="submit" class="btn btn-app" id="crear_contrato_btn">
                             <i class="fa fa-file-text-o"></i> vender
                         </button>
+                        <?php }?>
 						<?php if (isset($error)) { ?>
                             <div class="row">
                                 <div class="alert alert-danger alert-dismissible">
