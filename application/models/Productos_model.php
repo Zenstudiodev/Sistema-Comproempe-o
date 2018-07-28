@@ -254,15 +254,11 @@ class productos_model extends CI_Model
         $query = $this->db->update('producto', $datos);
 
     }
-    function trasladar_productos($data_producto){
+    function trasladar_producto($id, $tienda){
         $datos = array(
-            'cliente_id' => $data_producto['precio_venta'],
-            'precio_venta' => $data_producto['precio_venta'],
-            'apartado' => $data_producto['apartado'],
-            'existencias' => $data_producto['cantidad_productos'],
-            'tipo' => 'apartado',
+            'tienda_actual' => $tienda,
         );
-        $this->db->where('producto_id', $data_producto['id']);
+        $this->db->where('producto_id', $id);
         $query = $this->db->update('producto', $datos);
     }
 
@@ -319,25 +315,33 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'apartado');
         // insertamos en la base de datos
         if ($tienda == '1') {
-            $this->db->where('producto.tienda_id', '1');
+            $this->db->where('producto.tienda_actual', '1');
         } elseif ($tienda == '2') {
-            $this->db->where('producto.tienda_id', '2');
+            $this->db->where('producto.tienda_actual', '2');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function producto_apartado($datos_venta_producto)
+    function apartar_producto($datos_apartado_producto)
     {
         $datos = array(
-            'cliente_id' => $datos_venta_producto['precio_venta'],
-            'precio_venta' => $datos_venta_producto['precio_venta'],
-            'apartado' => $datos_venta_producto['apartado'],
-            'existencias' => $datos_venta_producto['cantidad_productos'],
+            'cliente_apartado' => $datos_apartado_producto['cliente_id'],
+            'precio_venta' => $datos_apartado_producto['precio_venta'],
+            'apartado' => $datos_apartado_producto['apartado'],
+            'existencias' => $datos_apartado_producto['cantidad_productos'],
+            'vencimiento_apartado' => $datos_apartado_producto['vencimiento_apartado'],
             'tipo' => 'apartado',
         );
-        $this->db->where('producto_id', $datos_venta_producto['id']);
+        $this->db->where('producto_id', $datos_apartado_producto['id']);
+        $query = $this->db->update('producto', $datos);
+    }
+    function asignar_recibo_apartado($datos_recibo_apartado_producto){
+        $datos = array(
+            'recibo_apartado' => $datos_recibo_apartado_producto['recibo_id'],
+        );
+        $this->db->where('producto_id', $datos_recibo_apartado_producto['id']);
         $query = $this->db->update('producto', $datos);
     }
     function get_porductos_apartado_by_client_id($id)

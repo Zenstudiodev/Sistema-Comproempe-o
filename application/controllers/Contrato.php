@@ -296,6 +296,17 @@ class Contrato extends Base_Controller
 		//
 
 		$contrato_id = $this->Contratos_model->guardar_contrato($datos);
+		//log a cierre de contrato
+
+        $datos_cierre_contrato= array(
+            'fecha'         => $this->input->post('no_contrato'),
+            'tipo'         => $this->input->post('no_contrato'),
+            'contrato_id'         => $this->input->post('no_contrato'),
+            'intereses'         => $this->input->post('no_contrato'),
+            'dias'         => $this->input->post('no_contrato'),
+            'monto'         => $this->input->post('no_contrato'),
+        );
+
 		//echo $contrato_id;
 		$numero_de_productos = $this->input->post('numero_de_productos');
 
@@ -511,7 +522,7 @@ class Contrato extends Base_Controller
 	}
 	function guardar_factura_desempeno()
 	{
-		$data                     = compobarSesion();
+		$data               = compobarSesion();
 
 		//
 		$datos_factura = array(

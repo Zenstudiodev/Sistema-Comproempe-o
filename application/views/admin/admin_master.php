@@ -204,7 +204,7 @@
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <?php if(user_rol() == 'developer' || user_rol() =='gerente' || user_rol() == 'vendedor'){?>
+                        <?php if(user_rol() == 'developer' || user_rol() =='gerencia' || user_rol() == 'vendedor'){?>
                         <li>
                             <a href="#"><i class="fa fa-circle-o"></i> Vales
                                 <span class="pull-right-container">

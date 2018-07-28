@@ -16,6 +16,24 @@ class Caja_model extends CI_Model
     }
 
     //guardar registros del dia
+    function guarda_contratos_del_dia(){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $datos_venta = array(
+            'tipo' => $fecha->format('Y-m-d'),
+            'contrato_id' => $data['factura_id'],
+            'intereses' => $data['monto'],
+            'id_producto' => $data['id_producto'],
+            'nombre_producto' => $data['nombre_producto'],
+            'tienda_id' => $tienda
+        );
+
+
+        $this->db->insert('ingresos', $datos_venta);
+    }
     function guardar_ventas_dia($data)
     {
         //fecha

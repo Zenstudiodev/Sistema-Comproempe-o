@@ -253,13 +253,22 @@ $this->layout('admin/admin_master', [
                                     //echo'no tiene precio de venta <br> tomar mutuo';
                                     $precio_venta = $producto->avaluo_comercial;
                                     $minimo_venta = $producto->mutuo;
-                                    $valor_apartado= $precio_venta *0.20;
+                                    if($precio_venta > 600){
+                                        $valor_apartado= $precio_venta *0.30;
+                                    }else{
+                                        $valor_apartado= $precio_venta *0.50;
+                                    }
+
                                     $valor_apartado_minimo = $valor_apartado;
                                 }else{
                                     $precio_venta = $producto->precio_venta;
                                     $minimo_venta = $producto->precio_venta;
                                     $valor_apartado = $producto->precio_venta;
-                                    $valor_apartado= $precio_venta *0.20;
+                                    if($precio_venta > 600){
+                                        $valor_apartado= $precio_venta *0.30;
+                                    }else{
+                                        $valor_apartado= $precio_venta *0.50;
+                                    }
                                     $valor_apartado_minimo = $valor_apartado;
                                 }
 
@@ -402,6 +411,29 @@ $this->layout('admin/admin_master', [
     //variables
     var total_de_productos;
     var serie_facturas;
+
+    $(".precio_venta").change(function () {
+       var precio_venta;
+       var valor_apartado;
+       precio_venta = $(this).val();
+       if(precio_venta > 600){
+           valor_apartado = parseFloat(precio_venta * 0.30).toFixed(2);
+           //console.log('el precio de venta es mayor a 600 valor del apartado del 30%' + valor_apartado);
+       }else{
+           valor_apartado = parseFloat(precio_venta * 0.50).toFixed(2);
+           //console.log('el precio de venta es menor a 600 valor del apartado del 50%'+ valor_apartado);
+       }
+       //asignamos valor de apartado
+        $(this).parent().parent().parent().parent().parent().find(".valor_apartado").val(valor_apartado);
+        $(this).parent().parent().parent().parent().parent().find(".valor_apartado").attr('min',valor_apartado);
+        //alert(precio_venta +valor_apartado);
+    });
+
+
+
+
+
+
 
     $(document).ready(function () {
 

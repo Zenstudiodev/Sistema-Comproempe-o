@@ -18,15 +18,14 @@ class Productos extends Base_Controller
         $this->load->model('Factura_model');
         $this->load->model('Proveedor_model');
     }
+
     function index()
     {
         $data['clientes'] = $this->Cliente_model->listar_clientes();
 
         echo $this->templates->render('admin/lista_clientes', $data);
     }
-    function traslados_test(){
 
-    }
     function agregar()
     {
         $data = compobarSesion();
@@ -39,6 +38,7 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/nuevo_producto', $data);
     }
+
     function guardar_producto()
     {
         //obtenemos los dastos del formulario desde post
@@ -63,6 +63,7 @@ class Productos extends Base_Controller
 
 
     }
+
     function editar_producto()
     {
         $data = compobarSesion();
@@ -75,6 +76,7 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/editar_producto', $data);
     }
+
     function actualizar_producto()
     {
 
@@ -101,12 +103,14 @@ class Productos extends Base_Controller
 
 
     }
+
     function categorias_json()
     {
         $data['categorias'] = $this->Productos_model->get_categorias();
         $categorias = $data['categorias']->result();
         echo json_encode($categorias);
     }
+
     function detalle()
     {
         $data = compobarSesion();
@@ -119,6 +123,7 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/detalle_producto', $data);
     }
+
     //liquidación
     function liquidacion()
     {
@@ -131,21 +136,22 @@ class Productos extends Base_Controller
         // Get tienda data
         $tienda = tienda_id_h();
 
-        $data['productos_contrato_tienda_1']=false;
-        $data['productos_contrato_tienda_2']=false;
+        $data['productos_contrato_tienda_1'] = false;
+        $data['productos_contrato_tienda_2'] = false;
 
         if ($tienda == '1') {
-            $data['productos_contrato_tienda_1']=$this->Productos_model->get_productos_tienda_1_contratos_1();
-            $data['productos_contrato_tienda_2']=$this->Productos_model->get_productos_tienda_1_contratos_2();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
 
         } elseif ($tienda == '2') {
-            $data['productos_contrato_tienda_1']= $this->Productos_model->get_productos_tienda_2_contratos_1();
-           $data['productos_contrato_tienda_2']= $this->Productos_model->get_productos_tienda_2_contratos_2();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
         }
         //$data['productos'] = $this->Productos_model->get_productos_liquidacion();
 
         echo $this->templates->render('admin/lista_productos_liquidacion', $data);
     }
+
     function liquidar()
     {
         $data = compobarSesion();
@@ -181,6 +187,7 @@ class Productos extends Base_Controller
         }
 
     }
+
     function guardar_liquidacion()
     {
         $fecha = New DateTime();
@@ -300,7 +307,9 @@ class Productos extends Base_Controller
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
-    function productos_trasladar(){
+
+    function productos_trasladar()
+    {
         $data = compobarSesion();
         $productos = array();
         if (!empty($_POST)) {
@@ -321,9 +330,22 @@ class Productos extends Base_Controller
             //print_r($productos);
             $data['productos'] = $this->Productos_model->datos_de_productos($productos);
 
-            print_contenido($data['productos']->result());
-
-        } else {}
+            //print_contenido($data['productos']->result());
+            foreach ($data['productos']->result() as $producto) {
+                //cambiar estado de tienda
+                $tienda = tienda_id_h();
+                $tienda_actual = $tienda;
+                // actualizamos en la base de datos
+                if ($tienda == '1') {
+                    $tienda_actual = 2;
+                } elseif ($tienda == '2') {
+                    $tienda_actual = 1;
+                }
+                $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
+            }
+            redirect(base_url() . 'productos/liquidacion');
+        } else {
+        }
     }
 
     //inventario
@@ -336,6 +358,7 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/detalle_producto', $data);
     }
+
     function ingresar_producto_inventario()
     {
         $data = compobarSesion();
@@ -343,6 +366,7 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/productos_inventario', $data);
     }
+
     function guardar_productos_inventario()
     {
         $datos_de_prorateo = array(
@@ -402,6 +426,7 @@ class Productos extends Base_Controller
          print_r($datos_de_prorateo);
          echo '</pre>';*/
     }
+
     function productos_en_venta()
     {
         $data = compobarSesion();
@@ -411,6 +436,7 @@ class Productos extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_venta();
         echo $this->templates->render('admin/lista_productos_venta', $data);
     }
+
     function productos_vender()
     {
         $data = compobarSesion();
@@ -444,6 +470,7 @@ class Productos extends Base_Controller
             //redirect(base_url() . 'index.php/productos/liquidacion', 'refresh');
         }
     }
+
     function guardar_venta()
     {
         /*echo '<pre>';
@@ -542,7 +569,8 @@ class Productos extends Base_Controller
     }
 
     //apartado
-    function productos_apartados(){
+    function productos_apartados()
+    {
         $data = compobarSesion();
         if ($this->session->flashdata('error')) {
             $data['error'] = $this->session->flashdata('error');
@@ -550,72 +578,9 @@ class Productos extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_apartados();
         echo $this->templates->render('admin/lista_productos_apartados', $data);
     }
-    function guardar_apartado()
+
+    function productos_apartar()
     {
-        $fecha = New DateTime();
-        $detalle_recibo = ''; //detalle de recibo a guardar
-
-
-
-        // numero de productos y loop por producto
-        $numero_de_productos = $this->input->post('numero_productos');
-        $i = 1;
-        while ($i <= $numero_de_productos) {
-
-            //obtenemos datos del producto
-            $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
-            $datos_producto = $datos_producto->row();
-
-            //actualizamos el producto
-            $nueva_existencia = $datos_producto->existencias - 1;
-            if ($datos_producto->existencias == '0') {
-                $nueva_existencia = 0;
-            } else {
-                $nueva_existencia = $datos_producto->existencias - 1;
-            }
-            $datos_venta_producto = array(
-                'id' => $this->input->post('cliente_id'),
-                'cliente_id' => $this->input->post('producto_' . $i . '_p'),
-                'precio_venta' => $this->input->post('producto_' . $i . '_p'),
-                'apartado' => $this->input->post('producto_' . $i . '_pa'),
-                'cantidad_productos' => $nueva_existencia
-            );
-
-            $this->Productos_model->producto_apartado($datos_venta_producto);
-
-
-            $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
-            $monto_producto = $this->input->post('producto_' . $i . '_pa');
-
-            $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
-            $detalle_recibo .= 'Total de apartado ' . formato_dinero($monto_producto) . '<br>';
-            $detalle_recibo .= 'precio de venta  ' . formato_dinero($this->input->post('producto_' . $i . '_p')) . '<br>';
-            $detalle_recibo .= 'Saldo  ' . formato_dinero($this->input->post('producto_' . $i . '_p')) . '<br>';
-            $i++;
-        }
-
-        $datos_recibo = array(
-            'cliente_id' => $this->input->post('cliente_id'),
-            'contrato_id' => '0',
-            'fecha' => $this->input->post('fecha'),
-            'monto_recibo' => $this->input->post('total_apartado'),
-            'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
-            'tipo' => 'apartado',
-            'detalle' => $detalle_recibo
-        );
-
-        $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
-
-        redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
-
-        /* echo '<pre>';
-         print_r($_POST);
-         print_r($datos_recibo);
-         echo '</pre>';
-         exit();*/
-
-    }
-    function productos_apartar(){
         $data = compobarSesion();
         $productos = array();
         if (!empty($_POST)) {
@@ -647,60 +612,92 @@ class Productos extends Base_Controller
             //redirect(base_url() . 'index.php/productos/liquidacion', 'refresh');
         }
     }
-    function guardar_apatdato()
-    {
-        $fecha = New DateTime();
-        $detalle_factura = '';
-        $detalle_recibo = '';
-        $contrados_recibo = '';
-        $suma_mutuos = 0;
 
+    function guardar_apartado()
+    {
+
+        $detalle_recibo = ''; //detalle de recibo a guardar
+
+        // numero de productos y loop por producto
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
         while ($i <= $numero_de_productos) {
-
             //obtenemos datos del producto
             $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
             $datos_producto = $datos_producto->row();
 
             //actualizamos el producto
-            $nueva_existencia = $datos_producto->existencias - $this->input->post('cantidad_producto_' . $i . '_p');
-            $datos_venta_producto = array(
+            $fecha_vencimiento_apartado = New DateTime();
+            if ($this->input->post('producto_' . $i . '_p') > 600) {
+                $fecha_vencimiento_apartado->modify('+30 days');
+            } else {
+                $fecha_vencimiento_apartado->modify('+15 days');
+            }
+
+            $nueva_existencia = $datos_producto->existencias - 1;
+            if ($datos_producto->existencias == '0') {
+                $nueva_existencia = 0;
+            } else {
+                $nueva_existencia = $datos_producto->existencias - 1;
+            }
+            $datos_apartado_producto = array(
                 'id' => $this->input->post('producto_' . $i),
+                'cliente_id' => $this->input->post('cliente_id'),
                 'precio_venta' => $this->input->post('producto_' . $i . '_p'),
-                'cantidad_productos' => $nueva_existencia
+                'apartado' => $this->input->post('producto_' . $i . '_pa'),
+                'cantidad_productos' => $nueva_existencia,
+                'vencimiento_apartado' => $fecha_vencimiento_apartado->format('Y-m-d')
             );
-
-            $this->Productos_model->producto_vendido($datos_venta_producto);
-
-
+            $this->Productos_model->apartar_producto($datos_apartado_producto);
             $gastos_administrativos = (floatval($this->input->post('producto_' . $i . '_p')) - floatval($datos_producto->mutuo));
-            $monto_producto = $this->input->post('cantidad_producto_' . $i . '_p') * $this->input->post('producto_' . $i . '_p');
-            //echo '<hr>';
+            $precio_producto = $this->input->post('producto_' . $i . '_p');
+            $monto_apartado = $this->input->post('producto_' . $i . '_pa');
+            $saldo = $precio_producto - $monto_apartado;
+
 
             $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
-            $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
+            $detalle_recibo .= 'Total de apartado ' . formato_dinero($monto_apartado) . '<br>';
+            $detalle_recibo .= 'precio de venta  ' . formato_dinero($this->input->post('producto_' . $i . '_p')) . '<br>';
+            $detalle_recibo .= 'Saldo  ' . formato_dinero($saldo) . '<br>';
+            $detalle_recibo .= 'fecha de vencimiento  ' . $fecha_vencimiento_apartado->format('Y-m-d') . '<br>';
             $i++;
         }
+
         $datos_recibo = array(
             'cliente_id' => $this->input->post('cliente_id'),
             'contrato_id' => '0',
             'fecha' => $this->input->post('fecha'),
-            'monto_recibo' => $this->input->post('total'),
+            'monto_recibo' => $this->input->post('total_apartado'),
             'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
-            'tipo' => 'venta',
+            'tipo' => 'apartado',
             'detalle' => $detalle_recibo
         );
-        /*echo '<pre>';
-        print_r($datos_recibo);
-        echo '</pre>';*/
+        // print_contenido($_POST);
+        // print_contenido($datos_recibo);
 
         $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
-
-
+        $i = 1;
+        while ($i <= $numero_de_productos) {
+            //asignamos el numero de recibo a los productos apartados
+            $datos_recibo_apartado_producto = array(
+                'id' => $this->input->post('producto_' . $i),
+                'recibo_id' => $recibo_id,
+            );
+            $this->Productos_model->asignar_recibo_apartado($datos_recibo_apartado_producto);
+            $i++;
+        }
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
+
+        /* echo '<pre>';
+         print_r($_POST);
+         print_r($datos_recibo);
+         echo '</pre>';
+         exit();*/
+
     }
-    function facturar_parartado(){
+
+    function facturar_parartado()
+    {
         $data = compobarSesion();
         //obtenemos id de cliente
         $cliente_id = $data['segmento'] = $this->uri->segment(3);
@@ -708,12 +705,14 @@ class Productos extends Base_Controller
         $producto_id = $data['segmento'] = $this->uri->segment(4);
 
         $data['productos'] = $this->Productos_model->datos_de_productos($producto_id);
-        $data['cliente']= $cliente_id;
+        $data['cliente'] = $cliente_id;
 
         $data['facturas_activas'] = $this->Factura_model->get_lote_activo();
         echo $this->templates->render('admin/facturar_apartado', $data);
     }
-    function guardar_factura_apartado(){
+
+    function guardar_factura_apartado()
+    {
         $fecha = New DateTime();
         $detalle_factura = '';
         $detalle_recibo = '';
@@ -722,12 +721,11 @@ class Productos extends Base_Controller
 
         print_contenido($_POST);
 
-        $fecha =$this->input->post('fecha');
-        $precio_producto =$this->input->post('producto_1_p');
-        $producto_id =$this->input->post('producto_1');
-        $cliente_id =$this->input->post('cliente_id');
-        $descuento =$this->input->post('descuento');
-
+        $fecha = $this->input->post('fecha');
+        $precio_producto = $this->input->post('producto_1_p');
+        $producto_id = $this->input->post('producto_1');
+        $cliente_id = $this->input->post('cliente_id');
+        $descuento = $this->input->post('descuento');
 
 
         exit();
@@ -788,7 +786,6 @@ class Productos extends Base_Controller
         $contrados_recibo .= $datos_contrato->contrato_id . ',';
 
 
-
         $detalle_recibo .= 'Liquidación de contratos: ' . $contrados_recibo . '<br>';
         $detalle_recibo .= 'Suma de mutuos ' . formato_dinero($suma_mutuos);
 
@@ -834,6 +831,7 @@ class Productos extends Base_Controller
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
+
     function abonar_apartado()
     {
         $data = compobarSesion();
@@ -842,18 +840,20 @@ class Productos extends Base_Controller
         //obtenemos id producto desde url
         $producto_id = $data['segmento'] = $this->uri->segment(4);
 
-        $data['cliente']=$this->Cliente_model->detalle_cliente($cliente_id);
+        $data['cliente'] = $this->Cliente_model->detalle_cliente($cliente_id);
 
         $datos_producto = $this->Productos_model->datos_de_productos($producto_id);
-        $data['productos'] =$datos_producto;
+        $data['productos'] = $datos_producto;
 
         echo $this->templates->render('admin/abonar_apartado', $data);
     }
-    function guardar_abono_apartado(){
+
+    function guardar_abono_apartado()
+    {
         //Datos de session
-        $data   = compobarSesion();
+        $data = compobarSesion();
         //print_contenido($_POST);
-        $contrato_id= $this->input->post('contrato_id');
+        $contrato_id = $this->input->post('contrato_id');
         $producto_id = $this->input->post('producto_1');
         $datos_producto = $this->Productos_model->datos_de_productos($producto_id);
 
@@ -863,23 +863,23 @@ class Productos extends Base_Controller
         $apartado = $producto->apartado;
         $nuevo_valor_apartado = $apartado + $monto_abono;
 
-        $datos_abono_apartado= array(
-            'producto_id'=>$this->input->post('producto_1'),
-            'apartado'=>$nuevo_valor_apartado
+        $datos_abono_apartado = array(
+            'producto_id' => $this->input->post('producto_1'),
+            'apartado' => $nuevo_valor_apartado
         );
 
         $this->Productos_model->abonar_producto_apartado($datos_abono_apartado);
         $datos_recibo = array(
-            'cliente_id'          => $this->input->post('cliente_id'),
-            'contrato_id'         => $this->input->post('contrato_id'),
-            'fecha'               => $this->input->post('fecha'),
-            'monto_recibo'        => $this->input->post('monto_abono'),
+            'cliente_id' => $this->input->post('cliente_id'),
+            'contrato_id' => $this->input->post('contrato_id'),
+            'fecha' => $this->input->post('fecha'),
+            'monto_recibo' => $this->input->post('monto_abono'),
             'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
-            'tipo'                => 'abono_apartado',
-            'detalle'             => 'Abono a apartado de producto : ' . $this->input->post('producto_1')
+            'tipo' => 'abono_apartado',
+            'detalle' => 'Abono a apartado de producto : ' . $this->input->post('producto_1')
         );
         $this->Contratos_model->guardar_recibo($datos_recibo);
-        if($contrato_id != '0') {
+        if ($contrato_id != '0') {
             //guardamos en el log de contraros
             $datos_log = array(
                 'accion' => 'abono',
