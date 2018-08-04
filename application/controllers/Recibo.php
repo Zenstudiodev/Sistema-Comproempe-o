@@ -14,6 +14,7 @@ class Recibo extends Base_Controller
 		// Modelos
 		$this->load->model('Cliente_model');
 		$this->load->model('Productos_model');
+		$this->load->model('Caja_model');
 		$this->load->model('Contratos_model');
 		$this->load->model('Recibo_model');
 	}
@@ -41,7 +42,7 @@ class Recibo extends Base_Controller
 
 		);
 
-		$this->Contratos_model->guardar_recibo($datos_recibo);
+        $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
 
 		$contrato = $this->Contratos_model->get_info_contrato($datos_recibo['contrato_id']);
 		$contrato = $contrato->row();
@@ -52,6 +53,15 @@ class Recibo extends Base_Controller
 
 		//actualizar monto de contrato
 		$this->Contratos_model->actualizar_monto_contrato($datos_recibo['contrato_id'], $nuevo_monto);
+
+		//guardamos log de caja de abono a capital
+        $datos_abono = array(
+            'recibo_id' => $recibo_id,
+            'monto' => $datos_recibo['monto_recibo'],
+            'id_contrato' => $this->input->post('contrato_id'),
+            'saldo' => $nuevo_monto,
+        );
+        $this->Caja_model->guardar_abonos_a_capital($datos_abono);
 
 		//guardamos en el log de contraros
 		$datos_log = array(

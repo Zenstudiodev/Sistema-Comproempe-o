@@ -180,6 +180,16 @@ class productos_model extends CI_Model
         $tienda = tienda_id_h();
 
         //$this->db->where('tienda_id', $tienda);
+        $this->db->where('tienda_id', $tienda);
+        $this->db->where('contrato_id', $contrato_id);
+        $query = $this->db->get('producto');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_by_contrato_actualizador($contrato_id)
+    {
+
+        //$this->db->where('tienda_id', $tienda);
         $this->db->where('contrato_id', $contrato_id);
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;

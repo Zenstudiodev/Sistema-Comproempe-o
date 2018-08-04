@@ -149,7 +149,7 @@ $dinero_en_caja = 0;
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cierre Caja -
+            Reporte Caja -
             <small></small>
         </h1>
     </section>

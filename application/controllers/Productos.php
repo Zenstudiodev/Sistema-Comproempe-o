@@ -14,6 +14,7 @@ class Productos extends Base_Controller
         // Modelos
         $this->load->model('Cliente_model');
         $this->load->model('Productos_model');
+        $this->load->model('Caja_model');
         $this->load->model('Contratos_model');
         $this->load->model('Factura_model');
         $this->load->model('Proveedor_model');
@@ -293,6 +294,8 @@ class Productos extends Base_Controller
             'detalle' => $detalle_recibo
         );
 
+
+
         //si la factura es seri r no guardamos recibo solo factura
         if ($this->input->post('serie_factura') == 'R' || $this->input->post('serie_factura') == 'RE') {
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
@@ -305,6 +308,16 @@ class Productos extends Base_Controller
             $this->Factura_model->guardar_factura_recibo($factura_id, $recibo_id);
         }
 
+
+        //todo rodear con in while de productos para obtener el total de productos
+        $registro_venta= array(
+            'factura_id'=>$factura_id,
+            'recibo_id'=>'',
+            'monto'=>$datos_factura['total'],
+            'id_producto'=>'',
+            'nombre_producto'=>'',
+        );
+        $this->Caja_model->guardar_ventas_dia($registro_venta);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
 
@@ -559,15 +572,35 @@ class Productos extends Base_Controller
         if ($_POST['comprobante'] == 'factura') {
             //guardamos factura
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
+            //todo rodear con in while de productos para obtener el total de productos
+            $registro_venta= array(
+                'factura_id'=>$factura_id,
+                'recibo_id'=>'',
+                'monto'=>$datos_factura['total'],
+                'id_producto'=>'',
+                'nombre_producto'=>'',
+            );
+            $this->Caja_model->guardar_ventas_dia($registro_venta);
+
         } else if ($_POST['comprobante'] == 'recibo') {
             $recibo_id = $this->Contratos_model->guardar_recibo($datos_recibo);
+            //todo rodear con in while de productos para obtener el total de productos
+            $registro_venta= array(
+                'factura_id'=>'',
+                'recibo_id'=>$recibo_id,
+                'monto'=>$datos_factura['total'],
+                'id_producto'=>'',
+                'nombre_producto'=>'',
+            );
+            $this->Caja_model->guardar_ventas_dia($registro_venta);
         }
+
+
 
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
 
     }
-
     //apartado
     function productos_apartados()
     {
@@ -686,6 +719,15 @@ class Productos extends Base_Controller
             $this->Productos_model->asignar_recibo_apartado($datos_recibo_apartado_producto);
             $i++;
         }
+
+        $datos_apartado = array(
+            'recibo_id' => $recibo_id,
+            'monto' => $this->input->post('total_apartado'),
+            'id_producto' => '',
+            'saldo' => '',
+            'fecha_vencimiento' => '',
+        );
+        $this->Caja_model->guardar_apartados($datos_apartado);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
 
         /* echo '<pre>';
