@@ -33,6 +33,7 @@ class Caja extends Base_Controller
         $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja();
         $data['ventas'] = $this->Caja_model->get_ventas_dia();
         $data['apartados'] = $this->Caja_model->get_apartados_dia();
+        $data['abono_apartados'] = $this->Caja_model->get_apartados_dia();
         $data['abonos_enpenos'] = $this->Caja_model->get_abono_empeno_dia();
         $data['desenpenos'] = $this->Caja_model->get_desempeno();
         $data['intereses_refrendo'] = $this->Caja_model->get_intereses_refrendo();
@@ -42,6 +43,8 @@ class Caja extends Base_Controller
         $data['otros_gastos'] = $this->Caja_model->get_otros_gastos();
         $data['depositos'] = $this->Caja_model->get_depositos();
         $data['visanets'] = $this->Caja_model->get_visanet();
+        $data['vales'] = $this->Caja_model->get_vales_activos();
+        $data['vales_cobrados'] = $this->Caja_model->get_vales_cobrados_dia();
 
         echo $this->templates->render('admin/cierre_caja', $data);
     }
@@ -57,7 +60,7 @@ class Caja extends Base_Controller
             'total_dinero_i' => $this->input->post('total_dinero_i')
         );
         $cierre_id = $this->Caja_model->guardar_cierre($datos_cierre);
-        echo $cierre_id;
+       // echo $cierre_id;
 
         $datos_dinero = array(
             'cierre_id' => $cierre_id,
@@ -78,11 +81,15 @@ class Caja extends Base_Controller
 
         //fondos caja
         $ingresos_caja = $this->Caja_model->get_fondos_caja();
+
+
+
         if ($ingresos_caja) {
+            print_contenido($ingresos_caja);
             foreach ($ingresos_caja->result() as $ingreso) {
-                print_contenido($ingreso);
+               // print_contenido($ingreso);
                 $datos_fondo = array(
-                    'fondo_id'=>$ingreso->fondo_id,
+                    'fondo_id'=>$ingreso->id_fc,
                     'cierre_id'=>$cierre_id
                 );
                 $this->Caja_model->asignar_fondo_a_cierre($datos_fondo);
@@ -119,7 +126,7 @@ class Caja extends Base_Controller
                     'ingreso_id'=>$abonos->ingreso_id,
                     'cierre_id'=>$cierre_id
                 );
-                $this->Caja_model->asignar_fondo_a_cierre($datos_venta);
+                $this->Caja_model->asignar_cierre_ingreso($datos_venta);
             }
         }
         //desempenos
@@ -216,7 +223,7 @@ class Caja extends Base_Controller
         $data['depositos'] = $this->Caja_model->get_depositos();
         $data['visanets'] = $this->Caja_model->get_visanet();
 
-        echo $this->templates->render('admin/cierre_caja', $data);
+        echo $this->templates->render('admin/cierre_reporte', $data);
     }
 
     function ingreso_deposito()
@@ -267,8 +274,11 @@ class Caja extends Base_Controller
 
     function cobrar_vale()
     {
+
+    }
+    function lista_vales(){
         $data = compobarSesion();
-        //$data['depositos']= $this->Caja_model->get_depositos();
+        $data['vales']= $this->Caja_model->get_vales();
         echo $this->templates->render('admin/cobrar_vale', $data);
     }
 

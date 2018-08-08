@@ -67,7 +67,8 @@ $nombre = array(
             <div class="box">
                 <?php
                 $total_vales = 0;
-                if (false) {
+                $total_vales_activos = 0;
+                if ($vales) {
 
                     ?>
                     <table class="table table-striped table-bordered">
@@ -76,22 +77,37 @@ $nombre = array(
                             <th>Nombre</th>
                             <th>Detalle</th>
                             <th>Monto</th>
+                            <th>accion</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <?php foreach ($otros_gastos->result() as $gasto) {
-                            $total_otros_gastos = $total_otros_gastos + $gasto->monto;
+                        <?php foreach ($vales->result() as $vale) {
+                            $total_vales = $total_vales + $vale->monto;
+                            if($vale->estado =='activo'){
+                                $total_vales_activos = $total_vales_activos + $vale->monto;
+                            }
+
                             ?>
                             <tr>
-                                <td><?php echo $gasto->detalle ?></td>
-                                <td><?php echo display_formato_dinero($gasto->monto); ?></td>
+                                <td><?php echo $vale->nombre ?></td>
+                                <td><?php echo $vale->detalle ?></td>
+                                <td><?php echo display_formato_dinero($vale->monto); ?></td>
+                                <td>
+                                    <?php if($vale->estado =='activo'){ ?>
+                                    <a class="btn btn-success" href="<?php echo base_url().'caja/cobrar_vale/'.$vale->vale_id ?>">Cobrar</a>
+                                    <?php }?>
+                                </td>
                             </tr>
                             <?php
                         } ?>
                         <tr>
-                            <td colspan="1">Total</td>
-                            <td id="totaL_ingresos"><?php echo display_formato_dinero($total_otros_gastos); ?></td>
+                            <td colspan="2">Total</td>
+                            <td id="totaL_ingresos"><?php echo display_formato_dinero($total_vales); ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Total activos</td>
+                            <td id="totaL_ingresos"><?php echo display_formato_dinero($total_vales_activos); ?></td>
                         </tr>
                         </tbody>
                     </table>

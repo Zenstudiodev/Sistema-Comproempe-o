@@ -214,7 +214,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo base_url() ?>Caja/crear_vale"><i class="fa fa-circle-o"></i>
                                         Crear vales</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Cobrar vales</a></li>
+                                <li><a href="<?php echo base_url() ?>Caja/lista_vales"><i class="fa fa-circle-o"></i> Cobrar vales</a></li>
                             </ul>
                         </li>
                         <li>

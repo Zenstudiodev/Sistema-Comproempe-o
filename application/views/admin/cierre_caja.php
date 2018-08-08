@@ -170,7 +170,7 @@ $dinero_en_caja = 0;
                         <?php
                         if ($caja_dia_anterior) {
                             $caja_dia_anterior = $caja_dia_anterior->row();
-                            $dinero_en_caja = $caja_dia_anterior->total_dinero;
+                            $dinero_en_caja = $caja_dia_anterior->saldo_caja;
                         } else {
                             $dinero_en_caja = 0;
                         }
@@ -456,6 +456,42 @@ $dinero_en_caja = 0;
                                 echo 'No hay intereses por desempeño';
                             } ?>
                         </div>
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Vales cobrados</h3>
+                            <?php
+                            $total_vales_cobrados = 0;
+                            if ($vales_cobrados) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Detalle</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($vales_cobrados->result() as $vale) {
+                                        $total_vales_cobrados = $total_vales_cobrados + $vale->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $vale->nombre ?></td>
+                                            <td><?php echo $vale->detalle ?></td>
+                                            <td><?php echo display_formato_dinero($vale->monto); ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_intereses_desempeño"><?php echo display_formato_dinero($total_vales_cobrados); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay intereses por desempeño';
+                            } ?>
+                        </div>
 
                     </div>
                     <div class="col-md-6">
@@ -561,6 +597,42 @@ $dinero_en_caja = 0;
                                     <tr>
                                         <td colspan="3">Total</td>
                                         <td id="totaL_otros_gastos"><?php echo display_formato_dinero($total_otros_gastos); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay otros gastos';
+                            } ?>
+                        </div>
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Vales</h3>
+                            <?php
+                            $total_vales = 0;
+                            if ($vales) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Detalle</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($vales->result() as $vale) {
+                                        $total_vales = $total_vales + $vale->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $vale->nombre ?></td>
+                                            <td><?php echo $vale->detalle ?></td>
+                                            <td><?php echo display_formato_dinero($vale->monto); ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_otros_gastos"><?php echo display_formato_dinero($total_vales); ?></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -707,12 +779,14 @@ $dinero_en_caja = 0;
                 $total_ingresos
                     = $dinero_en_caja
                     + $total_ingresos_caja
+                    + $total_vales_cobrados
                     + $total_ventas
                     + $total_apartados
                     + $total_abonos_enpenos
                     + $total_desenpeno
                     + $total_intereses_refrendo
                     + $total_intereses_desempeno;
+
                 $total_egresos
                     = $total_empenos
                     + $total_compras
@@ -850,7 +924,7 @@ $dinero_en_caja = 0;
                                 </tr>
                                 <tr>
                                     <th>Vales por liquidar</th>
-                                    <td>-</td>
+                                    <td id="total_vales"><?php echo $total_vales;?></td>
                                 </tr>
 
                                 </tbody>
@@ -919,9 +993,12 @@ $dinero_en_caja = 0;
     var total_visanet;
     var saldo_caja;
     var total_dinero;
+    var total_vales;
+    var total_mas_vales;
 
     $(document).ready(function () {
-        $("#guardar_cierre_btn").hide();
+      //  $("#guardar_cierre_btn").hide();
+       $("#guardar_cierre_btn").show();
     });
 
 
@@ -1012,14 +1089,27 @@ $dinero_en_caja = 0;
         saldo_final_caja = parseFloat($("#saldo_final_caja").text()).toFixed(2);
         $("#saldo_caja").val(saldo_final_caja);
         // console.log(saldo_final_caja);
-        diferencia = parseFloat(total - saldo_final_caja).toFixed(2);
+        total_vales = parseFloat($("#total_vales").text()).toFixed(2);
+        total_vales = Number(total_vales);
+
+        console.log(total_vales);
+        total_dinero = parseFloat(total).toFixed(2);
+        total_dinero = Number(total_dinero);
+
+        console.log(jQuery.type( total_vales ));
+        console.log(jQuery.type( total_dinero ));
+
+        total_mas_vales = Number(parseFloat(total_vales + total_dinero).toFixed(2));
+        console.log('total mas vales '+total_mas_vales);
+
+        diferencia = parseFloat(total_mas_vales - saldo_final_caja).toFixed(2);
 
         //console.log(diferencia);
         if (diferencia > -2) {
             console.log('diferencia mas que -1');
             $("#guardar_cierre_btn").show();
         } else {
-            $("#guardar_cierre_btn").hide();
+          //  $("#guardar_cierre_btn").hide();
         }
 
         $("#diferencia_text").html(diferencia);

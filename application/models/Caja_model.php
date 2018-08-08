@@ -72,6 +72,24 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_apartado);
     }
+    function guardar_abonos_apartados($datos_apartado){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $registro_apartado = array(
+            'ingreso_fecha' => $fecha->format('Y-m-d'),
+            'tipo' => 'apartado',
+            'recibo_id' => $datos_apartado['recibo_id'],
+            'monto' => $datos_apartado['monto'],
+            'id_producto' => $datos_apartado['id_producto'],
+            'saldo' => $datos_apartado['saldo'],
+            'fecha_vencimiento' => $datos_apartado['fecha_vencimiento'],
+            'tienda_id' => $tienda
+        );
+        $this->db->insert('ingresos', $registro_apartado);
+    }
     function guardar_abonos_a_capital($datos_abono){
         //fecha
         $fecha = New DateTime();
@@ -460,6 +478,44 @@ class Caja_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
+    function get_vales_cobrados_dia(){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('fecha_cobrado', $fecha->format('Y-m-d'));
+        $this->db->where('tienda_id', $tienda);
+        $this->db->where('estado', 'cobrado');
+        $query = $this->db->get('vales');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function get_vales(){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+
+        $tienda = tienda_id_h();
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('vales');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_vales_activos(){
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+       // $this->db->where('fecha_creado', $fecha->format('Y-m-d'));
+        $this->db->where('tienda_id', $tienda);
+        $this->db->where('estado', 'activo');
+        $query = $this->db->get('vales');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
 
     function get_fondos_caja()
     {
