@@ -75,7 +75,7 @@ $this->layout('admin/admin_master', [
                             <td>Contratos</td>
                             <td>
                                 <a class="btn btn-app bg-olive"
-                                   href="<?php echo base_url() ?>index.php/contrato/contratos_excel" target="_blank">
+                                   href="<?php echo base_url() ?>index.php/contrato/contratos_html_excel" target="_blank">
                                     <i class="fa fa-edit"></i> Exportar excel
                                 </a>
                             </td>

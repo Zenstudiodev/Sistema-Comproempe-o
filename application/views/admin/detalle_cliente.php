@@ -555,6 +555,7 @@ $this->layout('admin/admin_master', [
                                         <thead>
                                         <tr>
                                             <th>ID RECIBO</th>
+                                            <th>TIPO</th>
                                             <th>FECHA</th>
                                             <th>MONTO</th>
                                             <th>ID CONTRATO</th>
@@ -579,6 +580,7 @@ $this->layout('admin/admin_master', [
                                                     <td style="width: 10%">
                                                         <?php echo $recibo->recibo_id ?>
                                                     </td>
+                                                    <td><?php echo $recibo->tipo; ?></td>
                                                     <td><?php echo $recibo->fecha_recibo; ?></td>
                                                     <td><?php echo $recibo->monto; ?></td>
                                                     <td><?php echo $recibo->contrato_id; ?></td>
@@ -710,6 +712,7 @@ $this->layout('admin/admin_master', [
                                         <thead>
                                         <tr>
                                             <th>ID RECIBO</th>
+                                            <th>TIPO</th>
                                             <th>FECHA</th>
                                             <th>MONTO</th>
                                             <th>ID CONTRATO</th>
@@ -723,6 +726,7 @@ $this->layout('admin/admin_master', [
                                                 <td style="width: 10%">
                                                     <?php echo $recibo->recibo_id ?>
                                                 </td>
+                                                <td><?php echo $recibo->tipo; ?></td>
                                                 <td><?php echo $recibo->fecha_recibo; ?></td>
                                                 <td><?php echo $recibo->monto; ?></td>
                                                 <td><?php echo $recibo->contrato_id; ?></td>
@@ -756,6 +760,7 @@ $this->layout('admin/admin_master', [
                                         <thead>
                                         <tr>
                                             <th>NOMBRE</th>
+                                            <th>FECHA VENCIMIENTO</th>
                                             <th>PRECIO DE VENTA</th>
                                             <th>ABONO DE APARTADO</th>
                                             <th>SALDO PENDIENTE</th>
@@ -781,6 +786,7 @@ $this->layout('admin/admin_master', [
                                                         <?php echo $producto->nombre_producto ?>
                                                     </button>
                                                 </td>
+                                                <td><?php echo $producto->vencimiento_apartado ?></td>
                                                 <td><?php echo $producto->precio_venta ?></td>
                                                 <td><?php echo $producto->apartado ?></td>
                                                 <?php $saldo_pendiente = $producto->precio_venta - $producto->apartado ?>

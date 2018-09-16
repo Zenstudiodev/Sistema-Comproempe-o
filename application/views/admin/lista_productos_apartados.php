@@ -74,16 +74,24 @@ $this->layout('admin/admin_master', [
                                 <tr>
                                     <th></th>
                                     <th>PRODUCTO ID</th>
+                                    <th>CLIENTE</th>
                                     <th>NOMBRE</th>
                                     <th>FECHA VENCIMIENTO</th>
+                                    <th>PRECIO DE VENTA</th>
+                                    <th>ABONO</th>
+                                    <th>SALDO</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th></th>
                                     <th>PRODUCTO ID</th>
+                                    <th>CLIENTE</th>
                                     <th>NOMBRE</th>
                                     <th>FECHA VENCIMIENTO</th>
+                                    <th>PRECIO DE VENTA</th>
+                                    <th>ABONO</th>
+                                    <th>SALDO</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -99,11 +107,18 @@ $this->layout('admin/admin_master', [
                                             </label>
                                         </td>
                                         <td><?php echo $producto->producto_id ?></td>
+                                        <td><a href="<?php echo base_url().'cliente/detalle/'.$producto->cliente_apartado; ?>" target="_blank"><?php echo $producto->cliente_apartado;?></a></td>
                                         <td>
 											<?php echo $producto->nombre_producto ?>
                                         </td>
-                                        <td><?php echo $producto->avaluo_ce ?></td>
-                                        <td><?php echo $producto->mutuo ?></td>
+                                        <td><?php echo $producto->vencimiento_apartado ?></td>
+                                        <td><?php echo $producto->precio_venta ?></td>
+                                        <td><?php echo $producto->apartado ?></td>
+                                        <td><?php
+                                            $saldo = $producto->precio_venta -$producto->apartado;
+                                            echo $saldo;
+
+                                            ?></td>
                                     </tr>
 								<?php } ?>
                                 </tbody>

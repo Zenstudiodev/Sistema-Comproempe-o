@@ -1,12 +1,17 @@
-# Use PHPstable as default
-AddHandler application/x-httpd-php-stable .php
+# Use PHPedge as default
+AddHandler application/x-httpd-php-edge .php
+# BEGIN custom php.ini PHPedge
 <IfModule mod_suphp.c>
-    suPHP_ConfigPath /opt/phpstable/lib
+    suPHP_ConfigPath /home2/comproempeno/public_html
 </IfModule>
+# END custom php.ini
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
     RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 <IfModule !mod_rewrite.c>

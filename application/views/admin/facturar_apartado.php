@@ -202,18 +202,48 @@ $this->layout('admin/admin_master', [
                                 <p><?php echo $producto->descripcion ?></p>
                             </div>
                             <div class="row">
+                                <?php
+                                            $saldo = $producto->precio_venta -$producto->apartado;
+                                            ?>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="avaluo">Precio de venta</label>
+                                            <p>
+                                                <?php
+                                                echo $producto->precio_venta;
+                                                ?>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="avaluo">Abonos</label>
+                                            <p>
+                                                <?php
+                                                echo $producto->apartado;
+                                                ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="avaluo">Saldo</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon">Q.</span>
                                                 <input type="number" class="form-control pull-right precio_venta"
                                                        placeholder="Precio de venta"
                                                        name="producto_<?php echo $producto_numero ?>_p"
                                                        id="producto_<?php echo $producto_numero ?>_p"
-                                                       value="<?php echo $producto->precio_venta ?>"
-                                                       min="<?php echo $producto->precio_compra ?>" step="any">
+                                                       value="<?php echo $saldo; ?>"
+                                                       min="<?php echo $saldo ?>" step="any">
                                             </div>
                                         </div>
 
@@ -228,13 +258,9 @@ $this->layout('admin/admin_master', [
                                    value="<?php echo $producto_numero; ?>">
                             <?php
                             $producto_numero = $producto_numero + 1;
-                            $total_avaluos = $total_avaluos + $producto->avaluo_comercial;
-                            $total_mutuos = $total_mutuos + $producto->mutuo;
-
-                            $sub_total = $total_avaluos - $total_mutuos;
                         } ?>
                     </div>
-                    <input type="hidden" value="<?php echo $cliente?>">
+                    <input type="hidden" value="<?php echo $cliente?>" name="cliente_id">
 
                     <div class="box-body">
                         <div class="box-header with-border">
@@ -242,15 +268,6 @@ $this->layout('admin/admin_master', [
                         </div>
 
                         <div class="row">
-                            <!-- <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="avaluo">Precio de venta</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-										<?php echo form_input($precio_venta); ?>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="avaluo">Descuento</label>
@@ -282,14 +299,14 @@ $this->layout('admin/admin_master', [
                                         <tr>
                                             <th style="width:50%">Precio de venta:</th>
                                             <td>
-                                                <span id="total_orecio_venta"><?php echo display_formato_dinero($total_avaluos) ?></span>
+                                                <span id="total_orecio_venta"></span>
                                                 <input type="hidden" name="precio_venta" id="precio_venta">
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Sub total:</th>
                                             <td>
-                                                <span id="sub_total_t"><?php echo display_formato_dinero($sub_total) ?></span>
+                                                <span id="sub_total_t"></span>
                                             </td>
                                             <input type="hidden" name="sub_total" id="sub_total" value="">
                                             <input type="hidden" name="monto_recibo_letras" id="monto_recibo_letras">

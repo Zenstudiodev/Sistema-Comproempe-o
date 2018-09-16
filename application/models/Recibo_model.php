@@ -29,7 +29,70 @@ class Recibo_model  extends CI_Model
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
-	public function get_info_recibo($recibo_id){
+    public function get_recibos_enmpeno_by_cliente_id($cliente_id)
+    {
+        $tienda = tienda_id_h();
+
+        $tipos_de_recibo = array('desempeno', 'abono');
+        if ($tienda == '1') {
+            $this->db->select('recibos.recibo_id, recibos.estado, recibos.fecha_recibo, recibos.contrato_id, recibos.monto, recibos.tipo, contrato.total_mutuo');
+            $this->db->from('recibos');
+            $this->db->join('contrato', 'recibos.contrato_id = contrato.contrato_id');
+            $this->db->where('recibos.cliente_id', $cliente_id);
+            $this->db->where_in('recibos.tipo', $tipos_de_recibo);
+        } elseif ($tienda == '2') {
+            $this->db->select('recibos_tienda_2.recibo_id, recibos_tienda_2.estado, recibos_tienda_2.fecha_recibo, recibos_tienda_2.contrato_id, recibos_tienda_2.monto, recibos_tienda_2.tipo, contrato_tienda_2.total_mutuo');
+            $this->db->from('recibos_tienda_2');
+            $this->db->join('contrato_tienda_2', 'recibos_tienda_2.contrato_id = contrato_tienda_2.contrato_id');
+            $this->db->where('recibos_tienda_2.cliente_id', $cliente_id);
+            $this->db->where_in('recibos_tienda_2.tipo', $tipos_de_recibo);
+        }
+
+
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function get_recibos_liquidacion_by_client_id($cliente_id)
+    {
+        $tienda = tienda_id_h();
+        // insertamos en la base de datos
+        if ($tienda == '1') {
+            $this->db->from('recibos');
+            $this->db->where('cliente_id', $cliente_id);
+        } elseif ($tienda == '2') {
+            $this->db->from('recibos_tienda_2');
+            $this->db->where('cliente_id', $cliente_id);
+        }
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function get_recibos_apartado_by_client_id($cliente_id){
+        $tienda = tienda_id_h();
+        $tipos_de_recibo = array('apartado', 'abono_apartado');
+        if ($tienda == '1') {
+            $this->db->from('recibos');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where_in('tipo', $tipos_de_recibo);
+        } elseif ($tienda == '2') {
+            $this->db->from('recibos_tienda_2');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where_in('tipo', $tipos_de_recibo);
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function recibos_excel()
+    {
+        $fields = $this->db->field_data('recibos');
+        $query  = $this->db->select('*')->get('recibos');
+        return array("fields" => $fields, "query" => $query);
+    }
+    public function get_info_recibo($recibo_id){
 		$this->db->where('recibo_id',$recibo_id);
         $tienda = tienda_id_h();
         if ($tienda == '1') {
@@ -41,7 +104,7 @@ class Recibo_model  extends CI_Model
 		if($query->num_rows() > 0) return $query;
 		else return false;
 	}
-	public function anular_recibo($recibo_id){
+    public function anular_recibo($recibo_id){
 		$datos = array(
 			'estado' => 'anulada'
 		);
@@ -53,27 +116,5 @@ class Recibo_model  extends CI_Model
         } elseif ($tienda == '2') {
             $query = $this->db->update('recibos_tienda_2', $datos);
         }
-	}
-    function get_recibos_apartado_by_client_id($cliente_id){
-        $tienda = tienda_id_h();
-        // insertamos en la base de datos
-        if ($tienda == '1') {
-            $this->db->from('recibos');
-            $this->db->where('cliente_id', $cliente_id);
-            $this->db->where('tipo', 'apartado');
-        } elseif ($tienda == '2') {
-            $this->db->from('recibos_tienda_2');
-            $this->db->where('cliente_id', $cliente_id);
-            $this->db->where('tipo', 'apartado');
-        }
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) return $query;
-        else return false;
-    }
-	function recibos_excel()
-	{
-		$fields = $this->db->field_data('recibos');
-		$query  = $this->db->select('*')->get('recibos');
-		return array("fields" => $fields, "query" => $query);
 	}
 }

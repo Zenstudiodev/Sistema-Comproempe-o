@@ -356,7 +356,7 @@ class productos_model extends CI_Model
     }
     function get_porductos_apartado_by_client_id($id)
     {
-        $this->db->where('cliente_id', $id);
+        $this->db->where('cliente_apartado', $id);
         $this->db->where('tipo', 'apartado');
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;

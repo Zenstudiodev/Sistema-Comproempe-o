@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Carlos
- * Date: 13/06/2018
- * Time: 12:48 PM
+ * Date: 11/08/2018
+ * Time: 6:05 PM
  */
 ?>
 <html>
@@ -17,6 +17,16 @@
 <body>
 de | <input type="date" placeholder="de" name="de" id="de" >
 a | <input type="date" placeholder="a" name="a" id="a">
+
+<select name="estado" id="estado">
+    <option value="perdido">perdido</option>
+    <option value="desempenado">desempenado</option>
+    <option value="refrendado">refrendado</option>
+    <option value="liquidado_parcial">liquidado_parcial</option>
+    <option value="liquidado">liquidado</option>
+    <option value="vigente">vigente</option>
+    <option value="anulado">anulado</option>
+</select>
 <button id="filtrar">filtrar</button>
 <br>
 <input type="button" onclick="tableToExcel('table', 'W3C Example Table')" value="Export to Excel">
@@ -57,56 +67,11 @@ a | <input type="date" placeholder="a" name="a" id="a">
     $promedio_mg= 0;
     ?>
 
-    <?php foreach ($facturas->result() as $factura) { ?>
+    <?php foreach ($contratos->result() as $contrato) { ?>
+
 
         <tr>
-            <td><?php echo $factura->id; ?></td>
-            <td><?php echo $factura->nit; ?></td>
-            <td><?php echo $factura->nombre ; ?></td>
-            <td><?php echo $factura->contrato_id; ?></td>
-            <td><?php echo $factura->fecha; ?></td>
-            <td><?php
-                $total_intereses = $total_intereses + $factura->intereses;
-                echo $factura->intereses; ?></td>
-            <td><?php
-                $total_almacenaje = $total_almacenaje + $factura->almacenaje;
-                echo $factura->almacenaje; ?></td>
-            <td><?php
-                $total_mora= $total_mora + $factura->mora;
-                echo $factura->mora; ?></td>
-            <?php $mutuo = $factura->total - $factura->subtotal;?>
-            <td><?php
-                $total_mutuo= $total_mutuo + $mutuo;
-                echo $mutuo ?></td>
-            <td><?php
-                $total_gastos_admministrativos= $total_gastos_admministrativos + $factura->subtotal;
-                echo $factura->subtotal; ?></td>
-            <td><?php
-                $total_descuento= $total_descuento + $factura->descuento;
-                echo $factura->descuento; ?></td>
-            <td><?php
-                $total_total= $total_total + $factura->total;
-                echo $factura->total; ?></td>
-            <?php
-            if($mutuo != 0){
-                $mg = number_format(($factura->subtotal / $mutuo) * 100, 2);
-            }else{
-                $mg = 0;
-            }
-             ?>
-            <td><?php echo $mg; ?></td>
-            <td><?php echo $factura->tipo; ?></td>
-            <td><?php echo $factura->estado; ?></td>
-            <td><?php echo $factura->serie; ?></td>
-            <td>
-                <table>
-                    <?php echo $factura->detalle; ?>
-                    <tr>
-                        <td><?php echo $factura->factura_id; ?></td>
-                    </tr>
-                </table>
-            </td>
-            <td><?php echo $factura->factura_id; ?></td>
+            <td><?php echo print_contenido($contrato) ?></td>
         </tr>
     <?php } ?>
     <tr>
@@ -131,12 +96,21 @@ a | <input type="date" placeholder="a" name="a" id="a">
 <script>
     var de;
     var a;
+    var estado;
     $("#filtrar").click(function () {
        de = $("#de").val();
        a = $("#a").val();
+       estado = $("#estado").val();
+
 
        if(de != '' && a !=''){
-           url = '<?php echo base_url();?>' + 'factura/facturas_r_html_excel/' + de + '/' + a;
+           url = '<?php echo base_url();?>' + 'contrato/facturas_r_html_excel/' + de + '/' + a;
+
+           window.location.href = url;
+       }else{
+           de=1;
+           a=1;
+           url = '<?php echo base_url();?>' + 'contrato/facturas_r_html_excel/' + de + '/' + a+'/'+estado;
 
            window.location.href = url;
        }

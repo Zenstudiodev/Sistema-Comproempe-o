@@ -12,11 +12,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>COMPROEMPEÑO</title>
-    <link rel="shortcut icon" href="<?php echo base_url() ?>/ui/admin/dist/img/favicon.ico">
+    <link rel="shortcut icon" href="/ui/admin/dist/img/favicon.ico">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/ui/admin/bootstrap/css/bootstrap.min.css" type="text/css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
           type="text/css">
@@ -24,11 +24,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
           type="text/css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/dist/css/AdminLTE.min.css" type="text/css">
+    <link rel="stylesheet" href="/ui/admin/dist/css/AdminLTE.min.css" type="text/css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/dist/css/skins/_all-skins.min.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>/ui/admin/dist/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/ui/admin/dist/css/skins/_all-skins.min.css" type="text/css">
+    <link rel="stylesheet" href="/ui/admin/dist/css/style.css" type="text/css">
     <!--Css Personalizadoc para vista-->
     <?php echo $this->section('css_p') ?>
 
@@ -77,7 +77,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="<?php echo base_url(); ?>/ui/admin/dist/img/avatar3.png" class="img-circle"
+                    <img src="/ui/admin/dist/img/avatar3.png" class="img-circle"
                          alt="User Image">
                 </div>
                 <div class="pull-left info">
@@ -184,7 +184,7 @@
 
                 <li><a href="<?php echo base_url() ?>index.php/recibo"><i class="fa fa-file"></i>
                         <span>Recibos</span></a></li>
-                <?php if (user_rol() == 'developer' || user_rol() == 'conta' || user_rol() == 'gerente') { ?>
+                <?php if (user_rol() == 'developer' || user_rol() == 'conta' || user_rol() == 'gerencia') { ?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-line-chart"></i> <span>Inventario</span>
@@ -204,7 +204,7 @@
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <?php if(user_rol() == 'developer' || user_rol() =='gerencia' || user_rol() == 'vendedor'){?>
+                        <?php if(user_rol() == 'developer' || user_rol() =='gerencia' || user_rol() == 'vendedor' || user_rol() == 'jefe_tienda' ){?>
                         <li>
                             <a href="#"><i class="fa fa-circle-o"></i> Vales
                                 <span class="pull-right-container">
@@ -494,23 +494,23 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="<?php base_url(); ?>/ui/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/ui/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
 <!-- Bootstrap 3.3.6 -->
-<script src="<?php echo base_url(); ?>/ui/admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="/ui/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/ui/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/fastclick/fastclick.js"></script>
+<script src="/ui/admin/plugins/fastclick/fastclick.js"></script>
 <!-- Moment -->
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/moment/moment-with-locales.js"></script>
+<script src="/ui/admin/plugins/moment/moment-with-locales.js"></script>
 <!-- numeral -->
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/numeral/numeral.js"></script>
+<script src="/ui/admin/plugins/numeral/numeral.js"></script>
 <?php echo $this->section('js_p') ?>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>/ui/admin/dist/js/app.min.js"></script>
+<script src="/ui/admin/dist/js/app.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>/ui/admin/dist/js/demo.js"></script>
+<script src="/ui/admin/dist/js/demo.js"></script>
 <?php echo $this->section('js_ps') ?>
 
 </body>

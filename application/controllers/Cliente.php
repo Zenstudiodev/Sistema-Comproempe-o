@@ -110,8 +110,9 @@ class Cliente extends Base_Controller
 		$data['facturas_l_r'] = $this->Factura_model->get_facturas_liquidacion_r_by_cliente_id($data['segmento']);
 
 		//Recibos
-		$data['recibos']        = $this->Contratos_model->get_recibos_by_cliente_id($data['segmento']);
-		$data['recibos_liquidacion']        = $this->Contratos_model->get_recibos_liquidacion_by_client_id($data['segmento']);
+		$data['recibos']        = $this->Recibo_model->get_recibos_enmpeno_by_cliente_id($data['segmento']);
+		$data['recibos_liquidacion']        = $this->Recibo_model->get_recibos_liquidacion_by_client_id($data['segmento']);
+
 		$data['recibos_apartado']        = $this->Recibo_model->get_recibos_apartado_by_client_id($data['segmento']);
 		$data['productos_apartado']        = $this->Productos_model->get_porductos_apartado_by_client_id($data['segmento']);
 		$data['Numero_empenos'] = $this->Cliente_model->listar_empenos($data['segmento']);

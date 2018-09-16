@@ -16,7 +16,8 @@ class Caja_model extends CI_Model
     }
 
     //guardar registros del dia
-    function guarda_contratos_del_dia($datos_contrato){
+    function guarda_contratos_del_dia($datos_contrato)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -34,6 +35,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('egresos', $datos_registro);
     }
+
     function guardar_ventas_dia($data)
     {
         //fecha
@@ -54,7 +56,9 @@ class Caja_model extends CI_Model
 
         $this->db->insert('ingresos', $datos_venta);
     }
-    function guardar_apartados($datos_apartado){
+
+    function guardar_apartados($datos_apartado)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -72,7 +76,27 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_apartado);
     }
-    function guardar_abonos_apartados($datos_apartado){
+    function guardar_abonos_a_apartados($datos_abono)
+    {
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $registro_abono = array(
+            'ingreso_fecha' => $fecha->format('Y-m-d'),
+            'tipo' => 'abono_apartado',
+            'recibo_id' => $datos_abono['recibo_id'],
+            'monto' => $datos_abono['monto'],
+            'id_contrato' => $datos_abono['id_contrato'],
+            'saldo' => $datos_abono['saldo'],
+            'tienda_id' => $tienda
+        );
+        $this->db->insert('ingresos', $registro_abono);
+    }
+
+    function guardar_abonos_apartados($datos_apartado)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -90,7 +114,9 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_apartado);
     }
-    function guardar_abonos_a_capital($datos_abono){
+
+    function guardar_abonos_a_capital($datos_abono)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -107,7 +133,9 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_abono);
     }
-    function guardar_desenpenos($datos_desenpeno){
+
+    function guardar_desenpenos($datos_desenpeno)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -123,7 +151,9 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_desenpeno);
     }
-    function guardar_intereses_desempeno($datos_intereses_desempeno){
+
+    function guardar_intereses_desempeno($datos_intereses_desempeno)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -139,6 +169,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('ingresos', $registro_intereses_desenpeno);
     }
+
     function guardar_intereses_refrendo($data)
     {
         //fecha
@@ -159,6 +190,24 @@ class Caja_model extends CI_Model
 
         $this->db->insert('ingresos', $datos_venta);
     }
+
+    function guardar_vale_cobrado($data)
+    {
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $datos_venta = array(
+                'ingreso_fecha' => $fecha->format('Y-m-d'),
+            'tipo' => 'vale_cobrado',
+            'monto' => $data['monto'],
+            'vale_id' => $data['vale_id'],
+            'tienda_id' => $tienda
+        );
+
+        $this->db->insert('ingresos', $datos_venta);
+    }
+
     function guardar_deposito($data)
     {
         //fecha
@@ -176,6 +225,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('depositos', $datos_venta);
     }
+
     function guardar_visanet($data)
     {
         //fecha
@@ -191,6 +241,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('visanet', $datos_venta);
     }
+
     function guardar_otros_gastos($data)
     {
         //fecha
@@ -206,6 +257,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('egresos', $datos_venta);
     }
+
     function guardar_fondo_caja($data)
     {
         //fecha
@@ -221,6 +273,7 @@ class Caja_model extends CI_Model
         );
         $this->db->insert('fondos_a_caja', $datos_venta);
     }
+
     function guardar_vale($data)
     {
         //fecha
@@ -239,7 +292,8 @@ class Caja_model extends CI_Model
     }
 
     //guardar cierre y reporte
-    function guardar_cierre($data){
+    function guardar_cierre($data)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -253,6 +307,7 @@ class Caja_model extends CI_Model
             'visanet' => $data['total_visanet_i'],
             'saldo_caja' => $data['saldo_caja'],
             'total_dinero' => $data['total_dinero_i'],
+            'total_vales' => $data['total_vales'],
             'tienda_id' => $tienda
         );
         // insertamos en la base de datos
@@ -261,7 +316,9 @@ class Caja_model extends CI_Model
 
         return $insert_id;
     }
-    function guardar_dinero($data){
+
+    function guardar_dinero($data)
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
@@ -286,205 +343,216 @@ class Caja_model extends CI_Model
         // insertamos en la base de datos
         $this->db->insert('dinero', $datos_dinero);
     }
-    function asignar_fondo_a_cierre($data){
+
+    function asignar_fondo_a_cierre($data)
+    {
         $datos = array(
-            'cierre_id'=> $data['cierre_id']
+            'cierre_id' => $data['cierre_id']
         );
         $this->db->where('id_fc', $data['fondo_id']);
-        $query = $this->db->update('fondos_a_caja',$datos);
+        $query = $this->db->update('fondos_a_caja', $datos);
     }
-    function asignar_cierre_ingreso($data){
+
+    function asignar_cierre_ingreso($data)
+    {
         $datos = array(
-            'cierre_id'=> $data['cierre_id']
+            'cierre_id' => $data['cierre_id']
         );
         $this->db->where('ingreso_id', $data['ingreso_id']);
 
-        $query = $this->db->update('ingresos',$datos);
+        $query = $this->db->update('ingresos', $datos);
     }
-    function asignar_cierre_egresos($data){
+
+    function asignar_cierre_egresos($data)
+    {
         $datos = array(
-            'cierre_id'=> $data['cierre_id']
+            'cierre_id' => $data['cierre_id']
         );
         $this->db->where('egreso_id', $data['egreso_id']);
-        $query = $this->db->update('egresos',$datos);
+        $query = $this->db->update('egresos', $datos);
     }
+
+
     //Obtener registros del día
-    function get_caja_dia_anterior(){
-        //fecha
-        $fecha = New DateTime();
-        $fecha->modify('-1 days');
+    function get_caja_dia_anterior($fecha)
+    {
+
         // Get tienda data
         $tienda = tienda_id_h();
 
-        $this->db->where('fecha_cierre', $fecha->format('Y-m-d'));
+        $this->db->where('fecha_cierre', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('cierre');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_ventas_dia()
+    function get_fondos_caja($fecha)
+    {
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('fecha', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('fondos_a_caja');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function get_ventas_dia($fecha)
     {
         //fecha
-        $fecha = New DateTime();
+        //$fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
 
         $this->db->where('tipo', 'venta');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_apartados_dia()
+    function get_apartados_dia($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
 
         $this->db->where('tipo', 'apartado');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_abono_empeno_dia()
+    function get_abono_apartado_dia($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $this->db->where('tipo', 'abono_apartado');
+        $this->db->where('ingreso_fecha', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('ingresos');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function get_abono_empeno_dia($fecha)
+    {
         // Get tienda data
         $tienda = tienda_id_h();
 
         $this->db->where('tipo', 'abono');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_desempeno()
+    function get_desempeno($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
 
         $this->db->where('tipo', 'desempeño');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_intereses_refrendo()
+    function get_intereses_refrendo($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $this->db->where('tipo', 'intereses_refrendo');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_intereses_desempeno()
+    function get_intereses_desempeno($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $this->db->where('tipo', 'intereses_desempeno');
-        $this->db->where('ingreso_fecha', $fecha->format('Y-m-d'));
+        $this->db->where('ingreso_fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('ingresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_empenos()
+    function get_empenos($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $this->db->where('tipo', 'contrato');
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
+        $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('egresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_compras()
+    function get_compras($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $this->db->where('tipo', 'compra');
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
+        $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('egresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_otros_gastos()
+    function get_otros_gastos($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
         $this->db->where('tipo', 'otros_gastos');
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
+        $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('egresos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_depositos()
+    function get_depositos($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
+        $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('depositos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_visanet()
+    function get_visanet($fecha)
     {
-        //fecha
-        $fecha = New DateTime();
+
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
+        $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('visanet');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
 
-    function get_vales_cobrados_dia(){
-        //fecha
-        $fecha = New DateTime();
+    function get_vales_cobrados_dia($fecha)
+    {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->where('fecha_cobrado', $fecha->format('Y-m-d'));
+        $this->db->where('fecha_cobrado', $fecha);
         $this->db->where('tienda_id', $tienda);
         $this->db->where('estado', 'cobrado');
         $query = $this->db->get('vales');
@@ -492,43 +560,76 @@ class Caja_model extends CI_Model
         else return false;
     }
 
-    function get_vales(){
+    function get_vales()
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
-
         $tienda = tienda_id_h();
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('vales');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function get_vales_activos(){
+    function get_vales_dia()
+    {
         //fecha
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
-       // $this->db->where('fecha_creado', $fecha->format('Y-m-d'));
+        $this->db->where('fecha_creado', $fecha->format('Y-m-d'));
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('vales');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+    function get_vales_activos()
+    {
+        //fecha
+        $fecha = New DateTime();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        // $this->db->where('fecha_creado', $fecha->format('Y-m-d'));
         $this->db->where('tienda_id', $tienda);
         $this->db->where('estado', 'activo');
         $query = $this->db->get('vales');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
-
-    function get_fondos_caja()
-    {
-        //fecha
-        $fecha = New DateTime();
-        // Get tienda data
-        $tienda = tienda_id_h();
-        $this->db->where('fecha', $fecha->format('Y-m-d'));
-        $this->db->where('tienda_id', $tienda);
-        $query = $this->db->get('fondos_a_caja');
+    function get_datos_vale_by_id($vale_id){
+        $this->db->where('vale_id', $vale_id);
+        $query = $this->db->get('vales');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function cobrar_vale($vale_id){
+        //fecha
+        $fecha = New DateTime();
+        $datos = array(
+            'fecha_cobrado' => $fecha->format('Y-m-d'),
+            'estado' => 'cobrado',
+        );
+        $this->db->where('vale_id', $vale_id);
+        $query = $this->db->update('vales', $datos);
+    }
+
+    function get_dinero_dia($fecha)
+    {
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->where('fecha_dinero', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $this->db->order_by('dinero_id', 'DESC');
+        $this->db->limit(1);
+
+
+        $query = $this->db->get('dinero');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+
     //obtener fondos para asignar a cierre
     function get_fondos_caja_ac()
     {

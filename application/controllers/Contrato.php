@@ -748,4 +748,33 @@ class Contrato extends Base_Controller
         $fecha = new DateTime();
         to_excel($this->Contratos_model->contratos_excel(), "Contratos_" . $fecha->format('Y-m-d'));
     }
+    function contratos_html_excel()
+    {
+        $data = compobarSesion();
+        $estado= null;
+
+
+
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        if ($this->uri->segment(5)) {
+            $data['estado'] = $this->uri->segment(5);
+            $estado =  $data['estado'];
+        }
+
+        if ($this->uri->segment(3) !='1' && $this->uri->segment(4) !='1') {
+            echo'<h1>fintrando fechas</h1>';
+            $data['contratos'] = $this->Contratos_model->contratos_html_excel_by_date($data['from'], $data['to'], $estado);
+        } else {
+            echo'<h1>no fintrando fechas</h1>';
+            $data['contratos'] = $this->Contratos_model->contratos_html_excel($estado);
+        }
+        echo'<h1>no fintrando fechas</h1>';
+        echo $this->templates->render('admin/contratos_excel_html', $data);
+
+    }
 }

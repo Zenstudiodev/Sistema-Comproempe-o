@@ -15,6 +15,26 @@ $this->layout('admin/admin_master', [
 ]);
 
 
+if ($dinero_dia) {
+    $dinero = $dinero_dia->row();
+}else{
+    $dinero= (object)array(
+        'b_200'=>0,
+        'b_100'=>0,
+        'b_50'=>0,
+        'b_20'=>0,
+        'b_10'=>0,
+        'b_5'=>0,
+        'b_1'=>0,
+        'm_1'=>0,
+        'm_50'=>0,
+        'm_25'=>0,
+        'm_10'=>0,
+        'm_5'=>0,
+    );
+}
+
+
 $b_200 = array(
     'type' => 'number',
     'name' => 'b_200',
@@ -23,8 +43,12 @@ $b_200 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_200,
+    'readonly'=>'readonly'
 );
+
+
 $b_100 = array(
     'type' => 'number',
     'name' => 'b_100',
@@ -33,7 +57,9 @@ $b_100 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_100,
+    'readonly'=>'readonly'
 );
 $b_50 = array(
     'type' => 'number',
@@ -43,7 +69,9 @@ $b_50 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_50,
+    'readonly'=>'readonly'
 );
 $b_20 = array(
     'type' => 'number',
@@ -53,7 +81,9 @@ $b_20 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_20,
+    'readonly'=>'readonly'
 );
 $b_10 = array(
     'type' => 'number',
@@ -63,7 +93,9 @@ $b_10 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_10,
+    'readonly'=>'readonly'
 );
 $b_5 = array(
     'type' => 'number',
@@ -73,7 +105,9 @@ $b_5 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_5,
+    'readonly'=>'readonly'
 );
 $b_1 = array(
     'type' => 'number',
@@ -83,7 +117,9 @@ $b_1 = array(
     'placeholder' => 'Billetes',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->b_1,
+    'readonly'=>'readonly'
 );
 $m_1 = array(
     'type' => 'number',
@@ -93,7 +129,9 @@ $m_1 = array(
     'placeholder' => 'Monedas',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->m_1,
+    'readonly'=>'readonly'
 );
 $m_50 = array(
     'type' => 'number',
@@ -103,7 +141,9 @@ $m_50 = array(
     'placeholder' => 'Monedas',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->m_50,
+    'readonly'=>'readonly'
 );
 $m_25 = array(
     'type' => 'number',
@@ -113,7 +153,9 @@ $m_25 = array(
     'placeholder' => 'Monedas',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->m_25,
+    'readonly'=>'readonly'
 );
 $m_10 = array(
     'type' => 'number',
@@ -123,7 +165,9 @@ $m_10 = array(
     'placeholder' => 'Monedas',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->m_10,
+    'readonly'=>'readonly'
 );
 $m_5 = array(
     'type' => 'number',
@@ -133,11 +177,23 @@ $m_5 = array(
     'placeholder' => 'Monedas',
     'required' => 'required',
     'step' => '1',
-    'min' => '0'
+    'min' => '0',
+    'value'=>$dinero->m_5,
+    'readonly'=>'readonly'
 );
 
 $dinero_en_caja = 0;
 
+$fecha_cierre = array(
+    'type' => 'text',
+    'name' => 'fecha_cierre',
+    'id' => 'fecha_cierre',
+    'class' => 'form-control pull-right',
+    'placeholder' => 'Fecha del cierre',
+    'required' => 'required',
+    // 'value'       => $fecha->format('Y-m-d'),
+    //  'readonly'    => 'readonly'
+);
 ?>
 <!--Css Personalizadoc para vista-->
 <?php $this->start('css_p') ?>
@@ -159,18 +215,32 @@ $dinero_en_caja = 0;
         <!-- /.box -->
         <div class="box">
             <div class="box-header">
-                Balance de caja - <?php $hoy = New DateTime();
-                echo $hoy->format('Y-m-d') ?>
+                Balance de caja - <?php echo $fecha; ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>fecha del contrato:</label>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <?php echo form_input($fecha_cierre); ?>
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <h3>Dinero en caja del día anterior</h3>
                         <?php
                         if ($caja_dia_anterior) {
                             $caja_dia_anterior = $caja_dia_anterior->row();
-                            $dinero_en_caja = $caja_dia_anterior->total_dinero;
+                            $dinero_en_caja = $caja_dia_anterior->saldo_caja;
                         } else {
                             $dinero_en_caja = 0;
                         }
@@ -577,7 +647,7 @@ $dinero_en_caja = 0;
                             Dinero
                         </h2>
                         <div class="container">
-                            <form id="cierre_caja" action="<?php echo base_url() . 'Caja/guardar_cierre_de_caja' ?>"
+                            <form id="cierre_caja" action="/Caja/guardar_cierre_de_caja"
                                   method="post">
                                 <h3 class="box-title">Billetes</h3>
                                 <div class="row">
@@ -850,7 +920,7 @@ $dinero_en_caja = 0;
                                 </tr>
                                 <tr>
                                     <th>Vales por liquidar</th>
-                                    <td>-</td>
+                                    <td id="total_vales"><?php echo $total_vales;?></td>
                                 </tr>
 
                                 </tbody>
@@ -890,15 +960,25 @@ $dinero_en_caja = 0;
 
 <?php $this->start('js_p') ?>
 <!-- DataTables -->
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="<?php echo base_url(); ?>/ui/admin/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/ui/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/ui/admin/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- bootstrap datepicker -->
+<script src="/ui/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <?php $this->stop() ?>
 
 <?php $this->start('js_ps') ?>
 <!-- page script -->
 
 <script>
+    $(function () {
+        //Date picker
+        $('#fecha_cierre').datepicker({
+            autoclose: true,
+            format: "yyyy-mm-dd"
+        });
+    });
+
+
     var billetes_200;
     var billetes_100;
     var billetes_50;
@@ -923,9 +1003,17 @@ $dinero_en_caja = 0;
     $(document).ready(function () {
         $("#guardar_cierre_btn").hide();
     });
+    $("#fecha_cierre").change(function () {
+        fecha = $(this).val();
+
+        url = '/Caja/reporte/' + fecha;
+        window.location.href = url;
+
+    });
 
 
-    $("#cierre_caja").change(function () {
+    //$("#cierre_caja").change(function () {
+        $(document).ready(function () {
         billetes_200 = $("#b_200").val();
         billetes_100 = $("#b_100").val();
         billetes_50 = $("#b_50").val();

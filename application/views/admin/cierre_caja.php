@@ -303,6 +303,45 @@ $dinero_en_caja = 0;
                             </table>
                         </div>
                         <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Abono apartados</h3>
+                            <?php
+                            $total_abonos_apartado = 0;
+                            if ($abono_apartados) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Recibo</th>
+                                        <th>Monto</th>
+                                        <th>Contrato</th>
+                                        <th>Saldo capital</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($abono_apartados->result() as $abono) {
+                                        $total_abonos_apartado = $total_abonos_apartado + $abono->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $abono->recibo_id ?></td>
+                                            <td><?php echo display_formato_dinero($abono->monto); ?></td>
+                                            <td><?php echo $abono->id_contrato ?></td>
+                                            <td><?php echo $abono->saldo ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_abonos_apartado); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay abonos';
+                            } ?>
+                        </div>
+                        <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Abono Empeño</h3>
                             <?php
                             $total_abonos_enpenos = 0;
@@ -608,9 +647,7 @@ $dinero_en_caja = 0;
                             <h3 class="box-title">Vales</h3>
                             <?php
                             $total_vales = 0;
-                            if ($vales) {
-
-                                ?>
+                            if ($vales) {?>
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
@@ -947,6 +984,7 @@ $dinero_en_caja = 0;
                         <input type="hidden" name="total_visanet_i" id="total_visanet_i">
                         <input type="hidden" name="saldo_caja" id="saldo_caja">
                         <input type="hidden" name="total_dinero_i" id="total_dinero_i">
+                        <input type="hidden" name="total_vales" id="total_vales" value="<?php echo $total_vales;?>">
                         </form>
 
                     </div>

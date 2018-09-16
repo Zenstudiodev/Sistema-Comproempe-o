@@ -29,38 +29,52 @@ class Caja extends Base_Controller
     {
         $data = compobarSesion();
 
-        $data['caja_dia_anterior'] = $this->Caja_model->get_caja_dia_anterior();
-        $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja();
-        $data['ventas'] = $this->Caja_model->get_ventas_dia();
-        $data['apartados'] = $this->Caja_model->get_apartados_dia();
-        $data['abono_apartados'] = $this->Caja_model->get_apartados_dia();
-        $data['abonos_enpenos'] = $this->Caja_model->get_abono_empeno_dia();
-        $data['desenpenos'] = $this->Caja_model->get_desempeno();
-        $data['intereses_refrendo'] = $this->Caja_model->get_intereses_refrendo();
-        $data['intereses_desempeno'] = $this->Caja_model->get_intereses_desempeno();
-        $data['empenos'] = $this->Caja_model->get_empenos();
-        $data['compras'] = $this->Caja_model->get_compras();
-        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos();
-        $data['depositos'] = $this->Caja_model->get_depositos();
-        $data['visanets'] = $this->Caja_model->get_visanet();
-        $data['vales'] = $this->Caja_model->get_vales_activos();
-        $data['vales_cobrados'] = $this->Caja_model->get_vales_cobrados_dia();
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+        //fecha
+        $ayer = New DateTime();
+        $ayer->modify('-1 days');
+        $ayer = $ayer->format('Y-m-d');
+
+
+        $data['caja_dia_anterior'] = $this->Caja_model->get_caja_dia_anterior($ayer);
+        $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja($hoy);
+
+        $data['ventas'] = $this->Caja_model->get_ventas_dia($hoy);
+        $data['apartados'] = $this->Caja_model->get_apartados_dia($hoy);
+        $data['abono_apartados'] = $this->Caja_model->get_abono_apartado_dia($hoy);
+        $data['abonos_enpenos'] = $this->Caja_model->get_abono_empeno_dia($hoy);
+        $data['desenpenos'] = $this->Caja_model->get_desempeno($hoy);
+        $data['intereses_refrendo'] = $this->Caja_model->get_intereses_refrendo($hoy);
+        $data['intereses_desempeno'] = $this->Caja_model->get_intereses_desempeno($hoy);
+        $data['empenos'] = $this->Caja_model->get_empenos($hoy);
+        $data['compras'] = $this->Caja_model->get_compras($hoy);
+        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos($hoy);
+        $data['depositos'] = $this->Caja_model->get_depositos($hoy);
+        $data['visanets'] = $this->Caja_model->get_visanet($hoy);
+        $data['vales'] = $this->Caja_model->get_vales_activos($hoy);
+        $data['vales_cobrados'] = $this->Caja_model->get_vales_cobrados_dia($hoy);
 
         echo $this->templates->render('admin/cierre_caja', $data);
     }
 
     function guardar_cierre_de_caja()
     {
+
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+
         $datos_cierre = array(
             'total_ingreso' => $this->input->post('total_ingreso'),
             'total_egreso' => $this->input->post('total_egreso'),
             'total_deposito_i' => $this->input->post('total_deposito_i'),
             'total_visanet_i' => $this->input->post('total_visanet_i'),
             'saldo_caja' => $this->input->post('saldo_caja'),
-            'total_dinero_i' => $this->input->post('total_dinero_i')
+            'total_dinero_i' => $this->input->post('total_dinero_i'),
+            'total_vales' => $this->input->post('total_vales')
         );
         $cierre_id = $this->Caja_model->guardar_cierre($datos_cierre);
-       // echo $cierre_id;
+        // echo $cierre_id;
 
         $datos_dinero = array(
             'cierre_id' => $cierre_id,
@@ -80,11 +94,9 @@ class Caja extends Base_Controller
         $this->Caja_model->guardar_dinero($datos_dinero);
 
         //fondos caja
-        $ingresos_caja = $this->Caja_model->get_fondos_caja();
+        //$ingresos_caja = $this->Caja_model->get_fondos_caja();
 
-
-
-        if ($ingresos_caja) {
+        /*if ($ingresos_caja) {
             print_contenido($ingresos_caja);
             foreach ($ingresos_caja->result() as $ingreso) {
                // print_contenido($ingreso);
@@ -96,7 +108,7 @@ class Caja extends Base_Controller
             }
         }
         //ventas dia
-        $ventas = $this->Caja_model->get_ventas_dia();
+        $ventas = $this->Caja_model->get_ventas_dia($hoy);
         if($ventas){
             foreach ($ventas->result() as $venta) {
                 $datos_venta = array(
@@ -115,7 +127,7 @@ class Caja extends Base_Controller
                     'ingreso_id'=>$apartado->ingreso_id,
                     'cierre_id'=>$cierre_id
                 );
-                $this->Caja_model->asignar_fondo_a_cierre($datos_venta);
+                $this->Caja_model->asignar_cierre_ingreso($datos_venta);
             }
         }
        //abonos
@@ -201,27 +213,46 @@ class Caja extends Base_Controller
         //visanet
         $visanets = $this->Caja_model->get_visanet();
 
-
+*/
         //print_contenido($_POST);
-        redirect(base_url().'caja/reporte');
+        redirect(base_url() . 'caja/reporte');
     }
 
     function reporte()
     {
-        $data = compobarSesion();
-        $data['caja_dia_anterior'] = $this->Caja_model->get_caja_dia_anterior();
-        $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja();
-        $data['ventas'] = $this->Caja_model->get_ventas_dia();
-        $data['apartados'] = $this->Caja_model->get_apartados_dia();
-        $data['abonos_enpenos'] = $this->Caja_model->get_abono_empeno_dia();
-        $data['desenpenos'] = $this->Caja_model->get_desempeno();
-        $data['intereses_refrendo'] = $this->Caja_model->get_intereses_refrendo();
-        $data['intereses_desempeno'] = $this->Caja_model->get_intereses_desempeno();
-        $data['empenos'] = $this->Caja_model->get_empenos();
-        $data['compras'] = $this->Caja_model->get_compras();
-        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos();
-        $data['depositos'] = $this->Caja_model->get_depositos();
-        $data['visanets'] = $this->Caja_model->get_visanet();
+        if ($this->uri->segment(3)) {
+            $fecha = new DateTime($this->uri->segment(3));
+            $dia_anterior = new DateTime($this->uri->segment(3));
+
+
+        } else {
+            $fecha = new DateTime();
+            $dia_anterior = new DateTime();
+        }
+        $dia_anterior->modify('-1 day');
+        $dia_anterior = $dia_anterior->format('Y-m-d');
+        $fecha = $fecha->format('Y-m-d');
+        echo $fecha;
+
+        echo '-'.$dia_anterior;
+
+
+        $data['fecha'] = $fecha;
+        $data['caja_dia_anterior'] = $this->Caja_model->get_caja_dia_anterior($dia_anterior);
+        $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja($fecha);
+        $data['ventas'] = $this->Caja_model->get_ventas_dia($fecha);
+        $data['apartados'] = $this->Caja_model->get_apartados_dia($fecha);
+        $data['abono_apartados'] = $this->Caja_model->get_abono_apartado_dia($fecha);
+        $data['abonos_enpenos'] = $this->Caja_model->get_abono_empeno_dia($fecha);
+        $data['desenpenos'] = $this->Caja_model->get_desempeno($fecha);
+        $data['intereses_refrendo'] = $this->Caja_model->get_intereses_refrendo($fecha);
+        $data['intereses_desempeno'] = $this->Caja_model->get_intereses_desempeno($fecha);
+        $data['empenos'] = $this->Caja_model->get_empenos($fecha);
+        $data['compras'] = $this->Caja_model->get_compras($fecha);
+        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos($fecha);
+        $data['depositos'] = $this->Caja_model->get_depositos($fecha);
+        $data['visanets'] = $this->Caja_model->get_visanet($fecha);
+        $data['dinero_dia']= $this->Caja_model->get_dinero_dia($fecha);
 
         echo $this->templates->render('admin/cierre_reporte', $data);
     }
@@ -253,7 +284,7 @@ class Caja extends Base_Controller
     function crear_vale()
     {
         $data = compobarSesion();
-        //$data['depositos']= $this->Caja_model->get_depositos();
+        $data['vales']= $this->Caja_model->get_vales_dia();
         echo $this->templates->render('admin/crear_vale', $data);
     }
 
@@ -274,11 +305,29 @@ class Caja extends Base_Controller
 
     function cobrar_vale()
     {
-
-    }
-    function lista_vales(){
         $data = compobarSesion();
-        $data['vales']= $this->Caja_model->get_vales();
+        $data['vale_id'] = $this->uri->segment(3);
+        $data_vale = $this->Caja_model->get_datos_vale_by_id($data['vale_id']);
+        $data_vale = $data_vale->row();
+
+        //actualizamos registro de vale a cobrado
+        $this->Caja_model->cobrar_vale($data_vale->vale_id);
+
+        $datos_vale = array(
+            'vale_id' => $data_vale->vale_id,
+            'detalle' => $data_vale->vale_id,
+            'monto' => $data_vale->vale_id,
+        );
+        //guardamos datos del vale en ingresos
+        $this->Caja_model->guardar_vale_cobrado($datos_vale);
+        //redirigimos a depositos
+        redirect(base_url() . 'Caja/crear_vale');
+    }
+
+    function lista_vales()
+    {
+        $data = compobarSesion();
+        $data['vales'] = $this->Caja_model->get_vales();
         echo $this->templates->render('admin/cobrar_vale', $data);
     }
 
@@ -306,7 +355,9 @@ class Caja extends Base_Controller
     function ingreso_otros_gastos()
     {
         $data = compobarSesion();
-        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos();
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+        $data['otros_gastos'] = $this->Caja_model->get_otros_gastos($hoy);
         echo $this->templates->render('admin/ingreso_otros_gastos', $data);
     }
 
@@ -326,7 +377,10 @@ class Caja extends Base_Controller
     function ingresar_fondo_caja()
     {
         $data = compobarSesion();
-        $data['ingresos'] = $this->Caja_model->get_fondos_caja();
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+
+        $data['ingresos'] = $this->Caja_model->get_fondos_caja($hoy);
         echo $this->templates->render('admin/ingresar_fondo_caja', $data);
     }
 
