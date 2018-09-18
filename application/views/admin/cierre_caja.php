@@ -236,6 +236,7 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Cod. Producto</th>
                                         <th>Nombre Producto</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -248,6 +249,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
+                                            <td><?php echo   id_to_nombre($venta->user_id);?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -275,6 +277,9 @@ $dinero_en_caja = 0;
                                             <th>Monto</th>
                                             <th>Cod. Producto</th>
                                             <th>Nombre Producto</th>
+                                            <th>Saldo</th>
+                                            <th>Vencimiento</th>
+                                            <th>Usuario</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -286,8 +291,10 @@ $dinero_en_caja = 0;
                                                 <td><?php echo $apartado->recibo_id ?></td>
                                                 <td><?php echo display_formato_dinero($apartado->monto); ?></td>
                                                 <td><?php echo $apartado->id_producto ?></td>
+                                                <td><?php echo $apartado->nombre_producto ?></td>
                                                 <td><?php echo $apartado->saldo ?></td>
                                                 <td><?php echo $apartado->fecha_vencimiento ?></td>
+                                                <td><?php echo   id_to_nombre($apartado->user_id);?></td>
                                             </tr>
                                             <?php
                                         } ?>
@@ -316,6 +323,7 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Saldo capital</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -328,6 +336,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($abono->monto); ?></td>
                                             <td><?php echo $abono->id_contrato ?></td>
                                             <td><?php echo $abono->saldo ?></td>
+                                            <td><?php echo id_to_nombre($abono->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -355,6 +364,7 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Saldo capital</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -367,6 +377,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($abono->monto); ?></td>
                                             <td><?php echo $abono->id_contrato ?></td>
                                             <td><?php echo $abono->saldo ?></td>
+                                            <td><?php echo id_to_nombre($abono->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -393,6 +404,7 @@ $dinero_en_caja = 0;
                                         <th>Recibo id</th>
                                         <th>Monto</th>
                                         <th>Contrato</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -404,6 +416,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $desenpeno->recibo_id ?></td>
                                             <td><?php echo display_formato_dinero($desenpeno->monto); ?></td>
                                             <td><?php echo $desenpeno->id_contrato ?></td>
+                                            <td><?php echo id_to_nombre($desenpeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -433,6 +446,7 @@ $dinero_en_caja = 0;
                                         <th>Contrato</th>
                                         <th>Monto refrendado</th>
                                         <th>Saldo capital</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -445,6 +459,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $interese_refrendo->id_contrato ?></td>
                                             <td><?php echo $interese_refrendo->mutuo ?></td>
                                             <td><?php echo $interese_refrendo->saldo ?></td>
+                                            <td><?php echo id_to_nombre($interese_refrendo->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -472,6 +487,7 @@ $dinero_en_caja = 0;
                                         <th>Factura</th>
                                         <th>Monto</th>
                                         <th>Contrato</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -482,6 +498,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $interes_desempeno->factura_id ?></td>
                                             <td><?php echo display_formato_dinero($interes_desempeno->monto); ?></td>
                                             <td><?php echo $interes_desempeno->id_contrato ?></td>
+                                            <td><?php echo id_to_nombre($interes_desempeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -550,6 +567,7 @@ $dinero_en_caja = 0;
                                         <th>Intereses</th>
                                         <th>dias</th>
                                         <th>Monto Refrendo</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -562,6 +580,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $empeno->intereses ?></td>
                                             <td><?php echo $empeno->dias ?></td>
                                             <td><?php echo $empeno->monto_refrendo ?></td>
+                                            <td><?php echo id_to_nombre($empeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -621,6 +640,7 @@ $dinero_en_caja = 0;
                                     <tr>
                                         <th>Detalle</th>
                                         <th>Monto</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -630,11 +650,12 @@ $dinero_en_caja = 0;
                                         <tr>
                                             <td><?php echo $otro_gasto->detalle ?></td>
                                             <td><?php echo display_formato_dinero($otro_gasto->monto); ?></td>
+                                            <td><?php echo id_to_nombre($otro_gasto->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
                                     <tr>
-                                        <td colspan="3">Total</td>
+                                        <td colspan="1">Total</td>
                                         <td id="totaL_otros_gastos"><?php echo display_formato_dinero($total_otros_gastos); ?></td>
                                     </tr>
                                     </tbody>
@@ -654,6 +675,7 @@ $dinero_en_caja = 0;
                                         <th>Nombre</th>
                                         <th>Detalle</th>
                                         <th>Monto</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -664,6 +686,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $vale->nombre ?></td>
                                             <td><?php echo $vale->detalle ?></td>
                                             <td><?php echo display_formato_dinero($vale->monto); ?></td>
+                                            <td><?php echo id_to_nombre($vale->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>

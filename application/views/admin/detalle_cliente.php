@@ -172,7 +172,7 @@ $this->layout('admin/admin_master', [
                                     <?php if ($recibos) { ?>
 
                                         <div class="row"></div>
-                                        <table id="contratos_table" class="table table-bordered table-striped display">
+                                        <table id="empeno_recibos_table" class="table table-bordered table-striped display">
                                             <thead>
                                             <tr>
                                                 <th>ID RECIBO</th>
@@ -242,7 +242,7 @@ $this->layout('admin/admin_master', [
                                     </div>
                                     <?php if ($facturas) { ?>
                                         <div class="row"></div>
-                                        <table id="contratos_table" class="table table-bordered table-striped display">
+                                        <table id="empeno_factura_table" class="table table-bordered table-striped display">
                                             <thead>
                                             <tr>
                                                 <th>ID FACTURA</th>
@@ -303,7 +303,7 @@ $this->layout('admin/admin_master', [
                                     <?php if ($contratos) { ?>
                                         <div class="row"></div>
                                         <div class="table-responsive">
-                                            <table id="contratos_table"
+                                            <table id="empeno_contratos_table"
                                                    class="table table-bordered table-striped display compact nowrap dataTable">
                                                 <thead>
                                                 <tr>
@@ -450,7 +450,7 @@ $this->layout('admin/admin_master', [
                                     <?php if ($enmpenos) { ?>
 
                                     <div class="row"></div>
-                                    <table id="empenos_table" class="table table-bordered table-striped display">
+                                    <table id="empeno_productos_table" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th></th>
@@ -931,6 +931,9 @@ $this->layout('admin/admin_master', [
     $(".contrato_desempeno").each(function () {
         total_desempenos = total_desempenos + parseInt($(this).text());
     });
+
+
+
     total_mutuos_string = numeral(total_mutuos).format('0,0.00');
     total_desempeno_string = numeral(total_desempenos).format('0,0.00');
     //$(".total_avaluo").html('Q.'+monto_avaluo_string);
@@ -941,11 +944,32 @@ $this->layout('admin/admin_master', [
         $('.popover_btn').popover();
 
         // DataTable
-        var table_contratos = $('#contratos_table').DataTable({
+        var empeno_recibos_table = $('#empeno_recibos_table').DataTable({
                 "autoWidth": false,
                 "Search": false
             }
         );
+        var empeno_factura_table = $('#empeno_factura_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+        var empeno_contratos_table = $('#empeno_contratos_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+        var empeno_productos_table = $('#empeno_productos_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+
+
+
+
+
+
         /*// Setup - add a text input to each footer cell
          $('#contratos_table tfoot th').each(function () {
          var title = $(this).text();

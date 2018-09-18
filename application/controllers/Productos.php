@@ -186,6 +186,9 @@ class Productos extends Base_Controller
         $detalle_factura = '';
         $detalle_recibo = '';
         $contrados_recibo = '';
+        $id_productos ='';
+        $nombre_productos ='';
+        $numero_productos = '';
         $suma_mutuos = 0;
 
         $numero_de_productos = $this->input->post('numero_productos');
@@ -249,10 +252,13 @@ class Productos extends Base_Controller
             $detalle_factura .= '<td> <span class="hide_print_ga">' . formato_dinero($gastos_administrativos) . '</span><br>';
             $detalle_factura .= '</tr>';
 
-            $contrados_recibo .= $datos_contrato->contrato_id . ',';
+            $contrados_recibo .= $datos_contrato->contrato_id . ', ';
+            $id_productos .= $this->input->post('producto_' . $i). ', ';
+            $nombre_productos .= $datos_producto->nombre_producto. ', ';
 
             $i++;
         }
+
 
         $detalle_recibo .= 'Liquidación de contratos: ' . $contrados_recibo . '<br>';
         $detalle_recibo .= 'Suma de mutuos ' . formato_dinero($suma_mutuos);
@@ -305,8 +311,8 @@ class Productos extends Base_Controller
             'factura_id'=>$factura_id,
             'recibo_id'=>'',
             'monto'=>$datos_factura['total'],
-            'id_producto'=>'',
-            'nombre_producto'=>'',
+            'id_producto'=>$id_productos,
+            'nombre_producto'=>$nombre_productos,
         );
         $this->Caja_model->guardar_ventas_dia($registro_venta);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
@@ -633,6 +639,10 @@ class Productos extends Base_Controller
     {
 
         $detalle_recibo = ''; //detalle de recibo a guardar
+        $id_productos ='';
+        $nombre_productos ='';
+        $vencimientos ='';
+        $saldos ='';
 
         // numero de productos y loop por producto
         $numero_de_productos = $this->input->post('numero_productos');
@@ -676,6 +686,12 @@ class Productos extends Base_Controller
             $detalle_recibo .= 'precio de venta  ' . formato_dinero($this->input->post('producto_' . $i . '_p')) . '<br>';
             $detalle_recibo .= 'Saldo  ' . formato_dinero($saldo) . '<br>';
             $detalle_recibo .= 'fecha de vencimiento  ' . $fecha_vencimiento_apartado->format('Y-m-d') . '<br>';
+
+
+            $id_productos .= $this->input->post('producto_' . $i). ', ';
+            $nombre_productos .= $datos_producto->nombre_producto. ', ';
+            $saldos .= $saldo. ', ';
+            $vencimientos .= $fecha_vencimiento_apartado->format('Y-m-d'). ', ';
             $i++;
         }
 
@@ -706,9 +722,10 @@ class Productos extends Base_Controller
         $datos_apartado = array(
             'recibo_id' => $recibo_id,
             'monto' => $this->input->post('total_apartado'),
-            'id_producto' => '',
-            'saldo' => '',
-            'fecha_vencimiento' => '',
+            'id_producto'=>$id_productos,
+            'nombre_producto'=>$nombre_productos,
+            'saldo' => $saldos,
+            'fecha_vencimiento' => $vencimientos,
         );
         $this->Caja_model->guardar_apartados($datos_apartado);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
@@ -841,6 +858,16 @@ class Productos extends Base_Controller
             $this->Factura_model->guardar_factura_recibo($factura_id, $recibo_id);
         }
 
+        //registro de caja
+        $registro_venta= array(
+            'factura_id'=>$factura_id,
+            'recibo_id'=>'',
+            'monto'=>$datos_factura['total'],
+            'id_producto'=>'',
+            'nombre_producto'=>'',
+        );
+        $this->Caja_model->guardar_ventas_dia($registro_venta);
+
         //actualizamos datos de producto
         $this->Productos_model->guardar_precio_venta($producto_id, $precio_producto);
 
@@ -851,6 +878,8 @@ class Productos extends Base_Controller
             'id_producto' => $producto_id,
         );
         $this->Productos_model->guardar_liquidacion_factura_producto($datos_de_liquidacion);
+
+
 
 
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');

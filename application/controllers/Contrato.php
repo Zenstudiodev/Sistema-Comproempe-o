@@ -554,7 +554,7 @@ class Contrato extends Base_Controller
         //guardamos log de caja desempeño
 
         $datos_desenpeno = array(
-            'recibo_id' => $recibo_id['recibo_id'],
+            'recibo_id' => $recibo_id,
             'monto' => $datos_recibo['monto_recibo'],
             'id_contrato' => $datos_factura['contrato_id'],
         );

@@ -22,6 +22,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $datos_registro = array(
             'fecha' => $fecha->format('Y-m-d'),
@@ -31,7 +33,8 @@ class Caja_model extends CI_Model
             'dias' => $datos_contrato['dias'],
             'monto' => $datos_contrato['monto'],
             'monto_refrendo' => $datos_contrato['monto_refrendo'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('egresos', $datos_registro);
     }
@@ -42,6 +45,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $datos_venta = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -51,7 +56,8 @@ class Caja_model extends CI_Model
             'monto' => $data['monto'],
             'id_producto' => $data['id_producto'],
             'nombre_producto' => $data['nombre_producto'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id,
         );
 
         $this->db->insert('ingresos', $datos_venta);
@@ -63,6 +69,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $registro_apartado = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -70,9 +78,11 @@ class Caja_model extends CI_Model
             'recibo_id' => $datos_apartado['recibo_id'],
             'monto' => $datos_apartado['monto'],
             'id_producto' => $datos_apartado['id_producto'],
+            'nombre_producto' => $datos_apartado['nombre_producto'],
             'saldo' => $datos_apartado['saldo'],
             'fecha_vencimiento' => $datos_apartado['fecha_vencimiento'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('ingresos', $registro_apartado);
     }
@@ -82,6 +92,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $registro_abono = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -90,29 +102,10 @@ class Caja_model extends CI_Model
             'monto' => $datos_abono['monto'],
             'id_contrato' => $datos_abono['id_contrato'],
             'saldo' => $datos_abono['saldo'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('ingresos', $registro_abono);
-    }
-
-    function guardar_abonos_apartados($datos_apartado)
-    {
-        //fecha
-        $fecha = New DateTime();
-        // Get tienda data
-        $tienda = tienda_id_h();
-
-        $registro_apartado = array(
-            'ingreso_fecha' => $fecha->format('Y-m-d'),
-            'tipo' => 'apartado',
-            'recibo_id' => $datos_apartado['recibo_id'],
-            'monto' => $datos_apartado['monto'],
-            'id_producto' => $datos_apartado['id_producto'],
-            'saldo' => $datos_apartado['saldo'],
-            'fecha_vencimiento' => $datos_apartado['fecha_vencimiento'],
-            'tienda_id' => $tienda
-        );
-        $this->db->insert('ingresos', $registro_apartado);
     }
 
     function guardar_abonos_a_capital($datos_abono)
@@ -121,6 +114,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $registro_abono = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -129,7 +124,8 @@ class Caja_model extends CI_Model
             'monto' => $datos_abono['monto'],
             'id_contrato' => $datos_abono['id_contrato'],
             'saldo' => $datos_abono['saldo'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('ingresos', $registro_abono);
     }
@@ -140,6 +136,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $registro_desenpeno = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -147,7 +145,8 @@ class Caja_model extends CI_Model
             'recibo_id' => $datos_desenpeno['recibo_id'],
             'monto' => $datos_desenpeno['monto'],
             'id_contrato' => $datos_desenpeno['id_contrato'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('ingresos', $registro_desenpeno);
     }
@@ -158,6 +157,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $registro_intereses_desenpeno = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -165,7 +166,8 @@ class Caja_model extends CI_Model
             'factura_id' => $datos_intereses_desempeno['factura_id'],
             'monto' => $datos_intereses_desempeno['monto'],
             'id_contrato' => $datos_intereses_desempeno['id_contrato'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('ingresos', $registro_intereses_desenpeno);
     }
@@ -176,6 +178,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
 
         $datos_venta = array(
             'ingreso_fecha' => $fecha->format('Y-m-d'),
@@ -185,7 +189,8 @@ class Caja_model extends CI_Model
             'id_contrato' => $data['contrato'],
             'mutuo' => $data['monto_refrendado'],
             'tipo' => 'intereses_refrendo',
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
 
         $this->db->insert('ingresos', $datos_venta);
@@ -197,12 +202,15 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
         $datos_venta = array(
                 'ingreso_fecha' => $fecha->format('Y-m-d'),
             'tipo' => 'vale_cobrado',
             'monto' => $data['monto'],
             'vale_id' => $data['vale_id'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
 
         $this->db->insert('ingresos', $datos_venta);
@@ -214,6 +222,8 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
         $datos_venta = array(
             'fecha' => $fecha->format('Y-m-d'),
             'no_boleta' => $data['boleta'],
@@ -221,7 +231,8 @@ class Caja_model extends CI_Model
             'banco' => $data['banco'],
             'tipo' => $data['tipo'],
             'documento' => $data['documento'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('depositos', $datos_venta);
     }
@@ -232,12 +243,15 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
         $datos_venta = array(
             'fecha' => $fecha->format('Y-m-d'),
             'factura_id' => $data['factura_id'],
             'recibo_id' => $data['recibo_id'],
             'monto' => $data['monto'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('visanet', $datos_venta);
     }
@@ -248,12 +262,15 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
         $datos_venta = array(
             'fecha' => $fecha->format('Y-m-d'),
             'tipo' => 'otros_gastos',
             'detalle' => $data['detalle'],
             'monto' => $data['monto'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('egresos', $datos_venta);
     }
@@ -280,13 +297,16 @@ class Caja_model extends CI_Model
         $fecha = New DateTime();
         // Get tienda data
         $tienda = tienda_id_h();
+        //user data
+        $user_id = get_user_id();
         $datos_venta = array(
             'fecha_creado' => $fecha->format('Y-m-d'),
             'nombre' => $data['nombre'],
             'estado' => 'activo',
             'detalle' => $data['detalle'],
             'monto' => $data['monto'],
-            'tienda_id' => $tienda
+            'tienda_id' => $tienda,
+            'user_id' => $user_id
         );
         $this->db->insert('vales', $datos_venta);
     }
