@@ -52,6 +52,7 @@ class Caja_model extends CI_Model
             'ingreso_fecha' => $fecha->format('Y-m-d'),
             'tipo' => 'venta',
             'factura_id' => $data['factura_id'],
+            'serie' => $data['serie'],
             'recibo_id' => $data['recibo_id'],
             'monto' => $data['monto'],
             'id_producto' => $data['id_producto'],
@@ -100,7 +101,7 @@ class Caja_model extends CI_Model
             'tipo' => 'abono_apartado',
             'recibo_id' => $datos_abono['recibo_id'],
             'monto' => $datos_abono['monto'],
-            'id_contrato' => $datos_abono['id_contrato'],
+            'id_producto' => $datos_abono['id_producto'],
             'saldo' => $datos_abono['saldo'],
             'tienda_id' => $tienda,
             'user_id' => $user_id

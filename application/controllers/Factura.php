@@ -49,9 +49,10 @@ class Factura extends Base_Controller
         $data['segmento_cliente'] = $this->uri->segment(3);
         //ID Contrato
         $data['segmento_factura'] = $this->uri->segment(4);
+        $serie_factura = $this->uri->segment(5);
 
         $data['cliente'] = $this->Cliente_model->detalle_cliente($data['segmento_cliente']);
-        $data['factura'] = $this->Factura_model->get_info_factura($data['segmento_factura']);
+        $data['factura'] = $this->Factura_model->get_info_factura($data['segmento_factura'], $serie_factura);
 
         $factura = $data['factura']->row();
         $data['contrato'] = $this->Contratos_model->get_info_contrato($factura->contrato_id);
@@ -82,24 +83,30 @@ class Factura extends Base_Controller
     {
         $data['segmento_cliente'] = $this->uri->segment(3);
         //ID Contrato
-        $data['segmento_factura'] = $this->uri->segment(4);
+        $factura_id = $this->uri->segment(4);
+        $serie_factura = $this->uri->segment(5);
         $data['cliente'] = $this->Cliente_model->detalle_cliente($data['segmento_cliente']);
-        $data['factura'] = $this->Factura_model->get_info_factura($data['segmento_factura']);
+        $data['factura'] = $this->Factura_model->get_info_factura($factura_id, $serie_factura);
         $factura = $data['factura']->row();
+        //print_contenido($factura);
 
 
         /**
          * si es anulacion de factura de liquidación
          */
         if ($factura->tipo == 'venta') {
-            $transacciones_liquidacion = $this->Productos_model->get_transacciones_liquidacio_by_factura($factura->factura_id);
+           // echo 'venta';
+            //echo '<br>';
+            //echo $factura->factura_id;
+            $transacciones_liquidacion = $this->Productos_model->get_transacciones_liquidacio_by_factura($factura_id);
+            //print_contenido($transacciones_liquidacion->result());
             foreach ($transacciones_liquidacion->result() as $transaccion) {
                 //echo 'poner producto: '.$transaccion->id_producto.' en venta <br>';
-                //echo 'Anular factura: '.$transaccion->id_factura;
                 $this->Productos_model->liberar_producto__anular_factura_liquidacion($transaccion->id_producto);
-
             }
-            $this->Productos_model->borrar_transacciones_liquidacion($factura->factura_id);
+
+            //echo 'Anular factura: '.$factura->factura_id;
+           $this->Productos_model->borrar_transacciones_liquidacion($factura->factura_id);
         } else {
             /**
              * si es factura de refrendo o desempeño
@@ -128,7 +135,7 @@ class Factura extends Base_Controller
         }
 
 
-        $this->Factura_model->anular_factura($data['segmento_factura']);
+        $this->Factura_model->anular_factura($factura_id, $serie_factura);
         //redrigimos a detalle de cliente
         redirect(base_url() . 'cliente/detalle/' . $data['segmento_cliente']);
 

@@ -103,7 +103,70 @@ class Recibo extends Base_Controller
 		//ID Contrato
 		$data['segmento_recibo'] = $this->uri->segment(4);
 
-		$this->Recibo_model->anular_recibo($data['segmento_recibo']);
+        //datos del recibo
+		$recibo_data= $this->Recibo_model->get_info_recibo($data['segmento_recibo']);
+        $recibo_data = $recibo_data->row();
+        $tipo_recibo = $recibo_data->tipo;
+        //datos del contrato
+        $contrato_info = $this->Contratos_model->get_info_contrato($recibo_data->contrato_id);
+        $contrato_info = $contrato_info->row();
+
+
+        switch ($tipo_recibo) {
+            case 'desempeno':
+                echo "es desempeno";
+                break;
+            case 'venta':
+                echo "es venta";
+                break;
+            case 'abono':
+               // echo "es abono";
+                $nuevo_monto = $contrato_info->total_mutuo + $recibo_data->monto;
+                //anulamos el recibo
+                $this->Recibo_model->anular_recibo($data['segmento_recibo']);
+                //agregamos el monto del recibo al mutuo del contrato
+                $this->Contratos_model->actualizar_monto_contrato($recibo_data->contrato_id, $nuevo_monto);
+                break;
+            case 'liquidacion':
+                echo "es de liquidacion";
+                break;
+            case 'apartado':
+                //echo "es apartado";
+                $productos_apartados = $this->Productos_model->get_productos_apartados_by_recibo($recibo_data->recibo_id);
+                foreach ($productos_apartados->result() as $producto) {
+                    $nuevo_monto_apartado ='0';
+                  //  echo $producto->producto_id;
+                    //actualizamos el valor del apartado del producto
+                    $datos_abono_apartado = array(
+                        'producto_id' => $producto->producto_id,
+                        'apartado' => $nuevo_monto_apartado
+                    );
+                    $this->Productos_model->abonar_producto_apartado($datos_abono_apartado);
+                    $this->Productos_model->liberar_producto_apartado($producto->producto_id);
+                }
+                //anulamos el recibo
+                $this->Recibo_model->anular_recibo($data['segmento_recibo']);
+                break;
+            case 'abono_apartado':
+                //echo "es abono de apartado";
+                //obtenemos los datos de producto asignados al recibo
+                $producto_abonado = $this->Productos_model->datos_de_producto($recibo_data->producto_id);
+                $producto_abonado = $producto_abonado->row();
+                $nuevo_monto_apartado = $producto_abonado->apartado -$recibo_data->monto;
+
+                //actualizamos el valor del apartado del producto
+                $datos_abono_apartado = array(
+                    'producto_id' => $producto_abonado->producto_id,
+                    'apartado' => $nuevo_monto_apartado
+                );
+                $this->Productos_model->abonar_producto_apartado($datos_abono_apartado);
+
+                //anulamos el recibo
+                $this->Recibo_model->anular_recibo($data['segmento_recibo']);
+                break;
+        }
+        //print_contenido($recibo_data);
+        //print_contenido($contrato_info);
 
 		//redrigimos a detalle de cliente
 		redirect(base_url() . 'cliente/detalle/' . $data['segmento_cliente']);

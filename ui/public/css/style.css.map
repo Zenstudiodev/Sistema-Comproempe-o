@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.scss"],"names":[],"mappings":"AAAA,mBACE,UAAA,MACA,OAAA,EAAA,KACA,WAAA","file":"style.css","sourcesContent":["div#logo_container {\r\n  max-width: 600px;\r\n  margin: 0 auto;\r\n  margin-top: 10vh;\r\n}\r\n\r\nh1{\r\n}\r\n\r\n"]}

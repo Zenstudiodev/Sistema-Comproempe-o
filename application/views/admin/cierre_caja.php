@@ -233,6 +233,7 @@ $dinero_en_caja = 0;
                                     <thead>
                                     <tr>
                                         <th>Factura</th>
+                                        <th>Serie</th>
                                         <th>Monto</th>
                                         <th>Cod. Producto</th>
                                         <th>Nombre Producto</th>
@@ -246,6 +247,7 @@ $dinero_en_caja = 0;
                                         ?>
                                         <tr>
                                             <td><?php echo $venta->factura_id ?></td>
+                                            <td><?php echo $venta->serie ?></td>
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
@@ -321,7 +323,7 @@ $dinero_en_caja = 0;
                                     <tr>
                                         <th>Recibo</th>
                                         <th>Monto</th>
-                                        <th>Contrato</th>
+                                        <th>Producto</th>
                                         <th>Saldo capital</th>
                                         <th>Usuario</th>
                                     </tr>
@@ -334,7 +336,7 @@ $dinero_en_caja = 0;
                                         <tr>
                                             <td><?php echo $abono->recibo_id ?></td>
                                             <td><?php echo display_formato_dinero($abono->monto); ?></td>
-                                            <td><?php echo $abono->id_contrato ?></td>
+                                            <td><?php echo $abono->id_producto ?></td>
                                             <td><?php echo $abono->saldo ?></td>
                                             <td><?php echo id_to_nombre($abono->user_id) ?></td>
                                         </tr>

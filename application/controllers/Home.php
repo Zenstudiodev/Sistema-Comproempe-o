@@ -33,4 +33,7 @@ class home extends Base_Controller
 	    $data['registros'] = $this->Contratos_model->get_logs();
 	    echo $this->templates->render('admin/listar_registros', $data);
     }
+    function pd(){
+        echo $this->templates->render('public/dp');
+    }
 }

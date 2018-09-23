@@ -154,15 +154,15 @@ $this->layout('admin/admin_master', [
 
                                 <form method="post"
                                       action="<? echo base_url() . 'index.php/Contrato/nuevo/' . $cliente->id ?>">
-                                    <?php if($rol !='conta'){?>
-                                    <a class="btn btn-app"
-                                       href="<?php echo base_url() . "index.php/Productos/agregar/" . $cliente->id; ?>">
-                                        <i class="fa fa-plus"></i> Agregar producto
-                                    </a>
-                                    <button type="submit" class="btn btn-app" id="crear_contrato_btn">
-                                        <i class="fa fa-file-text-o"></i> Crear contrato
-                                    </button>
-                                    <?php }?>
+                                    <?php if ($rol != 'conta') { ?>
+                                        <a class="btn btn-app"
+                                           href="<?php echo base_url() . "index.php/Productos/agregar/" . $cliente->id; ?>">
+                                            <i class="fa fa-plus"></i> Agregar producto
+                                        </a>
+                                        <button type="submit" class="btn btn-app" id="crear_contrato_btn">
+                                            <i class="fa fa-file-text-o"></i> Crear contrato
+                                        </button>
+                                    <?php } ?>
                                     <hr>
                                     <div class="col-xs-12">
                                         <h2 class="page-header">
@@ -172,7 +172,8 @@ $this->layout('admin/admin_master', [
                                     <?php if ($recibos) { ?>
 
                                         <div class="row"></div>
-                                        <table id="empeno_recibos_table" class="table table-bordered table-striped display">
+                                        <table id="empeno_recibos_table"
+                                               class="table table-bordered table-striped display">
                                             <thead>
                                             <tr>
                                                 <th>ID RECIBO</th>
@@ -242,7 +243,8 @@ $this->layout('admin/admin_master', [
                                     </div>
                                     <?php if ($facturas) { ?>
                                         <div class="row"></div>
-                                        <table id="empeno_factura_table" class="table table-bordered table-striped display">
+                                        <table id="empeno_factura_table"
+                                               class="table table-bordered table-striped display">
                                             <thead>
                                             <tr>
                                                 <th>ID FACTURA</th>
@@ -279,7 +281,7 @@ $this->layout('admin/admin_master', [
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
                                                                    href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
@@ -353,7 +355,7 @@ $this->layout('admin/admin_master', [
                                                                     <span class="sr-only">Toggle Dropdown</span>
                                                                 </button>
                                                                 <ul class="dropdown-menu" role="menu">
-                                                                    <?php if ($rol !='conta') { ?>
+                                                                    <?php if ($rol != 'conta') { ?>
                                                                         <?php if ($contrato->estado == 'vigente' || $contrato->estado == 'refrendado' || $contrato->estado == 'gracia' || $contrato->estado == 'perdido') { ?>
                                                                             <li>
                                                                                 <a href="<?php echo base_url() . 'contrato/refrendo/' . $cliente->id . '/' . $contrato->contrato_id; ?>">
@@ -450,7 +452,8 @@ $this->layout('admin/admin_master', [
                                     <?php if ($enmpenos) { ?>
 
                                     <div class="row"></div>
-                                    <table id="empeno_productos_table" class="table table-bordered table-striped display">
+                                    <table id="empeno_productos_table"
+                                           class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th></th>
@@ -551,7 +554,7 @@ $this->layout('admin/admin_master', [
 
                                 <?php if ($recibos_liquidacion) { ?>
                                     <div class="row"></div>
-                                    <table id="contratos_table" class="table table-bordered table-striped display">
+                                    <table id="venta_recibos_table" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th>ID RECIBO</th>
@@ -607,7 +610,7 @@ $this->layout('admin/admin_master', [
                                 </div>
                                 <?php if ($facturas_l || $facturas_l_r) { ?>
                                     <div class="row"></div>
-                                    <table id="contratos_table" class="table table-bordered table-striped display">
+                                    <table id="venta_facturas_table" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th>ID FACTURA</th>
@@ -620,17 +623,6 @@ $this->layout('admin/admin_master', [
                                             <th>ACCIONES</th>
                                         </tr>
                                         </thead>
-                                        <!-- <tfoot>
-										 <tr>
-											 <th>ID CONTRATO</th>
-											 <th>ESTADO</th>
-											 <th>REFRENDO</th>
-											 <th>DESEMPEÑO</th>
-											 <th>FECHA DE PAGO</th>
-											 <th></th>
-										 </tr>
-										 </tfoot>-->
-
                                         <tbody>
                                         <?php if ($facturas_l) { ?>
                                             <?php foreach ($facturas_l->result() as $factura) { ?>
@@ -651,7 +643,7 @@ $this->layout('admin/admin_master', [
                                                                    href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Anular</a>
                                                             </div>
                                                         </td>
@@ -679,7 +671,7 @@ $this->layout('admin/admin_master', [
                                                                    href="<?php echo base_url() . 'factura/imprimir_factura_r/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Anular</a>
                                                             </div>
                                                         </td>
@@ -708,14 +700,14 @@ $this->layout('admin/admin_master', [
 
                                 <?php if ($recibos_apartado) { ?>
                                     <div class="row"></div>
-                                    <table id="contratos_table" class="table table-bordered table-striped display">
+                                    <table id="apartado_recibos" class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th>ID RECIBO</th>
+                                            <th>ESTADO</th>
                                             <th>TIPO</th>
                                             <th>FECHA</th>
                                             <th>MONTO</th>
-                                            <th>ID CONTRATO</th>
                                             <th>ACCIONES</th>
                                         </tr>
                                         </thead>
@@ -726,16 +718,20 @@ $this->layout('admin/admin_master', [
                                                 <td style="width: 10%">
                                                     <?php echo $recibo->recibo_id ?>
                                                 </td>
+                                                <td><?php echo $recibo->estado; ?></td>
                                                 <td><?php echo $recibo->tipo; ?></td>
                                                 <td><?php echo $recibo->fecha_recibo; ?></td>
                                                 <td><?php echo $recibo->monto; ?></td>
-                                                <td><?php echo $recibo->contrato_id; ?></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <a type="button" class="btn btn-default"
                                                            href="<?php echo base_url() . 'recibo/imprimir_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
                                                                     class="fa fa-print"></i> Imprimir</a>
                                                     </div>
+
+                                                    <a type="button" class="btn btn-default"
+                                                       href="<?php echo base_url() . 'recibo/anular_recibo/' . $cliente->id . '/' . $recibo->recibo_id; ?>"><i
+                                                                class="fa fa-print"></i> Anular Recibo</a>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -756,7 +752,8 @@ $this->layout('admin/admin_master', [
                                 <?php if ($productos_apartado) { ?>
 
                                     <div class="row"></div>
-                                    <table id="empenos_table" class="table table-bordered table-striped display">
+                                    <table id="apartado_productos_table"
+                                           class="table table-bordered table-striped display">
                                         <thead>
                                         <tr>
                                             <th>NOMBRE</th>
@@ -933,7 +930,6 @@ $this->layout('admin/admin_master', [
     });
 
 
-
     total_mutuos_string = numeral(total_mutuos).format('0,0.00');
     total_desempeno_string = numeral(total_desempenos).format('0,0.00');
     //$(".total_avaluo").html('Q.'+monto_avaluo_string);
@@ -964,10 +960,26 @@ $this->layout('admin/admin_master', [
                 "Search": false
             }
         );
-
-
-
-
+        var venta_recibos_table = $('#venta_recibos_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+        var venta_facturas_table = $('#venta_facturas_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+        var apartado_recibos = $('#apartado_recibos').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
+        var apartado_productos_table = $('#apartado_productos_table').DataTable({
+                "autoWidth": false,
+                "Search": false
+            }
+        );
 
 
         /*// Setup - add a text input to each footer cell

@@ -264,12 +264,41 @@ class productos_model extends CI_Model
         $query = $this->db->update('producto', $datos);
 
     }
+
+    //traslados
     function trasladar_producto($id, $tienda){
         $datos = array(
             'tienda_actual' => $tienda,
         );
         $this->db->where('producto_id', $id);
         $query = $this->db->update('producto', $datos);
+    }
+    function guardar_traslado($datos_traslado){
+
+        //fecha
+        $fecha = New DateTime();
+        //user data
+        $user_id = get_user_id();
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $datos_traslado = array(
+            'traslado_tienda_actual' => $datos_traslado['traslado_tienda_actual'],
+            'traslado_tienda_destino' => $datos_traslado['traslado_tienda_destino'],
+            'traslado_fecha' => $fecha->format('Y-m-d'),
+            'user_id' => $user_id,
+            'traslado_productos' => $datos_traslado['traslado_productos'],
+            'tienda_id' => $tienda,
+        );
+        $this->db->insert('traslado', $datos_traslado);
+    }
+    function get_traslados(){
+        $query = $this->db->get('traslado');
+        if ($query->num_rows() > 0) return $query;
+    }
+    function get_traslado_by_id($id){
+        $this->db->where('traslado_id', $id);
+        $query = $this->db->get('traslado');
+        if ($query->num_rows() > 0) return $query;
     }
 
 
@@ -316,6 +345,9 @@ class productos_model extends CI_Model
         else return false;
     }
 
+
+
+
     //productos apartados
     function get_productos_apartados()
     {
@@ -331,6 +363,21 @@ class productos_model extends CI_Model
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_apartados_by_recibo($recibo_id){
+        $this->db->where('recibo_apartado', $recibo_id);
+        $this->db->where('tipo', 'apartado');
+        $query = $this->db->get('producto');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_porductos_apartado_by_client_id($id)
+    {
+        $this->db->where('cliente_apartado', $id);
+        $this->db->where('tipo', 'apartado');
+        $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
@@ -354,17 +401,14 @@ class productos_model extends CI_Model
         $this->db->where('producto_id', $datos_recibo_apartado_producto['id']);
         $query = $this->db->update('producto', $datos);
     }
-    function get_porductos_apartado_by_client_id($id)
-    {
-        $this->db->where('cliente_apartado', $id);
-        $this->db->where('tipo', 'apartado');
-        $query = $this->db->get('producto');
-        if ($query->num_rows() > 0) return $query;
-        else return false;
-    }
     function abonar_producto_apartado($datos_apartado){
         $this->db->set('apartado', $datos_apartado['apartado']);
         $this->db->where('producto_id', $datos_apartado['producto_id']);
+        $this->db->update('producto');
+    }
+    function liberar_producto_apartado($producto_id){
+        $this->db->set('tipo', 'venta');
+        $this->db->where('producto_id', $producto_id);
         $this->db->update('producto');
     }
     //exportar

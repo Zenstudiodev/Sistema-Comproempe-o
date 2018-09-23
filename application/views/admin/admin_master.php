@@ -137,6 +137,12 @@
                                 Productos apartados
                             </a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>index.php/productos/traslados"><i
+                                        class="fa fa-file"></i>
+                                Traslados
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="treeview">

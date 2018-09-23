@@ -232,8 +232,7 @@ class Caja extends Base_Controller
         $dia_anterior->modify('-1 day');
         $dia_anterior = $dia_anterior->format('Y-m-d');
         $fecha = $fecha->format('Y-m-d');
-        echo $fecha;
-
+        //echo $fecha;
         echo '-'.$dia_anterior;
 
 
@@ -253,6 +252,7 @@ class Caja extends Base_Controller
         $data['depositos'] = $this->Caja_model->get_depositos($fecha);
         $data['visanets'] = $this->Caja_model->get_visanet($fecha);
         $data['dinero_dia']= $this->Caja_model->get_dinero_dia($fecha);
+        $data['vales_cobrados'] = $this->Caja_model->get_vales_cobrados_dia($fecha);
 
         echo $this->templates->render('admin/cierre_reporte', $data);
     }
@@ -260,7 +260,9 @@ class Caja extends Base_Controller
     function ingreso_deposito()
     {
         $data = compobarSesion();
-        $data['depositos'] = $this->Caja_model->get_depositos();
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+        $data['depositos'] = $this->Caja_model->get_depositos($hoy);
         echo $this->templates->render('admin/ingreso_depositos', $data);
     }
 
@@ -334,7 +336,9 @@ class Caja extends Base_Controller
     function ingreso_visanet()
     {
         $data = compobarSesion();
-        $data['visanets'] = $this->Caja_model->get_visanet();
+        $hoy = new DateTime();
+        $hoy = $hoy->format('Y-m-d');
+        $data['visanets'] = $this->Caja_model->get_visanet($hoy);
         echo $this->templates->render('admin/ingreso_visanet', $data);
     }
 

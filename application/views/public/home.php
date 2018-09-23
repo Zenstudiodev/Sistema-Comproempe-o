@@ -9,3 +9,9 @@ $this->layout('public/public_master');
 ?>
 
 
+<?php $this->start('page_content') ?>
+
+<div id="logo_container">
+    <img src="<?php echo base_url(); ?>ui/public/images/logo.png" class="img-fluid">
+</div>
+<?php $this->stop() ?>

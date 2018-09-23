@@ -84,30 +84,36 @@ class Factura_model extends CI_Model
 
     }
 
-    public function get_info_factura($factura_id)
+    public function get_info_factura($factura_id, $serie)
     {
-        $this->db->where('factura_id', $factura_id);
-
         $tienda = tienda_id_h();
         // insertamos en la base de datos
-        if ($tienda == '1') {
-            $query = $this->db->get('facturas');
 
-            if ($query->num_rows() > 0) return $query;
-            else {
-                $query = $this->db->get('facturas_r');
-                if ($query->num_rows() > 0) return $query;
-                else return false;
+        $this->db->where('factura_id', $factura_id);
+
+        if ($tienda == '1') {
+            switch ($serie) {
+                case 'R':
+                    $query = $this->db->get('facturas_r');
+                    break;
+                case 'A':
+                    $query = $this->db->get('facturas');
+                    break;
             }
         } elseif ($tienda == '2') {
-            $query = $this->db->get('facturas_tienda_2');
-            if ($query->num_rows() > 0) return $query;
-            else {
-                $query = $this->db->get('facturas_r');
-                if ($query->num_rows() > 0) return $query;
-                else return false;
+            switch ($serie) {
+                case 'RE':
+                    $query = $this->db->get('facturas_tienda_2_r');
+                    break;
+                case 'CN':
+                    $query = $this->db->get('facturas_tienda_2');
+                    break;
             }
         }
+
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+
     }
 
     public function get_info_factura_r($factura_id)
@@ -131,7 +137,7 @@ class Factura_model extends CI_Model
         }
     }
 
-    public function anular_factura($factura_id)//TODO facturas r
+    public function anular_factura($factura_id, $serie)//TODO facturas r
     {
         $datos = array(
             'estado' => 'anulada'
@@ -140,10 +146,23 @@ class Factura_model extends CI_Model
         $tienda = tienda_id_h();
         // insertamos en la base de datos
         if ($tienda == '1') {
-            $query = $this->db->update('facturas', $datos);
-
+            switch ($serie) {
+                case 'R':
+                    $query = $this->db->update('facturas_r', $datos);
+                    break;
+                case 'A':
+                    $query = $this->db->update('facturas', $datos);
+                    break;
+            }
         } elseif ($tienda == '2') {
-            $query = $this->db->update('facturas_tienda_2', $datos);
+            switch ($serie) {
+                case 'RE':
+                    $query = $this->db->update('facturas_tienda_2_r', $datos);
+                    break;
+                case 'CN':
+                    $query = $this->db->update('facturas_tienda_2', $datos);
+                    break;
+            }
         }
     }
 

@@ -15,6 +15,17 @@ $this->layout('admin/admin_master', [
 ]);
 
 
+
+if ($caja_dia_anterior) {
+    $caja_dia_anterior = $caja_dia_anterior->row();
+
+    $dinero_en_caja = $caja_dia_anterior->saldo_caja;
+    $total_vales = $caja_dia_anterior->total_vales;
+} else {
+    $dinero_en_caja = 0;
+    $total_vales = 0;
+}
+
 if ($dinero_dia) {
     $dinero = $dinero_dia->row();
 }else{
@@ -182,7 +193,7 @@ $m_5 = array(
     'readonly'=>'readonly'
 );
 
-$dinero_en_caja = 0;
+//$dinero_en_caja = 0;
 
 $fecha_cierre = array(
     'type' => 'text',
@@ -220,9 +231,10 @@ $fecha_cierre = array(
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
+
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>fecha del contrato:</label>
+                            <label>fecha del cierre:</label>
 
                             <div class="input-group date">
                                 <div class="input-group-addon">
@@ -237,15 +249,7 @@ $fecha_cierre = array(
                 <div class="row">
                     <div class="col-md-6">
                         <h3>Dinero en caja del día anterior</h3>
-                        <?php
-                        if ($caja_dia_anterior) {
-                            $caja_dia_anterior = $caja_dia_anterior->row();
-                            $dinero_en_caja = $caja_dia_anterior->saldo_caja;
-                        } else {
-                            $dinero_en_caja = 0;
-                        }
-                        echo formato_dinero($dinero_en_caja);
-                        ?>
+                        <?php echo formato_dinero($dinero_en_caja);?>
                     </div>
                 </div>
                 <div class="row">
@@ -303,9 +307,11 @@ $fecha_cierre = array(
                                     <thead>
                                     <tr>
                                         <th>Factura</th>
+                                        <th>Serie</th>
                                         <th>Monto</th>
                                         <th>Cod. Producto</th>
                                         <th>Nombre Producto</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -315,9 +321,11 @@ $fecha_cierre = array(
                                         ?>
                                         <tr>
                                             <td><?php echo $venta->factura_id ?></td>
+                                            <td><?php echo $venta->serie ?></td>
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
+                                            <td><?php echo   id_to_nombre($venta->user_id);?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -345,6 +353,9 @@ $fecha_cierre = array(
                                             <th>Monto</th>
                                             <th>Cod. Producto</th>
                                             <th>Nombre Producto</th>
+                                            <th>Saldo</th>
+                                            <th>Vencimiento</th>
+                                            <th>Usuario</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -356,8 +367,10 @@ $fecha_cierre = array(
                                                 <td><?php echo $apartado->recibo_id ?></td>
                                                 <td><?php echo display_formato_dinero($apartado->monto); ?></td>
                                                 <td><?php echo $apartado->id_producto ?></td>
+                                                <td><?php echo $apartado->nombre_producto ?></td>
                                                 <td><?php echo $apartado->saldo ?></td>
                                                 <td><?php echo $apartado->fecha_vencimiento ?></td>
+                                                <td><?php echo   id_to_nombre($apartado->user_id);?></td>
                                             </tr>
                                             <?php
                                         } ?>
@@ -373,6 +386,47 @@ $fecha_cierre = array(
                             </table>
                         </div>
                         <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Abono apartados</h3>
+                            <?php
+                            $total_abonos_apartado = 0;
+                            if ($abono_apartados) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Recibo</th>
+                                        <th>Monto</th>
+                                        <th>Producto</th>
+                                        <th>Saldo capital</th>
+                                        <th>Usuario</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($abono_apartados->result() as $abono) {
+                                        $total_abonos_apartado = $total_abonos_apartado + $abono->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $abono->recibo_id ?></td>
+                                            <td><?php echo display_formato_dinero($abono->monto); ?></td>
+                                            <td><?php echo $abono->id_producto ?></td>
+                                            <td><?php echo $abono->saldo ?></td>
+                                            <td><?php echo id_to_nombre($abono->user_id) ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_abonos_apartado); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay abonos';
+                            } ?>
+                        </div>
+                        <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Abono Empeño</h3>
                             <?php
                             $total_abonos_enpenos = 0;
@@ -386,6 +440,7 @@ $fecha_cierre = array(
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Saldo capital</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -398,6 +453,7 @@ $fecha_cierre = array(
                                             <td><?php echo display_formato_dinero($abono->monto); ?></td>
                                             <td><?php echo $abono->id_contrato ?></td>
                                             <td><?php echo $abono->saldo ?></td>
+                                            <td><?php echo id_to_nombre($abono->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -424,6 +480,7 @@ $fecha_cierre = array(
                                         <th>Recibo id</th>
                                         <th>Monto</th>
                                         <th>Contrato</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -435,6 +492,7 @@ $fecha_cierre = array(
                                             <td><?php echo $desenpeno->recibo_id ?></td>
                                             <td><?php echo display_formato_dinero($desenpeno->monto); ?></td>
                                             <td><?php echo $desenpeno->id_contrato ?></td>
+                                            <td><?php echo id_to_nombre($desenpeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -464,6 +522,7 @@ $fecha_cierre = array(
                                         <th>Contrato</th>
                                         <th>Monto refrendado</th>
                                         <th>Saldo capital</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -476,6 +535,7 @@ $fecha_cierre = array(
                                             <td><?php echo $interese_refrendo->id_contrato ?></td>
                                             <td><?php echo $interese_refrendo->mutuo ?></td>
                                             <td><?php echo $interese_refrendo->saldo ?></td>
+                                            <td><?php echo id_to_nombre($interese_refrendo->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -503,6 +563,7 @@ $fecha_cierre = array(
                                         <th>Factura</th>
                                         <th>Monto</th>
                                         <th>Contrato</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -513,12 +574,49 @@ $fecha_cierre = array(
                                             <td><?php echo $interes_desempeno->factura_id ?></td>
                                             <td><?php echo display_formato_dinero($interes_desempeno->monto); ?></td>
                                             <td><?php echo $interes_desempeno->id_contrato ?></td>
+                                            <td><?php echo id_to_nombre($interes_desempeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
                                     <tr>
                                         <td colspan="3">Total</td>
                                         <td id="totaL_intereses_desempeño"><?php echo display_formato_dinero($total_intereses_desempeno); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay intereses por desempeño';
+                            } ?>
+                        </div>
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Vales cobrados</h3>
+                            <?php
+                            $total_vales_cobrados = 0;
+                            if ($vales_cobrados) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Detalle</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($vales_cobrados->result() as $vale) {
+                                        $total_vales_cobrados = $total_vales_cobrados + $vale->monto;
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $vale->nombre ?></td>
+                                            <td><?php echo $vale->detalle ?></td>
+                                            <td><?php echo display_formato_dinero($vale->monto); ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="3">Total</td>
+                                        <td id="totaL_intereses_desempeño"><?php echo display_formato_dinero($total_vales_cobrados); ?></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -545,6 +643,7 @@ $fecha_cierre = array(
                                         <th>Intereses</th>
                                         <th>dias</th>
                                         <th>Monto Refrendo</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -557,6 +656,7 @@ $fecha_cierre = array(
                                             <td><?php echo $empeno->intereses ?></td>
                                             <td><?php echo $empeno->dias ?></td>
                                             <td><?php echo $empeno->monto_refrendo ?></td>
+                                            <td><?php echo id_to_nombre($empeno->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -616,6 +716,7 @@ $fecha_cierre = array(
                                     <tr>
                                         <th>Detalle</th>
                                         <th>Monto</th>
+                                        <th>Usuario</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -625,11 +726,12 @@ $fecha_cierre = array(
                                         <tr>
                                             <td><?php echo $otro_gasto->detalle ?></td>
                                             <td><?php echo display_formato_dinero($otro_gasto->monto); ?></td>
+                                            <td><?php echo id_to_nombre($otro_gasto->user_id) ?></td>
                                         </tr>
                                         <?php
                                     } ?>
                                     <tr>
-                                        <td colspan="3">Total</td>
+                                        <td colspan="1">Total</td>
                                         <td id="totaL_otros_gastos"><?php echo display_formato_dinero($total_otros_gastos); ?></td>
                                     </tr>
                                     </tbody>

@@ -306,10 +306,10 @@ class Productos extends Base_Controller
         }
 
 
-        //todo rodear con in while de productos para obtener el total de productos
         $registro_venta= array(
             'factura_id'=>$factura_id,
             'recibo_id'=>'',
+            'serie'=>$this->input->post('serie_factura'),
             'monto'=>$datos_factura['total'],
             'id_producto'=>$id_productos,
             'nombre_producto'=>$nombre_productos,
@@ -317,6 +317,7 @@ class Productos extends Base_Controller
         $this->Caja_model->guardar_ventas_dia($registro_venta);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
+    //traslado
     function productos_trasladar()
     {
         $data = compobarSesion();
@@ -340,6 +341,11 @@ class Productos extends Base_Controller
             $data['productos'] = $this->Productos_model->datos_de_productos($productos);
 
             //print_contenido($data['productos']->result());
+            $productos_id = array();
+
+
+
+            //print_contenido($data['productos']->result());
             foreach ($data['productos']->result() as $producto) {
                 //cambiar estado de tienda
                 $tienda = tienda_id_h();
@@ -350,11 +356,53 @@ class Productos extends Base_Controller
                 } elseif ($tienda == '2') {
                     $tienda_actual = 1;
                 }
-                $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
+               // $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
+                $productos_id[] =$producto->producto_id;
             }
-            redirect(base_url() . 'productos/liquidacion');
+
+            //cambiar estado de tienda
+            $tienda_actual_r = tienda_id_h();
+            $tienda_destino='';
+            // actualizamos en la base de datos
+            if ($tienda_actual_r == '1') {
+                $tienda_destino = 2;
+            } elseif ($tienda_actual_r == '2') {
+                $tienda_destino = 1;
+            }
+            //print_contenido($productos_id);
+            $productos_json = json_encode($productos_id);
+
+            //obtenemos los del traslado
+            $datos_traslado = array(
+                'traslado_tienda_actual' => $tienda_actual_r,
+                'traslado_tienda_destino' => $tienda_destino,
+                'traslado_productos' => $productos_json,
+            );
+
+            $this->Productos_model->guardar_traslado($datos_traslado);
+            redirect(base_url() . 'productos/traslados');
         } else {
         }
+    }
+    function traslados(){
+        $data = compobarSesion();
+        //Id de cliente desde segmento URL
+        //traslados
+        $data['traslados'] = $this->Productos_model->get_traslados();
+        echo $this->templates->render('admin/traslados', $data);
+    }
+    function imprimir_trslado(){
+        $data = compobarSesion();
+        //ID traslado
+        $data['traslado_id'] = $this->uri->segment(3);
+
+        $data['traslado'] = $this->Productos_model->get_traslado_by_id($data['traslado_id']);
+        $traslado = $data['traslado']->row();
+        $productos = json_decode($traslado->traslado_productos);
+        $data['productos'] = $this->Productos_model->datos_de_productos($productos);
+        //print_contenido($data['productos']->result());
+
+       echo $this->templates->render('admin/imprimir_traslado', $data);
     }
 
     //inventario
@@ -861,7 +909,8 @@ class Productos extends Base_Controller
         //registro de caja
         $registro_venta= array(
             'factura_id'=>$factura_id,
-            'recibo_id'=>'',
+            'serie'=>$factura_id,
+            'recibo_id'=>$this->input->post('serie_factura'),
             'monto'=>$datos_factura['total'],
             'id_producto'=>'',
             'nombre_producto'=>'',
@@ -924,7 +973,7 @@ class Productos extends Base_Controller
         $this->Productos_model->abonar_producto_apartado($datos_abono_apartado);
         $datos_recibo = array(
             'cliente_id' => $this->input->post('cliente_id'),
-            'contrato_id' => $this->input->post('contrato_id'),
+            'producto_id' => $this->input->post('producto_1'),
             'fecha' => $this->input->post('fecha'),
             'monto_recibo' => $this->input->post('monto_abono'),
             'monto_recibo_letras' => $this->input->post('monto_recibo_letras'),
@@ -937,7 +986,7 @@ class Productos extends Base_Controller
         $datos_abono = array(
             'recibo_id' => $recibo_id,
             'monto' => $datos_recibo['monto_recibo'],
-            'id_contrato' => $this->input->post('contrato_id'),
+            'id_producto' => $this->input->post('producto_1'),
             'saldo' => $saldo_producto,
         );
         $this->Caja_model->guardar_abonos_a_apartados($datos_abono);

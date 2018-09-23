@@ -341,9 +341,19 @@ class Contratos_model extends CI_Model
 
     function guardar_recibo($data)
     {
+        if(isset($data['contrato_id'])){}
+        else{
+            $data['contrato_id'] ='0';
+        }
+        if(isset($data['producto_id'])){}
+        else{
+            $data['producto_id'] ='0';
+        }
+
         $datos_de_recibo = array(
             'cliente_id' => $data['cliente_id'],
             'contrato_id' => $data['contrato_id'],
+            'producto_id' => $data['producto_id'],
             'fecha_recibo' => $data['fecha'],
             'monto' => $data['monto_recibo'],
             'monto_en_letras' => $data['monto_recibo_letras'],
@@ -467,7 +477,6 @@ class Contratos_model extends CI_Model
         }
     }
 
-
     function actualizar_monto_contrato($contrato_id, $monto)
     {
         $data = array(
@@ -483,7 +492,6 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
 
     function actualizar_contrato_refrendo($datos)
     {

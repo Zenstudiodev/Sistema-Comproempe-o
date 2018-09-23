@@ -120,6 +120,14 @@
         padding: 0;
     }
 
+    #print_lista_traslado{
+        font-size: 12px;
+    }
+
+    #print_lista_traslado td{
+        padding: 0px 4px;
+    }
+
     hr {
         margin-top: 10px;
         margin-bottom: 10px;
