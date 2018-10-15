@@ -15,33 +15,31 @@ $this->layout('admin/admin_master', [
 ]);
 
 
-
 if ($caja_dia_anterior) {
     $caja_dia_anterior = $caja_dia_anterior->row();
 
     $dinero_en_caja = $caja_dia_anterior->saldo_caja;
-    $total_vales = $caja_dia_anterior->total_vales;
 } else {
     $dinero_en_caja = 0;
-    $total_vales = 0;
 }
+
 
 if ($dinero_dia) {
     $dinero = $dinero_dia->row();
-}else{
-    $dinero= (object)array(
-        'b_200'=>0,
-        'b_100'=>0,
-        'b_50'=>0,
-        'b_20'=>0,
-        'b_10'=>0,
-        'b_5'=>0,
-        'b_1'=>0,
-        'm_1'=>0,
-        'm_50'=>0,
-        'm_25'=>0,
-        'm_10'=>0,
-        'm_5'=>0,
+} else {
+    $dinero = (object)array(
+        'b_200' => 0,
+        'b_100' => 0,
+        'b_50' => 0,
+        'b_20' => 0,
+        'b_10' => 0,
+        'b_5' => 0,
+        'b_1' => 0,
+        'm_1' => 0,
+        'm_50' => 0,
+        'm_25' => 0,
+        'm_10' => 0,
+        'm_5' => 0,
     );
 }
 
@@ -55,8 +53,8 @@ $b_200 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_200,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_200,
+    'readonly' => 'readonly'
 );
 
 
@@ -69,8 +67,8 @@ $b_100 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_100,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_100,
+    'readonly' => 'readonly'
 );
 $b_50 = array(
     'type' => 'number',
@@ -81,8 +79,8 @@ $b_50 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_50,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_50,
+    'readonly' => 'readonly'
 );
 $b_20 = array(
     'type' => 'number',
@@ -93,8 +91,8 @@ $b_20 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_20,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_20,
+    'readonly' => 'readonly'
 );
 $b_10 = array(
     'type' => 'number',
@@ -105,8 +103,8 @@ $b_10 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_10,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_10,
+    'readonly' => 'readonly'
 );
 $b_5 = array(
     'type' => 'number',
@@ -117,8 +115,8 @@ $b_5 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_5,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_5,
+    'readonly' => 'readonly'
 );
 $b_1 = array(
     'type' => 'number',
@@ -129,8 +127,8 @@ $b_1 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->b_1,
-    'readonly'=>'readonly'
+    'value' => $dinero->b_1,
+    'readonly' => 'readonly'
 );
 $m_1 = array(
     'type' => 'number',
@@ -141,8 +139,8 @@ $m_1 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->m_1,
-    'readonly'=>'readonly'
+    'value' => $dinero->m_1,
+    'readonly' => 'readonly'
 );
 $m_50 = array(
     'type' => 'number',
@@ -153,8 +151,8 @@ $m_50 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->m_50,
-    'readonly'=>'readonly'
+    'value' => $dinero->m_50,
+    'readonly' => 'readonly'
 );
 $m_25 = array(
     'type' => 'number',
@@ -165,8 +163,8 @@ $m_25 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->m_25,
-    'readonly'=>'readonly'
+    'value' => $dinero->m_25,
+    'readonly' => 'readonly'
 );
 $m_10 = array(
     'type' => 'number',
@@ -177,8 +175,8 @@ $m_10 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->m_10,
-    'readonly'=>'readonly'
+    'value' => $dinero->m_10,
+    'readonly' => 'readonly'
 );
 $m_5 = array(
     'type' => 'number',
@@ -189,8 +187,8 @@ $m_5 = array(
     'required' => 'required',
     'step' => '1',
     'min' => '0',
-    'value'=>$dinero->m_5,
-    'readonly'=>'readonly'
+    'value' => $dinero->m_5,
+    'readonly' => 'readonly'
 );
 
 //$dinero_en_caja = 0;
@@ -249,7 +247,7 @@ $fecha_cierre = array(
                 <div class="row">
                     <div class="col-md-6">
                         <h3>Dinero en caja del día anterior</h3>
-                        <?php echo formato_dinero($dinero_en_caja);?>
+                        <?php echo formato_dinero($dinero_en_caja); ?>
                     </div>
                 </div>
                 <div class="row">
@@ -325,7 +323,7 @@ $fecha_cierre = array(
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
-                                            <td><?php echo   id_to_nombre($venta->user_id);?></td>
+                                            <td><?php echo id_to_nombre($venta->user_id); ?></td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -370,7 +368,7 @@ $fecha_cierre = array(
                                                 <td><?php echo $apartado->nombre_producto ?></td>
                                                 <td><?php echo $apartado->saldo ?></td>
                                                 <td><?php echo $apartado->fecha_vencimiento ?></td>
-                                                <td><?php echo   id_to_nombre($apartado->user_id);?></td>
+                                                <td><?php echo id_to_nombre($apartado->user_id); ?></td>
                                             </tr>
                                             <?php
                                         } ?>
@@ -872,6 +870,15 @@ $fecha_cierre = array(
                         </div>
                     </div>
                 </div>
+                <?php
+                if ($caja_dia) {
+                    $caja_dia = $caja_dia->row();
+                    $total_vales = $caja_dia->total_vales;
+                } else {
+                    $total_vales = 0;
+                }
+
+                ?>
 
                 <?php
                 //calculos de totales
@@ -907,7 +914,7 @@ $fecha_cierre = array(
                     }
                 }
 
-                $saldo_final = $saldo - $total_depositos - $total_visanet;
+                $saldo_final = $saldo - $total_depositos - $total_visanet -$total_vales;
                 $saldo_final = round($saldo_final, 2);
                 ?>
                 <div class="row">
@@ -1021,8 +1028,9 @@ $fecha_cierre = array(
                                     <td id="total_dinero">-</td>
                                 </tr>
                                 <tr>
-                                    <th>Vales por liquidar</th>
-                                    <td id="total_vales"><?php echo $total_vales;?></td>
+                                    <th>Vales por liquidar este día</th>
+
+                                    <td id="total_vales"><?php echo $total_vales; ?></td>
                                 </tr>
 
                                 </tbody>
@@ -1037,8 +1045,6 @@ $fecha_cierre = array(
 
                     </div>
                     <div class="col-xs-6">
-                        <p class="lead">Guardar cierre</p>
-                        <button class="btn btn-success" type="submit" id="guardar_cierre_btn">Guardar cierre</button>
                         <input type="hidden" name="total_ingreso" id="total_ingreso">
                         <input type="hidden" name="total_egreso" id="total_egreso">
                         <input type="hidden" name="total_deposito_i" id="total_deposito_i">
@@ -1101,6 +1107,8 @@ $fecha_cierre = array(
     var total_visanet;
     var saldo_caja;
     var total_dinero;
+    var total_vales;
+    var total_mas_vales;
 
     $(document).ready(function () {
         $("#guardar_cierre_btn").hide();
@@ -1115,7 +1123,7 @@ $fecha_cierre = array(
 
 
     //$("#cierre_caja").change(function () {
-        $(document).ready(function () {
+    $(document).ready(function () {
         billetes_200 = $("#b_200").val();
         billetes_100 = $("#b_100").val();
         billetes_50 = $("#b_50").val();
@@ -1202,7 +1210,19 @@ $fecha_cierre = array(
         saldo_final_caja = parseFloat($("#saldo_final_caja").text()).toFixed(2);
         $("#saldo_caja").val(saldo_final_caja);
         // console.log(saldo_final_caja);
-        diferencia = parseFloat(total - saldo_final_caja).toFixed(2);
+        total_vales = parseFloat($("#total_vales").text()).toFixed(2);
+        total_vales = Number(total_vales);
+
+        console.log(total_vales);
+        total_dinero = parseFloat(total).toFixed(2);
+        total_dinero = Number(total_dinero);
+
+        console.log(jQuery.type(total_vales));
+        console.log(jQuery.type(total_dinero));
+
+        total_mas_vales = Number(parseFloat(total_vales + total_dinero).toFixed(2));
+        console.log('total mas vales ' + total_mas_vales);
+        diferencia = parseFloat(total_dinero - saldo_final_caja).toFixed(2);
 
         //console.log(diferencia);
         if (diferencia > -2) {

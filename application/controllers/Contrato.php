@@ -176,7 +176,7 @@ class Contrato extends Base_Controller
             //pasamos todos los post a un array
             foreach ($_POST as $key => $value) {
                 //quitamos el valor de vista en la tabla
-                if ($key == 'empenos_table_length' || $key == 'contratos_table_length') {
+                if ($key == 'empeno_productos_table_length' || $key == 'contratos_table_length') {
                 } else {
                     $productos[] = $value;
                 }

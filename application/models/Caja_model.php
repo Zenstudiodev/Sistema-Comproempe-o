@@ -407,6 +407,18 @@ class Caja_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function get_caja_dia($fecha)
+    {
+
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $this->db->where('fecha_cierre', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('cierre');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
     function get_fondos_caja($fecha)
     {

@@ -238,6 +238,7 @@ class Caja extends Base_Controller
 
         $data['fecha'] = $fecha;
         $data['caja_dia_anterior'] = $this->Caja_model->get_caja_dia_anterior($dia_anterior);
+        $data['caja_dia'] = $this->Caja_model->get_caja_dia($fecha);
         $data['ingresos_caja'] = $this->Caja_model->get_fondos_caja($fecha);
         $data['ventas'] = $this->Caja_model->get_ventas_dia($fecha);
         $data['apartados'] = $this->Caja_model->get_apartados_dia($fecha);

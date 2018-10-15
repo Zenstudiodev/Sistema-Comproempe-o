@@ -34,6 +34,7 @@ class home extends Base_Controller
 	    echo $this->templates->render('admin/listar_registros', $data);
     }
     function pd(){
-        echo $this->templates->render('public/dp');
+        $data['productos'] = $this->Productos_model->get_productos_liquidacion_hompage_public();
+        echo $this->templates->render('public/dp', $data);
     }
 }

@@ -49,6 +49,15 @@
     p {
         margin: 0;
     }
+    #td_firma{
+        text-align: center;
+    }
+
+    #img_firma{
+        height:1cm;
+        width: auto;
+        margin: 0 auto;
+    }
 
     .wrapper {
         overflow: hidden;

@@ -119,29 +119,31 @@ if ($cliente_data) {
 
                 );
                 $avaluo_comercial = array(
-                    'type' => 'text',
+                    'type' => 'number',
                     'name' => 'avaluo_comercial',
                     'id' => 'avaluo_comercial',
                     'class' => 'form-control pull-right',
                     'placeholder' => 'Avaluo',
+                    'step' => 'any',
                     'required' => 'required'
-
                 );
                 $avaluo_ce = array(
-                    'type' => 'text',
+                    'type' => 'number',
                     'name' => 'avaluo_ce',
                     'id' => 'avaluo_ce',
                     'class' => 'form-control pull-right',
                     'placeholder' => 'Avaluo',
+                    'step' => 'any',
                     'required' => 'required'
 
                 );
                 $mutuo = array(
-                    'type' => 'text',
+                    'type' => 'number',
                     'name' => 'mutuo',
                     'id' => 'mutuo',
                     'class' => 'form-control pull-right',
                     'placeholder' => 'Motuo',
+                    'step' => 'any',
                     'required' => 'required'
                 );
                 $almacenaje = array(
@@ -168,7 +170,6 @@ if ($cliente_data) {
                     'placeholder' => 'Observaciones',
                     'data-validate-length-range' => '6',
                     'data-validate-words' => '2'
-
                 );
                 $plazo = array(
                     'type' => 'text',

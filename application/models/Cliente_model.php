@@ -110,6 +110,13 @@ class Cliente_model extends CI_Model
 	    $this->db->where('id', $post_data['cliente_id']);
 	    $query = $this->db->update('cliente',$datos);
     }
+    public function cliente_firmo($cliente_id){
+        $datos = array(
+            'firmo'=> '1',
+        );
+        $this->db->where('id', $cliente_id);
+        $query = $this->db->update('cliente',$datos);
+    }
     public function listar_empenos($cliente_id){
 	    $this->db->where('cliente_id',$cliente_id);
 	    $this->db->where('tipo','Empeno');

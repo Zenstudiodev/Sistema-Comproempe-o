@@ -123,13 +123,20 @@ $this->layout('admin/admin_master', [
 
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <?php if ($rol != 'conta') { ?>
+                                <?php if ($rol != 'conta') { ?>
+                                    <div class="col-md-3">
                                         <a type="button"
                                            href="<?php echo base_url() . 'index.php/cliente/editar/' . $cliente->id; ?>"
                                            class="btn btn-block btn-success">Editar</a>
-                                    <?php } ?>
-                                </div>
+                                    </div>
+                                    <?php if ($cliente->firmo == 0){?>
+                                    <div class="col-md-3">
+                                        <a type="button"
+                                           href="<?php echo base_url() . 'index.php/cliente/firmar/' . $cliente->id; ?>"
+                                           class="btn btn-block btn-success" target="_blank">Capturar firma</a>
+                                    </div>
+                                    <?php }?>
+                                <?php } ?>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -281,10 +288,10 @@ $this->layout('admin/admin_master', [
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Anular</a>
                                                             </div>
                                                         </td>
@@ -640,10 +647,10 @@ $this->layout('admin/admin_master', [
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Anular</a>
                                                             </div>
                                                         </td>
@@ -668,10 +675,10 @@ $this->layout('admin/admin_master', [
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/imprimir_factura_r/' . $cliente->id . '/' . $factura->factura_id; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/imprimir_factura_r/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Imprimir</a>
                                                                 <a type="button" class="btn btn-default"
-                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id.'/'.$factura->serie; ?>"><i
+                                                                   href="<?php echo base_url() . 'factura/anular_factura/' . $cliente->id . '/' . $factura->factura_id . '/' . $factura->serie; ?>"><i
                                                                             class="fa fa-print"></i> Anular</a>
                                                             </div>
                                                         </td>

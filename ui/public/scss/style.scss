@@ -1,3 +1,15 @@
+@import "variables/colores";
+
+
+
+#top{
+  background: $verde;
+  height:80px;
+  #logo_top{
+    z-index: 10;
+    position: absolute;
+  }
+}
 div#logo_container {
   max-width: 600px;
   margin: 0 auto;
@@ -7,3 +19,10 @@ div#logo_container {
 h1{
 }
 
+#productos_card{
+  .card{
+    .card-img-top{
+      height:253px;
+    }
+  }
+}

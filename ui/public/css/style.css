@@ -1,2 +1,2 @@
-div#logo_container{max-width:600px;margin:0 auto;margin-top:10vh}
+#top{background:#277340;height:80px}#top #logo_top{z-index:10;position:absolute}div#logo_container{max-width:600px;margin:0 auto;margin-top:10vh}#productos_card .card .card-img-top{height:253px}
 /*# sourceMappingURL=style.css.map */

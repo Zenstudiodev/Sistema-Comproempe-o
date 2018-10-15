@@ -202,6 +202,15 @@ class Factura extends Base_Controller
         echo json_encode($marcas->result_array());
 
     }
+    function ultima_factura(){
+        //OBTENEMOS VARIABLES DE LA URL
+        $serie = $_GET['serie'];
+        //pasamos variablea al modelo
+
+        $marcas = $this->Factura_model->get_info_serie_activa($serie);
+        //imprimimos en formato json el resultado
+        echo json_encode($marcas->result_array());
+    }
 
     function facturas_excel()
     {

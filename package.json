@@ -1,0 +1,45 @@
+{
+  "name": "comproempeno",
+  "version": "1.0.0",
+  "description": "Sistema de gestion de casa de empeño y vista publica ",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zenstudiodev/Sistema-Comproempe-o.git"
+  },
+  "author": "Carlos Samayoa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zenstudiodev/Sistema-Comproempe-o/issues"
+  },
+  "homepage": "https://github.com/Zenstudiodev/Sistema-Comproempe-o#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "ajv": "^6.0.0",
+    "animate.css": "^3.7.0",
+    "bootstrap": "^4.1.3",
+    "browser-sync": "^2.24.7",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-livereload": "^4.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-watch": "^5.0.1",
+    "jquery": "^1.9.1",
+    "jshint": "^2.9.6",
+    "popper.js": "^1.14.3",
+    "signature_pad": "^3.0.0-beta.3",
+    "stylelint": "^9.5.0",
+    "stylelint-config-recommended": "^2.1.0"
+  }
+}

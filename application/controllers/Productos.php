@@ -1011,4 +1011,10 @@ class Productos extends Base_Controller
         $fecha = new DateTime();
         to_excel($this->Productos_model->productos_excel(), "productos_" . $fecha->format('Y-m-d'));
     }
+
+
+    //publico
+    function get_productos_liquidacion_hompage_public(){
+
+    }
 }

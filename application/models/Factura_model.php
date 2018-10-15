@@ -185,6 +185,27 @@ class Factura_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
     }
 
+    public function ultima_factura($serie){
+
+        $this->db->limit(1);
+
+        switch ($serie) {
+            case 'R':
+                $query = $this->db->get('facturas_r');
+                break;
+            case 'A':
+                $query = $this->db->get('facturas');
+                break;
+            case 'RE':
+                $query = $this->db->get('facturas_tienda_2_r');
+                break;
+            case 'CN':
+                $query = $this->db->get('facturas_tienda_2');
+                break;
+        }
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     public function get_series()
     {
         $query = $this->db->get('control_facturas');

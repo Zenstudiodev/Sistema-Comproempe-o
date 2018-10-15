@@ -274,11 +274,11 @@ $this->layout('admin/admin_master', [
                             <input type="hidden" name="numero_productos" id="numero_productos"
                                    value="<?php echo $producto_numero; ?>">
                             <?php
-                            $producto_numero = $producto_numero + 1;
+                           /* $producto_numero = $producto_numero + 1;
                             $total_avaluos = $total_avaluos + $producto->avaluo_comercial;
                             $total_mutuos = $total_mutuos + $producto->mutuo;
 
-                            $sub_total = $total_avaluos - $total_mutuos;
+                            $sub_total = $total_avaluos - $total_mutuos;*/
                         } ?>
                     </div>
 
@@ -350,14 +350,14 @@ $this->layout('admin/admin_master', [
                                         <tr>
                                             <th style="width:50%">Precio de venta:</th>
                                             <td>
-                                                <span id="total_orecio_venta"><?php echo display_formato_dinero($total_avaluos) ?></span>
+                                                <span id="total_orecio_venta"><?php //echo display_formato_dinero($total_avaluos) ?></span>
                                                 <input type="hidden" name="precio_venta" id="precio_venta">
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Sub total:</th>
                                             <td>
-                                                <span id="sub_total_t"><?php echo display_formato_dinero($sub_total) ?></span>
+                                                <span id="sub_total_t"><?php //echo display_formato_dinero($sub_total) ?></span>
                                             </td>
                                             <input type="hidden" name="sub_total" id="sub_total" value="">
                                             <input type="hidden" name="monto_recibo_letras" id="monto_recibo_letras">

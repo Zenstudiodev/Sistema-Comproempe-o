@@ -124,6 +124,26 @@ class Cliente extends Base_Controller
 		echo $this->templates->render('admin/detalle_cliente', $data);
 
 	}
+	function firmar(){
+        $data = compobarSesion();
+        //obtenemos id cliente desde url
+        $data['cliente_id'] = $this->uri->segment(3);
+        $data['cliente'] = $this->Cliente_model->detalle_cliente($data['cliente_id']);
+        echo $this->templates->render('admin/firmar', $data);
+    }
+    function guardar_firma(){
+	    print_contenido($_POST);
+
+
+        //$image = file_get_contents($_FILES['imagen']['tmp_name']);
+        $encoded_image = explode(",", $_POST['imagen'])[1];
+        $decoded_image = base64_decode($encoded_image);
+        $id_cliente = $_POST['id_cliente'];
+        $this->Cliente_model->cliente_firmo($id_cliente);
+       // $numero_foto =$_POST['img_number'];
+        file_put_contents('/home2/comproempeno/public_html/firmas/'.$id_cliente.'_f.png', $decoded_image);
+        //file_put_contents('/home2/comproempeno/public_html/firmas/'.$id_cliente.'_f.png', $image);
+    }
 	function Editar()
 	{
 		$data = compobarSesion();

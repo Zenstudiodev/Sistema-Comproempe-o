@@ -1,0 +1,30 @@
+body {
+    background: #277340;
+}
+
+#signature-pad {
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+}
+#botones{
+    width: 80%;
+    text-align: center;
+    margin: 20px auto;
+}
+button{
+    width: 100px;
+    height: 50px;
+    border: 0;
+    box-shadow: -1px 6px 4px 0px #00000059;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.guardar{
+    background: green;
+}
+.borrar{
+    background: red;
+}

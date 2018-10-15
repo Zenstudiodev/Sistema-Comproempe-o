@@ -85,7 +85,7 @@ if ($traslado) {
                     <td><?php echo $producto->contrato_id ?></td>
                     <td>1</td>
                     <td><?php echo $producto->descripcion ?></td>
-                    <td><?php echo display_formato_dinero($producto->avaluo_comercial) ?></td>
+                    <td><?php echo display_formato_dinero(floatval($producto->avaluo_comercial)) ?></td>
                 </tr>
             <?php }?>
             </tbody>

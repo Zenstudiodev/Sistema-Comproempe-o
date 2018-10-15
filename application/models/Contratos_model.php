@@ -48,7 +48,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function contratos_actuaizador_t2()
     {
         $this->db->select('contrato_tienda_2.contrato_id, contrato_tienda_2.estado, contrato_tienda_2.total_mutuo, contrato_tienda_2.fecha, contrato_tienda_2.fecha_pago, contrato_tienda_2.tipo, contrato_tienda_2.dias_gracia, contrato_tienda_2.tototal_liquidado, cliente.id, cliente.nombre');
@@ -58,7 +57,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function actualizar_estado_contrato_t1($contrato_id, $estado)
     {
 
@@ -69,7 +67,6 @@ class Contratos_model extends CI_Model
         $this->db->where('contrato_id', $contrato_id);
         $query = $this->db->update('contrato', $data);
     }
-
     function actualizar_estado_contrato_t2($contrato_id, $estado)
     {
         $data = array(
@@ -78,7 +75,6 @@ class Contratos_model extends CI_Model
         $this->db->where('contrato_id', $contrato_id);
         $query = $this->db->update('contrato_tienda_2', $data);
     }
-
     function listar_contratos_by_date($from, $to)
     {
         // Get tienda data
@@ -110,7 +106,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function listar_contratos_perdidos()
     {
         // Get tienda data
@@ -142,7 +137,6 @@ class Contratos_model extends CI_Model
         else return false;
 
     }
-
     function listar_contratos_vigentes()
     {
 
@@ -173,7 +167,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function listar_contratos_perdidos_by_date($from, $to)
     {
         $tienda = tienda_id_h();
@@ -182,7 +175,7 @@ class Contratos_model extends CI_Model
             $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato.fecha, contrato.estado, contrato.fecha_pago, contrato.dias_gracia, cliente.nombre, cliente.id');
             // $this->db->select('*');
             $this->db->from('contrato');
-            $estados = array('vigente', 'refrendado');
+            $estados = array('perdido');
             $this->db->where_in('contrato.estado', $estados);
             $this->db->where_in('producto.tienda_actual', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato.contrato_id');
@@ -192,7 +185,7 @@ class Contratos_model extends CI_Model
             $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_2.fecha, contrato_tienda_2.estado, contrato_tienda_2.fecha_pago, contrato_tienda_2.dias_gracia, cliente.nombre, cliente.id');
             // $this->db->select('*');
             $this->db->from('contrato_tienda_2');
-            $estados = array('vigente', 'refrendado');
+            $estados = array('perdido');
             $this->db->where_in('contrato_tienda_2.estado', $estados);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
@@ -209,7 +202,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function guardar_contrato($data)
     {
         $datos_de_contrato = array(
@@ -250,7 +242,6 @@ class Contratos_model extends CI_Model
 
         return $insert_id;
     }
-
     function guardar_editar_contrato($data)
     {
         $datos_de_contrato = array(
@@ -282,7 +273,6 @@ class Contratos_model extends CI_Model
 
 
     }
-
     function guardar_factura($data)
     {
 
@@ -338,7 +328,6 @@ class Contratos_model extends CI_Model
 
         return $insert_id;
     }
-
     function guardar_recibo($data)
     {
         if(isset($data['contrato_id'])){}
@@ -373,7 +362,6 @@ class Contratos_model extends CI_Model
 
         return $insert_id;
     }
-
     function get_contratos_by_cliente_id($cliente_id)
     {
         $this->db->where('cliente_id', $cliente_id);
@@ -389,7 +377,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function get_facturas_by_cliente_id($cliente_id)
     {
         $this->db->where('cliente_id', $cliente_id);
@@ -404,9 +391,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
-
-
 
 
     function get_info_contrato($contrato_id)
@@ -435,7 +419,6 @@ class Contratos_model extends CI_Model
             }
         }
     }
-
     function actualizar_fecha_contrato($contrato_id, $nueva_fecha)
     {
         //tomamos nueva fecha y la modificamos para obtener nuevos dias de gracia
@@ -458,7 +441,6 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
     function actualizar_estado_contrato($contrato_id, $estado)
     {
 
@@ -476,7 +458,6 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
     function actualizar_monto_contrato($contrato_id, $monto)
     {
         $data = array(
@@ -492,7 +473,6 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
     function actualizar_contrato_refrendo($datos)
     {
         $data = array(
@@ -521,7 +501,6 @@ class Contratos_model extends CI_Model
         }
 
     }
-
     function actualizar_contrato_anular_factura($datos)
     {
 
@@ -548,11 +527,12 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
     function actualizar_contrato_desempeno($datos)
     {
+        $fecha = new DateTime();
         $data = array(
             'estado' => $datos['estado'],
+            'fecha_desempeno' => $fecha->format('Y-m-d'),
             'estado_anterior' => $datos['estado_anterior'],
             'fecha_pago_anterior' => $datos['fecha_pago_anterior'],
             'dias_gracia_anterior' => $datos['dias_gracia_anterior'],
@@ -568,7 +548,6 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_2', $data);
         }
     }
-
     function actualizar_estado_liquidacion($datos)
     {
         $data = array(
@@ -588,7 +567,6 @@ class Contratos_model extends CI_Model
         }
 
     }
-
     function numero_ultimo_contrato()
     {
         $this->db->order_by('contrato_id', 'DESC');
@@ -602,7 +580,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query->row();
         else return false;
     }
-
     function guardar_seguimiento($data)
     {
         $datos_de_seguimiento = array(
@@ -615,7 +592,6 @@ class Contratos_model extends CI_Model
         // insertamon en la base de datos
         $this->db->insert('seguimiento', $datos_de_seguimiento);
     }
-
     function get_resultados_seguimiento($contrato_id)
     {
         $this->db->where('contrato_id', $contrato_id);
@@ -623,7 +599,6 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function guardar_log($datos)
     {
         $fecha = New DateTime();
@@ -637,14 +612,12 @@ class Contratos_model extends CI_Model
         // insertamon en la base de datos
         $this->db->insert('log_contratos', $data);
     }
-
     function get_logs()
     {
         $query = $this->db->get('log_contratos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
     function contratos_excel()
     {
         $fields = $this->db->field_data('contrato');
@@ -652,7 +625,6 @@ class Contratos_model extends CI_Model
 
         return array("fields" => $fields, "query" => $query);
     }
-
     public function contratos_html_excel($estado)
     {
         $tienda = tienda_id_h();

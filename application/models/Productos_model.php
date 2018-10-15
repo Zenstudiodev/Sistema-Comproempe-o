@@ -301,7 +301,6 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
     }
 
-
     //Productos por inventario
     function guardar_producto_inventario($form_data)
     {
@@ -344,9 +343,6 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-
-
-
 
     //productos apartados
     function get_productos_apartados()
@@ -418,5 +414,15 @@ class productos_model extends CI_Model
         $query = $this->db->select('*')->get('producto');
 
         return array("fields" => $fields, "query" => $query);
+    }
+
+    //public
+    function get_productos_liquidacion_hompage_public(){
+        $this->db->from('producto');
+        $this->db->where('tipo', 'venta');
+        $this->db->limit(16);
+        $this->db->order_by('producto_id', 'RANDOM');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
     }
 }

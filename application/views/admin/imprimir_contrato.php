@@ -349,13 +349,28 @@ if ($contrato)
                                     que
                                     hubiere surgido o pudiere surgir en relación al contrato y a la prenda.
                                 </td>
-                                <td colspan="2"></td>
+                                <td colspan="2" id="td_firma">
+                                    <?php if ($cliente->firmo == 1){?>
+                                        <img id="img_firma" src="/firmas/<?php echo $cliente->id; ?>_f.png" >
+                                    <?php }?>
+                                </td>
                             </tr>
                             <tr>
-                                <td colspan="3">Fecha:</td>
+                                <td colspan="3">Fecha:
+                                    <?php
+                                    if( $contrato->estado =='desempenado'){
+                                        echo $contrato->fecha_desempeno;
+                                    } ?>
+                                </td>
                             </tr>
                             <tr>
-                                <td rowspan="2">EL MUTUARIO</td>
+                                <td rowspan="2">EL MUTUARIO
+
+                                    <?php
+                                    if( $contrato->estado =='desempenado'){ ?>
+                                        <img id="img_firma" src="/firmas/<?php echo $cliente->id; ?>_f.png" >
+                                   <?php } ?>
+                                </td>
                                 <td rowspan="2">EL MUTUANTE</td>
                                 <td>El Valuador</td>
                             </tr>
@@ -399,7 +414,7 @@ if ($contrato)
 	<?php }
 	else
 	{
-		echo 'El producto que busca no existe';
+		echo 'El contrato que busca no existe';
 	} ?>
 </div>
 <!-- /.content-wrapper -->
@@ -436,6 +451,7 @@ if ($contrato)
     moment.locale('es');
 
     $(document).ready(function () {
+        window.print();
         //loop a los avaluos de productos seleccionado
         $(".avaluo_producto").each(function () {
             //sumamos los avaluos
