@@ -27,9 +27,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col">
                     <img src="/ui/public/images/logo_top.png" id="logo_top">
                 </div>
+                <div class="col">
+                    <nav id="main_nav">
+                        <a href="<?php echo base_url()?>">Inicio</a>
+                        <a href="<?php echo base_url()?>">Productos</a>
+                        <a href="<?php echo base_url()?>">Tiendas</a>
+                        <a href="<?php echo base_url()?>">Adelantos</a>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
+    <?php if($monstrar_banners){?>
     <div id="banner">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -50,6 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </a>
         </div>
     </div>
+    <?php }?>
 </header>
 <!-- Content Wrapper. Contains page content -->
 <?php echo $this->section('page_content') ?>

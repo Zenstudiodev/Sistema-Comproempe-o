@@ -425,4 +425,38 @@ class productos_model extends CI_Model
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
     }
+    function get_productos_liquidacion_public($limit, $start){
+        $this->db->from('producto');
+        $this->db->where('tipo', 'venta');
+        //$this->db->order_by('producto_id', 'RANDOM');
+        $this->db->limit($limit, $start);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+    }
+    function get_productos_liquidacion_public_numero(){
+        $this->db->from('producto');
+        $this->db->where('tipo', 'venta');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
+    function get_public_categorias(){
+        $this->db->distinct('categoria');
+        $this->db->select('categoria');
+        $this->db->from('producto');
+        $this->db->where('tipo', 'venta');
+        $this->db->order_by('categoria', 'ASC');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_liquidacion_by_categoria_public_numero($categoria){
+
+    }
+    function get_productos_liquidacion_by_categoria_public(){
+
+    }
+
+
+
 }

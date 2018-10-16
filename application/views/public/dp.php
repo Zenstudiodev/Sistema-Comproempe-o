@@ -5,12 +5,18 @@
  * Date: 31/07/2017
  * Time: 2:36 PM
  */
-$this->layout('public/public_master_dev');
+
+$this->layout('public/public_master_dev',[
+    'monstrar_banners' => $monstrar_banners
+]);
+
 ?>
+
 
 
 <?php $this->start('page_content') ?>
 <div class="container">
+    <h1>Productos recientes</h1>
     <div class="row" id="productos_card">
         <?php if ($productos) { ?>
             <?php foreach ($productos->result() as $producto) { ?>

@@ -1,10 +1,13 @@
 @import "variables/colores";
+@import "nav/nav";
 
 
 
 #top{
   background: $verde;
   height:80px;
+  margin-bottom: 32px;
+  box-shadow: 0px 5px 5px 1px #00000066;
   #logo_top{
     z-index: 10;
     position: absolute;
@@ -22,7 +25,7 @@ h1{
 #productos_card{
   .card{
     .card-img-top{
-      height:253px;
+      height:auto;
     }
   }
 }
