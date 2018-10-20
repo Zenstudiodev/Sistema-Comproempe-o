@@ -159,6 +159,7 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_2');
             $estados = array('vigente', 'refrendado');
             $this->db->where_in('contrato_tienda_2.estado', $estados);
+            $this->db->where_in('producto.tienda_actual', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
@@ -178,6 +179,12 @@ class Contratos_model extends CI_Model
             $estados = array('perdido');
             $this->db->where_in('contrato.estado', $estados);
             $this->db->where_in('producto.tienda_actual', $tienda);
+            if ($from != null) {
+                $this->db->where('contrato.dias_gracia  >=', $from);
+            }
+            if ($to != null) {
+                $this->db->where('contrato.dias_gracia  <=', $to);
+            }// Get tienda data
             $this->db->join('producto', 'producto.contrato_id  = contrato.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
@@ -187,17 +194,18 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_2');
             $estados = array('perdido');
             $this->db->where_in('contrato_tienda_2.estado', $estados);
+            if ($from != null) {
+                $this->db->where('contrato_tienda_2.dias_gracia  >=', $from);
+            }
+            if ($to != null) {
+                $this->db->where('contrato_tienda_2.dias_gracia  <=', $to);
+            }// Get tienda data
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
         }
 
-        if ($from != null) {
-            $this->db->where('contrato.dias_gracia  >=', $from);
-        }
-        if ($to != null) {
-            $this->db->where('contrato.dias_gracia  <=', $to);
-        }// Get tienda data
+
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;

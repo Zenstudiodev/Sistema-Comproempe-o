@@ -38,3 +38,10 @@ div#tienda_id {
     margin: 17px 8px;
     border: 2px dashed;
 }
+
+/*SUBIDA DE IMAGEN*/
+.img_subida {
+    height: 200px;
+    width: auto;
+    margin: 0 auto;
+}

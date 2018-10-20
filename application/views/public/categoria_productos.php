@@ -5,9 +5,10 @@
  * Date: 31/07/2017
  * Time: 2:36 PM
  */
-$this->layout('public/public_master_dev',[
+$this->layout('public/public_master_dev', [
     'monstrar_banners' => $monstrar_banners
 ]);
+
 ?>
 
 
@@ -18,37 +19,78 @@ $this->layout('public/public_master_dev',[
         <div class="col-md-3">
             <h2>Catgorías</h2>
             <?php
+
             //print_contenido($categorias->result());
-            if ($categorias){ ?>
-                <ul class="list-group">
+            if ($categorias) { ?>
+                <ul class="list-group" id="lista_categorias">
                     <?php foreach ($categorias->result() as $categoria) { ?>
-                       <a href="<?php echo base_url().'productos/categoria/'.$categoria->categoria?>" class="list-group-item list-group-item-action">
+                        <a href="<?php echo base_url() . 'productos/categoria/' . $categoria->categoria ?>"
+                           class="list-group-item list-group-item-action"
+                           catergoria="<?php echo $categoria->categoria ?>">
                             <?php echo $categoria->categoria ?>
                         </a>
-                    <!--<li class="list-group-item"><?php /*echo $categoria->categoria */?></li>-->
+                        <!--<li class="list-group-item"><?php /*echo $categoria->categoria */ ?></li>-->
                     <?php } ?>
                 </ul>
-           <?php }
+            <?php }
             ?>
 
         </div>
         <div class="col-md-9">
             <div class="row">
                 <nav aria-label="Page navigation example">
-                <?php echo $links; ?>
+                    <?php echo $links; ?>
                 </nav>
             </div>
             <div class="row" id="productos_card">
                 <?php if ($productos) { ?>
-                    <?php foreach ($productos->result() as $producto) { ?>
-                        <div class="col-md-3">
+
+                    <?php
+                    foreach ($productos->result() as $producto) {
+                        //obtenemos imagenes de producto
+                        $imagenes_producto = get_imgenes_producto_public($producto->producto_id);
+
+
+                        ?>
+
+                        <div class="col-md-4">
                             <div class="card">
-                                <img class="card-img-top img-responsive" src="/ui/public/images/logo.png" alt="Card image cap">
+                                <?php if ($imagenes_producto) { ?>
+
+                                    <div id="carrusel_producto_<?php echo $producto->producto_id;?>" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <?php
+                                            $start_banner = 0;
+                                            foreach ($imagenes_producto->result() as $imagen) { ?>
+                                                <div class="carousel-item <?php if ($start_banner < 1) {
+                                                    echo 'active';
+                                                } ?>">
+                                                    <img class="d-block w-100 img_producto_lista" src="<?php echo base_url().'uploads/imagenes_productos/'.$imagen->nombre_imagen; ?>"
+                                                         alt="<?php echo $producto->nombre_producto; ?>">
+                                                </div>
+                                                <?php $start_banner++ ?>
+                                            <?php } ?>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carrusel_producto_<?php echo $producto->producto_id;?>" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carrusel_producto_<?php echo $producto->producto_id;?>" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                <?php } else { ?>
+                                    <img class="card-img-top img-responsive" src="/ui/public/images/logo.png"
+                                         alt="Card image cap">
+                                <?php } ?>
+
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo $producto->nombre_producto?></h5>
-                                    <p class="card-text"><?php echo $producto->descripcion?></p>
-                                    <p class="card-text">Tienda: <?php echo $producto->tienda_actual?></p>
-                                    <p class="card-text">Precio: <?php echo $producto->avaluo_comercial * 1.15?></p>
+                                    <?php //print_contenido($imagenes_producto); ?>
+                                    <h5 class="card-title"><?php echo $producto->nombre_producto . ' ' . $producto->producto_id ?></h5>
+                                    <p class="card-text"><?php echo $producto->descripcion ?></p>
+                                    <p class="card-text">Tienda: <?php echo $producto->tienda_actual ?></p>
+                                    <p class="card-text">Precio: <?php echo $producto->avaluo_comercial * 1.15 ?></p>
                                     <a href="#" class="btn btn-success">ver producto</a>
                                 </div>
                             </div>
@@ -59,7 +101,15 @@ $this->layout('public/public_master_dev',[
         </div>
     </div>
 
-
-
 </div>
 <?php $this->stop() ?>
+<?php $this->start('js_p') ?>
+<script>
+
+
+    $(document).ready(function () {
+        $("#lista_categorias").find("a[catergoria='<?php echo $categoria_actual; ?>']").addClass('active');
+    });
+</script>
+<?php $this->stop() ?>
+

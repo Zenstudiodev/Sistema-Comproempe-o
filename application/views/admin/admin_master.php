@@ -18,8 +18,7 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/ui/admin/bootstrap/css/bootstrap.min.css" type="text/css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
-          type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
           type="text/css">
@@ -122,23 +121,27 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="<?php echo base_url() ?>index.php/productos/liquidacion"><i
+                            <a href="<?php echo base_url() ?>productos/productos_sin_foto">
+                                <i class="fas fa-file-image"></i> <span>Productos<br> Sin imagen</span></a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>productos/liquidacion"><i
                                         class="fa fa-shopping-cart"></i> <span>Productos<br> en liquidación</span></a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url() ?>index.php/productos/productos_en_venta"><i
+                            <a href="<?php echo base_url() ?>productos/productos_en_venta"><i
                                         class="fa fa-shopping-cart"></i>
                                 Productos en venta
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url() ?>index.php/productos/productos_apartados"><i
+                            <a href="<?php echo base_url() ?>productos/productos_apartados"><i
                                         class="fa fa-shopping-cart"></i>
                                 Productos apartados
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url() ?>index.php/productos/traslados"><i
+                            <a href="<?php echo base_url() ?>productos/traslados"><i
                                         class="fa fa-file"></i>
                                 Traslados
                             </a>

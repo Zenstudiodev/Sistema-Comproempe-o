@@ -18,7 +18,7 @@
 de | <input type="date" placeholder="de" name="de" id="de" >
 a | <input type="date" placeholder="a" name="a" id="a">
 
-<select name="estado" id="estado">
+<select name="estado" id="estado" multiple>
     <option value="perdido">perdido</option>
     <option value="desempenado">desempenado</option>
     <option value="refrendado">refrendado</option>
@@ -65,13 +65,18 @@ a | <input type="date" placeholder="a" name="a" id="a">
     $total_descuento = 0;
     $total_total = 0;
     $promedio_mg= 0;
+
+    $muestra_contrato = $contratos->row();
+    print_contenido($muestra_contrato);
     ?>
+
 
     <?php foreach ($contratos->result() as $contrato) { ?>
 
 
         <tr>
-            <td><?php echo print_contenido($contrato) ?></td>
+            <td><?php echo $contrato->cliente_id; ?></td>
+            <td><?php echo $contrato->cliente_id; ?></td>
         </tr>
     <?php } ?>
     <tr>
@@ -100,17 +105,17 @@ a | <input type="date" placeholder="a" name="a" id="a">
     $("#filtrar").click(function () {
        de = $("#de").val();
        a = $("#a").val();
-       estado = $("#estado").val();
+       estado = encodeURIComponent($("#estado").val());
 
 
        if(de != '' && a !=''){
-           url = '<?php echo base_url();?>' + 'contrato/facturas_r_html_excel/' + de + '/' + a;
+           url = '<?php echo base_url();?>' + 'contrato/contratos_html_excel/' + de + '/' + a;
 
            window.location.href = url;
        }else{
            de=1;
            a=1;
-           url = '<?php echo base_url();?>' + 'contrato/facturas_r_html_excel/' + de + '/' + a+'/'+estado;
+           url = '<?php echo base_url();?>' + 'contrato/contratos_html_excel/' + de + '/' + a+'/'+estado;
 
            window.location.href = url;
        }

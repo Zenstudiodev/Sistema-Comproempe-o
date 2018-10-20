@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-    'title'    => $title,
-    'nombre'   => $nombre,
-    'user_id'  => $user_id,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
     'username' => $username,
-    'rol'      => $rol,
+    'rol' => $rol,
 ]);
 
 ?>
@@ -53,11 +53,10 @@ $this->layout('admin/admin_master', [
                 <div class="box-body">
 
 
-
                     <?php if ($contratos) { ?>
 
                         <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped ">
+                            <table id="contratos_vigentes_table" class="table table-bordered table-striped ">
                                 <thead>
                                 <tr>
                                     <th>PRODUCTO</th>
@@ -87,8 +86,7 @@ $this->layout('admin/admin_master', [
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <?php foreach ($contratos->result() as $contrato)
-                                { ?>
+                                <?php foreach ($contratos->result() as $contrato) { ?>
                                     <tr>
                                         <td><?php echo $contrato->nombre_producto ?></td>
                                         <td><?php echo $contrato->categoria ?></td>
@@ -108,9 +106,7 @@ $this->layout('admin/admin_master', [
                             </table>
                         </div>
 
-                    <?php }
-                    else
-                    {
+                    <?php } else {
                         echo 'Aún no hay contratos';
                     } ?>
                 </div>
@@ -133,12 +129,28 @@ $this->layout('admin/admin_master', [
 <?php $this->start('js_ps') ?>
     <!-- page script -->
     <script>
-        var rango_fechas;
-        var from;
-        var to;
-
         $(document).ready(function () {
-
+            // Setup - add a text input to each footer cell
+            $('#contratos_vigentes_table tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+            // DataTable
+            var table = $('#contratos_vigentes_table').DataTable(
+                {
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                });
+            // Apply the search
+            table.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
         });
 
 

@@ -132,10 +132,13 @@ class Contrato extends Base_Controller
                                 echo '<p>en dias de gracia</p>';
                             } else {
                                 echo '<p>Contrato Vencido</p>';
+
                                 $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'perdido');
-                                $productos = $this->Productos_model->get_productos_by_contrato($contrato->contrato_id);
-                                foreach ($productos->result() as $producto) {
-                                    $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
+                                if($productos){
+                                    foreach ($productos->result() as $producto) {
+                                        $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                    }
                                 }
                             }
                         }
@@ -767,13 +770,13 @@ class Contrato extends Base_Controller
         }
 
         if ($this->uri->segment(3) !='1' && $this->uri->segment(4) !='1') {
+        //if ($this->uri->segment(3)  && $this->uri->segment(4) ) {
             echo'<h1>fintrando fechas</h1>';
             $data['contratos'] = $this->Contratos_model->contratos_html_excel_by_date($data['from'], $data['to'], $estado);
         } else {
             echo'<h1>no fintrando fechas</h1>';
             $data['contratos'] = $this->Contratos_model->contratos_html_excel($estado);
         }
-        echo'<h1>no fintrando fechas</h1>';
         echo $this->templates->render('admin/contratos_excel_html', $data);
 
     }
