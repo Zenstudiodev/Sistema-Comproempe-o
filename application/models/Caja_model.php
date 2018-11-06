@@ -677,5 +677,22 @@ class Caja_model extends CI_Model
         else return false;
     }
 
+    function anular_ingreso($ingreso_id){
+
+        $datos = array(
+            'monto' => '0',
+        );
+        $this->db->where('ingreso_id', $ingreso_id);
+        $query = $this->db->update('ingresos', $datos);
+    }
+    function anular_egreso($egreso_id){
+
+        $datos = array(
+            'monto' => '0',
+        );
+        $this->db->where('egreso_id', $egreso_id);
+        $query = $this->db->update('egresos', $datos);
+    }
+
 
 }

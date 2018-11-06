@@ -886,6 +886,7 @@ $fecha_cierre = array(
                 $total_ingresos
                     = $dinero_en_caja
                     + $total_ingresos_caja
+                    + $total_vales_cobrados
                     + $total_ventas
                     + $total_apartados
                     + $total_abonos_enpenos

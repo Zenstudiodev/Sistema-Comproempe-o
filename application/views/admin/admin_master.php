@@ -196,7 +196,7 @@
                 <?php if (user_rol() == 'developer' || user_rol() == 'conta' || user_rol() == 'gerencia') { ?>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-line-chart"></i> <span>Inventario</span>
+                            <i class="fas fa-shopping-cart"></i> <span>Inventario</span>
                             <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
@@ -209,7 +209,7 @@
                 <?php } ?>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-money"></i> <span>Caja</span>
+                        <i class="fas fa-money-check-alt"></i> <span>Caja</span>
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
@@ -253,36 +253,38 @@
                     </ul>
                 </li>
                 <?php
-                if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
+                if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-line-chart"></i> <span>Sistema</span>
+                            <i class="fas fa-chart-bar"></i> <span>Sistema</span>
                             <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
                             <?php if(user_rol() != 'conta'){?>
                             <li>
                                 <a href="<?php echo base_url() ?>user/lista_de_usuarios">
-                                    <i class="fa fa-circle-o"></i>Control de usuarios
+                                    <i class="fas fa-users"></i> Control de usuarios
                                 </a>
                             </li>
                             <?php }?>
+                            <?php if(user_rol() == 'developer' || user_rol() == 'gerencia'){?>
                             <li>
                                 <a href="<?php echo base_url() ?>index.php/home/exportar">
-                                    <i class="fa fa-circle-o"></i>Exportar
+                                    <i class="fas fa-file-download"></i> Exportar
                                 </a>
                             </li>
                             <li>
                                 <a href="<?php echo base_url() ?>index.php/home/registros">
-                                    <i class="fa fa-circle-o"></i>Registros
+                                    <i class="far fa-file-alt"></i> Registros
                                 </a>
                             </li>
+                            <?php }?>
                         </ul>
                     </li>
                 <?php } ?>
                 <li>
                     <a href="<?php echo base_url() ?>index.php/login/logout">
-                        <i class="fa fa-file"></i>
+                        <i class="fas fa-file"></i>
                         <span>Salir</span>
                     </a>
                 </li>

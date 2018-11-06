@@ -15,8 +15,28 @@
     <script src="<?php echo base_url(); ?>/ui/admin/plugins/moment/moment-with-locales.js"></script>
 </head>
 <body>
-de | <input type="date" placeholder="de" name="de" id="de" >
+de | <input type="date" placeholder="de" name="de" id="de">
 a | <input type="date" placeholder="a" name="a" id="a">
+Serie <select id="serie_select">
+    <?php
+    $tienda = tienda_id_h();
+    // actualizamos en la base de datos
+    if ($tienda == '1') {
+
+        ?>
+        <option value="A">A</option>
+        <option value="R">R</option>
+        <?php
+    }
+    if ($tienda == '2') {
+
+        ?>
+        <option value="A">CN</option>
+        <option value="R">RE</option>
+        <?php
+    }
+    ?>
+</select>
 <button id="filtrar">filtrar</button>
 <br>
 <input type="button" onclick="tableToExcel('table', 'W3C Example Table')" value="Export to Excel">
@@ -32,11 +52,9 @@ a | <input type="date" placeholder="a" name="a" id="a">
         <td>intereses</td>
         <td>almacenaje</td>
         <td>mora</td>
-        <td>Mutuo</td>
         <td>Gatos administrativos</td>
         <td>descuento</td>
         <td>total</td>
-        <td>MG</td>
         <td>tipo</td>
         <td>estado</td>
         <td>serie</td>
@@ -54,7 +72,7 @@ a | <input type="date" placeholder="a" name="a" id="a">
     $total_gastos_admministrativos = 0;
     $total_descuento = 0;
     $total_total = 0;
-    $promedio_mg= 0;
+    $promedio_mg = 0;
     ?>
 
     <?php foreach ($facturas->result() as $factura) { ?>
@@ -62,7 +80,7 @@ a | <input type="date" placeholder="a" name="a" id="a">
         <tr>
             <td><?php echo $factura->id; ?></td>
             <td><?php echo $factura->nit; ?></td>
-            <td><?php echo $factura->nombre ; ?></td>
+            <td><?php echo $factura->nombre; ?></td>
             <td><?php echo $factura->contrato_id; ?></td>
             <td><?php echo $factura->fecha; ?></td>
             <td><?php
@@ -72,29 +90,18 @@ a | <input type="date" placeholder="a" name="a" id="a">
                 $total_almacenaje = $total_almacenaje + $factura->almacenaje;
                 echo $factura->almacenaje; ?></td>
             <td><?php
-                $total_mora= $total_mora + $factura->mora;
+                $total_mora = $total_mora + $factura->mora;
                 echo $factura->mora; ?></td>
-            <?php $mutuo = $factura->total - $factura->subtotal;?>
             <td><?php
-                $total_mutuo= $total_mutuo + $mutuo;
-                echo $mutuo ?></td>
-            <td><?php
-                $total_gastos_admministrativos= $total_gastos_admministrativos + $factura->subtotal;
+                $total_gastos_admministrativos = $total_gastos_admministrativos + $factura->subtotal;
                 echo $factura->subtotal; ?></td>
             <td><?php
-                $total_descuento= $total_descuento + $factura->descuento;
+                $total_descuento = $total_descuento + $factura->descuento;
                 echo $factura->descuento; ?></td>
             <td><?php
-                $total_total= $total_total + $factura->total;
+                $total_total = $total_total + $factura->total;
                 echo $factura->total; ?></td>
-            <?php
-            if($mutuo != 0){
-                $mg = number_format(($factura->subtotal / $mutuo) * 100, 2);
-            }else{
-                $mg = 0;
-            }
-             ?>
-            <td><?php echo $mg; ?></td>
+
             <td><?php echo $factura->tipo; ?></td>
             <td><?php echo $factura->estado; ?></td>
             <td><?php echo $factura->serie; ?></td>
@@ -111,17 +118,14 @@ a | <input type="date" placeholder="a" name="a" id="a">
     <?php } ?>
     <tr>
         <td colspan="5">TOTAL</td>
-        <td><?php echo formato_dinero($total_intereses);?></td>
-        <td><?php echo formato_dinero($total_almacenaje);?></td>
-        <td><?php echo formato_dinero($total_mora);?></td>
-        <td><?php echo formato_dinero($total_mutuo);?></td>
-        <td><?php echo formato_dinero($total_gastos_admministrativos);?></td>
-        <td><?php echo formato_dinero($total_descuento);?></td>
-        <td><?php echo formato_dinero($total_total);?></td>
-        <td><?php
-            $promedio_mg = $total_gastos_admministrativos / $total_mutuo;
-            echo formato_dinero($promedio_mg);?></td>
-        <td colspan="5"> </td>
+        <td><?php echo formato_dinero($total_intereses); ?></td>
+        <td><?php echo formato_dinero($total_almacenaje); ?></td>
+        <td><?php echo formato_dinero($total_mora); ?></td>
+        <td><?php echo formato_dinero($total_gastos_admministrativos); ?></td>
+        <td><?php echo formato_dinero($total_descuento); ?></td>
+        <td><?php echo formato_dinero($total_total); ?></td>
+
+        <td colspan="5"></td>
     </tr>
 
     </tbody>
@@ -131,25 +135,46 @@ a | <input type="date" placeholder="a" name="a" id="a">
 <script>
     var de;
     var a;
+    var serie;
+    var url;
+
     $("#filtrar").click(function () {
-       de = $("#de").val();
-       a = $("#a").val();
+        de = $("#de").val();
+        a = $("#a").val();
+        serie =$('#serie_select').val();
 
-       if(de != '' && a !=''){
-           url = '<?php echo base_url();?>' + 'factura/facturas_r_html_excel/' + de + '/' + a;
+        console.log(de + ' '+ a +' '+serie);
 
+
+
+        if (de != '' && a != '') {
+
+            if(serie == 'A'){
+                url = '<?php echo base_url();?>' + 'factura/facturas_html_excel/' + de + '/' + a;
+            }
+            if(serie == 'R'){
+                url = '<?php echo base_url();?>' + 'factura/facturas_r_html_excel/' + de + '/' + a;
+            }
+            console.log(url);
            window.location.href = url;
-       }
+        }
 
     });
 
 
-    var tableToExcel = (function() {
+    var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'
-            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
-            , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
-            , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
-        return function(table, name) {
+            ,
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            }
+            , format = function (s, c) {
+                return s.replace(/{(\w+)}/g, function (m, p) {
+                    return c[p];
+                })
+            }
+        return function (table, name) {
             if (!table.nodeType) table = document.getElementById(table)
             var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
             window.location.href = uri + base64(format(template, ctx))

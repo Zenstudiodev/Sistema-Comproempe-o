@@ -418,7 +418,7 @@ class Productos extends Base_Controller
             echo '<p>' . $tipo_imagen . '</p>';
 
             $config['upload_path'] = './uploads/imagenes_productos';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['file_name'] = $nombre_imagen;
             $config['overwrite'] = TRUE;
             //$config['max_size']      = 100;
@@ -531,7 +531,7 @@ class Productos extends Base_Controller
                 } elseif ($tienda == '2') {
                     $tienda_actual = 1;
                 }
-                // $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
+                $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
                 $productos_id[] = $producto->producto_id;
             }
 
@@ -799,7 +799,7 @@ class Productos extends Base_Controller
             $registro_venta = array(
                 'factura_id' => $factura_id,
                 'recibo_id' => '',
-                'monto' => $datos_factura['total'],
+                'monto' => number_format($datos_factura['total'], 2),
                 'id_producto' => '',
                 'nombre_producto' => '',
             );
@@ -811,7 +811,7 @@ class Productos extends Base_Controller
             $registro_venta = array(
                 'factura_id' => '',
                 'recibo_id' => $recibo_id,
-                'monto' => $datos_factura['total'],
+                'monto' => number_format($datos_factura['total'], 2),
                 'id_producto' => '',
                 'nombre_producto' => '',
             );
@@ -954,7 +954,7 @@ class Productos extends Base_Controller
 
         $datos_apartado = array(
             'recibo_id' => $recibo_id,
-            'monto' => $this->input->post('total_apartado'),
+            'monto' => number_format($this->input->post('total_apartado'), 2),
             'id_producto' => $id_productos,
             'nombre_producto' => $nombre_productos,
             'saldo' => $saldos,
@@ -1172,7 +1172,7 @@ class Productos extends Base_Controller
         //guardamos log de caja de abono a capital
         $datos_abono = array(
             'recibo_id' => $recibo_id,
-            'monto' => $datos_recibo['monto_recibo'],
+            'monto' => number_format($datos_recibo['monto_recibo'], 2),
             'id_producto' => $this->input->post('producto_1'),
             'saldo' => $saldo_producto,
         );
@@ -1249,5 +1249,21 @@ class Productos extends Base_Controller
 
 
         echo $this->templates->render('public/categoria_productos', $data);
+    }
+
+    function ver(){
+        //id del producto
+        $data['producto_id'] = urldecode($this->uri->segment(3));
+        //si no hay producto redirigir a listado general de productos
+        if(!$data['producto_id']){
+            redirect(base_url().'home/productos');
+        }
+        //categorias publicas
+        $data['categorias'] = $this->Productos_model->get_public_categorias();
+        //obtenemos los datos del producto
+        $data['producto_data'] = $this->Productos_model->datos_de_producto_public($data['producto_id']);
+
+        echo $this->templates->render('public/vista_producto', $data);
+
     }
 }

@@ -1,32 +1,94 @@
-@import "variables/colores";
+@import "variables/_variables";
+@import "typography/_typography";
 @import "nav/nav";
 @import "productos/productos";
 
-
-
-#top{
+#top {
   background: $verde;
-  height:80px;
-  margin-bottom: 32px;
+  height: 80px;
   box-shadow: 0px 5px 5px 1px #00000066;
-  #logo_top{
+  #logo_top {
     z-index: 10;
     position: absolute;
   }
 }
+
 div#logo_container {
   max-width: 600px;
   margin: 0 auto;
   margin-top: 10vh;
 }
-
-h1{
+//categoria
+#ver_categorias_btn{
+  display: none;
 }
 
-#productos_card{
-  .card{
-    .card-img-top{
-      height:auto;
+h1 {
+}
+
+#productos_card {
+  .card {
+    .card-img-top {
+      height: auto;
     }
   }
 }
+
+footer {
+  background: $amarillo;
+  color: #fff;
+  margin-bottom: 0px;
+  padding: 15px 0px;
+  #logo_footer_conteiner {
+    background: #fff;
+    border-radius: 50%;
+    padding: 26px;
+    height: 192px;
+    width: 219px;
+    margin: 0px auto;
+  }
+
+  .direccion_footer{}
+  .telefono_footer{}
+}
+
+
+
+//Responsive
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #ver_categorias_btn{
+    display: block;
+  }
+  .categorias_col_active{
+    position: absolute;
+    background: rgba(0,0,0,0.76);
+    z-index: 2;
+    width: 100%;
+    padding: 138px 40px;
+    top: 0px;
+  }
+  .categorias_col{
+    position: fixed;
+    left: 3000px;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+
+}
+
+// Extra large devices (large desktops)
+// No media query since the extra-large breakpoint has no upper bound on its width

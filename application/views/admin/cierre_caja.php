@@ -238,6 +238,7 @@ $dinero_en_caja = 0;
                                         <th>Cod. Producto</th>
                                         <th>Nombre Producto</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -252,6 +253,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
                                             <td><?php echo   id_to_nombre($venta->user_id);?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$venta->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -282,6 +284,7 @@ $dinero_en_caja = 0;
                                             <th>Saldo</th>
                                             <th>Vencimiento</th>
                                             <th>Usuario</th>
+                                            <th>Acción</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -297,6 +300,7 @@ $dinero_en_caja = 0;
                                                 <td><?php echo $apartado->saldo ?></td>
                                                 <td><?php echo $apartado->fecha_vencimiento ?></td>
                                                 <td><?php echo   id_to_nombre($apartado->user_id);?></td>
+                                                <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$apartado->ingreso_id; ?>">Anular</a> </td>
                                             </tr>
                                             <?php
                                         } ?>
@@ -326,6 +330,7 @@ $dinero_en_caja = 0;
                                         <th>Producto</th>
                                         <th>Saldo capital</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -339,6 +344,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $abono->id_producto ?></td>
                                             <td><?php echo $abono->saldo ?></td>
                                             <td><?php echo id_to_nombre($abono->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$abono->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -367,6 +373,7 @@ $dinero_en_caja = 0;
                                         <th>Contrato</th>
                                         <th>Saldo capital</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -380,6 +387,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $abono->id_contrato ?></td>
                                             <td><?php echo $abono->saldo ?></td>
                                             <td><?php echo id_to_nombre($abono->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$abono->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -407,6 +415,7 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -419,6 +428,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($desenpeno->monto); ?></td>
                                             <td><?php echo $desenpeno->id_contrato ?></td>
                                             <td><?php echo id_to_nombre($desenpeno->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$desenpeno->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -449,6 +459,7 @@ $dinero_en_caja = 0;
                                         <th>Monto refrendado</th>
                                         <th>Saldo capital</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -462,6 +473,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $interese_refrendo->mutuo ?></td>
                                             <td><?php echo $interese_refrendo->saldo ?></td>
                                             <td><?php echo id_to_nombre($interese_refrendo->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$interese_refrendo->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -490,6 +502,7 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -501,6 +514,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($interes_desempeno->monto); ?></td>
                                             <td><?php echo $interes_desempeno->id_contrato ?></td>
                                             <td><?php echo id_to_nombre($interes_desempeno->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$interes_desempeno->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -570,6 +584,7 @@ $dinero_en_caja = 0;
                                         <th>dias</th>
                                         <th>Monto Refrendo</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -583,6 +598,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $empeno->dias ?></td>
                                             <td><?php echo $empeno->monto_refrendo ?></td>
                                             <td><?php echo id_to_nombre($empeno->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_egreso/'.$empeno->egreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -608,6 +624,7 @@ $dinero_en_caja = 0;
                                     <tr>
                                         <th>Detalle</th>
                                         <th>Monto</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -617,6 +634,7 @@ $dinero_en_caja = 0;
                                         <tr>
                                             <td><?php echo $compra->detalle ?></td>
                                             <td><?php echo display_formato_dinero($compra->monto); ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_egreso/'.$compra->egreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -643,6 +661,7 @@ $dinero_en_caja = 0;
                                         <th>Detalle</th>
                                         <th>Monto</th>
                                         <th>Usuario</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -653,6 +672,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $otro_gasto->detalle ?></td>
                                             <td><?php echo display_formato_dinero($otro_gasto->monto); ?></td>
                                             <td><?php echo id_to_nombre($otro_gasto->user_id) ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_egreso/'.$otro_gasto->egreso_id; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -841,7 +861,7 @@ $dinero_en_caja = 0;
                 $total_ingresos
                     = $dinero_en_caja
                     + $total_ingresos_caja
-                    + $total_vales_cobrados
+                    //+ $total_vales_cobrados
                     + $total_ventas
                     + $total_apartados
                     + $total_abonos_enpenos

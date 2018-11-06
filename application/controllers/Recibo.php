@@ -57,7 +57,7 @@ class Recibo extends Base_Controller
 		//guardamos log de caja de abono a capital
         $datos_abono = array(
             'recibo_id' => $recibo_id,
-            'monto' => $datos_recibo['monto_recibo'],
+            'monto' => number_format($datos_recibo['monto_recibo'], 2),
             'id_contrato' => $this->input->post('contrato_id'),
             'saldo' => $nuevo_monto,
         );

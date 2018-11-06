@@ -575,5 +575,13 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
     }
 
+    function datos_de_producto_public($id)
+    {
+        $this->db->where('producto_id', $id);
+        $this->db->where('tipo', 'venta');
+        $query = $this->db->get('producto');
+        if ($query->num_rows() > 0) return $query;
+    }
+
 
 }

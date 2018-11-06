@@ -193,16 +193,6 @@ $this->layout('admin/admin_master', [
                                                 <th>ACCIONES</th>
                                             </tr>
                                             </thead>
-                                            <!-- <tfoot>
-											 <tr>
-												 <th>ID CONTRATO</th>
-												 <th>ESTADO</th>
-												 <th>REFRENDO</th>
-												 <th>DESEMPEÑO</th>
-												 <th>FECHA DE PAGO</th>
-												 <th></th>
-											 </tr>
-											 </tfoot>-->
                                             <tbody>
                                             <?php foreach ($recibos->result() as $recibo) { ?>
                                                 <?php if ($recibo->tipo != 'liquidacion') { ?>
@@ -473,16 +463,6 @@ $this->layout('admin/admin_master', [
 
                                         </tr>
                                         </thead>
-                                        <!-- <tfoot>
-										 <tr>
-											 <th></th>
-											 <th>NOMBRE</th>
-											 <th>FECHA AVALUO</th>
-											 <th>AVALUO</th>
-											 <th>MUTUO</th>
-											 <th>CONTRATO ID</th>
-										 </tr>
-										 </tfoot>-->
                                         <tbody>
                                         <?php foreach ($enmpenos->result() as $producto) { ?>
                                             <tr>
@@ -529,6 +509,10 @@ $this->layout('admin/admin_master', [
                                                             <i class="fa fa-pencil-square-o"></i> Editar
                                                         </a>
                                                     <?php } ?>
+                                                    <a type="button" class="btn btn-info" target="_blank"
+                                                       href="<?php echo base_url() . 'productos/subir_imagenes_producto/' . $producto->producto_id; ?>">
+                                                        <i class="fas fa-file-image"></i> Subir imagen
+                                                    </a>
                                                 </td>
 
 

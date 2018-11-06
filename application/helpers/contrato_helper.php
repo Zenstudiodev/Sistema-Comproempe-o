@@ -125,7 +125,7 @@ function descuento_sugerido($fecha_pago){
 
 	if ($d1_format <= $d2_format)
 	{
-		if($diferencia_dias >= 15){
+		if($diferencia_dias >= 16){
 			return true;
 		}else{
 			return false;

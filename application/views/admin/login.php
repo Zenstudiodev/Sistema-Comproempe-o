@@ -60,6 +60,15 @@ $password = array(
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
+        <?php
+        if (isset($mensaje)){ ?>
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <?php echo $mensaje; ?>
+            </div>
+        <?php }
+        ?>
 	    <?php
 	    if (isset($error)){ ?>
             <div class="alert alert-danger alert-dismissible fade in" role="alert">

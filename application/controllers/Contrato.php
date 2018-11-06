@@ -112,7 +112,7 @@ class Contrato extends Base_Controller
                     echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
                     echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
 
-                    if ($fecha_actual < $fecha_contrato) {
+                    if ($fecha_actual <= $fecha_contrato) {
                         echo '<p>Aun no se ha pasado la fecha de pago</p>';
                     } else {
                         echo '<p>ya se paso la fecha de pago</p>';
@@ -558,7 +558,7 @@ class Contrato extends Base_Controller
 
         $datos_desenpeno = array(
             'recibo_id' => $recibo_id,
-            'monto' => $datos_recibo['monto_recibo'],
+            'monto' => number_format($datos_recibo['monto_recibo'], 2),
             'id_contrato' => $datos_factura['contrato_id'],
         );
         $this->Caja_model->guardar_desenpenos($datos_desenpeno);

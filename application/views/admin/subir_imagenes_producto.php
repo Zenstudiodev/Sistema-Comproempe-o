@@ -141,7 +141,17 @@ if ($producto_data) {
             {
                 url: "<?php echo base_url()?>Productos/guardar_imagen",
                 paramName: "imagen_producto",
-                acceptedFiles: ".jpg",
+                parallelUploads: 1,
+                maxFiles: 1,
+                acceptedFiles: ".jpg,.jpeg",
+                resizeWidth: '800',
+                //resizeMimeType: '.jpg',
+                //uploadMultiple: true,
+                //chunking: true,
+                //retryChunks: true,
+                //forceChunking: true,
+                //chunkSize: 500000,
+                //retryChunksLimit: 40,
                 //method: "post",
                 //withCredentials: true,
                 headers: {
@@ -159,6 +169,7 @@ if ($producto_data) {
             //console.log(file);
             console.log(data);
             window.navigator.vibrate(200);
+            location.reload();
             /* Maybe display some more file information on your page */
         });
 

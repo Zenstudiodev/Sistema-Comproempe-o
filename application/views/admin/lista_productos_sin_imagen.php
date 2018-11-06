@@ -14,6 +14,9 @@ $this->layout('admin/admin_master', [
     'rol' => $rol,
 ]);
 
+$hoy = New DateTime();
+
+
 ?>
 <!--Css Personalizadoc para vista-->
 <?php $this->start('css_p') ?>
@@ -47,7 +50,6 @@ $this->layout('admin/admin_master', [
                             <?php echo $error ?>
                         </div>
                     </div>
-
                 <?php } ?>
                 <?php if ($productos_sin_foto) { ?>
                     <div class="table-responsive">
@@ -55,31 +57,53 @@ $this->layout('admin/admin_master', [
                             <thead>
                             <tr>
                                 <th>Accion</th>
-                                <th>PRODUCTO ID</th>
                                 <th>NOMBRE</th>
+                                <th>MUTUO</th>
+                                <th>DIAS INVENTARIO</th>
+                                <th>PRODUCTO ID</th>
+                                <th>CONTRATO ID</th>
+                                <th>FECHA AVALUO</th>
+                                <th>TIENDA</th>
                                 <th>CATEGORIA</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
                                 <th></th>
-                                <th>PRODUCTO ID</th>
                                 <th>NOMBRE</th>
+                                <th>MUTUO</th>
+                                <th>DIAS INVENTARIO</th>
+                                <th>PRODUCTO ID</th>
+                                <th>CONTRATO ID</th>
+                                <th>FECHA AVALUO</th>
+                                <th>TIENDA</th>
                                 <th>CATEGORIA</th>
                             </tr>
                             </tfoot>
                             <tbody>
                             <?php foreach ($productos_sin_foto->result() as $producto) { ?>
+                                <?php
+                                $imagenes_producto = get_imgenes_producto_public($producto->producto_id);
+                                ?>
+                                <?php if ($imagenes_producto) { ?>
+                                <?php } else {
 
-                                <tr>
-
-                                    <td><a class="btn btn-success" href="<?php echo base_url().'productos/subir_imagenes_producto/'.$producto->producto_id?>">Subir imagenes</a> </td>
-                                    <td><?php echo $producto->producto_id ?></td>
-                                    <td><?php echo $producto->nombre_producto ?></td>
-                                    <td><?php echo $producto->categoria ?></td>
-                                </tr>
-
-
+                                    $diferencia_en_dias = diferencia_en_dias($producto->fecha);
+                                    ?>
+                                    <tr>
+                                        <td><a class="btn btn-success"
+                                               href="<?php echo base_url() . 'productos/subir_imagenes_producto/' . $producto->producto_id ?>">Subir
+                                                imagenes</a></td>
+                                        <td><?php echo $producto->nombre_producto ?></td>
+                                        <td><?php echo $producto->mutuo ?></td>
+                                        <td><?php echo $diferencia_en_dias ?> días</td>
+                                        <td><?php echo $producto->producto_id ?></td>
+                                        <td><?php echo $producto->contrato_id ?></td>
+                                        <td><?php echo $producto->fecha ?></td>
+                                        <td><?php echo tienda_id_to_nombre($producto->tienda_actual) ?></td>
+                                        <td><?php echo $producto->categoria ?></td>
+                                    </tr>
+                                <?php } ?>
                             <?php } ?>
                             </tbody>
                         </table>
@@ -94,8 +118,8 @@ $this->layout('admin/admin_master', [
                         </div>
                     </div>
                 <?php } ?>
-            <!-- /.box-body -->
-        </div>
+                <!-- /.box-body -->
+            </div>
     </section>
     <!-- /.content -->
 </div>

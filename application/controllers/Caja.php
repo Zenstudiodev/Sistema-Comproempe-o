@@ -330,7 +330,7 @@ class Caja extends Base_Controller
     function lista_vales()
     {
         $data = compobarSesion();
-        $data['vales'] = $this->Caja_model->get_vales();
+        $data['vales'] = $this->Caja_model->get_vales_activos();
         echo $this->templates->render('admin/cobrar_vale', $data);
     }
 
@@ -401,6 +401,23 @@ class Caja extends Base_Controller
         $this->Caja_model->guardar_fondo_caja($datos_fondos_caja);
         //redirigimos a visanet
         redirect(base_url() . 'Caja/ingresar_fondo_caja');
+    }
+
+    function anular_ingreso(){
+        $data = compobarSesion();
+        $ingreso_id = $this->uri->segment(3);
+        $this->Caja_model->anular_ingreso($ingreso_id);
+        redirect(base_url().'Caja/cierre');
+    }
+    function anular_egreso(){
+        $data = compobarSesion();
+        $egreso_id = $this->uri->segment(3);
+        $this->Caja_model->anular_egreso($egreso_id);
+        redirect(base_url().'Caja/cierre');
+    }
+
+    function anular_egresos(){
+
     }
 
 

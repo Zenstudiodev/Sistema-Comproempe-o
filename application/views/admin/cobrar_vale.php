@@ -74,6 +74,7 @@ $nombre = array(
                     <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
+                            <th>Fecha</th>
                             <th>Nombre</th>
                             <th>Detalle</th>
                             <th>Monto</th>
@@ -90,6 +91,7 @@ $nombre = array(
 
                             ?>
                             <tr>
+                                <td><?php echo $vale->fecha_creado ?></td>
                                 <td><?php echo $vale->nombre ?></td>
                                 <td><?php echo $vale->detalle ?></td>
                                 <td><?php echo display_formato_dinero($vale->monto); ?></td>
