@@ -375,7 +375,13 @@ if ($contrato)
                                 <td>El Valuador</td>
                             </tr>
                             <tr>
-                                <td><?php echo $nombre; ?></td>
+                                <td><?php
+                                    if($contrato->user_id == ''){
+                                        echo $nombre .'-';
+                                    }else{
+                                        id_to_nombre($contrato->user_id);
+                                    }
+                                     ?></td>
                             </tr>
                             </tbody>
                         </table>

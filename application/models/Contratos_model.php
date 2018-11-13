@@ -212,6 +212,8 @@ class Contratos_model extends CI_Model
     }
     function guardar_contrato($data)
     {
+        //user data
+        $user_id = get_user_id();
         $datos_de_contrato = array(
             //'contrato_id'=> $data['contrato_id'],
             'cliente_id' => $data['cliente_id'],
@@ -231,7 +233,8 @@ class Contratos_model extends CI_Model
             'dias_gracia' => $data['dias_gracia'],
             'tipo' => $data['tipo'],
             'cotitular' => $data['cotitular'],
-            'estado' => $data['estado']
+            'estado' => $data['estado'],
+            'user_id' => $user_id
         );
 
         // Get tienda data
