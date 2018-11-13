@@ -121,6 +121,10 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
+                            <a href="<?php echo base_url() ?>productos/administrar_liquidacion">
+                                <i class="fa fa-file"></i> <span>Administrador de productos</span></a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url() ?>productos/productos_sin_foto">
                                 <i class="fas fa-file-image"></i> <span>Productos<br> Sin imagen</span></a>
                         </li>
@@ -267,7 +271,7 @@
                                 </a>
                             </li>
                             <?php }?>
-                            <?php if(user_rol() == 'developer' || user_rol() == 'gerencia'){?>
+                            <?php if(user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' ){?>
                             <li>
                                 <a href="<?php echo base_url() ?>index.php/home/exportar">
                                     <i class="fas fa-file-download"></i> Exportar

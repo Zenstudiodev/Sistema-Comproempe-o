@@ -39,7 +39,7 @@ Serie <select id="serie_select">
 </select>
 <button id="filtrar">filtrar</button>
 <br>
-<input type="button" onclick="tableToExcel('table', 'W3C Example Table')" value="Export to Excel">
+<input type="button" onclick="tableToExcel('table', 'W3C Example Table')" value="Exportar a excel">
 
 <table id="table" border="1">
     <thead>

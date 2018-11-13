@@ -115,6 +115,26 @@ class Factura_model extends CI_Model
         else return false;
 
     }
+    public function get_ultima_factura($serie){
+
+        $this->db->order_by("factura_id", 'DESC');
+        switch ($serie) {
+            case 'R':
+                $query = $this->db->get('facturas_r');
+                break;
+            case 'A':
+                $query = $this->db->get('facturas');
+                break;
+            case 'RE':
+                $query = $this->db->get('facturas_tienda_2_r');
+                break;
+            case 'CN':
+                $query = $this->db->get('facturas_tienda_2');
+                break;
+        }
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
     public function get_info_factura_r($factura_id)
     {

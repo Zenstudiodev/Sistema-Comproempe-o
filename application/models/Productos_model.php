@@ -84,11 +84,73 @@ class productos_model extends CI_Model
         $query = $this->db->update('producto', $datos);
     }
 
+    function actualizar_producto_administrador($datos_producto)
+    {
+
+        $producto_id = $datos_producto['producto_id'];
+        $categoria = $datos_producto['categoria'];
+        $tienda_actual = $datos_producto['tienda_id'];
+        $precio_venta = $datos_producto['precio_venta'];
+        /*$cliente_id = '';
+        $proveedor_id = '';
+        $existencias = '';
+        $fecha = '';
+        $nombre_producto = '';
+        $no_serie = '';
+        $modelo = '';
+        $marca = '';
+        $descripcion = '';
+        $fecha_avaluo = '';
+        $avaluo_comercial = '';
+        $avaluo_ce = '';
+        $mutuo = '';
+        $precio_compra = '';
+        $contrato_id = '';
+        $id_prorateo = '';
+        $tipo = '';
+        $tienda_id = '';
+        $apartado = '';
+        $cliente_apartado = '';
+        $vencimiento_apartado = '';
+        $recibo_apartado = '';
+        $imagen = '';*/
+        $nuevos_datos = array(
+            'categoria' => $categoria,
+            'tienda_actual' => $tienda_actual,
+            'precio_venta' => $precio_venta,
+            /*'cliente_id' => $cliente_id,
+            'proveedor_id' => $proveedor_id,
+            'existencias' => $existencias,
+            'fecha' => $fecha,
+            'nombre_producto' => $nombre_producto,
+            'no_serie' => $no_serie,
+            'modelo' => $modelo,
+            'marca' => $marca,
+            'descripcion' => $descripcion,
+            'fecha_avaluo' => $fecha_avaluo,
+            'avaluo_comercial' => $avaluo_comercial,
+            'avaluo_ce' => $avaluo_ce,
+            'mutuo' => $mutuo,
+            'precio_compra' => $precio_compra,
+            'contrato_id' => $contrato_id,
+            'id_prorateo' => $id_prorateo,
+            'tipo' => $tipo,
+            'tienda_id' => $tienda_id,
+            'apartado' => $apartado,
+            'cliente_apartado' => $cliente_apartado,
+            'vencimiento_apartado' => $vencimiento_apartado,
+            'recibo_apartado' => $recibo_apartado,
+            'imagen' => $imagen,*/
+        );
+        $this->db->where('producto_id', $producto_id);
+        $query = $this->db->update('producto', $nuevos_datos);
+    }
+
     function get_productos_tienda_1_contratos_1()
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
@@ -99,11 +161,12 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_1_contratos_2()
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_2.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato_tienda_2.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
@@ -114,11 +177,12 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_2_contratos_1()
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual,, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
@@ -129,11 +193,12 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_2_contratos_2()
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_2.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual,, contrato_tienda_2.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
@@ -144,8 +209,10 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     //imagenes de producto
-    function get_productos_liquidacion_sin_foto(){
+    function get_productos_liquidacion_sin_foto()
+    {
         $tienda = tienda_id_h();
 
         // insertamon en la base de datos
@@ -162,14 +229,18 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function get_fotos_de_producto_by_id($producto_id){
+
+    function get_fotos_de_producto_by_id($producto_id)
+    {
         $this->db->where('producto_id', $producto_id);
         $this->db->order_by('nombre_imagen', 'desc');
         $query = $this->db->get('imagenes_producto');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function guardar_foto_tabla_fotos($datos_foto){
+
+    function guardar_foto_tabla_fotos($datos_foto)
+    {
         $datos_de_imagen = array(
             'producto_id' => $datos_foto['producto_id'],
             'extencion' => 'jpg',
@@ -178,16 +249,21 @@ class productos_model extends CI_Model
         // insertamon en la base de datos
         $this->db->insert('imagenes_producto', $datos_de_imagen);
     }
-    function get_datos_imagen($imagen_id){
+
+    function get_datos_imagen($imagen_id)
+    {
         $this->db->where('imagen_id', $imagen_id);
         $query = $this->db->get('imagenes_producto');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function borrar_registro_imagen($imagen_id){
+
+    function borrar_registro_imagen($imagen_id)
+    {
         $this->db->where('imagen_id', $imagen_id);
         $this->db->delete('imagenes_producto');
     }
+
     //venta
     function guardar_precio_venta($producto_id, $precio_venta)
     {
@@ -547,6 +623,9 @@ class productos_model extends CI_Model
         $this->db->distinct('categoria');
         $this->db->select('categoria');
         $this->db->from('producto');
+        $this->db->where('tipo', 'venta');
+        $tiendas = array('1', '2');
+        $this->db->where_in('tienda_actual', $tiendas);
         $this->db->where('tipo', 'venta');
         $this->db->order_by('categoria', 'ASC');
         $query = $this->db->get();

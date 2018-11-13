@@ -312,7 +312,7 @@ class Contratos_model extends CI_Model
         }
 
         $datos_de_factura = array(
-            'factura_id' => $data['no_factura'],
+            //'factura_id' => $data['no_factura'],
             'cliente_id' => $data['cliente_id'],
             'contrato_id' => $data['contrato_id'],
             'fecha' => $data['fecha'],

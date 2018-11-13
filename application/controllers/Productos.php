@@ -328,6 +328,126 @@ class Productos extends Base_Controller
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
 
+    // administracion de productos
+    function administrar_todos_los_productos()
+    {
+    }
+
+    function administrar_liquidacion()
+    {
+        $data = compobarSesion();
+
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+        $data['productos_contrato_tienda_1'] = false;
+        $data['productos_contrato_tienda_2'] = false;
+
+        if ($tienda == '1') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
+
+        } elseif ($tienda == '2') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
+        }
+        echo $this->templates->render('admin/administrar_productos_liquidacion', $data);
+    }
+
+    //api administracion de productos
+    function cargar_productos_en_liquidacion()
+    {
+
+        header("Content-Type: application/json");
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $productos_contrato_tienda_1 = false;
+        $productos_contrato_tienda_2 = false;
+
+        if ($tienda == '1') {
+            $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_1_contratos_1();
+            $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_1_contratos_2();
+
+        } elseif ($tienda == '2') {
+            $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_2_contratos_1();
+            $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_2_contratos_2();
+        }
+        if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2) {
+            $productos = array();
+
+
+            if ($productos_contrato_tienda_1) {
+                $productos_contrato_tienda_1 = $productos_contrato_tienda_1->result();
+                //echo json_encode($productos_contrato_tienda_1->result());
+            }else{
+                $productos_contrato_tienda_1 = array('');
+            }
+
+            if ($productos_contrato_tienda_2) {
+                $productos_contrato_tienda_2 =  $productos_contrato_tienda_2->result();
+                //echo json_encode($productos_contrato_tienda_2->result());
+            }else{
+                $productos_contrato_tienda_2=  array('');
+            }
+
+            $productos = array_merge ( $productos_contrato_tienda_1,$productos_contrato_tienda_2 );
+            echo json_encode($productos);
+        } else {
+            echo '';
+        }
+    }
+    function actualizar_producto_administrador(){
+       header("Content-Type: application/json");
+
+        parse_str(file_get_contents("php://input"), $_PUT);
+        //print_contenido($_PUT);
+        //header("Content-Type: application/json");
+        $modificaciones_producto =array(
+            "producto_id"=>$_PUT['producto_id'],
+            "categoria"=>$_PUT['categoria'],
+            "tienda_id"=>$_PUT['tienda_actual'],
+            "precio_venta"=>$_PUT['precio_venta'],
+            //"estado"=>"perdido"
+            //"fecha_avaluo"=>"2018-03-18",
+            //"contrato_id"=>"3",
+            //"tipo"=>"venta",
+            //"mutuo"=>"400",
+            //"avaluo_ce"=>"800",
+            //"nombre_producto"=>"CELULAR",
+        );
+
+        //actualizar producto
+        $this->Productos_model->actualizar_producto_administrador($modificaciones_producto);
+
+        //leer datos de producto actualizados
+        $producto = $this->Productos_model->datos_de_producto($_PUT['producto_id']);
+        $producto = $producto->row();
+
+        $datos_actualizados = array(
+            'producto_id' =>$producto->producto_id,
+            'contrato_id' =>$producto->contrato_id,
+            'fecha_avaluo' =>$producto->fecha_avaluo,
+            'categoria' =>$producto->categoria,
+            'nombre_producto' =>$producto->nombre_producto,
+            'avaluo_ce' =>$producto->avaluo_ce,
+            'avaluo_comercial' =>$producto->avaluo_comercial,
+            'precio_venta' =>$producto->precio_venta,
+            'mutuo' =>$producto->mutuo,
+            'tipo' =>$producto->tipo,
+            'tienda_actual' =>$producto->tienda_actual,
+            'estado' =>$_PUT['estado'],
+        );
+
+
+        echo json_encode($datos_actualizados);
+
+
+    }
+
+    //para pagina publica
     function productos_sin_foto()
     {
         $data = compobarSesion();
@@ -350,7 +470,6 @@ class Productos extends Base_Controller
         //datos del producto
         $data['producto_data'] = $this->Productos_model->datos_de_producto($data['producto_id']);
         $data['fotos_producto'] = $this->Productos_model->get_fotos_de_producto_by_id($data['producto_id']);
-
 
 
         echo $this->templates->render('admin/subir_imagenes_producto', $data);
@@ -430,18 +549,15 @@ class Productos extends Base_Controller
                 print_r($error);
             } else {
                 $config['image_library'] = 'gd2';
-                $config['source_image'] = './uploads/imagenes_productos/'.$nombre_imagen;
+                $config['source_image'] = './uploads/imagenes_productos/' . $nombre_imagen;
                 //$config['create_thumb'] = TRUE;
                 $config['maintain_ratio'] = TRUE;
-                $config['width']         = 800;
+                $config['width'] = 800;
                 //$config['height']       = 50;
                 $this->load->library('image_lib', $config);
-                if ( ! $this->image_lib->resize())
-                {
+                if (!$this->image_lib->resize()) {
                     echo $this->image_lib->display_errors();
                 }
-
-
 
 
                 $data = array('upload_data' => $this->upload->data());
@@ -471,16 +587,16 @@ class Productos extends Base_Controller
             $this->Productos_model->borrar_registro_imagen($imagen_id);
 
             //borrado de imagen
-            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)){
+            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
                 //echo 'imagen existe';
-                if(unlink ('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen )){
+                if (unlink('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
                     $this->session->set_flashdata('mensaje', 'se borro la imagen');
-                    redirect(base_url().'productos/subir_imagenes_producto/'.$data['prducto_id']);
-                }else{
+                    redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
+                } else {
                     echo 'no se borro';
                 }
 
-            }else{
+            } else {
 
                 //echo 'la imagen no existe';
             }
@@ -488,7 +604,7 @@ class Productos extends Base_Controller
 
         } else {
             $this->session->set_flashdata('mensaje', 'imagen no existe');
-            redirect(base_url().'productos/subir_imagenes_producto/'.$data['prducto_id']);
+            redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
 
         }
     }
@@ -1251,12 +1367,13 @@ class Productos extends Base_Controller
         echo $this->templates->render('public/categoria_productos', $data);
     }
 
-    function ver(){
+    function ver()
+    {
         //id del producto
         $data['producto_id'] = urldecode($this->uri->segment(3));
         //si no hay producto redirigir a listado general de productos
-        if(!$data['producto_id']){
-            redirect(base_url().'home/productos');
+        if (!$data['producto_id']) {
+            redirect(base_url() . 'home/productos');
         }
         //categorias publicas
         $data['categorias'] = $this->Productos_model->get_public_categorias();

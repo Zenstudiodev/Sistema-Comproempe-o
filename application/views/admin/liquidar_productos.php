@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title'    => $title,
-	'nombre'   => $nombre,
-	'user_id'  => $user_id,
-	'username' => $username,
-	'rol'      => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 
 
@@ -30,7 +30,7 @@ $this->layout('admin/admin_master', [
 <?php $this->start('page_content') ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-	<?php if ($productos) { ?>
+    <?php if ($productos) { ?>
 
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -47,108 +47,107 @@ $this->layout('admin/admin_master', [
                 </div>
                 <!-- /.box-header -->
 
-				<?php
-				$fecha          = new DateTime();
-				$fecha_contrato = array(
-					'type'        => 'text',
-					'name'        => 'fecha',
-					'id'          => 'fecha',
-					'class'       => 'form-control pull-right',
-					'placeholder' => 'Fecha del contrato',
-					'required'    => 'required',
-					'value'       => $fecha->format('Y-m-d'),
-					'readonly'    => 'readonly'
-				);
-				$cliente        = array(
-					'type'        => 'text',
-					'name'        => 'cliente',
-					'id'          => 'cliente',
-					'class'       => 'form-control',
-					'placeholder' => 'Cliente',
-					//'required' => 'required'
-				);
-
-				$nit        = array(
-					'type'        => 'text',
-					'name'        => 'nit_cliente',
-					'id'          => 'nit_cliente',
-					'class'       => 'form-control',
-					'placeholder' => 'NIT',
-					//'required' => 'required'
-				);
-				$cliente_id = array(
-					'type'        => 'text',
-					'name'        => 'cliente_id',
-					'id'          => 'cliente_id',
-					'class'       => 'form-control',
-					'placeholder' => 'Cliente id',
-					'required'    => 'required'
-
-				);
-
-				$precio_venta = array(
-					'type'        => 'number',
-					'name'        => 'precio_venta',
-					'id'          => 'precio_venta',
-					'class'       => 'form-control pull-right',
-					'placeholder' => 'Precio',
-					'required'    => 'required',
-					'step'        => 'any',
-					'min'         => '',
-					'value'       => ''//TODO sumar precios
-				);
-				$descuento    = array(
-					'type'        => 'number',
-					'name'        => 'descuento',
-					'id'          => 'descuento',
-					'class'       => 'form-control pull-right',
-					'placeholder' => 'Descuento',
-					'value'       => '0',
-					'required'    => 'required',
-					'step'        => 'any'
-				);
-
-                $total    = array(
-                    'type'        => 'number',
-                    'name'        => 'total',
-                    'id'          => 'total',
-                    'class'       => 'form-control pull-right',
-                    'placeholder' => 'Descuento',
-                    'value'       => '0',
-                    'required'    => 'required',
-                    'step'        => 'any'
+                <?php
+                $fecha = new DateTime();
+                $fecha_contrato = array(
+                    'type' => 'text',
+                    'name' => 'fecha',
+                    'id' => 'fecha',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Fecha del contrato',
+                    'required' => 'required',
+                    'value' => $fecha->format('Y-m-d'),
+                    'readonly' => 'readonly'
                 );
-				$precio_final = array(
-					'type'        => 'number',
-					'name'        => 'precio_final',
-					'id'          => 'precio_final',
-					'class'       => 'form-control pull-right',
-					'placeholder' => 'Descuento',
-					'required'    => 'required',
-					'step'        => 'any'
-				);
-				$no_factura   = array(
-					'type'        => 'number',
-					'name'        => 'no_factura',
-					'id'          => 'no_factura',
-					'class'       => 'form-control pull-right',
-					'placeholder' => 'Factura',
-					'required'    => 'required'
-				);
-				$serie_factura   = array(
-					'type'        => 'text',
-					'name'        => 'serie_factura',
-					'id'          => 'serie_factura',
-					'class'       => 'form-control ',
-					'placeholder' => 'Serie',
-					'required'    => 'required'
-				);
-				$serie_factura_options = array();
-				foreach ($facturas_activas->result() as $serie)
-				{
-					$serie_factura_options[$serie->serie] = $serie->serie;
-				}
-				?>
+                $cliente = array(
+                    'type' => 'text',
+                    'name' => 'cliente',
+                    'id' => 'cliente',
+                    'class' => 'form-control',
+                    'placeholder' => 'Cliente',
+                    //'required' => 'required'
+                );
+
+                $nit = array(
+                    'type' => 'text',
+                    'name' => 'nit_cliente',
+                    'id' => 'nit_cliente',
+                    'class' => 'form-control',
+                    'placeholder' => 'NIT',
+                    //'required' => 'required'
+                );
+                $cliente_id = array(
+                    'type' => 'text',
+                    'name' => 'cliente_id',
+                    'id' => 'cliente_id',
+                    'class' => 'form-control',
+                    'placeholder' => 'Cliente id',
+                    'required' => 'required'
+
+                );
+
+                $precio_venta = array(
+                    'type' => 'number',
+                    'name' => 'precio_venta',
+                    'id' => 'precio_venta',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Precio',
+                    'required' => 'required',
+                    'step' => 'any',
+                    'min' => '',
+                    'value' => ''//TODO sumar precios
+                );
+                $descuento = array(
+                    'type' => 'number',
+                    'name' => 'descuento',
+                    'id' => 'descuento',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Descuento',
+                    'value' => '0',
+                    'required' => 'required',
+                    'step' => 'any'
+                );
+
+                $total = array(
+                    'type' => 'number',
+                    'name' => 'total',
+                    'id' => 'total',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Descuento',
+                    'value' => '0',
+                    'required' => 'required',
+                    'step' => 'any'
+                );
+                $precio_final = array(
+                    'type' => 'number',
+                    'name' => 'precio_final',
+                    'id' => 'precio_final',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Descuento',
+                    'required' => 'required',
+                    'step' => 'any'
+                );
+                $no_factura = array(
+                    'type' => 'number',
+                    'name' => 'no_factura',
+                    'id' => 'no_factura',
+                    'class' => 'form-control pull-right',
+                    'placeholder' => 'Factura',
+                    'required' => 'required'
+                );
+                $serie_factura = array(
+                    'type' => 'text',
+                    'name' => 'serie_factura',
+                    'id' => 'serie_factura',
+                    'class' => 'form-control ',
+                    'placeholder' => 'Serie',
+                    'required' => 'required'
+                );
+                $serie_factura_options = array();
+                foreach ($facturas_activas->result() as $serie) {
+                    $serie_factura_options[$serie->serie] = $serie->serie;
+                }
+                ?>
 
                 <!-- form start -->
 
@@ -163,26 +162,25 @@ $this->layout('admin/admin_master', [
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-			                    <?php echo form_input($fecha_contrato); ?>
+                                <?php echo form_input($fecha_contrato); ?>
                             </div>
                             <!-- /.input group -->
                         </div>
 
 
-						<?php
-						$producto_numero = 1;
-						$total_avaluos   = 0;
-						$total_mutuos    = 0;
-						foreach ($productos->result() as $producto)
-						{
-							?>
+                        <?php
+                        $producto_numero = 1;
+                        $total_avaluos = 0;
+                        $total_mutuos = 0;
+                        foreach ($productos->result() as $producto) {
+                            ?>
 
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="categoria">Categoría</label>
                                         <p>
-											<?php echo $producto->categoria ?>
+                                            <?php echo $producto->categoria ?>
                                         </p>
                                     </div>
                                 </div>
@@ -256,13 +254,13 @@ $this->layout('admin/admin_master', [
                             <hr>
                             <input type="hidden" name="numero_productos" id="numero_productos"
                                    value="<?php echo $producto_numero; ?>">
-							<?php
-							$producto_numero = $producto_numero + 1;
-							$total_avaluos   = $total_avaluos + $producto->avaluo_comercial;
-							$total_mutuos    = $total_mutuos + $producto->mutuo;
+                            <?php
+                            $producto_numero = $producto_numero + 1;
+                            $total_avaluos = $total_avaluos + $producto->avaluo_comercial;
+                            $total_mutuos = $total_mutuos + $producto->mutuo;
 
-							$sub_total = $total_avaluos - $total_mutuos;
-						} ?>
+                            $sub_total = $total_avaluos - $total_mutuos;
+                        } ?>
                     </div>
 
                     <div class="box-body">
@@ -274,7 +272,7 @@ $this->layout('admin/admin_master', [
                                 <div class="form-group">
                                     <label for="avaluo">Nombre</label>
                                     <div class="input-group">
-										<?php echo form_input($cliente); ?>
+                                        <?php echo form_input($cliente); ?>
                                     </div>
                                 </div>
                             </div>
@@ -282,7 +280,7 @@ $this->layout('admin/admin_master', [
                                 <div class="form-group">
                                     <label for="avaluo">ID cliente</label>
                                     <div class="input-group">
-										<?php echo form_input($cliente_id); ?>
+                                        <?php echo form_input($cliente_id); ?>
                                     </div>
                                 </div>
                             </div>
@@ -307,7 +305,7 @@ $this->layout('admin/admin_master', [
                                     <label for="avaluo">Descuento</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">Q.</span>
-										<?php echo form_input($descuento); ?>
+                                        <?php echo form_input($descuento); ?>
                                     </div>
                                 </div>
                             </div>
@@ -368,7 +366,7 @@ $this->layout('admin/admin_master', [
                                     <label for="avaluo">No. Factura</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">#</span>
-										<?php echo form_input($no_factura); ?>
+                                        <?php echo form_input($no_factura); ?>
                                     </div>
                                 </div>
                             </div>
@@ -377,7 +375,7 @@ $this->layout('admin/admin_master', [
                                     <label for="avaluo">Serie Factura</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">#</span>
-	                                    <?php echo form_dropdown($serie_factura, $serie_factura_options, 'A') ?>
+                                        <?php echo form_dropdown($serie_factura, $serie_factura_options, 'A') ?>
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +383,8 @@ $this->layout('admin/admin_master', [
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-info alert-dismissible" id="info_facturas">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
                                     <h4><i class="icon fa fa-info"></i> Datos de facturas</h4>
                                     <p id="info_factura_text"></p>
                                 </div>
@@ -403,11 +402,9 @@ $this->layout('admin/admin_master', [
 
         </section>
         <!-- /.content -->
-	<?php }
-	else
-	{
-		echo 'El cliente que busca no existe';
-	} ?>
+    <?php } else {
+        echo 'El cliente que busca no existe';
+    } ?>
 </div>
 <!-- /.content-wrapper -->
 <?php $this->stop() ?>
@@ -432,7 +429,21 @@ $this->layout('admin/admin_master', [
 
     $(document).ready(function () {
         serie_facturas = $("#serie_factura").val();
-        //$('#marca_carro option').remove();
+        //obtener numero a facturar
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Factura/ultima_factura?serie=' + serie_facturas,
+            success: function (data) {
+                ultima_factura = parseInt(data);
+                no_a_facturar = ultima_factura +1;
+
+                console.log(ultima_factura);
+                console.log(no_a_facturar);
+                $("#no_factura").val(no_a_facturar);
+            }
+        });
+        //datos de factura
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -450,7 +461,21 @@ $this->layout('admin/admin_master', [
 
     $("#serie_factura").change(function () {
         serie_facturas = $("#serie_factura").val();
-        //$('#marca_carro option').remove();
+        //obtener numero a facturar
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Factura/ultima_factura?serie=' + serie_facturas,
+            success: function (data) {
+                ultima_factura = parseInt(data);
+                no_a_facturar = ultima_factura +1;
+
+                console.log(ultima_factura);
+                console.log(no_a_facturar);
+                $("#no_factura").val(no_a_facturar);
+            }
+        });
+        //datos de factura
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -465,15 +490,16 @@ $this->layout('admin/admin_master', [
                 console.log(data);
             }
         });
+
     });
 
     moment.locale('es');
     $(function () {
         //Date picker
-         $('#fecha').datepicker({
-			 autoclose: true,
-			 format: "yyyy-mm-dd"
-		 });
+        $('#fecha').datepicker({
+            autoclose: true,
+            format: "yyyy-mm-dd"
+        });
     });
 
     //console.log(precio_venta);
@@ -521,11 +547,11 @@ $this->layout('admin/admin_master', [
         //total_final = sub_total - descuento;
         total_final = precio_venta - descuento;
 
-        if($("#total").val() == 0){
+        if ($("#total").val() == 0) {
             precio_final_string = numeral(total_final).format('0,0.00');
             $("#total_t").html(precio_final_string);
             $("#total").val(total_final);
-        }else{
+        } else {
             descuento = parseFloat($("#descuento").val()).toFixed(2);
             total_input = parseFloat($("#total").val()).toFixed(2);
             total_final = total_input - descuento;

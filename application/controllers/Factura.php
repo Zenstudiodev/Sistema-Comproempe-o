@@ -207,9 +207,13 @@ class Factura extends Base_Controller
         $serie = $_GET['serie'];
         //pasamos variablea al modelo
 
-        $marcas = $this->Factura_model->get_info_serie_activa($serie);
+        $facturas = $this->Factura_model->get_ultima_factura($serie);
+        if($facturas){
+            $facturas = $facturas->row();
+            echo $facturas->factura_id;
+        }
         //imprimimos en formato json el resultado
-        echo json_encode($marcas->result_array());
+        //echo json_encode($marcas->result_array());
     }
 
     function facturas_excel()
