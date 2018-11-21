@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title'    => $title,
-	'nombre'   => $nombre,
-	'user_id'  => $user_id,
-	'username' => $username,
-	'rol'      => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 
 ?>
@@ -45,39 +45,54 @@ $this->layout('admin/admin_master', [
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>" id="productList_form">
+                <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>"
+                      id="productList_form">
                     <?php
 
                     ?>
 
-					<?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2) { ?>
-					<?php if ($rol !='conta') { ?>
-                        <button type="submit" class="btn btn-app" id="crear_contrato_btn">
-                            <i class="fa fa-file-text-o"></i> Liquidar productos
-                        </button>
-                        <button type="submit" class="btn btn-app" id="apartar_btn">
-                            <i class="fa fa-file-text-o"></i> Apartar productos
-                        </button>
-                        <button type="submit" class="btn btn-app" id="trasladar_btn">
-                            <i class="fa fa-file-text-o"></i> Trasladar productos
-                        </button>
+                    <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3) { ?>
+                        <?php if ($rol != 'conta') { ?>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <button type="submit" class="btn btn-app" id="crear_contrato_btn">
+                                        <i class="fas fa-file"></i> Liquidar productos
+                                    </button>
+                                    <button type="submit" class="btn btn-app" id="apartar_btn">
+                                        <i class="fas fa-file"></i> Apartar productos
+                                    </button>
+                                    <button type="submit" class="btn btn-app" id="trasladar_btn">
+                                        <i class="fas fa-truck-moving"></i> Trasladar productos
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="select_tienda_traslado" class="form-control" name="select_tienda_traslado">
+                                        <option value=""></option>
+                                        <option value="1">Tienda 1</option>
+                                        <option value="2">Tienda 2</option>
+                                        <option value="3">Tienda 3</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
                         <?php } ?>
                         <!-- <pre>
 
                     <?php /*//print_r($facturas->result()) */ ?>
                     </pre>-->
-						<?php if (isset($error)) { ?>
+                        <?php if (isset($error)) { ?>
                             <div class="row">
                                 <div class="alert alert-danger alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert"
                                             aria-hidden="true">×
                                     </button>
                                     <h4><i class="icon fa fa-ban"></i> Transacción vacia!</h4>
-									<?php echo $error ?>
+                                    <?php echo $error ?>
                                 </div>
                             </div>
 
-						<?php } ?>
+                        <?php } ?>
                         <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-striped display">
                                 <thead>
@@ -103,61 +118,79 @@ $this->layout('admin/admin_master', [
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <?php if($productos_contrato_tienda_1){?>
-								<?php foreach ($productos_contrato_tienda_1->result() as $producto)
-								{ ?>
-                                    <tr>
-                                        <td>
-                                            <label>
-                                                <input type="checkbox"
-                                                       id="<?php echo $producto->producto_id ?>"
-                                                       name="producto_<?php echo $producto->producto_id ?>"
-                                                       value="<?php echo $producto->producto_id ?>">
-                                            </label>
-                                        </td>
-                                        <td><?php echo $producto->producto_id ?></td>
-                                        <td><?php echo $producto->contrato_id ?></td>
-                                        <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
-                                        <td>
-											<?php echo $producto->nombre_producto ?>
-                                        </td>
-                                        <td><?php echo $producto->avaluo_ce ?></td>
-                                        <td><?php echo $producto->mutuo ?></td>
-                                    </tr>
-								<?php } ?>
-                                <?php }?>
-                                <?php if($productos_contrato_tienda_2){?>
-                                 <?php foreach ($productos_contrato_tienda_2->result() as $producto)
-                                 { ?>
-                                     <tr>
-                                         <td>
-                                             <label>
-                                                 <input type="checkbox"
-                                                        id="<?php echo $producto->producto_id ?>"
-                                                        name="producto_<?php echo $producto->producto_id ?>"
-                                                        value="<?php echo $producto->producto_id ?>">
-                                             </label>
-                                         </td>
-                                         <td><?php echo $producto->producto_id ?></td>
-                                         <td><?php echo $producto->contrato_id ?></td>
-                                         <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
-                                         <td>
-                                             <?php echo $producto->nombre_producto ?>
-                                         </td>
-                                         <td><?php echo $producto->avaluo_ce ?></td>
-                                         <td><?php echo $producto->mutuo ?></td>
-                                     </tr>
-                                 <?php } ?>
-                                <?php }?>
+                                <?php if ($productos_contrato_tienda_1) { ?>
+                                    <?php foreach ($productos_contrato_tienda_1->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if ($productos_contrato_tienda_2) { ?>
+                                    <?php foreach ($productos_contrato_tienda_2->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if ($productos_contrato_tienda_3) { ?>
+                                    <?php foreach ($productos_contrato_tienda_3->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         </div>
 
-					<?php }
-					else
-					{
-						echo 'Aún no hay productos';
-					} ?>
+                    <?php } else {
+                        echo 'Aún no hay productos';
+                    } ?>
             </div>
             <!-- /.box-body -->
         </div>
@@ -169,23 +202,21 @@ $this->layout('admin/admin_master', [
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-				<?php //if ($productos) { ?>
-				<?php if (false) { ?>
+                <?php //if ($productos) { ?>
+                <?php if (false) { ?>
 
-					<?php
-					$total_de_inventario = 0;
-					foreach ($productos->result() as $producto)
-					{ ?>
-						<?php
-						if ($producto->tipo == 'venta')
-						{
-							$total_de_inventario = $total_de_inventario + $producto->mutuo;
-						}
+                    <?php
+                    $total_de_inventario = 0;
+                    foreach ($productos->result() as $producto) { ?>
+                        <?php
+                        if ($producto->tipo == 'venta') {
+                            $total_de_inventario = $total_de_inventario + $producto->mutuo;
+                        }
 
-						?>
+                        ?>
 
 
-					<?php } ?>
+                    <?php } ?>
 
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -202,11 +233,9 @@ $this->layout('admin/admin_master', [
                         </div>
                         <!-- /.col -->
                     </div>
-				<?php }
-				else
-				{
-					echo 'Aún no hay facturas';
-				} ?>
+                <?php } else {
+                    echo 'Aún no hay facturas';
+                } ?>
 
                 </form>
             </div>
@@ -232,13 +261,20 @@ $this->layout('admin/admin_master', [
 <script>
     $("#apartar_btn").click(function () {
         event.preventDefault();
-        $("#productList_form").attr('action', '<?php echo base_url()."productos/productos_apartar"?>');
+        $("#productList_form").attr('action', '<?php echo base_url() . "productos/productos_apartar"?>');
         $("#productList_form").submit();
     });
     $("#trasladar_btn").click(function () {
         event.preventDefault();
-        $("#productList_form").attr('action', '<?php echo base_url()."productos/productos_trasladar"?>');
-        $("#productList_form").submit();
+        $("#productList_form").attr('action', '<?php echo base_url() . "productos/productos_trasladar"?>');
+        tienda_a = $("#select_tienda_traslado").val();
+
+        console.log(tienda_a);
+        if(tienda_a == ''){
+           alert('debe seleccionar una tienda de destino');
+        }else{
+            $("#productList_form").submit();
+        }
     });
 
     $(document).ready(function () {
@@ -251,7 +287,7 @@ $this->layout('admin/admin_master', [
         // DataTable
         var table = $('#example1').DataTable(
             {
-                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
             });
 
         // Apply the search

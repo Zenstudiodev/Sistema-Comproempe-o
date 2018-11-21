@@ -864,6 +864,7 @@ $dinero_en_caja = 0;
                     //+ $total_vales_cobrados
                     + $total_ventas
                     + $total_apartados
+                    + $total_abonos_apartado
                     + $total_abonos_enpenos
                     + $total_desenpeno
                     + $total_intereses_refrendo

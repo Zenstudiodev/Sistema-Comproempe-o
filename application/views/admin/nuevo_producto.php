@@ -7,11 +7,11 @@
  */
 
 $this->layout('admin/admin_master', [
-	'title' => $title,
-	'nombre' => $nombre,
-	'user_id' => $user_id,
-	'username' => $username,
-	'rol' => $rol,
+    'title' => $title,
+    'nombre' => $nombre,
+    'user_id' => $user_id,
+    'username' => $username,
+    'rol' => $rol,
 ]);
 if ($cliente_data) {
     $cliente = $cliente_data->row();
@@ -55,14 +55,31 @@ if ($cliente_data) {
 
                 // TODO categorias select desde tabla de productos
                 $categoria_select = array(
-                    'type' => 'text',
                     'name' => 'categoria',
                     'id' => 'categoria',
                     'class' => 'form-control',
                     'placeholder' => 'Categoría',
                     'required' => 'required'
-
                 );
+
+                $categorias_select_options = array(
+                    "Audio" => "Audio",
+                    "Cámaras" => "Cámaras",
+                    "Celulares" => "Celulares",
+                    "Computadoras Laptops y Tablets" => "Computadoras Laptops y Tablets",
+                    "Deportes" => "Deportes",
+                    "Electrodomésticos" => "Electrodomésticos",
+                    "Herramientas" => "Herramientas",
+                    "Hogar" => "Hogar",
+                    "Instrumentos Musicales" => "Instrumentos Musicales",
+                    "Joyería" => "Joyería",
+                    "Línea blanca" => "Línea blanca",
+                    "Motocicletas y Automóviles" => "Motocicletas y Automóviles",
+                    "Salud y belleza" => "Salud y belleza",
+                    "Video" => "Video",
+                    "Video Juegos" => "Video Juegos",
+                );
+
                 //TODO descripcion textarea
                 $descripcion = array(
                     'type' => 'text',
@@ -72,12 +89,12 @@ if ($cliente_data) {
                     'placeholder' => 'Descripción'
                 );
                 $descripcion_t = array(
-	                'type' => 'text',
-	                'name' => 'descripcion_t',
-	                'id' => 'descripcion_t',
-	                'class' => 'form-control',
-	                'placeholder' => 'Descripción',
-	                'required' => 'required'
+                    'type' => 'text',
+                    'name' => 'descripcion_t',
+                    'id' => 'descripcion_t',
+                    'class' => 'form-control',
+                    'placeholder' => 'Descripción',
+                    'required' => 'required'
 
                 );
                 $nombre_producto = array(
@@ -245,7 +262,8 @@ if ($cliente_data) {
                 );
                 ?>
                 <!-- form start -->
-                <form role="form" action="<?php echo base_url() ?>/Productos/guardar_producto" method="post" id="producto_form"
+                <form role="form" action="<?php echo base_url() ?>/Productos/guardar_producto" method="post"
+                      id="producto_form"
                       name="producto_form">
                     <?php echo form_hidden('cliente_id', $cliente->id); ?>
 
@@ -264,7 +282,7 @@ if ($cliente_data) {
                                         </div>
                                         <?php $fecha = new DateTime(); ?>
                                         <input type="text" class="form-control pull-right" id="fecha" name="fecha"
-                                               value="<?php echo $fecha->format('Y-m-d') ?>" >
+                                               value="<?php echo $fecha->format('Y-m-d') ?>">
                                     </div>
                                     <!-- /.input group -->
                                 </div>
@@ -274,7 +292,8 @@ if ($cliente_data) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="categoria">Categoría</label>
-                                    <?php echo form_input($categoria_select); ?>
+                                    <?php echo form_dropdown($categoria_select, $categorias_select_options); ?>
+                                    <?php //echo form_input($categoria_select); ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -306,7 +325,7 @@ if ($cliente_data) {
                         </div>
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-		                    <?php echo form_textarea($descripcion_t); ?>
+                            <?php echo form_textarea($descripcion_t); ?>
                         </div>
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
@@ -361,7 +380,6 @@ if ($cliente_data) {
                         </div>
 
 
-
                     </div>
                     <!-- /.box-body -->
 
@@ -409,7 +427,7 @@ if ($cliente_data) {
 
 
     $("#nombre_producto").change(function () {
-        descripcion_dp = 'Nombre: '+ nombre_producto+' No de serie: '+no_serie +' Modelo: '+modelo +' Marca: '+marca;
+        descripcion_dp = 'Nombre: ' + nombre_producto + ' No de serie: ' + no_serie + ' Modelo: ' + modelo + ' Marca: ' + marca;
     });
 
     $("#producto_form").change(function () {
@@ -434,13 +452,10 @@ if ($cliente_data) {
         marca = $("#marca").val();
         descripcion = $("#descripcion_t").val();
 
-        descripcion_dp = 'Nombre: '+ nombre_producto+' No de serie: '+no_serie +' Modelo: '+modelo +' Marca: '+marca;
-        descipcion_text = descripcion_dp +'\n'+descripcion;
+        descripcion_dp = 'Nombre: ' + nombre_producto + ' No de serie: ' + no_serie + ' Modelo: ' + modelo + ' Marca: ' + marca;
+        descipcion_text = descripcion_dp + '\n' + descripcion;
         $("#descripcion").val(descipcion_text);
     });
-
-
-
 
 
     var options = {

@@ -373,7 +373,21 @@ if ($contrato)
         $("#total_en_letras").val(total_en_letras);
 
         serie_facturas = $("#serie_factura").val();
-        //$('#marca_carro option').remove();
+        //obtener numero a facturar
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Factura/ultima_factura?serie=' + serie_facturas,
+            success: function (data) {
+                ultima_factura = parseInt(data);
+                no_a_facturar = ultima_factura +1;
+
+                console.log(ultima_factura);
+                console.log(no_a_facturar);
+                $("#no_factura").val(no_a_facturar);
+            }
+        });
+        //datos de factura
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -391,7 +405,21 @@ if ($contrato)
     });
     $("#serie_factura").change(function () {
         serie_facturas = $("#serie_factura").val();
-        //$('#marca_carro option').remove();
+        //obtener numero a facturar
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '<?php echo base_url()?>index.php/Factura/ultima_factura?serie=' + serie_facturas,
+            success: function (data) {
+                ultima_factura = parseInt(data);
+                no_a_facturar = ultima_factura +1;
+
+                console.log(ultima_factura);
+                console.log(no_a_facturar);
+                $("#no_factura").val(no_a_facturar);
+            }
+        });
+        //datos de factura
         $.ajax({
             type: 'GET',
             dataType: 'json',

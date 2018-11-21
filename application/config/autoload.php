@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form','contrato', 'sesion', 'mysql_to_excel', 'productos');
+$autoload['helper'] = array('url', 'form','contrato', 'sesion', 'mysql_to_excel', 'productos', 'date');
 
 /*
 | -------------------------------------------------------------------

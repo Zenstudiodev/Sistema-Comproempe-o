@@ -86,6 +86,9 @@ $this->layout('admin/admin_master', [
                                         <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/2'; ?>">
                                             <i class="fa fa-home"></i> Tienda 2
                                         </a>
+                                        <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/3'; ?>">
+                                            <i class="fa fa-home"></i> Tienda 2
+                                        </a>
                                     </td>
                                 </tr>
                             <?php } ?>

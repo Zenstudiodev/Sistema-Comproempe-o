@@ -141,6 +141,7 @@ class Productos extends Base_Controller
 
         $data['productos_contrato_tienda_1'] = false;
         $data['productos_contrato_tienda_2'] = false;
+        $data['productos_contrato_tienda_3'] = false;
 
         if ($tienda == '1') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
@@ -149,6 +150,11 @@ class Productos extends Base_Controller
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
+        }
+        elseif ($tienda == '3') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_3_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_3_contratos_3();
         }
         //$data['productos'] = $this->Productos_model->get_productos_liquidacion();
 
@@ -357,6 +363,20 @@ class Productos extends Base_Controller
         echo $this->templates->render('admin/administrar_productos_liquidacion', $data);
     }
 
+    function administar_bodega()
+    {
+        $data = compobarSesion();
+
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        // Get tienda data
+        $tienda = tienda_id_h();
+
+
+        echo $this->templates->render('admin/administrar_productos_bodega', $data);
+    }
+
     //api administracion de productos
     function cargar_productos_en_liquidacion()
     {
@@ -370,46 +390,73 @@ class Productos extends Base_Controller
         if ($tienda == '1') {
             $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_1_contratos_1();
             $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_1_contratos_2();
+            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_1_contratos_3();
 
         } elseif ($tienda == '2') {
             $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_2_contratos_2();
+            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_2_contratos_3();
+        } elseif ($tienda == '3') {
+            $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_3_contratos_1();
+            $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_3_contratos_2();
+            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_3_contratos_2();
         }
-        if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2) {
+        if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3) {
             $productos = array();
 
 
             if ($productos_contrato_tienda_1) {
                 $productos_contrato_tienda_1 = $productos_contrato_tienda_1->result();
                 //echo json_encode($productos_contrato_tienda_1->result());
-            }else{
+            } else {
                 $productos_contrato_tienda_1 = array('');
             }
 
             if ($productos_contrato_tienda_2) {
-                $productos_contrato_tienda_2 =  $productos_contrato_tienda_2->result();
+                $productos_contrato_tienda_2 = $productos_contrato_tienda_2->result();
                 //echo json_encode($productos_contrato_tienda_2->result());
-            }else{
-                $productos_contrato_tienda_2=  array('');
+            } else {
+                $productos_contrato_tienda_2 = array('');
+            }
+            if ($productos_contrato_tienda_3) {
+                $productos_contrato_tienda_3 = $productos_contrato_tienda_3->result();
+                //echo json_encode($productos_contrato_tienda_2->result());
+            } else {
+                $productos_contrato_tienda_3 = array('');
             }
 
-            $productos = array_merge ( $productos_contrato_tienda_1,$productos_contrato_tienda_2 );
+            $productos = array_merge($productos_contrato_tienda_1, $productos_contrato_tienda_2, $productos_contrato_tienda_3);
             echo json_encode($productos);
         } else {
             echo '';
         }
     }
-    function actualizar_producto_administrador(){
-       header("Content-Type: application/json");
+
+    function cargar_productos_en_bodega()
+    {
+
+        header("Content-Type: application/json");
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $productos_contrato_tienda_1 = false;
+        $productos_contrato_tienda_2 = false;
+
+        $productos = $this->Productos_model->cargar_bodega();
+        echo json_encode($productos->result());
+
+    }
+    function actualizar_producto_administrador()
+    {
+        header("Content-Type: application/json");
 
         parse_str(file_get_contents("php://input"), $_PUT);
         //print_contenido($_PUT);
         //header("Content-Type: application/json");
-        $modificaciones_producto =array(
-            "producto_id"=>$_PUT['producto_id'],
-            "categoria"=>$_PUT['categoria'],
-            "tienda_id"=>$_PUT['tienda_actual'],
-            "precio_venta"=>$_PUT['precio_venta'],
+        $modificaciones_producto = array(
+            "producto_id" => $_PUT['producto_id'],
+            "categoria" => $_PUT['categoria'],
+            "tienda_id" => $_PUT['tienda_actual'],
+            "precio_venta" => $_PUT['precio_venta'],
             //"estado"=>"perdido"
             //"fecha_avaluo"=>"2018-03-18",
             //"contrato_id"=>"3",
@@ -427,18 +474,66 @@ class Productos extends Base_Controller
         $producto = $producto->row();
 
         $datos_actualizados = array(
-            'producto_id' =>$producto->producto_id,
-            'contrato_id' =>$producto->contrato_id,
-            'fecha_avaluo' =>$producto->fecha_avaluo,
-            'categoria' =>$producto->categoria,
-            'nombre_producto' =>$producto->nombre_producto,
-            'avaluo_ce' =>$producto->avaluo_ce,
-            'avaluo_comercial' =>$producto->avaluo_comercial,
-            'precio_venta' =>$producto->precio_venta,
-            'mutuo' =>$producto->mutuo,
-            'tipo' =>$producto->tipo,
-            'tienda_actual' =>$producto->tienda_actual,
-            'estado' =>$_PUT['estado'],
+            'producto_id' => $producto->producto_id,
+            'contrato_id' => $producto->contrato_id,
+            'fecha_avaluo' => $producto->fecha_avaluo,
+            'categoria' => $producto->categoria,
+            'nombre_producto' => $producto->nombre_producto,
+            'avaluo_ce' => $producto->avaluo_ce,
+            'avaluo_comercial' => $producto->avaluo_comercial,
+            'precio_venta' => $producto->precio_venta,
+            'mutuo' => $producto->mutuo,
+            'tipo' => $producto->tipo,
+            'tienda_actual' => $producto->tienda_actual,
+            'estado' => $_PUT['estado'],
+        );
+
+
+        echo json_encode($datos_actualizados);
+
+
+    }
+
+    function actualizar_producto_bodega()
+    {
+        header("Content-Type: application/json");
+
+        parse_str(file_get_contents("php://input"), $_PUT);
+        //print_contenido($_PUT);
+        //header("Content-Type: application/json");
+        $modificaciones_producto = array(
+            "producto_id" => $_PUT['producto_id'],
+            "categoria" => $_PUT['categoria'],
+            "tienda_id" => $_PUT['tienda_actual'],
+            "precio_venta" => $_PUT['precio_venta'],
+            //"estado"=>"perdido"
+            //"fecha_avaluo"=>"2018-03-18",
+            //"contrato_id"=>"3",
+            //"tipo"=>"venta",
+            //"mutuo"=>"400",
+            //"avaluo_ce"=>"800",
+            //"nombre_producto"=>"CELULAR",
+        );
+
+        //actualizar producto
+        $this->Productos_model->actualizar_producto_administrador($modificaciones_producto);
+
+        //leer datos de producto actualizados
+        $producto = $this->Productos_model->datos_de_producto($_PUT['producto_id']);
+        $producto = $producto->row();
+
+        $datos_actualizados = array(
+            'producto_id' => $producto->producto_id,
+            'contrato_id' => $producto->contrato_id,
+            'fecha_avaluo' => $producto->fecha_avaluo,
+            'categoria' => $producto->categoria,
+            'nombre_producto' => $producto->nombre_producto,
+            'avaluo_ce' => $producto->avaluo_ce,
+            'avaluo_comercial' => $producto->avaluo_comercial,
+            'precio_venta' => $producto->precio_venta,
+            'mutuo' => $producto->mutuo,
+            'tipo' => $producto->tipo,
+            'tienda_actual' => $producto->tienda_actual,
         );
 
 
@@ -614,6 +709,8 @@ class Productos extends Base_Controller
     {
         $data = compobarSesion();
         $productos = array();
+
+        //print_contenido($_POST);
         if (!empty($_POST)) {
             //pasamos todos los post a un array
             foreach ($_POST as $key => $value) {
@@ -640,26 +737,27 @@ class Productos extends Base_Controller
             foreach ($data['productos']->result() as $producto) {
                 //cambiar estado de tienda
                 $tienda = tienda_id_h();
-                $tienda_actual = $tienda;
+                // a que tienda se va a trasladar
+                $tienda_actual = $this->input->post('select_tienda_traslado');
                 // actualizamos en la base de datos
-                if ($tienda == '1') {
+                /*if ($tienda == '1') {
                     $tienda_actual = 2;
                 } elseif ($tienda == '2') {
                     $tienda_actual = 1;
-                }
+                }*/
                 $this->Productos_model->trasladar_producto($producto->producto_id, $tienda_actual);
                 $productos_id[] = $producto->producto_id;
             }
 
             //cambiar estado de tienda
             $tienda_actual_r = tienda_id_h();
-            $tienda_destino = '';
+            $tienda_destino = $tienda_actual;
             // actualizamos en la base de datos
-            if ($tienda_actual_r == '1') {
+            /*if ($tienda_actual_r == '1') {
                 $tienda_destino = 2;
             } elseif ($tienda_actual_r == '2') {
                 $tienda_destino = 1;
-            }
+            }*/
             //print_contenido($productos_id);
             $productos_json = json_encode($productos_id);
 
@@ -915,6 +1013,7 @@ class Productos extends Base_Controller
             $registro_venta = array(
                 'factura_id' => $factura_id,
                 'recibo_id' => '',
+                'serie' => $this->input->post('serie_factura'),
                 'monto' => number_format($datos_factura['total'], 2),
                 'id_producto' => '',
                 'nombre_producto' => '',

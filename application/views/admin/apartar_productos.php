@@ -307,7 +307,7 @@ $this->layout('admin/admin_master', [
                                                        name="producto_<?php echo $producto_numero ?>_pa"
                                                        id="producto_<?php echo $producto_numero ?>_pa"
                                                        value="<?php echo $valor_apartado ?>"
-                                                       min="<?php echo $valor_apartado_minimo ?>" step="any">
+                                                       min="<?php //echo $valor_apartado_minimo ?>" step="any">
                                             </div>
                                         </div>
 

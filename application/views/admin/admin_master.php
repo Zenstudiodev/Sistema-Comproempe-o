@@ -41,7 +41,6 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-
     <header class="main-header">
         <!-- Logo -->
         <a href="<?php echo base_url(); ?>" class="logo">
@@ -54,10 +53,7 @@
         <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <i class="fas fa-bars"></i>
             </a>
 
             <div class="navbar-custom-menu">
@@ -101,10 +97,17 @@
 
 
                 <div id="cambiar_tienda">
-                    <a class="btn btn-block btn-success"
-                       href="<?php echo base_url() . 'user/cambiar_tienda/' . $tienda_id ?>">
+                    <select id="select_tienda" class="form-control">
+                        <option value=""></option>
+                        <option value="1">Tienda 1</option>
+                        <option value="2">Tienda 2</option>
+                        <option value="3">Tienda 3</option>
+                    </select>
+                    <!--<a class="btn btn-block btn-success"
+                       href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */?>">
                         Cambiar tienda
-                    </a>
+                    </a>-->
+
                 </div>
             <?php } ?>
             <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -122,7 +125,8 @@
                     <ul class="treeview-menu">
                         <li>
                             <a href="<?php echo base_url() ?>productos/administrar_liquidacion">
-                                <i class="fa fa-file"></i> <span>Administrador de productos</span></a>
+                                <i class="fa fa-file
+."></i> <span>Administrador de productos</span></a>
                         </li>
                         <li>
                             <a href="<?php echo base_url() ?>productos/productos_sin_foto">
@@ -144,12 +148,15 @@
                                 Productos apartados
                             </a>
                         </li>
+                        <?php
+                        if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'jefe_tienda') { ?>
                         <li>
-                            <a href="<?php echo base_url() ?>productos/traslados"><i
+                            <a href="<?php echo base_url() ?>productos/administar_bodega"><i
                                         class="fa fa-file"></i>
-                                Traslados
+                                Bodega
                             </a>
                         </li>
+                        <?php }?>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -277,12 +284,28 @@
                                     <i class="fas fa-file-download"></i> Exportar
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?php echo base_url() ?>index.php/home/registros">
-                                    <i class="far fa-file-alt"></i> Registros
-                                </a>
-                            </li>
                             <?php }?>
+                        </ul>
+                    </li>
+                <?php } ?>
+                <?php
+                if (user_rol() == 'developer' || user_rol() == 'gerencia') { ?>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i> <span>Reportes</span>
+                            <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                                <li>
+                                    <a href="<?php echo base_url() ?>reportes/movimiento_diario">
+                                        <i class="fas fa-file-download"></i> Movimiento diario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() ?>index.php/home/registros">
+                                        <i class="far fa-file-alt"></i> Registros
+                                    </a>
+                                </li>
                         </ul>
                     </li>
                 <?php } ?>
@@ -527,6 +550,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/ui/admin/dist/js/demo.js"></script>
 <?php echo $this->section('js_ps') ?>
-
+<script>
+    $("#select_tienda").change(function () {
+        var tienda_destino = $(this).val();
+        window.location.href = "<?php echo base_url() . 'user/cambiar_tienda/'?>"+tienda_destino;
+        console.log(tienda_destino);
+    });
+</script>
 </body>
 </html>

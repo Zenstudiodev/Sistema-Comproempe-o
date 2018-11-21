@@ -25,6 +25,9 @@ class Factura_model extends CI_Model
         } elseif ($tienda == '2') {
             $this->db->from('facturas_tienda_2');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_2.cliente_id');
+        }elseif ($tienda == '3') {
+            $this->db->from('facturas_tienda_3');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_3.cliente_id');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -42,6 +45,9 @@ class Factura_model extends CI_Model
         } elseif ($tienda == '2') {
             $this->db->from('facturas_tienda_2_r');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_2_r.cliente_id');
+        }elseif ($tienda == '3') {
+            $this->db->from('facturas_tienda_3_r');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_3_r.cliente_id');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -57,6 +63,8 @@ class Factura_model extends CI_Model
             $query = $this->db->get('facturas');
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2');
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('facturas_tienda_3');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -73,6 +81,8 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_r');
         } elseif ($tienda == '2') {
             $this->db->from('facturas_tienda_2_r');
+        }elseif ($tienda == '3') {
+            $this->db->from('facturas_tienda_3_r');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -109,6 +119,15 @@ class Factura_model extends CI_Model
                     $query = $this->db->get('facturas_tienda_2');
                     break;
             }
+        }elseif ($tienda == '3') {
+            switch ($serie) {
+                case 'RE':
+                    $query = $this->db->get('facturas_tienda_2_r');
+                    break;
+                case 'MN':
+                    $query = $this->db->get('facturas_tienda_2');
+                    break;
+            }
         }
 
         if ($query->num_rows() > 0) return $query;
@@ -131,6 +150,12 @@ class Factura_model extends CI_Model
             case 'CN':
                 $query = $this->db->get('facturas_tienda_2');
                 break;
+            case 'MN':
+                $query = $this->db->get('facturas_tienda_3');
+                break;
+            case 'RM':
+                $query = $this->db->get('facturas_tienda_3_r');
+                break;
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -148,6 +173,14 @@ class Factura_model extends CI_Model
             else return false;
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2_r');
+            if ($query->num_rows() > 0) return $query;
+            else {
+                $query = $this->db->get('facturas_r');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('facturas_tienda_3_r');
             if ($query->num_rows() > 0) return $query;
             else {
                 $query = $this->db->get('facturas_r');
@@ -180,6 +213,15 @@ class Factura_model extends CI_Model
                     $query = $this->db->update('facturas_tienda_2_r', $datos);
                     break;
                 case 'CN':
+                    $query = $this->db->update('facturas_tienda_2', $datos);
+                    break;
+            }
+        }elseif ($tienda == '3') {
+            switch ($serie) {
+                case 'MNR':
+                    $query = $this->db->update('facturas_tienda_2_r', $datos);
+                    break;
+                case 'MN':
                     $query = $this->db->update('facturas_tienda_2', $datos);
                     break;
             }

@@ -101,6 +101,17 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_2');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
         }
+        elseif ($tienda == '3') {
+            if ($from != null) {
+                $this->db->where('contrato_tienda_3.fecha  >=', $from);
+            }
+            if ($to != null) {
+                $this->db->where('contrato_tienda_3.fecha  <=', $to);
+            }
+            $this->db->select('contrato_tienda_3.contrato_id, contrato_tienda_3.estado, contrato_tienda_3.total_mutuo, contrato_tienda_3.fecha, contrato_tienda_3.fecha_pago, contrato_tienda_3.tipo, contrato_tienda_3.dias_gracia, contrato_tienda_3.tototal_liquidado, cliente.id, cliente.nombre');
+            $this->db->from('contrato_tienda_3');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_3.cliente_id');
+        }
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -123,6 +134,15 @@ class Contratos_model extends CI_Model
             $this->db->order_by("producto.contrato_id", "asc");
         } elseif ($tienda == '2') {
             $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_2.fecha, contrato_tienda_2.estado, contrato_tienda_2.fecha_pago, contrato_tienda_2.dias_gracia, cliente.nombre, cliente.id');
+            // $this->db->select('*');
+            $this->db->from('contrato_tienda_2');
+            $estados = array('perdido');
+            $this->db->where_in('contrato_tienda_2.estado', $estados);
+            $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
+            $this->db->order_by("producto.contrato_id", "asc");
+        } elseif ($tienda == '3') {
+            $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_3.fecha, contrato_tienda_3.estado, contrato_tienda_3.fecha_pago, contrato_tienda_3.dias_gracia, cliente.nombre, cliente.id');
             // $this->db->select('*');
             $this->db->from('contrato_tienda_2');
             $estados = array('perdido');
@@ -162,6 +182,16 @@ class Contratos_model extends CI_Model
             $this->db->where_in('producto.tienda_actual', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
+            $this->db->order_by("producto.contrato_id", "asc");
+        }elseif ($tienda == '3') {
+            $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_3.fecha, contrato_tienda_3.estado, contrato_tienda_3.fecha_pago, contrato_tienda_3.dias_gracia, cliente.nombre, cliente.id');
+            // $this->db->select('*');
+            $this->db->from('contrato_tienda_3');
+            $estados = array('vigente', 'refrendado');
+            $this->db->where_in('contrato_tienda_3.estado', $estados);
+            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_3.contrato_id');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_3.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
         }
         $query = $this->db->get();
@@ -203,6 +233,21 @@ class Contratos_model extends CI_Model
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
+        }elseif ($tienda == '3') {
+            $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_3.fecha, contrato_tienda_3.estado, contrato_tienda_3.fecha_pago, contrato_tienda_3.dias_gracia, cliente.nombre, cliente.id');
+            // $this->db->select('*');
+            $this->db->from('contrato_tienda_3');
+            $estados = array('perdido');
+            $this->db->where_in('contrato_tienda_3.estado', $estados);
+            if ($from != null) {
+                $this->db->where('contrato_tienda_3.dias_gracia  >=', $from);
+            }
+            if ($to != null) {
+                $this->db->where('contrato_tienda_3.dias_gracia  <=', $to);
+            }// Get tienda data
+            $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_3.contrato_id');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_3.cliente_id');
+            $this->db->order_by("producto.contrato_id", "asc");
         }
 
 
@@ -214,6 +259,9 @@ class Contratos_model extends CI_Model
     {
         //user data
         $user_id = get_user_id();
+        // Get tienda data
+        $tienda = tienda_id_h();
+
         $datos_de_contrato = array(
             //'contrato_id'=> $data['contrato_id'],
             'cliente_id' => $data['cliente_id'],
@@ -233,18 +281,20 @@ class Contratos_model extends CI_Model
             'dias_gracia' => $data['dias_gracia'],
             'tipo' => $data['tipo'],
             'cotitular' => $data['cotitular'],
+            'tienda_id' => $tienda,
             'estado' => $data['estado'],
             'user_id' => $user_id
         );
 
-        // Get tienda data
-        $tienda = tienda_id_h();
+
 
         // insertamon en la base de datos
         if ($tienda == '1') {
             $this->db->insert('contrato', $datos_de_contrato);
         } elseif ($tienda == '2') {
             $this->db->insert('contrato_tienda_2', $datos_de_contrato);
+        }elseif ($tienda == '3') {
+            $this->db->insert('contrato_tienda_3', $datos_de_contrato);
         }
 
 
@@ -280,6 +330,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $datos_de_contrato);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $datos_de_contrato);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $datos_de_contrato);
         }
 
 
@@ -308,6 +360,12 @@ class Contratos_model extends CI_Model
                     break;
                 case 'RE':
                     $tabla_de_factura = 'facturas_tienda_2_r';
+                    break;
+                case 'MN':
+                    $tabla_de_factura = 'facturas_tienda_3';
+                    break;
+                case 'RE':
+                    $tabla_de_factura = 'facturas_tienda_3_r';
                     break;
             }
 
@@ -367,6 +425,8 @@ class Contratos_model extends CI_Model
             $this->db->insert('recibos', $datos_de_recibo);
         } elseif ($tienda == '2') {
             $this->db->insert('recibos_tienda_2', $datos_de_recibo);
+        }elseif ($tienda == '3') {
+            $this->db->insert('recibos_tienda_3', $datos_de_recibo);
         }
 
         $insert_id = $this->db->insert_id();
@@ -383,6 +443,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->get('contrato');
         } elseif ($tienda == '2') {
             $query = $this->db->get('contrato_tienda_2');
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('contrato_tienda_3');
         }
 
         if ($query->num_rows() > 0) return $query;
@@ -398,6 +460,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->get('facturas');
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2');
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('facturas_tienda_3');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -428,6 +492,15 @@ class Contratos_model extends CI_Model
                 if ($query->num_rows() > 0) return $query;
                 else return false;
             }
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('contrato_tienda_3');
+            if ($query->num_rows() > 0) {
+                return $query;
+            } else {
+                $query = $this->db->get('contrato');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
         }
     }
     function actualizar_fecha_contrato($contrato_id, $nueva_fecha)
@@ -450,6 +523,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
     }
     function actualizar_estado_contrato($contrato_id, $estado)
@@ -467,6 +542,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
     }
     function actualizar_monto_contrato($contrato_id, $monto)
@@ -482,6 +559,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
     }
     function actualizar_contrato_refrendo($datos)
@@ -509,6 +588,8 @@ class Contratos_model extends CI_Model
             $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $this->db->update('contrato_tienda_3', $data);
         }
 
     }
@@ -536,6 +617,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
     }
     function actualizar_contrato_desempeno($datos)
@@ -557,6 +640,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
     }
     function actualizar_estado_liquidacion($datos)
@@ -575,6 +660,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato', $data);
         } elseif ($tienda == '2') {
             $query = $this->db->update('contrato_tienda_2', $data);
+        }elseif ($tienda == '3') {
+            $query = $this->db->update('contrato_tienda_3', $data);
         }
 
     }
@@ -587,6 +674,8 @@ class Contratos_model extends CI_Model
             $query = $this->db->get('contrato');
         } elseif ($tienda == '2') {
             $query = $this->db->get('contrato_tienda_2');
+        }elseif ($tienda == '3') {
+            $query = $this->db->get('contrato_tienda_3');
         }
         if ($query->num_rows() > 0) return $query->row();
         else return false;

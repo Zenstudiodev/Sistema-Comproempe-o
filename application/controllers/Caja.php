@@ -220,6 +220,7 @@ class Caja extends Base_Controller
 
     function reporte()
     {
+        $data = compobarSesion();
         if ($this->uri->segment(3)) {
             $fecha = new DateTime($this->uri->segment(3));
             $dia_anterior = new DateTime($this->uri->segment(3));
