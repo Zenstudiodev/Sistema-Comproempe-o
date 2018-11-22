@@ -22,6 +22,18 @@ div#logo_container {
 #ver_categorias_btn{
   display: none;
 }
+//badges
+.badge-primary {
+  color: #fff;
+  background-color: $amarillo;
+}
+//paginacion
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: $amarillo;
+  border-color: $amarillo;
+}
 
 h1 {
 }
