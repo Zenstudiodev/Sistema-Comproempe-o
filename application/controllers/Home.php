@@ -49,7 +49,7 @@ class home extends Base_Controller
         $config = array();
         $config["base_url"] = base_url() . "/home/productos";
         $config["total_rows"] = $data['numero_resultados'];
-        $config["per_page"] = 20;
+        $config["per_page"] = 18;
         $config["uri_segment"] = 3;
         $config["full_tag_open"] = '<ul class="pagination">';
         $config["full_tag_close"] = '</ul>';

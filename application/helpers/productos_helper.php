@@ -33,5 +33,21 @@ function mostrar_precio_producto($avaluo, $precio_venta){
     }
     return $precio_producto;
 }
-
+function productos_con_imagen_public(){
+    //echo 'seleccionamos los productos con imagen';
+    $ci =& get_instance();
+    $prductos_con_foto = $ci->Productos_model->productos_con_foto();
+    $prductos_con_foto_arr = array();
+    foreach ($prductos_con_foto->result() as $producto)
+    {
+        $prductos_con_foto_arr[] = $producto->producto_id;
+    }
+    return $prductos_con_foto_arr;
+}
+function productops_en_categoria($categoria){
+    //echo 'seleccionamos los productos con imagen';
+    $ci =& get_instance();
+    $numero_productos = $ci->Productos_model->get_productos_liquidacion_by_categoria_public_numero($categoria);
+    return $numero_productos;
+}
 ?>

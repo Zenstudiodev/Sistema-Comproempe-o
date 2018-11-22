@@ -28,6 +28,9 @@ $this->layout('public/public_master_dev', [
                            class="list-group-item list-group-item-action"
                            catergoria="<?php echo $categoria->categoria ?>">
                             <?php echo $categoria->categoria ?>
+                            <span class="badge badge-primary badge-pill">
+                                <?php echo productops_en_categoria($categoria->categoria);?>
+                            </span>
                         </a>
                         <!--<li class="list-group-item"><?php /*echo $categoria->categoria */ ?></li>-->
                     <?php } ?>

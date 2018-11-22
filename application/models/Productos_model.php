@@ -85,7 +85,8 @@ class productos_model extends CI_Model
     }
 
     //bodega
-    function cargar_bodega(){
+    function cargar_bodega()
+    {
         $this->db->where('tienda_actual', '100');
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
@@ -168,6 +169,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_1_contratos_2()
     {
         // Get tienda data
@@ -183,6 +185,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_1_contratos_3()
     {
         // Get tienda data
@@ -214,6 +217,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_2_contratos_2()
     {
         // Get tienda data
@@ -229,6 +233,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_2_contratos_3()
     {
         // Get tienda data
@@ -260,6 +265,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_3_contratos_2()
     {
         // Get tienda data
@@ -275,6 +281,7 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+
     function get_productos_tienda_3_contratos_3()
     {
         // Get tienda data
@@ -669,22 +676,37 @@ class productos_model extends CI_Model
         return array("fields" => $fields, "query" => $query);
     }
 
+    public function productos_con_foto()
+    {
+        $this->db->distinct('producto_id');
+        $this->db->select('producto_id');
+        $this->db->from('imagenes_producto');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
     //public
     function get_productos_liquidacion_hompage_public()
     {
-        $this->db->from('producto');
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
         $this->db->where('tipo', 'venta');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
         $this->db->limit(16);
         $this->db->order_by('producto_id', 'RANDOM');
+        $this->db->from('producto');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
     }
 
     function get_productos_liquidacion_public($limit, $start)
     {
-        $this->db->from('producto');
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
         $this->db->where('tipo', 'venta');
-        //$this->db->order_by('producto_id', 'RANDOM');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
+        $this->db->from('producto');
         $this->db->limit($limit, $start);
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -692,8 +714,11 @@ class productos_model extends CI_Model
 
     function get_productos_liquidacion_public_numero()
     {
-        $this->db->from('producto');
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
         $this->db->where('tipo', 'venta');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
+        $this->db->from('producto');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;
@@ -701,11 +726,15 @@ class productos_model extends CI_Model
 
     function get_public_categorias()
     {
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
+        $tiendas = array('1', '2','3');
+
         $this->db->distinct('categoria');
         $this->db->select('categoria');
         $this->db->from('producto');
         $this->db->where('tipo', 'venta');
-        $tiendas = array('1', '2');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
         $this->db->where_in('tienda_actual', $tiendas);
         $this->db->where('tipo', 'venta');
         $this->db->order_by('categoria', 'ASC');
@@ -716,9 +745,12 @@ class productos_model extends CI_Model
 
     function get_productos_liquidacion_by_categoria_public_numero($categoria)
     {
-        $this->db->from('producto');
-        $this->db->where('categoria', $categoria);
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
         $this->db->where('tipo', 'venta');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
+        $this->db->where('categoria', urldecode($categoria));
+        $this->db->from('producto');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;
@@ -726,10 +758,12 @@ class productos_model extends CI_Model
 
     function get_productos_liquidacion_by_categoria_public($categoria, $limit, $start)
     {
-        $this->db->from('producto');
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
         $this->db->where('tipo', 'venta');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
         $this->db->where('categoria', urldecode($categoria));
-        //$this->db->order_by('producto_id', 'RANDOM');
+        $this->db->from('producto');
         $this->db->limit($limit, $start);
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
