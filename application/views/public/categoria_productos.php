@@ -17,12 +17,22 @@ $this->layout('public/public_master_dev', [
     <h1>Productos en liquidación</h1>
     <div class="row">
         <div class="col-md-3 categorias_col" id="categorias_col">
-            <h2 class="categorias_title">Categorías</h2>
+            <h2 class="categorias_title">
+                Categorías
+            </h2>
             <?php
 
             //print_contenido($categorias->result());
             if ($categorias) { ?>
                 <ul class="list-group" id="lista_categorias">
+                    <a href="#" id="cerrar_categorias" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Cerrar Catgorías</h5>
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </a>
                     <?php foreach ($categorias->result() as $categoria) { ?>
                         <a href="<?php echo base_url() . 'productos/categoria/' . $categoria->categoria ?>"
                            class="list-group-item list-group-item-action"

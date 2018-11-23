@@ -148,6 +148,12 @@
                                 Productos apartados
                             </a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>productos/traslados"><i
+                                        class="fa fa-file"></i>
+                                Traslados
+                            </a>
+                        </li>
                         <?php
                         if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'jefe_tienda') { ?>
                         <li>

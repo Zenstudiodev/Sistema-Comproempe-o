@@ -326,6 +326,9 @@ if ($contrato)
                                     elseif ($tienda =='2'){ ?>
                                         <p>Domicilio: RUTA AL ATLANTICO 4-26, ZONA 17, CENTRA NORTE, LOCAL U-15,  GUATEMALA, GUATEMALA</p>
                                         <p>Teléfono: 2233-1050</p>
+                                    <?php } elseif ($tienda =='3'){ ?>
+                                        <p>Km. 5 carretera al Atlantico zona 17 Centro comercial Metronorte Local 107,  GUATEMALA, GUATEMALA</p>
+                                        <p>Teléfono: 5717-7058</p>
                                     <?php }  ?>
                                 </td>
                             </tr>

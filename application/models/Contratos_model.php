@@ -27,7 +27,12 @@ class Contratos_model extends CI_Model
             $this->db->select('contrato_tienda_2.contrato_id, contrato_tienda_2.estado, contrato_tienda_2.total_mutuo, contrato_tienda_2.fecha, contrato_tienda_2.fecha_pago, contrato_tienda_2.tipo, contrato_tienda_2.dias_gracia, contrato_tienda_2.tototal_liquidado, cliente.id, cliente.nombre');
             $this->db->from('contrato_tienda_2');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
+        } elseif ($tienda == '3') {
+            $this->db->select('contrato_tienda_3.contrato_id, contrato_tienda_3.estado, contrato_tienda_3.total_mutuo, contrato_tienda_3.fecha, contrato_tienda_3.fecha_pago, contrato_tienda_3.tipo, contrato_tienda_3.dias_gracia, contrato_tienda_3.tototal_liquidado, cliente.id, cliente.nombre');
+            $this->db->from('contrato_tienda_3');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_3.cliente_id');
         }
+
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -364,7 +369,7 @@ class Contratos_model extends CI_Model
                 case 'MN':
                     $tabla_de_factura = 'facturas_tienda_3';
                     break;
-                case 'RE':
+                case 'RM':
                     $tabla_de_factura = 'facturas_tienda_3_r';
                     break;
             }
@@ -730,8 +735,6 @@ class Contratos_model extends CI_Model
         $tienda = tienda_id_h();
         // actualizamos en la base de datos
         if ($tienda == '1') {
-
-
             $this->db->from('contrato');
             if($estado){
                 $this->db->where('estado', $estado);
@@ -739,8 +742,6 @@ class Contratos_model extends CI_Model
             //$this->db->join('cliente', 'cliente.id = facturas_r.cliente_id','Left');
             //$this->db->order_by("facturas_r.fecha",'ASC');
         } elseif ($tienda == '2') {
-
-
             $this->db->from('contrato_tienda_2');
             if($estado){
                 $this->db->where('estado', $estado);

@@ -158,7 +158,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
@@ -174,7 +174,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato_tienda_2.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id,  producto.tienda_actual, contrato_tienda_2.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
@@ -190,7 +190,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato_tienda_3.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_3.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');
@@ -206,7 +206,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual,, contrato.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
@@ -222,7 +222,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual,, contrato_tienda_2.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_2.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
@@ -238,7 +238,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual,, contrato_tienda_3.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_3.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');
@@ -254,7 +254,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
@@ -270,7 +270,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato_tienda_2.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_2.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
@@ -286,7 +286,7 @@ class productos_model extends CI_Model
     {
         // Get tienda data
         $tienda = tienda_id_h();
-        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_actual, contrato_tienda_3.estado');
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_3.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');

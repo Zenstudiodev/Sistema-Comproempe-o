@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <img src="/ui/public/images/logo_top.png" id="logo_top">
                 </div>
                 <div class="col">
-                    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+                    <nav class="navbar navbar-dark navbar-expand-lg">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -157,9 +157,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script>
     $("#ver_categorias_btn").click(function () {
         //alert('click');
-        $("#catecorias_col").removeClass('categorias_col');
-        $("#catecorias_col").addClass('categorias_col_active');
+        $("#categorias_col").removeClass("categorias_col");
+        $("#categorias_col").addClass("categorias_col_active");
+
         console.log('clicked');
+    });
+    $("#cerrar_categorias").click(function () {
+        //alert('click');
+        $("#categorias_col").removeClass("categorias_col_active");
+        $("#categorias_col").addClass("categorias_col");
+
+        console.log('clicked cerrar');
     });
 </script>
 <?php echo $this->section('js_p') ?>

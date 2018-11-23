@@ -121,7 +121,7 @@ class Factura_model extends CI_Model
             }
         }elseif ($tienda == '3') {
             switch ($serie) {
-                case 'RE':
+                case 'RM':
                     $query = $this->db->get('facturas_tienda_2_r');
                     break;
                 case 'MN':
@@ -218,7 +218,7 @@ class Factura_model extends CI_Model
             }
         }elseif ($tienda == '3') {
             switch ($serie) {
-                case 'MNR':
+                case 'RM':
                     $query = $this->db->update('facturas_tienda_2_r', $datos);
                     break;
                 case 'MN':
