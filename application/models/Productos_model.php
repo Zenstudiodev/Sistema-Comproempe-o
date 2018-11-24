@@ -586,6 +586,8 @@ class productos_model extends CI_Model
             $this->db->where('producto.tienda_id', '1');
         } elseif ($tienda == '2') {
             $this->db->where('producto.tienda_id', '2');
+        } elseif ($tienda == '3') {
+            $this->db->where('producto.tienda_id', '3');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();

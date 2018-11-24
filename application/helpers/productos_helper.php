@@ -21,6 +21,9 @@ function tienda_id_to_nombre($tienda_id){
     if($tienda_id == '1'){
         $nombre_tienda = 'Centra Sur';
     }
+    if($tienda_id == '3'){
+        $nombre_tienda = 'Metro Norte';
+    }
     return $nombre_tienda;
 }
 

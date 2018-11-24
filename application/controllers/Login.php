@@ -71,7 +71,7 @@ class Login extends Base_Controller
                     //echo $session_data['rol'];
                     if ($session_data['rol'] == 'vendedor') {
                         $hora = new DateTime();
-                        $hora_cierre = new DateTime('20:00:00');
+                        $hora_cierre = new DateTime('22:30:00');
                         if ($hora_cierre < $hora) {
                             $this->session->set_flashdata('mensaje', 'No se puede ingresar al sistema a esta hora');
                             redirect(base_url() . 'login');
