@@ -1014,7 +1014,7 @@ class Productos extends Base_Controller
                 'factura_id' => $factura_id,
                 'recibo_id' => '',
                 'serie' => $this->input->post('serie_factura'),
-                'monto' => number_format($datos_factura['total'], 2),
+                'monto' => $this->input->post('total'),
                 'id_producto' => '',
                 'nombre_producto' => '',
             );
@@ -1026,7 +1026,7 @@ class Productos extends Base_Controller
             $registro_venta = array(
                 'factura_id' => '',
                 'recibo_id' => $recibo_id,
-                'monto' => number_format($datos_factura['total'], 2),
+                'monto' => $this->input->post('total'),
                 'id_producto' => '',
                 'nombre_producto' => '',
             );
