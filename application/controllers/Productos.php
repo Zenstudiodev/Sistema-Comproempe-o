@@ -1311,8 +1311,8 @@ class Productos extends Base_Controller
         //registro de caja
         $registro_venta = array(
             'factura_id' => $factura_id,
-            'serie' => $factura_id,
-            'recibo_id' => $this->input->post('serie_factura'),
+            'serie' => $this->input->post('serie_factura'),
+            'recibo_id' => $recibo_id,
             'monto' => $datos_factura['total'],
             'id_producto' => '',
             'nombre_producto' => '',

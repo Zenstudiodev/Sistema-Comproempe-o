@@ -188,4 +188,17 @@ function print_contenido($var){
     print_r($var);
     echo '</pre>';
 }
+function normalizeDecimal($val,  $precision = 2)
+{
+    $input = str_replace(' ', '', $val);
+    $number = str_replace(',', '.', $input);
+    if (strpos($number, '.')) {
+        $groups = explode('.', str_replace(',', '.', $number));
+        $lastGroup = array_pop($groups);
+        $number = implode('', $groups) . '.' . $lastGroup;
+    }
+    return bcadd($number, 0, $precision);
+}
+
+
 ?>
