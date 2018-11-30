@@ -26,8 +26,8 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_tienda_2');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_2.cliente_id');
         }elseif ($tienda == '3') {
-            $this->db->from('facturas_tienda_3');
-            $this->db->join('cliente', 'cliente.id = facturas_tienda_3.cliente_id');
+            $this->db->from('facturas_tienda_3_cn');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_3_cn.cliente_id');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -64,7 +64,7 @@ class Factura_model extends CI_Model
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2');
         }elseif ($tienda == '3') {
-            $query = $this->db->get('facturas_tienda_3');
+            $query = $this->db->get('facturas_tienda_3_cn');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -122,10 +122,10 @@ class Factura_model extends CI_Model
         }elseif ($tienda == '3') {
             switch ($serie) {
                 case 'RM':
-                    $query = $this->db->get('facturas_tienda_2_r');
+                    $query = $this->db->get('facturas_tienda_3_r');
                     break;
-                case 'MN':
-                    $query = $this->db->get('facturas_tienda_2');
+                case 'CN2':
+                    $query = $this->db->get('facturas_tienda_3_cn');
                     break;
             }
         }
@@ -150,8 +150,8 @@ class Factura_model extends CI_Model
             case 'CN':
                 $query = $this->db->get('facturas_tienda_2');
                 break;
-            case 'MN':
-                $query = $this->db->get('facturas_tienda_3');
+            case 'CN2':
+                $query = $this->db->get('facturas_tienda_3_cn');
                 break;
             case 'RM':
                 $query = $this->db->get('facturas_tienda_3_r');
@@ -219,10 +219,10 @@ class Factura_model extends CI_Model
         }elseif ($tienda == '3') {
             switch ($serie) {
                 case 'RM':
-                    $query = $this->db->update('facturas_tienda_2_r', $datos);
+                    $query = $this->db->update('facturas_tienda_3_r', $datos);
                     break;
-                case 'MN':
-                    $query = $this->db->update('facturas_tienda_2', $datos);
+                case 'CN2':
+                    $query = $this->db->update('facturas_tienda_3_cn', $datos);
                     break;
             }
         }
@@ -247,35 +247,6 @@ class Factura_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
     }
 
-    public function ultima_factura($serie)
-    {
-
-        $this->db->limit(1);
-
-        switch ($serie) {
-            case 'R':
-                $query = $this->db->get('facturas_r');
-                break;
-            case 'A':
-                $query = $this->db->get('facturas');
-                break;
-            case 'RE':
-                $query = $this->db->get('facturas_tienda_2_r');
-                break;
-            case 'CN':
-                $query = $this->db->get('facturas_tienda_2');
-                break;
-        }
-        if ($query->num_rows() > 0) return $query;
-        else return false;
-    }
-
-    public function get_numero_autoincrement_factura()
-    {
-        $sql = 'SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = "comproem_sistema"
-        AND   TABLE_NAME   = "TableName"';
-
-    }
 
     public function get_series()
     {

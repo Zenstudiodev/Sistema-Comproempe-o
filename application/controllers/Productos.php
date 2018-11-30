@@ -1299,6 +1299,7 @@ class Productos extends Base_Controller
         //si la factura es seri r no guardamos recibo solo factura
         if ($this->input->post('serie_factura') == 'R' || $this->input->post('serie_factura') == 'RE') {
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
+            $recibo_id ='';
         } else {
             //guardamos factura
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
