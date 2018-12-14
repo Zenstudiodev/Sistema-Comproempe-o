@@ -154,6 +154,7 @@ $hoy = New DateTime();
                     {name: "tipo", type: "select", items: estado_producto, valueField: "Id", textField: "Name"},
                     {name: "avaluo_comercial", type: "number", readOnly: true, title: "Avaluo"},
                     {name: "precio_venta", type: "text", title: "Precio de venta"},
+                    {name: "precio_descuento", type: "text", title: "Precio de descuento"},
                     <?php }?>
                     {type: "control"}
                 ]

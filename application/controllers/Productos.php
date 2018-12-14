@@ -7,6 +7,7 @@
  * Time: 1:03 PM
  */
 class Productos extends Base_Controller
+
 {
     function __construct()
     {
@@ -23,10 +24,58 @@ class Productos extends Base_Controller
 
     function index()
     {
-        $data = compobarSesion();
-        $data['clientes'] = $this->Cliente_model->listar_clientes();
 
-        echo $this->templates->render('admin/lista_clientes', $data);
+        //categoria
+        $data['categoria'] = $this->uri->segment(3);
+        if ($data['categoria'] == null) {
+            $data['categoria'] = 'todas';
+        }
+        //tienda
+        $data['tienda'] = $this->uri->segment(4);
+        if ($data['tienda'] == null) {
+            $data['categoria'] = 'todas';
+        }
+
+        //categoria para usar en vista
+        $data['categoria_actual'] = urldecode($this->uri->segment(3));
+
+        $data['numero_resultados'] = $this->Productos_model->get_productos_liquidacion_by_categoria_public_numero($data['categoria']);
+        // echo '<hr>';
+        //echo $data['numero_resultados'];
+
+        //pagination
+        $config = array();
+        $config["base_url"] = base_url() . "/productos/" . $data['categoria'];
+        $config["total_rows"] = $data['numero_resultados'];
+        $config["per_page"] = 18;
+        $config["uri_segment"] = 4;
+        $config["full_tag_open"] = '<ul class="pagination">';
+        $config["full_tag_close"] = '</ul>';
+        $config["num_tag_open"] = '<li class="page-item">';
+        $config["num_tag_close"] = '</li>';
+        $config["cur_tag_open"] = '<li class="page-item active"><a class="page-link">';
+        $config["cur_tag_close"] = '</a></li>';
+        $config["first_tag_open"] = '<li class="page-item">';
+        $config["first_tag_close"] = '</li>';
+        $config["last_tag_open"] = '<li class="page-item">';
+        $config["last_tag_close"] = '</li>';
+        $config["next_tag_open"] = '<li class="page-item">';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_tag_open"] = '<li class="page-item">';
+        $config["prev_tag_close"] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(4) : 0;
+        $data["links"] = $this->pagination->create_links();
+
+        $data['categorias'] = $this->Productos_model->get_public_categorias();
+        $data['productos'] = $this->Productos_model->get_productos_liquidacion_by_categoria_public($data['categoria'], $config["per_page"], $page);
+        $data['monstrar_banners'] = false;
+
+
+        echo $this->templates->render('public/categoria_productos', $data);
+
     }
 
     function agregar()
@@ -457,6 +506,7 @@ class Productos extends Base_Controller
             "categoria" => $_PUT['categoria'],
             "tienda_id" => $_PUT['tienda_actual'],
             "precio_venta" => $_PUT['precio_venta'],
+            "precio_descuento" => $_PUT['precio_descuento'],
             //"estado"=>"perdido"
             //"fecha_avaluo"=>"2018-03-18",
             //"contrato_id"=>"3",
@@ -482,8 +532,10 @@ class Productos extends Base_Controller
             'avaluo_ce' => $producto->avaluo_ce,
             'avaluo_comercial' => $producto->avaluo_comercial,
             'precio_venta' => $producto->precio_venta,
+            'precio_descuento' => $producto->precio_descuento,
             'mutuo' => $producto->mutuo,
             'tipo' => $producto->tipo,
+            'tienda_id' => $producto->tienda_id,
             'tienda_actual' => $producto->tienda_actual,
             'estado' => $_PUT['estado'],
         );
@@ -1025,6 +1077,7 @@ class Productos extends Base_Controller
             //todo rodear con in while de productos para obtener el total de productos
             $registro_venta = array(
                 'factura_id' => '',
+                'serie' => 'recibo',
                 'recibo_id' => $recibo_id,
                 'monto' => $this->input->post('total'),
                 'id_producto' => '',

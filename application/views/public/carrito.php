@@ -19,7 +19,7 @@ $ci =& get_instance();
 <div class="container">
     <br>
     <h1>carro de compras</h1>
-    <?php echo form_open('path/to/controller/update/method'); ?>
+    <?php echo form_open(base_url().'carrito/actualizar'); ?>
 
     <table class="table">
 
@@ -47,7 +47,7 @@ $ci =& get_instance();
                         <p>
                             <?php foreach ($ci->cart->product_options($items['rowid']) as $option_name => $option_value): ?>
 
-                                <strong><?php echo $option_name; ?>:</strong> <?php echo $option_value; ?><br />
+                                <strong><?php echo $option_name; ?>:</strong> <?php echo $option_value; ?> <?php echo $option_value; ?><br />
 
                             <?php endforeach; ?>
                         </p>
@@ -56,6 +56,11 @@ $ci =& get_instance();
 
                 </td>
                 <td>
+
+
+
+
+
                     <input type="text" placeholder="código descuento" class="form-control">
                 </td>
 

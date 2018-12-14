@@ -41,10 +41,12 @@ class Carrito extends Base_Controller
                 //si existe el producto
                 $datos_producto = $datos_producto->row();
                 //print_contenido($datos_producto);
-
-                $precio_producto = mostrar_precio_producto($datos_producto->avaluo_comercial, $datos_producto->precio_venta);
-
-
+                $precio_producto =0;
+                if($datos_producto->precio_descuento!='0'){
+                    $precio_producto = $datos_producto->precio_descuento;
+                }else{
+                    $precio_producto = mostrar_precio_producto($datos_producto->avaluo_comercial, $datos_producto->precio_venta);
+                }
 
                 $data_carrito = array(
                     'id'      => $datos_producto->producto_id,
@@ -74,6 +76,17 @@ class Carrito extends Base_Controller
     function ver(){
         $data['contenido_carrito'] = $this->cart->contents();
         echo $this->templates->render('public/carrito', $data);
+    }
+    function actualizar(){
+
+
+        //print_contenido($_POST);
+        $productos = $_POST;
+        print_contenido($productos);
+
+        $data['contenido_carrito'] = $this->cart->contents();
+       // $this->cart->update($productos);
+        //redirect(base_url().'carrito/ver');
     }
     function formas_pago(){
         $data['contenido_carrito'] = '';

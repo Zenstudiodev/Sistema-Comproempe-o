@@ -36,6 +36,7 @@ class home extends Base_Controller
     }
     function pd(){
         $data['productos'] = $this->Productos_model->get_productos_liquidacion_hompage_public();
+        $data['productos_descuento'] = $this->Productos_model->get_productos_descuento_hompage_public();
         $data['monstrar_banners'] = true;
         echo $this->templates->render('public/dp', $data);
     }

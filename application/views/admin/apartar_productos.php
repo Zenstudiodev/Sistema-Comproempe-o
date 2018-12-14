@@ -288,7 +288,10 @@ $this->layout('admin/admin_master', [
                                                        name="producto_<?php echo $producto_numero ?>_p"
                                                        id="producto_<?php echo $producto_numero ?>_p"
                                                        value="<?php echo $precio_venta ?>"
-                                                       min="<?php echo $minimo_venta ?>" step="any">
+                                                       <?php if($producto->tipo=='venta'){?>
+                                                       min="<?php echo $minimo_venta ?>"
+                                                    <?php }?>
+                                                       step="any">
                                             </div>
                                         </div>
 
@@ -325,11 +328,18 @@ $this->layout('admin/admin_master', [
                             <input type="hidden" name="numero_productos" id="numero_productos"
                                    value="<?php echo $producto_numero; ?>">
                             <?php
-                            $producto_numero = $producto_numero + 1;
-                            $total_avaluos = $total_avaluos + $producto->avaluo_comercial;
-                            $total_mutuos = $total_mutuos + $producto->mutuo;
+                            echo $producto->tipo;
+                            if($producto->tipo=='compra'){
 
-                            $sub_total = $total_avaluos - $total_mutuos;
+                            }
+                            if($producto->tipo=='venta'){
+                                $producto_numero = $producto_numero + 1;
+                                $total_avaluos = $total_avaluos + $producto->avaluo_comercial;
+                                $total_mutuos = $total_mutuos + $producto->mutuo;
+
+                                $sub_total = $total_avaluos - $total_mutuos;
+                            }
+
                         } ?>
                     </div>
 

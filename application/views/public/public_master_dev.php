@@ -58,9 +58,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <a class="nav-link" href="<?php echo base_url(); ?>home/productos">Productos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo base_url(); ?>home/productos">Productos</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>">Tiendas</a>
                                 </li>
                                 <li class="nav-item">
@@ -171,5 +168,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     });
 </script>
 <?php echo $this->section('js_p') ?>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+    (function(){ var widget_id = 'wzO0w1chmy';var d=document;var w=window;function l(){var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>
+<!-- {/literal} END JIVOSITE CODE -->
 </body>
 </html>
