@@ -100,7 +100,11 @@ class Productos extends Base_Controller
         $data['tienda'] = $tienda;
 
         //categoria para usar en vista
-        $data['categoria_actual'] = urldecode($this->uri->segment(3));
+        $data['categoria_actual'] = urldecode($categoria);
+
+        echo $categoria;
+        echo'<br>';
+        echo $tienda;
 
         $data['numero_resultados'] = $this->Productos_model->get_producto_public_numero($categoria, $tienda);
         //echo '<hr>';
@@ -108,10 +112,10 @@ class Productos extends Base_Controller
 
         //pagination
         $config = array();
-        $config["base_url"] = base_url() . "productos/" . $data['categoria'];
+        $config["base_url"] = base_url() . "productos/filtro/" . $categoria.'/'.$tienda;
         $config["total_rows"] = $data['numero_resultados'];
         $config["per_page"] = 18;
-        $config["uri_segment"] = 4;
+        $config["uri_segment"] = 5;
         $config["full_tag_open"] = '<ul class="pagination">';
         $config["full_tag_close"] = '</ul>';
         $config["num_tag_open"] = '<li class="page-item">';
@@ -129,15 +133,17 @@ class Productos extends Base_Controller
         $config['attributes'] = array('class' => 'page-link');
 
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(4) : 0;
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(5) : 0;
         $data["links"] = $this->pagination->create_links();
 
         $data['categorias'] = $this->Productos_model->get_public_categorias();
-        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'], $config["per_page"], $page);
+
+        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'],$data['tienda'],$config["per_page"], $page);
+
+        //print_contenido($data['productos']->result());
+        //exit();
         $data['monstrar_banners'] = false;
-
-
-        echo $this->templates->render('public/categoria_productos', $data);
+        echo $this->templates->render('public/filtro_producto', $data);
     }
 
     function agregar()

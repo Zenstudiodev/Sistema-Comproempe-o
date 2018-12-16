@@ -734,8 +734,8 @@ class productos_model extends CI_Model
         $this->db->from('producto');
         $this->db->limit($limit, $start);
         $query = $this->db->get();
-        if ($query->num_rows() > 0) return $query->num_rows();
-        else return 0;
+        if ($query->num_rows() > 0) return $query;
+        else return false;
     }
     function get_producto_public_numero($categoria, $tienda){
         //productos con imagen
@@ -787,6 +787,4 @@ class productos_model extends CI_Model
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
     }
-
-
 }
