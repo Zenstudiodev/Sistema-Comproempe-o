@@ -12,6 +12,8 @@ $this->layout('public/public_master_dev',[
 
 
 <?php $this->start('page_content') ?>
+
+<?php echo $categoria?>
 <div class="container">
     <h1>Productos en liquidación</h1>
     <div class="row">

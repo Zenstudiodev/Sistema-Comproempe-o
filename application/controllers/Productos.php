@@ -26,15 +26,21 @@ class Productos extends Base_Controller
     {
 
         //categoria
-        $data['categoria'] = $this->uri->segment(3);
+        $categoria = $this->uri->segment(3);
+        $data['categoria'] = $categoria;
         if ($data['categoria'] == null) {
             $data['categoria'] = 'todas';
         }
+
+        echo $categoria;
         //tienda
-        $data['tienda'] = $this->uri->segment(4);
+        $tienda = $this->uri->segment(4);
+        $data['tienda'] = $tienda;
         if ($data['tienda'] == null) {
             $data['categoria'] = 'todas';
         }
+
+        exit();
 
         //categoria para usar en vista
         $data['categoria_actual'] = urldecode($this->uri->segment(3));
@@ -45,7 +51,7 @@ class Productos extends Base_Controller
 
         //pagination
         $config = array();
-        $config["base_url"] = base_url() . "/productos/" . $data['categoria'];
+        $config["base_url"] = base_url() . "productos/" . $data['categoria'];
         $config["total_rows"] = $data['numero_resultados'];
         $config["per_page"] = 18;
         $config["uri_segment"] = 4;
@@ -70,12 +76,68 @@ class Productos extends Base_Controller
         $data["links"] = $this->pagination->create_links();
 
         $data['categorias'] = $this->Productos_model->get_public_categorias();
-        $data['productos'] = $this->Productos_model->get_productos_liquidacion_by_categoria_public($data['categoria'], $config["per_page"], $page);
+        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'], $config["per_page"], $page);
         $data['monstrar_banners'] = false;
 
 
         echo $this->templates->render('public/categoria_productos', $data);
 
+    }
+    function filtro(){
+        //categoria
+        $categoria = $this->uri->segment(3);
+
+        if ($categoria == null) {
+            $categoria = 'todas';
+        }
+        $data['categoria'] = $categoria;
+
+        //tienda
+        $tienda = $this->uri->segment(4);
+        if ($tienda == null) {
+            $tienda = 'todas';
+        }
+        $data['tienda'] = $tienda;
+
+        //categoria para usar en vista
+        $data['categoria_actual'] = urldecode($this->uri->segment(3));
+
+        $data['numero_resultados'] = $this->Productos_model->get_producto_public_numero($categoria, $tienda);
+        //echo '<hr>';
+        //echo $data['numero_resultados'];
+
+        //pagination
+        $config = array();
+        $config["base_url"] = base_url() . "productos/" . $data['categoria'];
+        $config["total_rows"] = $data['numero_resultados'];
+        $config["per_page"] = 18;
+        $config["uri_segment"] = 4;
+        $config["full_tag_open"] = '<ul class="pagination">';
+        $config["full_tag_close"] = '</ul>';
+        $config["num_tag_open"] = '<li class="page-item">';
+        $config["num_tag_close"] = '</li>';
+        $config["cur_tag_open"] = '<li class="page-item active"><a class="page-link">';
+        $config["cur_tag_close"] = '</a></li>';
+        $config["first_tag_open"] = '<li class="page-item">';
+        $config["first_tag_close"] = '</li>';
+        $config["last_tag_open"] = '<li class="page-item">';
+        $config["last_tag_close"] = '</li>';
+        $config["next_tag_open"] = '<li class="page-item">';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_tag_open"] = '<li class="page-item">';
+        $config["prev_tag_close"] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(4) : 0;
+        $data["links"] = $this->pagination->create_links();
+
+        $data['categorias'] = $this->Productos_model->get_public_categorias();
+        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'], $config["per_page"], $page);
+        $data['monstrar_banners'] = false;
+
+
+        echo $this->templates->render('public/categoria_productos', $data);
     }
 
     function agregar()

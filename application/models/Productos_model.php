@@ -737,7 +737,24 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query->num_rows();
         else return 0;
     }
-    function get_producto_public_numero(){}
+    function get_producto_public_numero($categoria, $tienda){
+        //productos con imagen
+        $prductos_con_foto_arr = productos_con_imagen_public();
+        $this->db->where('tipo', 'venta');
+        $this->db->where_in('producto_id', $prductos_con_foto_arr);
+        if ($categoria != 'todas')
+        {
+            $this->db->where('categoria', urldecode($categoria));
+        }
+        if ($tienda != 'todas')
+        {
+            $this->db->where('tienda_actual', urldecode($tienda));
+        }
+        $this->db->from('producto');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query->num_rows();
+        else return 0;
+    }
     function get_productos_liquidacion_by_categoria_public_numero($categoria)
     {
         //productos con imagen
