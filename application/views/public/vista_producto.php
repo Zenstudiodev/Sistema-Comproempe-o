@@ -129,19 +129,19 @@ if ($producto_data) {
                                                                id="nombre_cliente" name="nombre_cliente" placeholder="Nombre">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Email</label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                                        <label for="email_cliente">Email</label>
+                                                        <input type="email" class="form-control" id="email_cliente"
                                                                aria-describedby="emailHelp" placeholder="Correo electrónico">
                                                         <small id="emailHelp" class="form-text text-muted">Este correo se usara para coordinar el envio del producto
                                                         </small>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="nombre_cliente">Teléfono</label>
+                                                        <label for="telefono_cliente">Teléfono</label>
                                                         <input type="text" class="form-control"
-                                                               id="nombre_cliente" name="nombre_cliente" placeholder="Teléfono">
+                                                               id="telefono_cliente" name="telefono_cliente" placeholder="Teléfono">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="nombre_cliente">Dirección</label>
+                                                        <label for="direccion_cliente">Dirección</label>
                                                         <input type="text" class="form-control"
                                                                id="direccion_cliente" name="direccion_cliente" placeholder="Dirección de envío">
                                                     </div>
@@ -151,7 +151,7 @@ if ($producto_data) {
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                     Cerrar
                                                 </button>
-                                                <button type="button" class="btn btn-primary">Enviar</button>
+                                                <button type="button" class="btn btn-primary" id="solicitar_producto_btn">Enviar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -194,6 +194,44 @@ if ($producto_data) {
     $(document).ready(function () {
 
         $("#lista_categorias").find("a[catergoria='<?php echo $producto->categoria; ?>']").addClass('active');
+
+    });
+
+    $("#solicitar_producto_btn").click(function () {
+        //obtener datos
+        nombre_cliente = $("#nombre_cliente").val();
+        email_cliente = $("#email_cliente").val();
+        telefono_cliente = $("#telefono_cliente").val();
+        direccion_cliente = $("#direccion_cliente").val();
+        producto_id = '<?php  echo $producto->producto_id; ?>';
+
+
+        pedido_data = {
+            nombre_cliente: nombre_cliente,
+            email_cliente: email_cliente,
+            telefono_cliente: telefono_cliente,
+            direccion_cliente: direccion_cliente,
+            producto_id: producto_id,
+        };
+            console.log("form Submit");
+            $("#form_contacto_alert").hide();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url()?>productos/pedido_publico',
+                data: pedido_data,
+                beforeSend: function () {
+                    $("#solicitar_producto").find('.modal-content').html('enviando');
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data == 'send') {
+                        $("#solicitar_producto").find('.modal-content').html('Correo enviado. pronto nos pondremos en contacto');
+                        $("#solicitar_producto").find('.modal-footer').html('');
+
+                    }
+                }
+            });
+        /**/
     });
 </script>
 <?php $this->stop() ?>

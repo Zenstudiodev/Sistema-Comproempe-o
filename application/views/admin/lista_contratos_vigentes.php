@@ -69,6 +69,9 @@ $this->layout('admin/admin_master', [
                                     <th>FECHA VENCIMIENTO</th>
                                     <th>DIAS DE GRACIA</th>
                                     <th>CLIENTE</th>
+                                    <th>CORREO</th>
+                                    <th>TELÉFONO</th>
+                                    <th>CELULAR</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -83,6 +86,9 @@ $this->layout('admin/admin_master', [
                                     <th>FECHA VENCIMIENTO</th>
                                     <th>DIAS DE GRACIA</th>
                                     <th>CLIENTE</th>
+                                    <th>CORREO</th>
+                                    <th>TELÉFONO</th>
+                                    <th>CELULAR</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -97,9 +103,10 @@ $this->layout('admin/admin_master', [
                                         <td><?php echo $contrato->fecha ?></td>
                                         <td><?php echo $contrato->fecha_pago ?></td>
                                         <td><?php echo $contrato->dias_gracia ?></td>
-                                        <td>
-                                            <?php echo $contrato->nombre ?>
-                                        </td>
+                                        <td><?php echo $contrato->nombre ?></td>
+                                        <td><?php echo $contrato->email ?></td>
+                                        <td><?php echo $contrato->telefono ?></td>
+                                        <td><?php echo $contrato->celular ?></td>
                                     </tr>
                                 <?php } ?>
                                 </tbody>

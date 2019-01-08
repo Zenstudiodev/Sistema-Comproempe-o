@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <a class="nav-link" href="<?php echo base_url(); ?>home/pd">Inicio</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo base_url(); ?>home/productos">Productos</a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>productos/filtro">Productos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>">Tiendas</a>

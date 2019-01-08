@@ -102,9 +102,9 @@ class Productos extends Base_Controller
         //categoria para usar en vista
         $data['categoria_actual'] = urldecode($categoria);
 
-        echo $categoria;
+       /* echo $categoria;
         echo'<br>';
-        echo $tienda;
+        echo $tienda;*/
 
         $data['numero_resultados'] = $this->Productos_model->get_producto_public_numero($categoria, $tienda);
         //echo '<hr>';
@@ -137,7 +137,7 @@ class Productos extends Base_Controller
         $data["links"] = $this->pagination->create_links();
 
         $data['categorias'] = $this->Productos_model->get_public_categorias();
-
+        $data['page']= $page;
         $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'],$data['tienda'],$config["per_page"], $page);
 
         //print_contenido($data['productos']->result());
@@ -308,14 +308,21 @@ class Productos extends Base_Controller
             echo $this->templates->render('admin/liquidar_productos', $data);
         } else {
             $this->session->set_flashdata('error', 'Para liquidar debe seleccionar un producto');
-            // user hasen't submitted anything yet!
-            //redirect(base_url() . 'index.php/productos/liquidacion', 'refresh');
         }
 
     }
 
     function guardar_liquidacion()
     {
+        //dev state
+        /*echo'liquidaciones en mantenimento escribirme al wp';
+
+        print_contenido($_POST);
+
+        exit();*/
+
+
+
         $fecha = New DateTime();
         $detalle_factura = '';
         $detalle_recibo = '';
@@ -328,20 +335,19 @@ class Productos extends Base_Controller
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
         while ($i <= $numero_de_productos) {
-            //echo 'Producto: ' . $this->input->post('producto_' . $i);
-            //echo ' Guardar precio de venta: ' . $this->input->post('producto_' . $i . '_p');
-
+            //Guardamos precio al que se vendio cada producto
             $this->Productos_model->guardar_precio_venta($this->input->post('producto_' . $i), $this->input->post('producto_' . $i . '_p'));
+            //obtenemos datos del producto
             $datos_producto = $this->Productos_model->datos_de_producto($this->input->post('producto_' . $i));
             $datos_producto = $datos_producto->row();
 
-            //guardar liquidacion producto
+            //vinculamos el numero de factura con la liquidacion de producto
             $datos_de_liquidacion = array(
                 'id_factura' => $this->input->post('no_factura'),
                 'id_producto' => $this->input->post('producto_' . $i),
             );
             $this->Productos_model->guardar_liquidacion_factura_producto($datos_de_liquidacion);
-
+            //Datos del contrato
             $datos_contrato = $this->Contratos_model->get_info_contrato($datos_producto->contrato_id);
             $datos_contrato = $datos_contrato->row();
 
@@ -1536,13 +1542,11 @@ class Productos extends Base_Controller
         to_excel($this->Productos_model->productos_excel(), "productos_" . $fecha->format('Y-m-d'));
     }
 
-
     //publico
     function get_productos_liquidacion_hompage_public()
     {
 
     }
-
     function categoria()
     {
         //categoria de productos
@@ -1587,7 +1591,6 @@ class Productos extends Base_Controller
 
         echo $this->templates->render('public/categoria_productos', $data);
     }
-
     function ver()
     {
         //id del producto
@@ -1602,6 +1605,10 @@ class Productos extends Base_Controller
         $data['producto_data'] = $this->Productos_model->datos_de_producto_public($data['producto_id']);
 
         echo $this->templates->render('public/vista_producto', $data);
+
+    }
+    function pedido_publico(){
+        //print_contenido($_POST);
 
     }
 }

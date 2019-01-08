@@ -24,9 +24,18 @@ function color_por_estaado($estado)
 		case 'refrendado':
 			$clase_estado = 'bg-aqua color-palette';
 			break;
+		case 'liquidado':
+			$clase_estado = 'bg-orange color-palette';
+			break;
+		case 'liquidado_parcial':
+			$clase_estado = 'bg-yellow color-palette';
+			break;
 		case 'desempenado':
 			$clase_estado = 'bg-gray-active color-palette';
 			break;
+        case 'anulado':
+            $clase_estado = 'bg-black color-palette';
+            break;
 	}
 	echo $clase_estado;
 }
@@ -48,9 +57,19 @@ function texto_estado($estado){
 		case 'refrendado':
 			$texto_estado = 'Refrendado';
 			break;
+        case 'liquidado':
+            $texto_estado = 'Liquidado';
+            break;
+        case 'liquidado_parcial':
+            $texto_estado = 'Liquidado parcial';
+            break;
 		case 'desempenado':
 			$texto_estado = 'Desempeñado';
 			break;
+        case 'anulado':
+            $texto_estado = 'Anulado';
+            break;
+
 	}
 	return $texto_estado;
 }

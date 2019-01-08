@@ -79,7 +79,9 @@ $this->layout('admin/admin_master', [
                 </div>
                 <!-- /.form group -->
 
-				<?php if ($contratos) { ?>
+				<?php if ($contratos) {
+				    ?>
+
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped display">
                             <thead>

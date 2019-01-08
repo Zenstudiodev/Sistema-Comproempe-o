@@ -40,16 +40,16 @@ class Contrato extends Base_Controller
         }
         echo $this->templates->render('admin/lista_contratos', $data);
     }
-
-
     function actualizar_estado()
     {
         $contratos_tienda_1 = $this->Contratos_model->contratos_actuaizador_t1();
 
         $contratos_tienda_2 = $this->Contratos_model->contratos_actuaizador_t2();
+        $contratos_tienda_3 = $this->Contratos_model->contratos_actuaizador_t3();
 
         echo '<p>' . $contratos_tienda_1->num_rows() . ' Contratos en tienda 1</p>';
         echo '<p>' . $contratos_tienda_2->num_rows() . ' Contratos en tienda 2</p>';
+        echo '<p>' . $contratos_tienda_3->num_rows() . ' Contratos en tienda 3</p>';
 
         $fecha_actual = new DateTime();
 
@@ -147,6 +147,53 @@ class Contrato extends Base_Controller
                 }
             }
         }
+        if ($contratos_tienda_3) {
+            echo '<h1>CONTRATOS TIENDA 3</h1>';
+
+            foreach ($contratos_tienda_3->result() as $contrato) {
+                $fecha_contrato = new DateTime($contrato->fecha_pago);
+
+                if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado') {
+                    echo '<p>' . $contrato->contrato_id . '</p>';
+                    echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
+                    echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
+
+                    if ($fecha_actual <= $fecha_contrato) {
+                        echo '<p>Aun no se ha pasado la fecha de pago</p>';
+                    } else {
+                        echo '<p>ya se paso la fecha de pago</p>';
+
+                        $interval = $fecha_contrato->diff($fecha_actual);
+                        $diferencia_dias = intval($interval->format('%R%a'));
+                        if ($contrato->tipo == 'Empeno') {
+                            //echo '<p>Es un empeño</p>';
+
+                            echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
+
+
+                            if ($diferencia_dias < 8) {
+
+                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
+
+                                echo '<p>en dias de gracia</p>';
+                            } else {
+                                echo '<p>Contrato Vencido</p>';
+
+                                $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'perdido');
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
+                                if($productos){
+                                    foreach ($productos->result() as $producto) {
+                                        $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    echo '<hr>';
+                }
+            }
+        }
 
         $this->email->from('info@xn--comproempeo-beb.com', 'Comproempeño');
         $this->email->to('la_samayoa@hotmail.com');
@@ -159,7 +206,6 @@ class Contrato extends Base_Controller
         //print_r($data['contratos']->result());
         //echo '</pre>';
     }
-
     function nuevo()
     {
         $data = compobarSesion();
@@ -209,7 +255,6 @@ class Contrato extends Base_Controller
         }
 
     }
-
     function guardar_contrato()
     {
         $productos = array();
@@ -298,7 +343,6 @@ class Contrato extends Base_Controller
 
         redirect(base_url() . 'cliente/detalle/' . $datos['cliente_id']);
     }
-
     function imprimir_contrato()
     {
         $data = compobarSesion();
@@ -314,7 +358,6 @@ class Contrato extends Base_Controller
 
 
     }
-
     function refrendo()
     {
         $data = compobarSesion();        //ID Contrato
@@ -330,7 +373,6 @@ class Contrato extends Base_Controller
 
 
     }
-
     function guardar_factura()
     {
         $data = compobarSesion();
@@ -459,7 +501,6 @@ class Contrato extends Base_Controller
         //redrigimos a detalle de cliente
         redirect(base_url() . 'cliente/detalle/' . $datos_factura['cliente_id']);
     }
-
     function desempeno()
     {
         $data = compobarSesion();
@@ -475,7 +516,6 @@ class Contrato extends Base_Controller
         echo $this->templates->render('admin/desempeno_contrato', $data);
 
     }
-
     function guardar_factura_desempeno()
     {
         $data = compobarSesion();
@@ -575,7 +615,6 @@ class Contrato extends Base_Controller
         //redrigimos a detalle de cliente
         redirect(base_url() . 'cliente/detalle/' . $datos_factura['cliente_id']);
     }
-
     function abono_a_apital()
     {
         $data = compobarSesion();
@@ -590,7 +629,6 @@ class Contrato extends Base_Controller
         echo $this->templates->render('admin/abono_capital', $data);
 
     }
-
     function editar()
     {
         $data = compobarSesion();
@@ -604,7 +642,6 @@ class Contrato extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_by_contrato($data['segmento_contrato']);
         echo $this->templates->render('admin/editar_contrato', $data);
     }
-
     function guardar_editar()
     {
         //print_r($_POST);
@@ -635,7 +672,6 @@ class Contrato extends Base_Controller
         $contrato_id = $this->Contratos_model->guardar_editar_contrato($datos);
         redirect(base_url() . 'cliente/detalle/' . $datos['cliente_id']);
     }
-
     function anular()
     {
 
@@ -672,7 +708,6 @@ class Contrato extends Base_Controller
         redirect(base_url() . 'cliente/detalle/' . $cliente->id);
 
     }
-
     function guardar_seguimiento()
     {
         $fecha_seguimiento = New DateTime();
@@ -687,7 +722,6 @@ class Contrato extends Base_Controller
         $this->Contratos_model->guardar_seguimiento($datos_de_seguimiento);
 
     }
-
     function get_resultados_seguimiento()
     {
         //ID Contrato
@@ -719,7 +753,6 @@ class Contrato extends Base_Controller
 
 
     }
-
     function contratos_vencidos()
     {
         $data = compobarSesion();
@@ -738,14 +771,12 @@ class Contrato extends Base_Controller
         }
         echo $this->templates->render('admin/lista_contratos_perdidos', $data);
     }
-
     function contratos_vigentes()
     {
         $data = compobarSesion();
         $data['contratos'] = $this->Contratos_model->listar_contratos_vigentes();
         echo $this->templates->render('admin/lista_contratos_vigentes', $data);
     }
-
     function contratos_excel()
     {
         $fecha = new DateTime();

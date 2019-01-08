@@ -21,7 +21,6 @@ $this->layout('public/public_master_dev', [
                 Categorías
             </h2>
             <?php
-
             //print_contenido($categorias->result());
             if ($categorias) { ?>
                 <ul class="list-group" id="lista_categorias">
@@ -34,7 +33,7 @@ $this->layout('public/public_master_dev', [
                         </div>
                     </a>
                     <?php foreach ($categorias->result() as $categoria) { ?>
-                        <a href="<?php echo base_url() . 'productos/categoria/' . $categoria->categoria ?>"
+                        <a href="<?php echo base_url() . 'productos/filtro/' . $categoria->categoria.'/'. $tienda?>"
                            class="list-group-item list-group-item-action"
                            catergoria="<?php echo $categoria->categoria ?>">
                             <?php echo $categoria->categoria ?>
@@ -64,12 +63,24 @@ $this->layout('public/public_master_dev', [
                     </div>
                 </div>
                 <div class="col-md-6">
-                    Tiendas
-                    <nav aria-label="Page navigation example">
-                        <?php echo $links; ?>
-                    </nav>
-                </div>
+                    <div class="card">
+                        <div class="card-header">
+                            Tienda
+                        </div>
+                        <div class="card-body">
 
+                            <?php //echo $page; ?>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url()?>">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Todas</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row productos_cards">
                 <?php if ($productos) { ?>
