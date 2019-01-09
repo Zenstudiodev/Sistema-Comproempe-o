@@ -16,7 +16,7 @@ $this->layout('public/public_master_dev',[
 
 <?php $this->start('page_content') ?>
 <div class="container">
-    <h1>Productos con descuento</h1>
+    <h1>Productos en oferta</h1>
     <div class="row productos_cards">
         <?php if ($productos_descuento) { ?>
 
@@ -82,7 +82,7 @@ $this->layout('public/public_master_dev',[
             <?php }
         } ?>
     </div>
-    <h1>Productos recientes</h1>
+    <h1>Productos</h1>
     <div class="row productos_cards">
         <?php if ($productos) { ?>
 

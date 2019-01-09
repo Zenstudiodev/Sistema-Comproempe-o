@@ -9,6 +9,7 @@ $this->layout('public/public_master_dev', [
     'monstrar_banners' => $monstrar_banners
 ]);
 
+
 if ($producto_data) {
     $producto = $producto_data->row();
 }
@@ -56,7 +57,14 @@ if ($producto_data) {
             <div class="row">
                 <?php if ($producto_data) { ?>
                     <div class="col">
-                        <h1><?php echo $producto->nombre_producto; ?></h1>
+                        <div class="row">
+                            <div class="col-md-6"><h1><?php echo $producto->nombre_producto; ?></h1></div>
+                            <div class="col-md-6">
+                                <h4> <span class="badge badge-primary">Còdigo: <?php echo $producto->producto_id;?></span></h4>
+                                <h4> <span class="badge badge-primary">Tienda: <?php echo tienda_id_to_nombre($producto->tienda_actual) ?></span></h4>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-7">
                                 <?php
@@ -104,7 +112,7 @@ if ($producto_data) {
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#solicitar_producto">
-                                        Estoy interesado
+                                        COMPRAR
                                     </button>
                                 </p>
 

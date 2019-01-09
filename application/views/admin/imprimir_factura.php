@@ -62,7 +62,7 @@ if ($contrato)
                 <td colspan="4"></td>
             </tr>
             <tr style="text-align: center">
-                <td style="width: 14cm;"></td>
+                <td style="width: 16cm;"></td>
                 <td style="width: 1cm;"><?php echo $fecha_factura->format('d'); ?></td>
                 <td style="width: 4.30cm"><?php echo $fecha_factura->format('m'); ?></td>
                 <td style="width: 2cm"><?php echo $fecha_factura->format('y'); ?></td>

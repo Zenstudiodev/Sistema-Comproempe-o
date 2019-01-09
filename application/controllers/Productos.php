@@ -12,6 +12,7 @@ class Productos extends Base_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->library('email');
         // Modelos
         $this->load->model('Cliente_model');
         $this->load->model('Productos_model');
@@ -82,68 +83,6 @@ class Productos extends Base_Controller
 
         echo $this->templates->render('public/categoria_productos', $data);
 
-    }
-    function filtro(){
-        //categoria
-        $categoria = $this->uri->segment(3);
-
-        if ($categoria == null) {
-            $categoria = 'todas';
-        }
-        $data['categoria'] = $categoria;
-
-        //tienda
-        $tienda = $this->uri->segment(4);
-        if ($tienda == null) {
-            $tienda = 'todas';
-        }
-        $data['tienda'] = $tienda;
-
-        //categoria para usar en vista
-        $data['categoria_actual'] = urldecode($categoria);
-
-       /* echo $categoria;
-        echo'<br>';
-        echo $tienda;*/
-
-        $data['numero_resultados'] = $this->Productos_model->get_producto_public_numero($categoria, $tienda);
-        //echo '<hr>';
-        //echo $data['numero_resultados'];
-
-        //pagination
-        $config = array();
-        $config["base_url"] = base_url() . "productos/filtro/" . $categoria.'/'.$tienda;
-        $config["total_rows"] = $data['numero_resultados'];
-        $config["per_page"] = 18;
-        $config["uri_segment"] = 5;
-        $config["full_tag_open"] = '<ul class="pagination">';
-        $config["full_tag_close"] = '</ul>';
-        $config["num_tag_open"] = '<li class="page-item">';
-        $config["num_tag_close"] = '</li>';
-        $config["cur_tag_open"] = '<li class="page-item active"><a class="page-link">';
-        $config["cur_tag_close"] = '</a></li>';
-        $config["first_tag_open"] = '<li class="page-item">';
-        $config["first_tag_close"] = '</li>';
-        $config["last_tag_open"] = '<li class="page-item">';
-        $config["last_tag_close"] = '</li>';
-        $config["next_tag_open"] = '<li class="page-item">';
-        $config["next_tag_close"] = '</li>';
-        $config["prev_tag_open"] = '<li class="page-item">';
-        $config["prev_tag_close"] = '</li>';
-        $config['attributes'] = array('class' => 'page-link');
-
-        $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(5) : 0;
-        $data["links"] = $this->pagination->create_links();
-
-        $data['categorias'] = $this->Productos_model->get_public_categorias();
-        $data['page']= $page;
-        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'],$data['tienda'],$config["per_page"], $page);
-
-        //print_contenido($data['productos']->result());
-        //exit();
-        $data['monstrar_banners'] = false;
-        echo $this->templates->render('public/filtro_producto', $data);
     }
 
     function agregar()
@@ -526,8 +465,6 @@ class Productos extends Base_Controller
         }
         if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3) {
             $productos = array();
-
-
             if ($productos_contrato_tienda_1) {
                 $productos_contrato_tienda_1 = $productos_contrato_tienda_1->result();
                 //echo json_encode($productos_contrato_tienda_1->result());
@@ -668,167 +605,7 @@ class Productos extends Base_Controller
 
     }
 
-    //para pagina publica
-    function productos_sin_foto()
-    {
-        $data = compobarSesion();
 
-        if ($this->session->flashdata('error')) {
-            $data['error'] = $this->session->flashdata('error');
-        }
-        $data['productos_sin_foto'] = $this->Productos_model->get_productos_liquidacion_sin_foto();
-        echo $this->templates->render('admin/lista_productos_sin_imagen', $data);
-    }
-
-    function subir_imagenes_producto()
-    {
-        $data = compobarSesion();
-        if ($this->session->flashdata('mensaje')) {
-            $data['mensaje'] = $this->session->flashdata('mensaje');
-        }
-        //Id de producto desde segmento URL
-        $data['producto_id'] = $this->uri->segment(3);
-        //datos del producto
-        $data['producto_data'] = $this->Productos_model->datos_de_producto($data['producto_id']);
-        $data['fotos_producto'] = $this->Productos_model->get_fotos_de_producto_by_id($data['producto_id']);
-
-
-        echo $this->templates->render('admin/subir_imagenes_producto', $data);
-    }
-
-    function guardar_imagen()
-    {
-        //print_contenido($_FILES);
-        //obtenemos el id del producto desde una cabecera http enviada desde el dropzone
-        $producto_id = $_SERVER['HTTP_PRODUCTO_ID'];
-        //echo 'el id del producto es : ' . $producto_id;
-        //obtenemos los datos del producto con el id de la cabecera
-        $datos_de_producto = $this->Productos_model->datos_de_producto($producto_id);
-        $datos_de_producto = $datos_de_producto->row();
-
-        //obtenemos el numero de imagenes desde el producto
-        $numero_de_imagenes = $datos_de_producto->imagen;
-
-        //generamos el nombre para la imagen que se va a subir
-        //comprobamos si hay algun nombre en la tabla de imagenes
-        $imagenes_producto = $this->Productos_model->get_fotos_de_producto_by_id($producto_id);
-        if ($imagenes_producto) {
-            //si ya tiene imagenes y existe la primera
-            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $producto_id . '.jpg')) {
-                $poner_nombre = false;
-                $i = 1;//numero de conteo que aumenta para modificar el nombre de la imagen
-                do { // comprbar los nombres mientras no se pueda poner el nombre
-                    if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $producto_id . '_' . $i . '.jpg')) {
-                        echo 'la imagen existe no ponerle asi';
-                        $poner_nombre = false;
-                    } else {
-                        echo 'la imagen no se encuentra ponerle asi \n ';
-                        $nombre_imagen = $producto_id . '_' . $i . '.jpg';
-                        $poner_nombre = true;
-                    }
-                    $i = $i + 1;
-                } while ($poner_nombre == false); //Loop minetras que no se pueda poner el nombre de la imagen
-                echo $nombre_imagen;
-            } else {
-                //si no existe la primera imagen
-                $nombre_imagen = $producto_id . '.jpg';
-            }
-        } else {
-            //si no existen imagenes
-            $nombre_imagen = $producto_id . '.jpg';
-        }
-
-        $tipo_imagen = $_FILES['imagen_producto']['type'];
-        $tipo_imagen = explode("/", $tipo_imagen);
-        $extension_imgen = $tipo_imagen[1]; // porción2
-
-        //datos de imagen
-        $datos_imagen = array(
-            "producto_id" => $producto_id,
-            "extencion" => $extension_imgen,
-            "nombre_imagen" => $nombre_imagen
-        );
-        //guadramos el nombre generado de la imagen y la asignamos a producto
-        $this->Productos_model->guardar_foto_tabla_fotos($datos_imagen);
-        print_r($datos_imagen);
-
-        if (!empty($_FILES['imagen_producto']['name'])) { //si se envio un archivo
-            $tipo_imagen = $_FILES['imagen_producto']['type'];
-            echo '<p>' . $nombre_imagen . '</p>';
-            echo '<p>' . $tipo_imagen . '</p>';
-
-            $config['upload_path'] = './uploads/imagenes_productos';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['file_name'] = $nombre_imagen;
-            $config['overwrite'] = TRUE;
-            //$config['max_size']      = 100;
-            //$config['max_width']     = 1024;
-            //$config['max_height']    = 768;
-            $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('imagen_producto')) {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-            } else {
-                $config['image_library'] = 'gd2';
-                $config['source_image'] = './uploads/imagenes_productos/' . $nombre_imagen;
-                //$config['create_thumb'] = TRUE;
-                $config['maintain_ratio'] = TRUE;
-                $config['width'] = 800;
-                //$config['height']       = 50;
-                $this->load->library('image_lib', $config);
-                if (!$this->image_lib->resize()) {
-                    echo $this->image_lib->display_errors();
-                }
-
-
-                $data = array('upload_data' => $this->upload->data());
-                //$this->load->view('subir_documento', $data);
-                echo $this->upload->data('file_name');
-                echo $this->upload->data('file_size');
-            }
-        } else {
-
-        }
-    }
-
-    function borrar_imagen()
-    {
-
-        //Id de imagen desde segmento URL
-        $data['imagen_id'] = $this->uri->segment(3);
-        //Id de producto desde segmento URL
-        $data['prducto_id'] = $this->uri->segment(4);
-        $imagen_id = $data['imagen_id'];
-        $datos_imagen = $this->Productos_model->get_datos_imagen($imagen_id);
-        if ($datos_imagen) {
-            $datos_imagen = $datos_imagen->row();
-            $nombre_imagen = $datos_imagen->nombre_imagen;
-
-            //borrado de registro
-            $this->Productos_model->borrar_registro_imagen($imagen_id);
-
-            //borrado de imagen
-            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
-                //echo 'imagen existe';
-                if (unlink('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
-                    $this->session->set_flashdata('mensaje', 'se borro la imagen');
-                    redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
-                } else {
-                    echo 'no se borro';
-                }
-
-            } else {
-
-                //echo 'la imagen no existe';
-            }
-
-
-        } else {
-            $this->session->set_flashdata('mensaje', 'imagen no existe');
-            redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
-
-        }
-    }
 
     //traslado
     function productos_trasladar()
@@ -1542,6 +1319,177 @@ class Productos extends Base_Controller
         to_excel($this->Productos_model->productos_excel(), "productos_" . $fecha->format('Y-m-d'));
     }
 
+
+    //para pagina publica
+    function productos_sin_foto()
+    {
+        $data = compobarSesion();
+
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        $data['productos_sin_foto'] = $this->Productos_model->get_productos_liquidacion_sin_foto();
+        echo $this->templates->render('admin/lista_productos_sin_imagen', $data);
+    }
+
+    function subir_imagenes_producto()
+    {
+        $data = compobarSesion();
+        if ($this->session->flashdata('mensaje')) {
+            $data['mensaje'] = $this->session->flashdata('mensaje');
+        }
+        //Id de producto desde segmento URL
+        $data['producto_id'] = $this->uri->segment(3);
+        //datos del producto
+        $data['producto_data'] = $this->Productos_model->datos_de_producto($data['producto_id']);
+        $data['fotos_producto'] = $this->Productos_model->get_fotos_de_producto_by_id($data['producto_id']);
+
+
+        echo $this->templates->render('admin/subir_imagenes_producto', $data);
+    }
+
+    function guardar_imagen()
+    {
+        //print_contenido($_FILES);
+        //obtenemos el id del producto desde una cabecera http enviada desde el dropzone
+        $producto_id = $_SERVER['HTTP_PRODUCTO_ID'];
+        //echo 'el id del producto es : ' . $producto_id;
+        //obtenemos los datos del producto con el id de la cabecera
+        $datos_de_producto = $this->Productos_model->datos_de_producto($producto_id);
+        $datos_de_producto = $datos_de_producto->row();
+
+        //obtenemos el numero de imagenes desde el producto
+        $numero_de_imagenes = $datos_de_producto->imagen;
+
+        //generamos el nombre para la imagen que se va a subir
+        //comprobamos si hay algun nombre en la tabla de imagenes
+        $imagenes_producto = $this->Productos_model->get_fotos_de_producto_by_id($producto_id);
+        if ($imagenes_producto) {
+            //si ya tiene imagenes y existe la primera
+            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $producto_id . '.jpg')) {
+                $poner_nombre = false;
+                $i = 1;//numero de conteo que aumenta para modificar el nombre de la imagen
+                do { // comprbar los nombres mientras no se pueda poner el nombre
+                    if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $producto_id . '_' . $i . '.jpg')) {
+                        echo 'la imagen existe no ponerle asi';
+                        $poner_nombre = false;
+                    } else {
+                        echo 'la imagen no se encuentra ponerle asi \n ';
+                        $nombre_imagen = $producto_id . '_' . $i . '.jpg';
+                        $poner_nombre = true;
+                    }
+                    $i = $i + 1;
+                } while ($poner_nombre == false); //Loop minetras que no se pueda poner el nombre de la imagen
+                echo $nombre_imagen;
+            } else {
+                //si no existe la primera imagen
+                $nombre_imagen = $producto_id . '.jpg';
+            }
+        } else {
+            //si no existen imagenes
+            $nombre_imagen = $producto_id . '.jpg';
+        }
+
+        $tipo_imagen = $_FILES['imagen_producto']['type'];
+        $tipo_imagen = explode("/", $tipo_imagen);
+        $extension_imgen = $tipo_imagen[1]; // porción2
+
+        //datos de imagen
+        $datos_imagen = array(
+            "producto_id" => $producto_id,
+            "extencion" => $extension_imgen,
+            "nombre_imagen" => $nombre_imagen
+        );
+        //guadramos el nombre generado de la imagen y la asignamos a producto
+        $this->Productos_model->guardar_foto_tabla_fotos($datos_imagen);
+        print_r($datos_imagen);
+
+        if (!empty($_FILES['imagen_producto']['name'])) { //si se envio un archivo
+            $tipo_imagen = $_FILES['imagen_producto']['type'];
+            echo '<p>' . $nombre_imagen . '</p>';
+            echo '<p>' . $tipo_imagen . '</p>';
+
+            $config['upload_path'] = './uploads/imagenes_productos';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = $nombre_imagen;
+            $config['overwrite'] = TRUE;
+            //$config['max_size']      = 100;
+            //$config['max_width']     = 1024;
+            //$config['max_height']    = 768;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('imagen_producto')) {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+            } else {
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './uploads/imagenes_productos/' . $nombre_imagen;
+                //$config['create_thumb'] = TRUE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 800;
+                //$config['height']       = 50;
+                $this->load->library('image_lib', $config);
+                if (!$this->image_lib->resize()) {
+                    echo $this->image_lib->display_errors();
+                }
+
+
+                $data = array('upload_data' => $this->upload->data());
+                //$this->load->view('subir_documento', $data);
+                echo $this->upload->data('file_name');
+                echo $this->upload->data('file_size');
+            }
+        } else {
+
+        }
+    }
+
+    function borrar_imagen()
+    {
+
+        //Id de imagen desde segmento URL
+        $data['imagen_id'] = $this->uri->segment(3);
+        //Id de producto desde segmento URL
+        $data['prducto_id'] = $this->uri->segment(4);
+        $imagen_id = $data['imagen_id'];
+        $datos_imagen = $this->Productos_model->get_datos_imagen($imagen_id);
+        if ($datos_imagen) {
+            $datos_imagen = $datos_imagen->row();
+            $nombre_imagen = $datos_imagen->nombre_imagen;
+
+            //borrado de registro
+            $this->Productos_model->borrar_registro_imagen($imagen_id);
+
+            //borrado de imagen
+            if (file_exists('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
+                //echo 'imagen existe';
+                if (unlink('/home2/comproempeno/public_html/uploads/imagenes_productos/' . $nombre_imagen)) {
+                    $this->session->set_flashdata('mensaje', 'se borro la imagen');
+                    redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
+                } else {
+                    echo 'no se borro';
+                }
+
+            } else {
+
+                //echo 'la imagen no existe';
+            }
+
+
+        } else {
+            $this->session->set_flashdata('mensaje', 'imagen no existe');
+            redirect(base_url() . 'productos/subir_imagenes_producto/' . $data['prducto_id']);
+
+        }
+    }
+
+    function pedidos_de_pagina(){
+        $data = compobarSesion();
+        //obtenemos los pedidos de la pagina
+        $data['pedidos'] = $this->Productos_model->pedidos_pagina();
+
+        echo $this->templates->render('admin/abonar_apartado', $data);
+    }
+
     //publico
     function get_productos_liquidacion_hompage_public()
     {
@@ -1607,8 +1555,140 @@ class Productos extends Base_Controller
         echo $this->templates->render('public/vista_producto', $data);
 
     }
+    function filtro(){
+        //categoria
+        $categoria = $this->uri->segment(3);
+
+        if ($categoria == null) {
+            $categoria = 'todas';
+        }
+        $data['categoria'] = $categoria;
+
+        //tienda
+        $tienda = $this->uri->segment(4);
+        if ($tienda == null) {
+            $tienda = 'todas';
+        }
+        $data['tienda'] = $tienda;
+
+        //categoria para usar en vista
+        $data['categoria_actual'] = urldecode($categoria);
+
+        /* echo $categoria;
+         echo'<br>';
+         echo $tienda;*/
+
+        $data['numero_resultados'] = $this->Productos_model->get_producto_public_numero($categoria, $tienda);
+        //echo '<hr>';
+        //echo $data['numero_resultados'];
+
+        //pagination
+        $config = array();
+        $config["base_url"] = base_url() . "productos/filtro/" . $categoria.'/'.$tienda;
+        $config["total_rows"] = $data['numero_resultados'];
+        $config["per_page"] = 18;
+        $config["uri_segment"] = 5;
+        $config["full_tag_open"] = '<ul class="pagination">';
+        $config["full_tag_close"] = '</ul>';
+        $config["num_tag_open"] = '<li class="page-item">';
+        $config["num_tag_close"] = '</li>';
+        $config["cur_tag_open"] = '<li class="page-item active"><a class="page-link">';
+        $config["cur_tag_close"] = '</a></li>';
+        $config["first_tag_open"] = '<li class="page-item">';
+        $config["first_tag_close"] = '</li>';
+        $config["last_tag_open"] = '<li class="page-item">';
+        $config["last_tag_close"] = '</li>';
+        $config["next_tag_open"] = '<li class="page-item">';
+        $config["next_tag_close"] = '</li>';
+        $config["prev_tag_open"] = '<li class="page-item">';
+        $config["prev_tag_close"] = '</li>';
+        $config['attributes'] = array('class' => 'page-link');
+
+        $this->pagination->initialize($config);
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(5) : 0;
+        $data["links"] = $this->pagination->create_links();
+
+        $data['categorias'] = $this->Productos_model->get_public_categorias();
+        $data['page']= $page;
+        $data['productos'] = $this->Productos_model->get_producto_public($data['categoria'],$data['tienda'],$config["per_page"], $page);
+
+        //print_contenido($data['productos']->result());
+        //exit();
+        $data['monstrar_banners'] = false;
+        echo $this->templates->render('public/filtro_producto', $data);
+    }
     function pedido_publico(){
-        //print_contenido($_POST);
+
+        //comprobamos que exista post
+        if($this->input->post('email_cliente')){
+            //leemos datos desde post
+            $nombre = $this->input->post('nombre_cliente');
+            $correo = $this->input->post('email_cliente');
+            $telefono= $this->input->post('telefono_cliente');
+            $direccion= $this->input->post('direccion_cliente');
+            $codigo_producto= $this->input->post('producto_id');
+            $fecha = new DateTime();
+
+            $dataFromulario = array(
+                'nombre' => $nombre,
+                'email' => $correo,
+                'telefono' => $telefono,
+                'codigo_producto' => $codigo_producto,
+                'fecha' => $fecha->format('Y-m-d H:i:s')
+            );
+
+
+            //configuracion de correo
+            $config['mailtype'] = 'html';
+
+            /*$configGmail = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'smtp.zoho.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'pedidos@xn--comproempeo-beb.com',
+                'smtp_pass' => 'Comproempeño18',
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'newline' => "\r\n"
+            );
+            $this->email->initialize($configGmail);*/
+
+
+            $this->email->initialize($config);
+
+
+            $this->email->from('pedidos@xn--comproempeo-beb.com', 'COMPROEMPEÑO');
+            $this->email->to($correo);
+            $this->email->cc('pedidos@xn--comproempeo-beb.com');
+            $this->email->bcc('csamayoa@zenstudiogt.com');
+
+            $this->email->subject('Pedido producto COD:'.$codigo_producto);
+
+            //mensaje
+            $message = '<html><body>';
+            $message .= '<img src="'.base_url().'ui/public/images/logo_top.png" alt="compromepeño" />';
+            $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+            $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
+            $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
+            $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
+            $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
+            $message .= "<tr><td><strong>Codigo de ptroducto:</strong> </td><td><a target='_blank' href='". base_url()."Productos/ver/".$codigo_producto."'>".strip_tags($codigo_producto) . "</a></td></tr>";
+            $message .= "</table>";
+            $message .= "</body></html>";
+
+
+            $this->email->message($message);
+            //Guardamos el pedido
+            //$this->Formularios_model->guardar_formulario_carro($dataFromulario);
+            //enviar correo
+            $this->email->send();
+
+
+            echo'send';
+        }else{
+            //redirigir al home
+            redirect(base_url());
+        }
 
     }
 }

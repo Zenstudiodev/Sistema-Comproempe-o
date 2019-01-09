@@ -8,6 +8,7 @@
 $this->layout('public/public_master_dev', [
     'monstrar_banners' => $monstrar_banners
 ]);
+$categoria_d = $categoria;
 
 ?>
 
@@ -72,10 +73,10 @@ $this->layout('public/public_master_dev', [
                             <?php //echo $page; ?>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="<?php echo base_url()?>">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Todas</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/1'?>">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/2'?>">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/3'?>">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/todas'?>">Todas</a></li>
                                 </ul>
                             </nav>
                         </div>

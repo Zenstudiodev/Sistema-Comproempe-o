@@ -16,7 +16,7 @@ function get_imgenes_producto_public($producto_id)
 function tienda_id_to_nombre($tienda_id){
     $nombre_tienda = '';
     if($tienda_id == '2'){
-        $nombre_tienda = 'Centra Norte';
+        $nombre_tienda = 'Metro Norte';
     }
     if($tienda_id == '1'){
         $nombre_tienda = 'Centra Sur';
