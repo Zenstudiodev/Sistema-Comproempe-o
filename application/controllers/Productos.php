@@ -1631,37 +1631,25 @@ class Productos extends Base_Controller
                 'nombre' => $nombre,
                 'email' => $correo,
                 'telefono' => $telefono,
+                'direccion' => $direccion,
                 'codigo_producto' => $codigo_producto,
                 'fecha' => $fecha->format('Y-m-d H:i:s')
             );
 
+            $this->Productos_model->prducto_a_pedido($codigo_producto);
+
+            //Guardamos el pedido
+            $this->Productos_model->guardar_pedido_catalogo($dataFromulario);
+            //actualizar el producto para pasarlo a pedido
 
             //configuracion de correo
             $config['mailtype'] = 'html';
-
-            /*$configGmail = array(
-                'protocol' => 'smtp',
-                'smtp_host' => 'smtp.zoho.com',
-                'smtp_port' => 465,
-                'smtp_user' => 'pedidos@xn--comproempeo-beb.com',
-                'smtp_pass' => 'Comproempeño18',
-                'mailtype' => 'html',
-                'charset' => 'utf-8',
-                'newline' => "\r\n"
-            );
-            $this->email->initialize($configGmail);*/
-
-
             $this->email->initialize($config);
-
-
             $this->email->from('pedidos@xn--comproempeo-beb.com', 'COMPROEMPEÑO');
             $this->email->to($correo);
             $this->email->cc('pedidos@xn--comproempeo-beb.com');
             $this->email->bcc('csamayoa@zenstudiogt.com');
-
             $this->email->subject('Pedido producto COD:'.$codigo_producto);
-
             //mensaje
             $message = '<html><body>';
             $message .= '<img src="'.base_url().'ui/public/images/logo_top.png" alt="compromepeño" />';
@@ -1669,15 +1657,13 @@ class Productos extends Base_Controller
             $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
             $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
-            $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
+            $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($direccion) . "</td></tr>";
             $message .= "<tr><td><strong>Codigo de ptroducto:</strong> </td><td><a target='_blank' href='". base_url()."Productos/ver/".$codigo_producto."'>".strip_tags($codigo_producto) . "</a></td></tr>";
             $message .= "</table>";
             $message .= "</body></html>";
 
-
             $this->email->message($message);
-            //Guardamos el pedido
-            //$this->Formularios_model->guardar_formulario_carro($dataFromulario);
+
             //enviar correo
             $this->email->send();
 

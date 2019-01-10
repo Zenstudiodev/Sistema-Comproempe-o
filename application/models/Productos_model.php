@@ -788,4 +788,23 @@ class productos_model extends CI_Model
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
     }
+    function guardar_pedido_catalogo($datos_pedido){
+        $lote_data = array(
+            'pedido_cliente_nombre' => $datos_pedido['nombre'],
+            'pedido_cliente_correo' => $datos_pedido['email'],
+            'pedido_cliente_telefono' => $datos_pedido['telefono'],
+            'pedido_cliente_direccion' => $datos_pedido['direccion'],
+            'pedido_producto_id' => $datos_pedido['codigo_producto'],
+            'pedido_fecha' => $datos_pedido['fecha'],
+        );
+
+        $this->db->insert('pedidos', $lote_data);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+    }
+    function prducto_a_pedido($producto_id){
+        $this->db->set('tipo', 'pedido_catalogo');
+        $this->db->where('producto_id', $producto_id);
+        $this->db->update('producto');
+    }
 }
