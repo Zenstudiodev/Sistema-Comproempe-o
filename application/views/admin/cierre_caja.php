@@ -457,7 +457,6 @@ $dinero_en_caja = 0;
                                         <th>Monto</th>
                                         <th>Contrato</th>
                                         <th>Monto refrendado</th>
-                                        <th>Saldo capital</th>
                                         <th>Usuario</th>
                                         <th>Acción</th>
                                     </tr>
@@ -471,7 +470,6 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($interese_refrendo->monto); ?></td>
                                             <td><?php echo $interese_refrendo->id_contrato ?></td>
                                             <td><?php echo $interese_refrendo->mutuo ?></td>
-                                            <td><?php echo $interese_refrendo->saldo ?></td>
                                             <td><?php echo id_to_nombre($interese_refrendo->user_id) ?></td>
                                             <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_ingreso/'.$interese_refrendo->ingreso_id; ?>">Anular</a> </td>
                                         </tr>
@@ -580,9 +578,8 @@ $dinero_en_caja = 0;
                                     <tr>
                                         <th>Contrato</th>
                                         <th>Monto</th>
-                                        <th>Intereses</th>
                                         <th>dias</th>
-                                        <th>Monto Refrendo</th>
+                                        <th>Refrendo</th>
                                         <th>Usuario</th>
                                         <th>Acción</th>
                                     </tr>
@@ -594,7 +591,6 @@ $dinero_en_caja = 0;
                                         <tr>
                                             <td><?php echo $empeno->contrato_id ?></td>
                                             <td><?php echo display_formato_dinero($empeno->monto); ?></td>
-                                            <td><?php echo $empeno->intereses ?></td>
                                             <td><?php echo $empeno->dias ?></td>
                                             <td><?php echo $empeno->monto_refrendo ?></td>
                                             <td><?php echo id_to_nombre($empeno->user_id) ?></td>

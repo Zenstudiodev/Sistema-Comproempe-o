@@ -491,7 +491,6 @@ class Productos extends Base_Controller
             echo '';
         }
     }
-
     function cargar_productos_en_bodega()
     {
 
@@ -556,7 +555,6 @@ class Productos extends Base_Controller
 
 
     }
-
     function actualizar_producto_bodega()
     {
         header("Content-Type: application/json");

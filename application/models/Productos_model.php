@@ -539,6 +539,7 @@ class productos_model extends CI_Model
             'id_prorateo' => $form_data['id_prorateo'],
             'tipo ' => 'compra',
             'tienda_id' => $tienda,
+            'tienda_actual' => $tienda,
         );
 
         // insertamon en la base de datos
@@ -552,11 +553,11 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'compra');
         // insertamos en la base de datos
         if ($tienda == '1') {
-            $this->db->where('producto.tienda_id', '1');
+            $this->db->where('producto.tienda_actual', '1');
         } elseif ($tienda == '2') {
-            $this->db->where('producto.tienda_id', '2');
+            $this->db->where('producto.tienda_actual', '2');
         } elseif ($tienda == '3') {
-            $this->db->where('producto.tienda_id', '3');
+            $this->db->where('producto.tienda_actual', '3');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();

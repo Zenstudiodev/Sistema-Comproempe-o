@@ -49,13 +49,27 @@ $this->layout('admin/admin_master', [
                       id="productList_form">
                     <?php if ($productos) { ?>
                         <?php if ($rol != 'conta') { ?>
-                            <button type="submit" class="btn btn-app" id="crear_contrato_btn">
-                                <i class="fa fa-file-text-o"></i> Vender productos
-                            </button>
-                            <button type="submit" class="btn btn-app" id="apartar_btn">
-                                <i class="fa fa-file-text-o"></i> Apartar productos
-                            </button>
-
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <button type="submit" class="btn btn-app" id="crear_contrato_btn">
+                                        <i class="fas fa-file"></i> Liquidar productos
+                                    </button>
+                                    <button type="submit" class="btn btn-app" id="apartar_btn">
+                                        <i class="fas fa-file"></i> Apartar productos
+                                    </button>
+                                    <button type="submit" class="btn btn-app" id="trasladar_btn">
+                                        <i class="fas fa-truck-moving"></i> Trasladar productos
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="select_tienda_traslado" class="form-control" name="select_tienda_traslado">
+                                        <option value=""></option>
+                                        <option value="1">Tienda 1</option>
+                                        <option value="2">Tienda 2</option>
+                                        <option value="3">Tienda 3</option>
+                                    </select>
+                                </div>
+                            </div>
                         <?php } ?>
                         <!-- <pre>
                     <?php /*//print_r($facturas->result()) */ ?>
@@ -189,6 +203,18 @@ $this->layout('admin/admin_master', [
         event.preventDefault();
         $("#productList_form").attr('action', '<?php echo base_url() . "productos/productos_apartar"?>');
         $("#productList_form").submit();
+    });
+    $("#trasladar_btn").click(function () {
+        event.preventDefault();
+        $("#productList_form").attr('action', '<?php echo base_url() . "productos/productos_trasladar"?>');
+        tienda_a = $("#select_tienda_traslado").val();
+
+        console.log(tienda_a);
+        if(tienda_a == ''){
+            alert('debe seleccionar una tienda de destino');
+        }else{
+            $("#productList_form").submit();
+        }
     });
 
     $(document).ready(function () {

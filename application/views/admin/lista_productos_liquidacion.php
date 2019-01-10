@@ -74,8 +74,6 @@ $this->layout('admin/admin_master', [
                                     </select>
                                 </div>
                             </div>
-
-
                         <?php } ?>
                         <!-- <pre>
 
