@@ -235,6 +235,7 @@ $dinero_en_caja = 0;
                                         <th>Factura</th>
                                         <th>Serie</th>
                                         <th>Monto</th>
+                                        <th>Margen</th>
                                         <th>Cod. Producto</th>
                                         <th>Nombre Producto</th>
                                         <th>Usuario</th>
@@ -250,6 +251,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $venta->factura_id ?></td>
                                             <td><?php echo $venta->serie ?></td>
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
+                                            <td></td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
                                             <td><?php echo   id_to_nombre($venta->user_id);?></td>

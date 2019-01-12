@@ -216,7 +216,6 @@ class Productos extends Base_Controller
 
         echo $this->templates->render('admin/lista_productos_liquidacion', $data);
     }
-
     function liquidar()
     {
         $data = compobarSesion();
@@ -250,7 +249,6 @@ class Productos extends Base_Controller
         }
 
     }
-
     function guardar_liquidacion()
     {
         //dev state
@@ -395,7 +393,6 @@ class Productos extends Base_Controller
         $this->Caja_model->guardar_ventas_dia($registro_venta);
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
     }
-
     // administracion de productos
     function administrar_todos_los_productos()
     {
@@ -1483,9 +1480,19 @@ class Productos extends Base_Controller
     function pedidos_de_pagina(){
         $data = compobarSesion();
         //obtenemos los pedidos de la pagina
-        $data['pedidos'] = $this->Productos_model->pedidos_pagina();
-
-        echo $this->templates->render('admin/abonar_apartado', $data);
+        $data['pedidos'] = $this->Productos_model->listar_pedido_de_pagina();
+        echo $this->templates->render('admin/lista_pedidos', $data);
+    }
+    function detalle_pedido(){
+        $data = compobarSesion();
+        //obtenemos los pedidos de la pagina
+        //pedid id
+        $pedido_id = $this->uri->segment(3);
+        //producto id
+        $producto_id = $this->uri->segment(4);
+        $data['pedido'] = $this->Productos_model->datos_pediddo_by_id($pedido_id);
+        $data['producto'] = $this->Productos_model->datos_de_producto($producto_id);
+        echo $this->templates->render('admin/detalle_pedido', $data);
     }
 
     //publico

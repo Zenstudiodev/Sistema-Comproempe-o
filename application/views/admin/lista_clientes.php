@@ -82,6 +82,7 @@ $this->layout('admin/admin_master', [
                             <thead>
                             <tr>
                                 <th>CLIENTE ID</th>
+                                <th>ESTADO DE CUENTA</th>
                                 <th>NOMBRE</th>
                                 <th>DPI</th>
                                 <th>NIT</th>
@@ -91,6 +92,7 @@ $this->layout('admin/admin_master', [
                             <tfoot>
                             <tr>
                                 <th>CLIENTE ID</th>
+                                <th>ESTADO DE CUENTA</th>
                                 <th>NOMBRE</th>
                                 <th>DPI</th>
                                 <th>NIT</th>
@@ -102,6 +104,7 @@ $this->layout('admin/admin_master', [
 							{ ?>
                                 <tr>
                                     <td><?php echo $cliente->id ?></td>
+                                    <td><a class="btn btn-success" href="<?php echo base_url().'cliente/estado_de_cuenta/'. $cliente->id ?>">Estado de cuenta</a> </td>
                                     <td>
                                         <a href="<?php echo base_url() . 'index.php/cliente/detalle/' . $cliente->id; ?>" target="_blank"><?php echo $cliente->nombre ?></a>
                                     </td>

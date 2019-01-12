@@ -387,6 +387,9 @@ class Contratos_model extends CI_Model
                 case 'CN2':
                     $tabla_de_factura = 'facturas_tienda_3_cn';
                     break;
+                case 'MN':
+                    $tabla_de_factura = 'facturas_tienda_3';
+                    break;
                 case 'RM':
                     $tabla_de_factura = 'facturas_tienda_3_r';
                     break;
@@ -484,7 +487,7 @@ class Contratos_model extends CI_Model
         } elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2');
         }elseif ($tienda == '3') {
-            $query = $this->db->get('facturas_tienda_3_cn');
+            $query = $this->db->get('facturas_tienda_3');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;

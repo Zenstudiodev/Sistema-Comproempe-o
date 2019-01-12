@@ -18,6 +18,7 @@ class Cliente extends Base_Controller
 		$this->load->model('Contratos_model');
 		$this->load->model('Factura_model');
 		$this->load->model('Recibo_model');
+        $this->load->library('NumeroALetras');
 	}
 
 	function index()
@@ -206,5 +207,22 @@ class Cliente extends Base_Controller
 		$fecha = new DateTime();
 		to_excel($this->Cliente_model->clientes_excel(), "Clientes_" . $fecha->format('Y-m-d'));
 	}
+	function estado_de_cuenta(){
+        $data = compobarSesion();
+        //obtenemos id cliente desde url
+        $data['segmento'] = $this->uri->segment(3);
+        // si no hay id de cliente regresamos a la lista de clietes
+        if (!$data['segmento'])
+        {
+            redirect(base_url() . 'cliente/');
+        }
+        else
+        {
+            $data['cliente'] = $this->Cliente_model->detalle_cliente($data['segmento']);
+        }
+        //contratos
+        $data['contratos'] = $this->Contratos_model->get_contratos_by_cliente_id($data['segmento']);
+        echo $this->templates->render('admin/estado_de_cuenta', $data);
+    }
 
 }

@@ -26,8 +26,8 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_tienda_2');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_2.cliente_id');
         }elseif ($tienda == '3') {
-            $this->db->from('facturas_tienda_3_cn');
-            $this->db->join('cliente', 'cliente.id = facturas_tienda_3_cn.cliente_id');
+            $this->db->from('facturas_tienda_3');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_3.cliente_id');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -127,6 +127,9 @@ class Factura_model extends CI_Model
                 case 'CN2':
                     $query = $this->db->get('facturas_tienda_3_cn');
                     break;
+                case 'MN':
+                    $query = $this->db->get('facturas_tienda_3');
+                    break;
             }
         }
 
@@ -155,6 +158,9 @@ class Factura_model extends CI_Model
                 break;
             case 'RM':
                 $query = $this->db->get('facturas_tienda_3_r');
+                break;
+            case 'MN':
+                $query = $this->db->get('facturas_tienda_3');
                 break;
         }
         if ($query->num_rows() > 0) return $query;

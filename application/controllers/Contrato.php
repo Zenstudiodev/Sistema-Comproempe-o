@@ -180,7 +180,7 @@ class Contrato extends Base_Controller
                             } else {
                                 echo '<p>Contrato Vencido</p>';
 
-                                $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'perdido');
+                                $this->Contratos_model->actualizar_estado_contrato_t3($contrato->contrato_id, 'perdido');
                                 $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
                                 if($productos){
                                     foreach ($productos->result() as $producto) {

@@ -219,5 +219,78 @@ function normalizeDecimal($val,  $precision = 2)
     return bcadd($number, 0, $precision);
 }
 
+function dato_pago_contrato($contrato_id){
+    /**
+    * variables para operaciones
+    **/
+
+    $ci =& get_instance();
+
+
+    $contrato = $ci->Contratos_model->get_info_contrato($contrato_id);
+    $contrato = $contrato->row();
+	$fecha     = new DateTime();
+	$intereses = floatval($contrato->pago_interes);
+	//interese + iva
+	$intereses  = $intereses * 1.12;
+	$almacenaje = floatval($contrato->costo_almacenaje);
+	//almacenaje + iva
+	$almacenaje              = $almacenaje * 1.12;
+	$estado_contrato         = estado_contrato($contrato->fecha_pago);
+	$plazo                   = $contrato->plazo;
+	$fecha_vencimiento     = new DateTime();
+	$nueva_fecha_vencimiento = $fecha_vencimiento->modify('+' . $plazo . ' days');
+	//mora
+	$mora      = false;
+	$pago_mora = 0;
+	$descuento = 0;
+
+	if($plazo == 30){
+        if(descuento_sugerido($contrato->fecha_pago)){
+
+            $descuento_almacenage = ($almacenaje / 2);
+            $descuento_interes = ($intereses / 2);
+
+            $descuento_sugerido = $descuento_interes + $descuento_almacenage;
+
+            $descuento = $descuento_sugerido;
+        }
+    }
+
+
+
+	if ($estado_contrato != 'normal')
+    {
+        //echo 'cargar mora';
+        $dias_pasados = diferencia_en_dias($contrato->fecha_pago);
+        $mora         = true;
+        $pago_mora    = $intereses + $almacenaje;
+        $pago_mora    = $pago_mora / $plazo;
+        $pago_mora    = $pago_mora * $dias_pasados;
+    }
+	//recuperacion
+	$recuperacion      = false;
+	$pago_recuperacion = 0;
+	if ($estado_contrato == 'vencido')
+    {
+        //echo 'cargar recuperacion';
+        $recuperacion      = true;
+        $pago_recuperacion = $contrato->referendo;
+    }
+
+	$total_factura = $intereses + $almacenaje + $pago_mora + $pago_recuperacion;
+
+	$pago_contrato = array(
+	    'intereses_refrendo'=>$intereses,
+	    'almacenaje'=>$almacenaje,
+	    'Mora'=>$pago_mora,
+	    'recuperacion'=>$pago_recuperacion,
+	    'total'=>$total_factura,
+    );
+	return $pago_contrato;
+
+	$total_en_letras = NumeroALetras::convertir($total_factura);
+
+}
 
 ?>

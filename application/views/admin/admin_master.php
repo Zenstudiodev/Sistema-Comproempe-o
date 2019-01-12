@@ -124,6 +124,11 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
+                            <a href="<?php echo base_url() ?>productos/pedidos_de_pagina">
+                                <i class="fa fa-file
+."></i> <span>Pedidos pagina</span></a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url() ?>productos/administrar_liquidacion">
                                 <i class="fa fa-file
 ."></i> <span>Administrador de productos</span></a>

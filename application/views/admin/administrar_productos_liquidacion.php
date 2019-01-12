@@ -150,7 +150,7 @@ $hoy = New DateTime();
                     {name: "tienda_actual", type: "number", readOnly: true},
                     {name: "nombre_producto", type: "text", readOnly: true, title: "Nombre"},
                     {name: "categoria", type: "select", items: categorias, valueField: "Name", textField: "Name"},
-                    <?php if(user_rol() == 'developer' || user_rol() == 'gerencia'){?>
+                    <?php if(user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'jefe_tienda'){?>
                     {name: "tipo", type: "select", items: estado_producto, valueField: "Id", textField: "Name"},
                     {name: "avaluo_comercial", type: "number", readOnly: true, title: "Avaluo"},
                     {name: "precio_venta", type: "text", title: "Precio de venta"},

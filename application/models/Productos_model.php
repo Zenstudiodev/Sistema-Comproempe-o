@@ -807,4 +807,18 @@ class productos_model extends CI_Model
         $this->db->where('producto_id', $producto_id);
         $this->db->update('producto');
     }
+    function listar_pedido_de_pagina(){
+
+        $this->db->from('pedidos');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function datos_pediddo_by_id($pedido_id){
+        $this->db->where('pedido_id', $pedido_id);
+        $this->db->from('pedidos');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }
