@@ -741,6 +741,47 @@ $dinero_en_caja = 0;
 
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Detalle visanet</h3>
+                            <?php
+                            $total_ingresos_caja = 0;
+                            if ($visanets) {
+
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Factura</th>
+                                        <th>Recibo</th>
+                                        <th>monto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <?php foreach ($visanets->result() as $visanet) {
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $visanet->factura_id ?></td>
+                                            <td><?php echo $visanet->recibo_id ?></td>
+                                            <td><?php echo display_formato_dinero($visanet->monto); ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="2">Total</td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_ingresos_caja); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay Ingresos';
+                            } ?>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                     <div class="row">
                         <h2 class="page-header">

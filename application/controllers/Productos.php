@@ -1215,11 +1215,16 @@ class Productos extends Base_Controller
             $this->Factura_model->guardar_factura_recibo($factura_id, $recibo_id);
         }
 
+        $margen = ($datos_factura['total'] - $suma_mutuos );
+        $margen = ($margen / $suma_mutuos);
+        $margen = ($margen * 100);
+
         //registro de caja
         $registro_venta = array(
             'factura_id' => $factura_id,
             'serie' => $this->input->post('serie_factura'),
             'recibo_id' => $recibo_id,
+            'margen' => $margen,
             'monto' => $datos_factura['total'],
             'id_producto' => '',
             'nombre_producto' => '',
