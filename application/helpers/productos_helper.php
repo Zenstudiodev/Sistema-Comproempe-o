@@ -7,6 +7,37 @@
  */
 
 
+function colores_de_margen($margen){
+    $color_margen = '';
+
+    if($margen > 1){
+        $color_margen ='bg-red-active  color-palette';
+    }
+    if($margen >70 && $margen < 100){
+        $color_margen ='bg-yellow color-palette';
+    }
+
+    if($margen >= 100){
+        $color_margen ='bg-green color-palette';
+    }
+    echo $color_margen;
+}
+
+function formato_de_margen($margen){
+    if(is_integer($margen)){
+        echo 'mada';
+    }else{
+        echo'no es entereo';
+        number_format((float)$margen, 2, '.', '');
+    }
+    return $margen;
+}
+function dias_de_gracia_contrato($id_contrato){
+    $ci =& get_instance();
+    $datos_de_contrato = $ci->Contratos_model->get_info_contrato($id_contrato);
+    $datos_de_contrato = $datos_de_contrato->row();
+    return $datos_de_contrato->dias_gracia;;
+}
 function get_imgenes_producto_public($producto_id)
 {
     $ci =& get_instance();

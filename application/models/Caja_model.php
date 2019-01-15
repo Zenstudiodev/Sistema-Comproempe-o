@@ -55,6 +55,7 @@ class Caja_model extends CI_Model
             'serie' => $data['serie'],
             'recibo_id' => $data['recibo_id'],
             'monto' => $data['monto'],
+            'margen' => $data['margen'],
             'id_producto' => $data['id_producto'],
             'nombre_producto' => $data['nombre_producto'],
             'tienda_id' => $tienda,

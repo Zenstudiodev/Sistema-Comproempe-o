@@ -78,6 +78,7 @@ $producto = $producto->row();
             <tr>
                 <td colspan="2">Producto</td>
                 <td>Id: <b><?php echo $producto->producto_id; ?></b></td>
+                <td >Tienda del producto: <?php echo $producto->tienda_actual; ?></td>
 
             </tr>
             </thead>
@@ -100,7 +101,7 @@ $producto = $producto->row();
 
         </table>
         <hr>
-        <a class="btn btn-success">facturar</a>
+        <a class="btn btn-success" href="<?php echo  base_url().'Productos/liquidar_pedido_pagina/'.$producto->producto_id;?>">facturar</a>
         <a class="btn btn-danger">Cancelar</a>
     </section>
 

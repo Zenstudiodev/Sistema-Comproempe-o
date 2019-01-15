@@ -62,8 +62,6 @@ if ($contrato) {
                         <th>REFRENDO</th>
                         <th>DESEMPEÑO</th>
                         <th>MUTUO</th>
-                        <th>INTERESES REFRENDO</th>
-                        <th>SERVICIO ALMACENAJE</th>
                         <th>MORA</th>
                         <th>GASTOS DE RECUPERACION</th>
                         <th>TOTAL</th>
@@ -87,8 +85,6 @@ if ($contrato) {
                             <td><?php echo $contrato->referendo ?></a></td>
                             <td class="contrato_desempeno"><?php echo $contrato->desempeno ?></td>
                             <td class="contrato_mutuo"><?php echo $contrato->total_mutuo ?></td>
-                            <td><?php echo $pago_contrato->intereses_refrendo ?></td>
-                            <td><?php echo $pago_contrato->almacenaje ?></td>
                             <td><?php echo $pago_contrato->Mora ?></td>
                             <td><?php echo $pago_contrato->recuperacion ?></td>
                             <td><?php echo $pago_contrato->total;
@@ -99,14 +95,29 @@ if ($contrato) {
                     <?php
                         }
                     } ?>
+
+                    <tr>
+                        <td style="width: 10%">
+                            <?php echo $contrato->contrato_id ?>
+                        </td>
+                        <td><?php echo $contrato->fecha ?></td>
+                        <td><?php echo $contrato->fecha_pago ?></td>
+                        <td class="<?php color_por_estaado($contrato->estado); ?>"><?php echo $contrato->estado ?></td>
+                        <td><?php echo $contrato->referendo ?></a></td>
+                        <td class="contrato_desempeno"><?php echo $contrato->desempeno ?></td>
+                        <td class="contrato_mutuo"><?php echo $contrato->total_mutuo ?></td>
+                        <td><?php echo $pago_contrato->Mora ?></td>
+                        <td><?php echo $pago_contrato->recuperacion ?></td>
+                        <td><?php echo $total_totales;?></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
 
             <table class="table">
                 <tr>
-                    <td>Total a pagar</td>
-                    <td id="total_mutuos"><?php echo $total_totales;?></td>
+                    <td>Total a refrendo</td>
+                    <td id="total_mutuos"></td>
                 </tr>
             </table>
         <?php } ?>

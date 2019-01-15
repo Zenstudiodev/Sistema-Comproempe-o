@@ -265,6 +265,7 @@ class Productos extends Base_Controller
         $detalle_recibo = '';
         $contrados_recibo = '';
         $id_productos = '';
+        $total_mutuos = '';
         $nombre_productos = '';
         $numero_productos = '';
         $suma_mutuos = 0;
@@ -381,12 +382,18 @@ class Productos extends Base_Controller
             $this->Factura_model->guardar_factura_recibo($factura_id, $recibo_id);
         }
 
+        $margen = ($datos_factura['total'] - $suma_mutuos );
+        $margen = ($margen / $suma_mutuos);
+        $margen = ($margen * 100);
+
 
         $registro_venta = array(
             'factura_id' => $factura_id,
             'recibo_id' => '',
             'serie' => $this->input->post('serie_factura'),
             'monto' => $datos_factura['total'],
+            'margen' => $margen,
+            'mutuo' => $suma_mutuos,
             'id_producto' => $id_productos,
             'nombre_producto' => $nombre_productos,
         );
@@ -1001,10 +1008,10 @@ class Productos extends Base_Controller
 
             //actualizamos el producto
             $fecha_vencimiento_apartado = New DateTime();
-            if ($this->input->post('producto_' . $i . '_p') > 600) {
-                $fecha_vencimiento_apartado->modify('+30 days');
+            if ($this->input->post('producto_' . $i . '_p') > 500) {
+                $fecha_vencimiento_apartado->modify('+90 days');
             } else {
-                $fecha_vencimiento_apartado->modify('+15 days');
+                $fecha_vencimiento_apartado->modify('+30 days');
             }
 
             $nueva_existencia = $datos_producto->existencias - 1;
@@ -1493,6 +1500,22 @@ class Productos extends Base_Controller
         $data['pedido'] = $this->Productos_model->datos_pediddo_by_id($pedido_id);
         $data['producto'] = $this->Productos_model->datos_de_producto($producto_id);
         echo $this->templates->render('admin/detalle_pedido', $data);
+    }
+    function liquidar_pedido_pagina(){
+        $data = compobarSesion();
+        //pedid id
+        $producto_id = $this->uri->segment(3);
+        echo'<form method="post" action="'.base_url().'Productos/liquidar/" id="liquidar_pedido_form">';
+        echo'<input type="text" id="'.$producto_id.'" name="producto_'.$producto_id.'" value="'.$producto_id.'" che>';
+        echo'</form>';
+        echo'
+              <script type="text/javascript">
+        window.onload = function() {
+           document.getElementById("liquidar_pedido_form").submit();
+        }
+</script>';
+
+
     }
 
     //publico

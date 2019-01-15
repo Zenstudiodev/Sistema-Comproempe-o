@@ -237,7 +237,7 @@ class Contrato extends Base_Controller
                 // user hasen't submitted anything yet!
                 redirect(base_url() . 'index.php/cliente/detalle/' . $data['segmento_c'], 'refresh');
             }
-            print_r($productos);
+            //print_r($productos);
             //print_r($_POST);
 
             $data['productos'] = $this->Productos_model->datos_de_productos($productos);

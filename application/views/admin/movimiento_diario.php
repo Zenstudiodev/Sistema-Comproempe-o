@@ -90,7 +90,7 @@ $ci =& get_instance();
                                     <thead>
                                     <tr>
                                         <th rowspan="2">Día</th>
-                                        <th colspan="3">Ventas</th>
+                                        <th colspan="4">Ventas</th>
                                         <th></th>
                                         <th colspan="3">Apartado</th>
                                         <th></th>
@@ -140,6 +140,7 @@ $ci =& get_instance();
 
                                     //definimos los totales globales
                                     $total_ventas_periodo =0;
+                                    $total_mutuos_periodo =0;
                                     $total_apartados_periodo =0;
                                     $total_empenos_periodo =0;
                                     $total_desempenos_periodo =0;
@@ -153,12 +154,14 @@ $ci =& get_instance();
                                             // Loop ventas
                                             $ventas_dia = $ci->Caja_model->get_ventas_dia($fecha_inicio->format('Y-m-d'));
                                             $total_ventas_dia =0;
+                                            $total_mutuos_de_venta_dia =0;
                                             $productos = array();
                                             $productos_text ='';
                                             $numero_productos = 0;
                                             if($ventas_dia){
                                                 foreach ($ventas_dia->result() as $venta){
                                                     $total_ventas_dia = $total_ventas_dia + $venta->monto;
+                                                    $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                     $productos[] = $venta->id_producto;
                                                 }
                                                 $productos_text = implode(",", $productos);
@@ -167,10 +170,12 @@ $ci =& get_instance();
 
                                             }
                                             $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
+                                            $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                             ?>
                                             <th><?php echo $numero_productos;?></th>
                                             <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
                                             <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
+                                            <th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>
                                             <th></th>
                                             <?php
                                             // Loop apartados
@@ -273,7 +278,8 @@ $ci =& get_instance();
                                     ?>
                                     <tr>
                                         <td>totales</td>
-                                        <td colspan="3">Total Ventas</td>
+                                        <td colspan="2">Total Ventas</td>
+                                        <td >Total margenes</td>
                                         <td></td>
                                         <td colspan="3">Total Apartado</td>
                                         <td></td>
@@ -293,7 +299,14 @@ $ci =& get_instance();
                                             <br>
                                             a <?php echo $fecha_final->format('Y-m-d');?>
                                         </td>
-                                        <td colspan="3"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                        <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                        <?php
+                                        $margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
+                                        $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
+                                        $margen_periodo = ($margen_periodo * 100);
+                                        ?>
+                                        <td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>
+
                                         <td></td>
                                         <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
                                         <td></td>

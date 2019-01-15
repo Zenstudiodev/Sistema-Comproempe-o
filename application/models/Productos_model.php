@@ -298,7 +298,11 @@ class productos_model extends CI_Model
 
         } elseif ($tienda == '2') {
             $this->db->where('tienda_actual', '2');
+        }elseif ($tienda == '3') {
+            $this->db->where('tienda_actual', '3');
         }
+
+
         $this->db->where('tipo', 'venta');
         $this->db->where('imagen', '0');
 

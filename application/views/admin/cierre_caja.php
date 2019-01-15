@@ -226,6 +226,7 @@ $dinero_en_caja = 0;
                             <h3 class="box-title">Ventas</h3>
                             <?php
                             $total_ventas = 0;
+                            $total_mutuos = 0;
                             if ($ventas) {
 
                                 ?>
@@ -246,12 +247,13 @@ $dinero_en_caja = 0;
 
                                     <?php foreach ($ventas->result() as $venta) {
                                         $total_ventas = $total_ventas + $venta->monto;
+                                        $total_mutuos = $total_mutuos + $venta->mutuo;
                                         ?>
                                         <tr>
                                             <td><?php echo $venta->factura_id ?></td>
                                             <td><?php echo $venta->serie ?></td>
                                             <td><?php echo display_formato_dinero($venta->monto); ?></td>
-                                            <td></td>
+                                            <td class="<?php echo colores_de_margen($venta->margen)?>"><?php echo intval($venta->margen); ?> %</td>
                                             <td><?php echo $venta->id_producto ?></td>
                                             <td><?php echo $venta->nombre_producto ?></td>
                                             <td><?php echo   id_to_nombre($venta->user_id);?></td>
@@ -259,9 +261,25 @@ $dinero_en_caja = 0;
                                         </tr>
                                         <?php
                                     } ?>
+                                    <?php
+                                    if($total_mutuos == 0){
+                                        $total_margen =0;
+                                    }else{
+                                        //margen de totales
+                                        $total_margen = ($total_ventas - $total_mutuos );
+                                        $total_margen = ($total_margen / $total_mutuos);
+                                        $total_margen = ($total_margen * 100);
+                                    }
+
+
+                                    ?>
                                     <tr>
                                         <td colspan="3">Total</td>
                                         <td id="totaL_ingresos"><?php echo display_formato_dinero($total_ventas); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Margen Total</td>
+                                        <td class="<?php echo colores_de_margen($total_margen)?>"><?php echo intval($total_margen); ?> %</td>
                                     </tr>
                                     </tbody>
                                 </table>
