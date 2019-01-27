@@ -70,7 +70,7 @@ $categoria_d = $categoria;
                         </div>
                         <div class="card-body">
 
-                            <?php //echo $page; ?>
+
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
                                     <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/1'?>">1</a></li>

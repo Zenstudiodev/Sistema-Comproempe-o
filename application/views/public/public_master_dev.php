@@ -9,24 +9,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <title>Compro empeño -Tu solución inmediata- </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="/ui/admin/dist/img/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <?php echo $this->section('css_p') ?>
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>node_modules/animate.css/animate.min.css">
-    <!-- public parsed CSS -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>ui/public/css/style.css">
-
-</head>
 <body>
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
@@ -174,4 +156,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </script>
 <!-- {/literal} END JIVOSITE CODE -->
 </body>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Compro empeño -Tu solución inmediata- </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/ui/admin/dist/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <?php echo $this->section('css_p') ?>
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>node_modules/animate.css/animate.min.css">
+    <!-- public parsed CSS -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/public/css/style.css">
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+
+</head>
 </html>

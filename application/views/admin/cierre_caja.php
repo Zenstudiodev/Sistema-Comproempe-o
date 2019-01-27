@@ -746,9 +746,9 @@ $dinero_en_caja = 0;
                         <div class="col-xs-12 table-responsive">
                             <h3 class="box-title">Detalle visanet</h3>
                             <?php
-                            $total_ingresos_caja = 0;
+                            //Visanet
+                            $total_visanet = 0;
                             if ($visanets) {
-
                                 ?>
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -761,6 +761,7 @@ $dinero_en_caja = 0;
                                     <tbody>
 
                                     <?php foreach ($visanets->result() as $visanet) {
+                                        $total_visanet = $total_visanet + round($visanet->monto, 2);
                                         ?>
                                         <tr>
                                             <td><?php echo $visanet->factura_id ?></td>
@@ -771,7 +772,48 @@ $dinero_en_caja = 0;
                                     } ?>
                                     <tr>
                                         <td colspan="2">Total</td>
-                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_ingresos_caja); ?></td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_visanet); ?></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            <?php } else {
+                                echo 'No hay Ingresos';
+                            } ?>
+
+                        </div>
+                        <div class="col-xs-12 table-responsive">
+                            <h3 class="box-title">Detalle depositos</h3>
+                            <?php
+                            //Depositos
+                            $total_depositos = 0;
+                            if ($depositos) {
+                                ?>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Boleta</th>
+                                        <th>Banco</th>
+                                        <th>Tipo</th>
+                                        <th>Ref</th>
+                                        <th>Monto</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($depositos->result() as $deposito) {
+                                        $total_depositos = $total_depositos + round($deposito->monto, 2);
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $deposito->no_boleta ?></td>
+                                            <td><?php echo $deposito->banco ?></td>
+                                            <td><?php echo $deposito->tipo ?></td>
+                                            <td><?php echo $deposito->tipo ?></td>
+                                            <td><?php echo display_formato_dinero($deposito->monto); ?></td>
+                                        </tr>
+                                        <?php
+                                    } ?>
+                                    <tr>
+                                        <td colspan="2">Total</td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_visanet); ?></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -933,21 +975,6 @@ $dinero_en_caja = 0;
                     + $total_otros_gastos;
 
                 $saldo = $total_ingresos - $total_egresos;
-
-                //Depositos
-                $total_depositos = 0;
-                if ($depositos) {
-                    foreach ($depositos->result() as $deposito) {
-                        $total_depositos = $total_depositos + round($deposito->monto, 2);
-                    }
-                }
-                //Visanet
-                $total_visanet = 0;
-                if ($visanets) {
-                    foreach ($visanets->result() as $visanet) {
-                        $total_visanet = $total_visanet + round($visanet->monto, 2);
-                    }
-                }
 
                 $saldo_final = $saldo - $total_depositos - $total_visanet;
                 $saldo_final = round($saldo_final, 2);

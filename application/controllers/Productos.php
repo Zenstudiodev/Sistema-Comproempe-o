@@ -607,8 +607,6 @@ class Productos extends Base_Controller
 
     }
 
-
-
     //traslado
     function productos_trasladar()
     {
@@ -833,14 +831,11 @@ class Productos extends Base_Controller
         echo '</pre>';
         exit();
         */
-
-
         $fecha = New DateTime();
         $detalle_factura = '';
         $detalle_recibo = '';
         $contrados_recibo = '';
         $suma_mutuos = 0;
-
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
         while ($i <= $numero_de_productos) {
@@ -875,8 +870,6 @@ class Productos extends Base_Controller
             $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
             $i++;
         }
-
-
         //echo '<table>' . $detalle_factura . '</table>';
         $datos_factura = array(
             'no_factura' => $this->input->post('no_factura'),
@@ -910,7 +903,6 @@ class Productos extends Base_Controller
         /*echo '<pre>';
         print_r($datos_recibo);
         echo '</pre>';*/
-
         if ($_POST['comprobante'] == 'factura') {
             //guardamos factura
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
@@ -920,6 +912,7 @@ class Productos extends Base_Controller
                 'recibo_id' => '',
                 'serie' => $this->input->post('serie_factura'),
                 'monto' => $this->input->post('total'),
+                'margen' => '0',
                 'id_producto' => '',
                 'nombre_producto' => '',
             );
@@ -938,10 +931,7 @@ class Productos extends Base_Controller
             );
             $this->Caja_model->guardar_ventas_dia($registro_venta);
         }
-
-
         redirect(base_url() . 'index.php/cliente/detalle/' . $this->input->post('cliente_id'), 'refresh');
-
     }
 
     //apartado
@@ -1709,5 +1699,12 @@ class Productos extends Base_Controller
             redirect(base_url());
         }
 
+    }
+    function gracias_pedido(){
+
+        //categorias publicas
+        $data['categorias'] = $this->Productos_model->get_public_categorias();
+
+        echo $this->templates->render('public/gracias_pedido', $data);
     }
 }
