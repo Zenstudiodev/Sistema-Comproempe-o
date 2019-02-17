@@ -71,6 +71,7 @@ $this->layout('admin/admin_master', [
                                         <option value="1">Tienda 1</option>
                                         <option value="2">Tienda 2</option>
                                         <option value="3">Tienda 3</option>
+                                        <option value="4">Tienda 4</option>
                                     </select>
                                 </div>
                             </div>

@@ -87,7 +87,7 @@ class Contrato extends Base_Controller
                                 echo '<p>Contrato Vencido</p>';
                                 $this->Contratos_model->actualizar_estado_contrato_t1($contrato->contrato_id, 'perdido');
                                 echo '<p>Contrato actualizado</p>';
-                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '1');
 
                                 foreach ($productos->result() as $producto) {
                                     echo $producto->tienda_id . '<br>';
@@ -132,9 +132,8 @@ class Contrato extends Base_Controller
                                 echo '<p>en dias de gracia</p>';
                             } else {
                                 echo '<p>Contrato Vencido</p>';
-
                                 $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'perdido');
-                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '2');
                                 if($productos){
                                     foreach ($productos->result() as $producto) {
                                         $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
@@ -181,7 +180,7 @@ class Contrato extends Base_Controller
                                 echo '<p>Contrato Vencido</p>';
 
                                 $this->Contratos_model->actualizar_estado_contrato_t3($contrato->contrato_id, 'perdido');
-                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id);
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '3');
                                 if($productos){
                                     foreach ($productos->result() as $producto) {
                                         $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
@@ -469,6 +468,7 @@ class Contrato extends Base_Controller
         );
         //si el contrato esta vencido pasar los productos vinculados al contrato a vigentes
         if ($contrato->estado == 'perdido') {
+            $tienda = tienda_id_h();
             $productos_contrato = $this->Productos_model->get_productos_by_contrato($contrato->contrato_id);
 
             foreach ($productos_contrato->result() as $producto) {

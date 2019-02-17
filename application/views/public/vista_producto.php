@@ -8,6 +8,7 @@
 $this->layout('public/public_master_dev', [
     'monstrar_banners' => $monstrar_banners
 ]);
+$categoria_d = $categoria;
 
 
 if ($producto_data) {
@@ -22,24 +23,44 @@ if ($producto_data) {
 <div class="container" id="categorias_wraper">
     <h1>Productos en liquidación</h1>
     <div class="row">
-        <div class="col-md-3">
-            <h2 class="categorias_title">Catgorías</h2>
+        <div class="col-md-3 categorias_col" id="categorias_col">
+            <h2 class="categorias_title">
+                Categorías
+            </h2>
             <?php
             //print_contenido($categorias->result());
             if ($categorias) { ?>
                 <ul class="list-group" id="lista_categorias">
+                    <a href="#" id="cerrar_categorias" class="list-group-item list-group-item-action flex-column align-items-start d-block d-sm-none">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Cerrar Catgorías</h5>
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </a>
                     <?php foreach ($categorias->result() as $categoria) { ?>
-                        <a href="<?php echo base_url() . 'productos/categoria/' . $categoria->categoria ?>"
+                        <a href="<?php echo base_url() . 'productos/filtro/' . $categoria->categoria.'/'. $tienda?>"
                            class="list-group-item list-group-item-action"
                            catergoria="<?php echo $categoria->categoria ?>">
                             <?php echo $categoria->categoria ?>
+                            <span class="badge badge-primary badge-pill">
+                                <?php echo productops_en_categoria($categoria->categoria);?>
+                            </span>
                         </a>
                         <!--<li class="list-group-item"><?php /*echo $categoria->categoria */ ?></li>-->
                     <?php } ?>
                 </ul>
             <?php }
             ?>
-
+            <?php
+            //si no hay producto mostrar categorias todas
+            if(isset($producto)){
+                $categoria_producto = $producto->categoria;
+            }else{
+                $categoria_producto = 'todas';
+            }
+            ?>
         </div>
         <div class="col-md-9">
             <div class="row">
@@ -48,7 +69,7 @@ if ($producto_data) {
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Incio</a></li>
                             <li class="breadcrumb-item"><a
-                                        href="<?php echo base_url() . 'productos/categoria/' . $producto->categoria; ?>"><?php echo $producto->categoria; ?></a>
+                                        href="<?php echo base_url() . 'productos/categoria/' . $categoria_producto; ?>"><?php echo $categoria_producto; ?></a>
                             </li>
                         </ol>
                     </nav>
@@ -101,13 +122,14 @@ if ($producto_data) {
                                 <p><span class="producto_data_spec">Marca:</span> <?php echo $producto->marca; ?></p>
                                 <p><span class="producto_data_spec">Modelo:</span> <?php echo $producto->modelo; ?></p>
                                 <p><span class="producto_data_spec">Serie:</span> <?php echo $producto->no_serie; ?></p>
+                                <!-- todo precio
                                 <p class="producto_data_price">Precio:
                                     Q.<?php echo display_formato_dinero_return($precio_producto); ?></p>
                                 <?php if ($producto->precio_descuento != '0') { ?>
                                     <p class="producto_data_price_descuento">Precio descuento:
                                         Q.<?php echo display_formato_dinero_return($producto->precio_descuento); ?></p>
                                 <?php } ?>
-                                <p>
+                                <p>-->
 
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal"

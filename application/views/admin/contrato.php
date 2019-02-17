@@ -546,6 +546,10 @@ if ($cliente)
                                     elseif ($tienda =='2'){ ?>
                                         <p>Domicilio: RUTA AL ATLANTICO 4-26, ZONA 17, CENTRA NORTE, LOCAL U-15,  GUATEMALA, GUATEMALA</p>
                                         <p>Teléfono: 2233-1050</p>
+                                   <?php }
+                                    elseif ($tienda =='3'){ ?>
+                                        <p>Domicilio: KM 5 CARRETERA AL ALTRANTICO, XONA 17 LOCAL 107, GUATEMALA, GUATEMALA</p>
+                                        <p>Teléfono: 2233-1050</p>
                                    <?php }  ?>
 
                                 </td>

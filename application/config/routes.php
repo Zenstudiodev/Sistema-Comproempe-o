@@ -53,4 +53,5 @@ $route['default_controller'] = 'Home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['productos/'] = 'productos/index';
+$route['Nosotros/'] = 'home/nosotros';
 

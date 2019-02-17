@@ -35,6 +35,14 @@ Serie <select id="serie_select">
         <option value="R">RE</option>
         <?php
     }
+    if ($tienda == '3') {
+
+        ?>
+        <option value="A">MN</option>
+        <option value="R">RE</option>
+        <option value="A2">CN</option>
+        <?php
+    }
     ?>
 </select>
 <button id="filtrar">filtrar</button>
@@ -154,6 +162,9 @@ Serie <select id="serie_select">
             }
             if(serie == 'R'){
                 url = '<?php echo base_url();?>' + 'factura/facturas_r_html_excel/' + de + '/' + a;
+            }
+            if(serie == 'A2'){
+                url = '<?php echo base_url();?>' + 'factura/facturas_2_html_excel/' + de + '/' + a;
             }
             console.log(url);
            window.location.href = url;

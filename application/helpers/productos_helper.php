@@ -32,10 +32,12 @@ function formato_de_margen($margen){
     }
     return $margen;
 }
-function dias_de_gracia_contrato($id_contrato){
+function dias_de_gracia_contrato($id_contrato, $tienda_origen){
     $ci =& get_instance();
-    $datos_de_contrato = $ci->Contratos_model->get_info_contrato($id_contrato);
-    $datos_de_contrato = $datos_de_contrato->row();
+    $datos_de_contrato = $ci->Contratos_model->get_info_contrato_sin_imagen($id_contrato, $tienda_origen);
+    if($datos_de_contrato){
+        $datos_de_contrato = $datos_de_contrato->row();
+    }
     return $datos_de_contrato->dias_gracia;;
 }
 function get_imgenes_producto_public($producto_id)

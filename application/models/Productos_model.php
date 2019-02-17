@@ -84,7 +84,12 @@ class productos_model extends CI_Model
     //bodega
     function cargar_bodega()
     {
-        $this->db->where('tienda_actual', '100');
+        $tienda = tienda_id_h();
+
+        // insertamon en la base de datos
+            $this->db->where('tienda_actual', $tienda);
+            $this->db->where('bodega', '1');
+
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
     }
@@ -96,6 +101,8 @@ class productos_model extends CI_Model
         $tienda_actual = $datos_producto['tienda_id'];
         $precio_venta = $datos_producto['precio_venta'];
         $precio_descuento = $datos_producto['precio_descuento'];
+        $bodega = $datos_producto['bodega'];
+        $tipo = $datos_producto['tipo'];
         /*$cliente_id = '';
         $proveedor_id = '';
         $existencias = '';
@@ -124,6 +131,8 @@ class productos_model extends CI_Model
             'tienda_actual' => $tienda_actual,
             'precio_venta' => $precio_venta,
             'precio_descuento' => $precio_descuento,
+            'bodega' => $bodega,
+            'tipo' => $tipo,
             /*'cliente_id' => $cliente_id,
             'proveedor_id' => $proveedor_id,
             'existencias' => $existencias,
@@ -160,6 +169,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
         $this->db->where('producto.tienda_actual', '1');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
 
         $query = $this->db->get();
@@ -175,6 +185,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
         $this->db->where('producto.tienda_actual', '1');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_2', 'producto.contrato_id = contrato_tienda_2.contrato_id');
 
         $query = $this->db->get();
@@ -190,7 +201,24 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');
         $this->db->where('producto.tienda_actual', '1');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_3', 'producto.contrato_id = contrato_tienda_3.contrato_id');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_tienda_1_contratos_4()
+    {
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.precio_descuento, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_4.estado');
+        $this->db->from('producto');
+        $this->db->where('producto.tipo', 'venta');
+        $this->db->where('producto.tienda_id', '4');
+        $this->db->where('producto.tienda_actual', '1');
+        $this->db->where('producto.bodega', '0');
+        $this->db->join('contrato_tienda_4', 'producto.contrato_id = contrato_tienda_4.contrato_id');
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -205,6 +233,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
         $this->db->where('producto.tienda_actual', '2');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
 
         $query = $this->db->get();
@@ -220,6 +249,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
         $this->db->where('producto.tienda_actual', '2');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_2', 'producto.contrato_id = contrato_tienda_2.contrato_id');
 
         $query = $this->db->get();
@@ -235,7 +265,24 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');
         $this->db->where('producto.tienda_actual', '2');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_3', 'producto.contrato_id = contrato_tienda_3.contrato_id');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_tienda_2_contratos_4()
+    {
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.precio_descuento, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_4.estado');
+        $this->db->from('producto');
+        $this->db->where('producto.tipo', 'venta');
+        $this->db->where('producto.tienda_id', '4');
+        $this->db->where('producto.tienda_actual', '2');
+        $this->db->where('producto.bodega', '0');
+        $this->db->join('contrato_tienda_4', 'producto.contrato_id = contrato_tienda_4.contrato_id');
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -250,6 +297,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '1');
         $this->db->where('producto.tienda_actual', '3');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
 
         $query = $this->db->get();
@@ -265,6 +313,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '2');
         $this->db->where('producto.tienda_actual', '3');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_2', 'producto.contrato_id = contrato_tienda_2.contrato_id');
 
         $query = $this->db->get();
@@ -280,7 +329,24 @@ class productos_model extends CI_Model
         $this->db->where('producto.tipo', 'venta');
         $this->db->where('producto.tienda_id', '3');
         $this->db->where('producto.tienda_actual', '3');
+        $this->db->where('producto.bodega', '0');
         $this->db->join('contrato_tienda_3', 'producto.contrato_id = contrato_tienda_3.contrato_id');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_productos_tienda_3_contratos_4()
+    {
+        // Get tienda data
+        $tienda = tienda_id_h();
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.precio_descuento, producto.mutuo, producto.tipo, producto.tienda_id, producto.tienda_actual, contrato_tienda_4.estado');
+        $this->db->from('producto');
+        $this->db->where('producto.tipo', 'venta');
+        $this->db->where('producto.tienda_id', '4');
+        $this->db->where('producto.tienda_actual', '3');
+        $this->db->where('producto.bodega', '0');
+        $this->db->join('contrato_tienda_4', 'producto.contrato_id = contrato_tienda_4.contrato_id');
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -292,18 +358,21 @@ class productos_model extends CI_Model
     {
         $tienda = tienda_id_h();
 
-        // insertamon en la base de datos
-        if ($tienda == '1') {
-            $this->db->where('tienda_actual', '1');
+            // insertamon en la base de datos
+            if ($tienda == '1') {
+                $this->db->where('tienda_actual', '1');
 
         } elseif ($tienda == '2') {
             $this->db->where('tienda_actual', '2');
-        }elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->where('tienda_actual', '3');
         }
-
-
+        elseif ($tienda == '4') {
+            $this->db->where('tienda_actual', '4');
+        }
         $this->db->where('tipo', 'venta');
+        $this->db->where('bodega', '0');
         $this->db->where('imagen', '0');
 
         $query = $this->db->get('producto');
@@ -394,10 +463,10 @@ class productos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function get_productos_by_contrato_actualizador($contrato_id)
+    function get_productos_by_contrato_actualizador($contrato_id, $tienda)
     {
 
-        //$this->db->where('tienda_id', $tienda);
+        $this->db->where('tienda_id', $tienda);
         $this->db->where('contrato_id', $contrato_id);
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
@@ -432,13 +501,30 @@ class productos_model extends CI_Model
             $this->db->where('producto.tipo', 'venta');
             $this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
             $this->db->where('contrato.tienda_id', '1');
-        } elseif ($tienda == '2') {
+        }
+        elseif ($tienda == '2') {
             $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_2.estado');
             $this->db->from('producto');
             $this->db->where('producto.tipo', 'venta');
             $this->db->where('producto.tienda_id', '2');
             // $this->db->where('contrato.tienda_id', '2');
             $this->db->join('contrato_tienda_2', 'producto.contrato_id = contrato_tienda_2.contrato_id');
+        }
+        elseif ($tienda == '3') {
+            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_3.estado');
+            $this->db->from('producto');
+            $this->db->where('producto.tipo', 'venta');
+            $this->db->where('producto.tienda_id', '3');
+            // $this->db->where('contrato.tienda_id', '2');
+            $this->db->join('contrato_tienda_3', 'producto.contrato_id = contrato_tienda_3.contrato_id');
+        }
+        elseif ($tienda == '4') {
+            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_4.estado');
+            $this->db->from('producto');
+            $this->db->where('producto.tipo', 'venta');
+            $this->db->where('producto.tienda_id', '4');
+            // $this->db->where('contrato.tienda_id', '2');
+            $this->db->join('contrato_tienda_4', 'producto.contrato_id = contrato_tienda_4.contrato_id');
         }
 
         $query = $this->db->get();
@@ -560,8 +646,12 @@ class productos_model extends CI_Model
             $this->db->where('producto.tienda_actual', '1');
         } elseif ($tienda == '2') {
             $this->db->where('producto.tienda_actual', '2');
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->where('producto.tienda_actual', '3');
+        }
+        elseif ($tienda == '4') {
+            $this->db->where('producto.tienda_actual', '4');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
@@ -579,8 +669,15 @@ class productos_model extends CI_Model
         // insertamos en la base de datos
         if ($tienda == '1') {
             $this->db->where('producto.tienda_actual', '1');
-        } elseif ($tienda == '2') {
+        }
+        elseif ($tienda == '2') {
             $this->db->where('producto.tienda_actual', '2');
+        }
+        elseif ($tienda == '3') {
+            $this->db->where('producto.tienda_actual', '3');
+        }
+        elseif ($tienda == '4') {
+            $this->db->where('producto.tienda_actual', '4');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
@@ -707,7 +804,7 @@ class productos_model extends CI_Model
     {
         //productos con imagen
         $prductos_con_foto_arr = productos_con_imagen_public();
-        $tiendas = array('1', '2','3');
+        $tiendas = array('1', '2','3','4');
 
         $this->db->distinct('categoria');
         $this->db->select('categoria');
@@ -824,5 +921,29 @@ class productos_model extends CI_Model
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
+    }
+
+    //public pre empeño
+    function guardar_preempeño($datos_preempeno){
+
+        $preempeno = array(
+            'pe_nombre_cliente' => $datos_preempeno['cliente_id'],
+            'pe_dpi_cliente' => $datos_preempeno['fecha'],
+            'pe_correo_cliente' => $datos_preempeno['categoria'],
+            'pe_whatsapp_cliente' => $datos_preempeno['nombre_producto'],
+            'pe_telefono_cliente' => $datos_preempeno['no_serie'],
+            'pe_accion' => $datos_preempeno['modelo'],
+            'pe_categoria' => $datos_preempeno['marca'],
+            'pe_nombre_producto' => $datos_preempeno['descripcion'],
+            'pe_no_serie' => $datos_preempeno['fecha_avaluo'],
+            'pe_modelo' => $datos_preempeno['avaluo_comercial'],
+            'pe_marca' => $datos_preempeno['avaluo_ce'],
+            'pe_descripcion_producto' => $datos_preempeno['mutuo'],
+        );
+        // insertamon en la base de datos
+        $this->db->insert('preempeno', $preempeno);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
+
     }
 }

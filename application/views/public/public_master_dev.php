@@ -9,16 +9,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html lang="es">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Compro empeño -Tu solución inmediata- </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/ui/admin/dist/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <?php echo $this->section('css_p') ?>
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>node_modules/animate.css/animate.min.css">
+    <!-- public parsed CSS -->
+    <link rel="stylesheet" href="<?php echo base_url() ?>ui/public/css/style.css">
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+
+</head>
 <body>
 <div id="fb-root"></div>
-<script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.1';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+
 <header>
     <div id="top">
         <div class="container">
@@ -31,20 +47,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse " id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo base_url(); ?>home/pd">Inicio</a>
+                                    <a class="nav-link" href="<?php echo base_url(); ?>">Inicio</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>productos/filtro">Productos</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo base_url(); ?>nosotros">Nosotros</a>
+                                </li>
+                                <!--<li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>">Tiendas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>">Anticipos</a>
-                                </li>
+                                </li>-->
 
                             </ul>
 
@@ -102,10 +121,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <p class="telefono_footer">24771855</p>
                     </div>
                     <div class="col-md-4">
-                        <h4>Compro Empeño Centra Norte</h4>
+                        <h4>Compro Empeño Metro Norte</h4>
                         <p class="direccion_footer">
-                            RUTA AL ATLANTICO 4-26, ZONA 17, CENTRA NORTE, LOCAL U-15,  GUATEMALA, GUATEMALA</p>
-                        <p class="telefono_footer">2233-1050</p>
+                            KM 5 CARRETERA AL ALTRANTICO, XONA 17 LOCAL 107, GUATEMALA, GUATEMALA</p>
+                        <p class="telefono_footer">2255-2251</p>
                     </div>
                     <div class="col-md-4">
                         <div class="fb-page" data-href="https://www.facebook.com/ComproEmpe%C3%B1o-613630508847711/"
@@ -155,28 +174,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     (function(){ var widget_id = 'wzO0w1chmy';var d=document;var w=window;function l(){var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
 </script>
 <!-- {/literal} END JIVOSITE CODE -->
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.1';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-103355785-9"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-103355785-9');
+</script>
+
 </body>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <title>Compro empeño -Tu solución inmediata- </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="/ui/admin/dist/img/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900" rel="stylesheet">
-
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <?php echo $this->section('css_p') ?>
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>node_modules/animate.css/animate.min.css">
-    <!-- public parsed CSS -->
-    <link rel="stylesheet" href="<?php echo base_url() ?>ui/public/css/style.css">
-    <!-- Font awsome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-
-
-</head>
 </html>

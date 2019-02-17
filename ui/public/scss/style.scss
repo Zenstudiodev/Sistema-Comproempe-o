@@ -38,6 +38,29 @@ div#logo_container {
 h1 {
 }
 
+.bg_green{
+  background: $verde;
+  color: #fff;
+}
+.bg_yellow{
+  background: $amarillo;
+  color:#fff;
+}
+
+#nosotros_weaper{
+  h2{
+    text-align: center;
+    text-transform: uppercase;
+  }
+    p{
+    text-align: justify;
+  }
+  .visio_mision{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
 #productos_card {
   .card {
     .card-img-top {
@@ -95,6 +118,10 @@ footer {
   }
   #logo_top{
     height: 12vh;
+  }
+
+  h1 {
+    font-size: 2rem;
   }
 
 }

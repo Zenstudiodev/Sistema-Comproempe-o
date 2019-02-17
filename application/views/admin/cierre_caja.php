@@ -813,7 +813,7 @@ $dinero_en_caja = 0;
                                     } ?>
                                     <tr>
                                         <td colspan="2">Total</td>
-                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_visanet); ?></td>
+                                        <td id="totaL_ingresos"><?php echo display_formato_dinero($total_depositos); ?></td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -20,3 +20,13 @@
   text-transform: uppercase;
   font-weight: bold;
 }
+
+.collapse.show {
+  top: 7vh;
+  display: block;
+  width: 100vw;
+  background: $verde;
+  position: fixed;
+  padding: 10px;
+  z-index: 10;
+}

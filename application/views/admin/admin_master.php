@@ -102,6 +102,7 @@
                         <option value="1">Tienda 1</option>
                         <option value="2">Tienda 2</option>
                         <option value="3">Tienda 3</option>
+                        <option value="4">Tienda 4</option>
                     </select>
                     <!--<a class="btn btn-block btn-success"
                        href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */?>">

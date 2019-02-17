@@ -23,9 +23,14 @@ class Recibo_model  extends CI_Model
         } elseif ($tienda == '2') {
             $this->db->from('recibos_tienda_2');
             $this->db->join('cliente', 'cliente.id = recibos_tienda_2.cliente_id');
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->from('recibos_tienda_3');
             $this->db->join('cliente', 'cliente.id = recibos_tienda_3.cliente_id');
+        }
+        elseif ($tienda == '4') {
+            $this->db->from('recibos_tienda_4');
+            $this->db->join('cliente', 'cliente.id = recibos_tienda_4.cliente_id');
         }
 
 		$query = $this->db->get();
@@ -49,12 +54,20 @@ class Recibo_model  extends CI_Model
             $this->db->join('contrato_tienda_2', 'recibos_tienda_2.contrato_id = contrato_tienda_2.contrato_id');
             $this->db->where('recibos_tienda_2.cliente_id', $cliente_id);
             $this->db->where_in('recibos_tienda_2.tipo', $tipos_de_recibo);
-        }elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->select('recibos_tienda_3.recibo_id, recibos_tienda_3.estado, recibos_tienda_3.fecha_recibo, recibos_tienda_3.contrato_id, recibos_tienda_3.monto, recibos_tienda_3.tipo, contrato_tienda_3.total_mutuo');
             $this->db->from('recibos_tienda_3');
             $this->db->join('contrato_tienda_3', 'recibos_tienda_3.contrato_id = contrato_tienda_3.contrato_id');
             $this->db->where('recibos_tienda_3.cliente_id', $cliente_id);
             $this->db->where_in('recibos_tienda_3.tipo', $tipos_de_recibo);
+        }
+        elseif ($tienda == '4') {
+            $this->db->select('recibos_tienda_4.recibo_id, recibos_tienda_4.estado, recibos_tienda_4.fecha_recibo, recibos_tienda_4.contrato_id, recibos_tienda_4.monto, recibos_tienda_4.tipo, contrato_tienda_3.total_mutuo');
+            $this->db->from('recibos_tienda_4');
+            $this->db->join('contrato_tienda_4', 'recibos_tienda_4.contrato_id = contrato_tienda_4.contrato_id');
+            $this->db->where('recibos_tienda_4.cliente_id', $cliente_id);
+            $this->db->where_in('recibos_tienda_4.tipo', $tipos_de_recibo);
         }
 
 
@@ -73,8 +86,13 @@ class Recibo_model  extends CI_Model
         } elseif ($tienda == '2') {
             $this->db->from('recibos_tienda_2');
             $this->db->where('cliente_id', $cliente_id);
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->from('recibos_tienda_3');
+            $this->db->where('cliente_id', $cliente_id);
+        }
+        elseif ($tienda == '4') {
+            $this->db->from('recibos_tienda_4');
             $this->db->where('cliente_id', $cliente_id);
         }
 
@@ -93,8 +111,14 @@ class Recibo_model  extends CI_Model
             $this->db->from('recibos_tienda_2');
             $this->db->where('cliente_id', $cliente_id);
             $this->db->where_in('tipo', $tipos_de_recibo);
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $this->db->from('recibos_tienda_3');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where_in('tipo', $tipos_de_recibo);
+        }
+        elseif ($tienda == '4') {
+            $this->db->from('recibos_tienda_4');
             $this->db->where('cliente_id', $cliente_id);
             $this->db->where_in('tipo', $tipos_de_recibo);
         }
@@ -115,8 +139,12 @@ class Recibo_model  extends CI_Model
             $query = $this->db->get('recibos');
         } elseif ($tienda == '2') {
             $query = $this->db->get('recibos_tienda_2');
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $query = $this->db->get('recibos_tienda_3');
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->get('recibos_tienda_4');
         }
 		if($query->num_rows() > 0) return $query;
 		else return false;
@@ -131,8 +159,12 @@ class Recibo_model  extends CI_Model
             $query = $this->db->update('recibos', $datos);
         } elseif ($tienda == '2') {
             $query = $this->db->update('recibos_tienda_2', $datos);
-        } elseif ($tienda == '3') {
+        }
+        elseif ($tienda == '3') {
             $query = $this->db->update('recibos_tienda_3', $datos);
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->update('recibos_tienda_4', $datos);
         }
 	}
 }

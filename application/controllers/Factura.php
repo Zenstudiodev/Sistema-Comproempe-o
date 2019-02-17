@@ -269,4 +269,25 @@ class Factura extends Base_Controller
         echo $this->templates->render('admin/facturas_excel_html', $data);
 
     }
+    function facturas_2_html_excel()
+    {
+        $data = compobarSesion();
+
+
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+        if ($this->uri->segment(3) && $this->uri->segment(4)) {
+            $data['facturas'] = $this->Factura_model->facturas_html_excel_by_date($data['from'], $data['to']);
+        } else {
+            $data['facturas'] = $this->Factura_model->facturas_html_excel();
+        }
+
+        echo $this->templates->render('admin/facturas_excel_html', $data);
+
+    }
 }

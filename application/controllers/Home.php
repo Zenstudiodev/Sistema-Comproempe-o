@@ -5,7 +5,7 @@
  * Date: 31/07/2017
  * Time: 2:45 PM
  */
-
+defined('BASEPATH') OR exit('No direct script access allowed');
 class home extends Base_Controller
 {
     function __construct()
@@ -22,7 +22,16 @@ class home extends Base_Controller
 
     function index()
     {
-        echo $this->templates->render('public/home');
+        $data['productos'] = $this->Productos_model->get_productos_liquidacion_hompage_public();
+        $data['productos_descuento'] = $this->Productos_model->get_productos_descuento_hompage_public();
+        $data['monstrar_banners'] = true;
+        echo $this->templates->render('public/dp', $data);
+    }
+    function nosotros(){
+        $data['productos'] = $this->Productos_model->get_productos_liquidacion_hompage_public();
+        $data['productos_descuento'] = $this->Productos_model->get_productos_descuento_hompage_public();
+        $data['monstrar_banners'] = true;
+        echo $this->templates->render('public/nosotros', $data);
     }
     function exportar(){
 

@@ -202,10 +202,12 @@ class Productos extends Base_Controller
         if ($tienda == '1') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_1_contratos_3();
 
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_2_contratos_3();
         }
         elseif ($tienda == '3') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
@@ -503,6 +505,7 @@ class Productos extends Base_Controller
         $tienda = tienda_id_h();
         $productos_contrato_tienda_1 = false;
         $productos_contrato_tienda_2 = false;
+        $productos_contrato_tienda_3 = false;
 
         $productos = $this->Productos_model->cargar_bodega();
         echo json_encode($productos->result());
@@ -571,6 +574,7 @@ class Productos extends Base_Controller
             "categoria" => $_PUT['categoria'],
             "tienda_id" => $_PUT['tienda_actual'],
             "precio_venta" => $_PUT['precio_venta'],
+            "bodega" => $_PUT['bodega'],
             //"estado"=>"perdido"
             //"fecha_avaluo"=>"2018-03-18",
             //"contrato_id"=>"3",
@@ -599,6 +603,7 @@ class Productos extends Base_Controller
             'mutuo' => $producto->mutuo,
             'tipo' => $producto->tipo,
             'tienda_actual' => $producto->tienda_actual,
+            'bodega' => $producto->bodega,
         );
 
 
@@ -1564,6 +1569,21 @@ class Productos extends Base_Controller
     }
     function ver()
     {
+        //categoria
+        $categoria = $this->uri->segment(3);
+
+        if ($categoria == null) {
+            $categoria = 'todas';
+        }
+        $data['categoria'] = $categoria;
+
+        //tienda
+        $tienda = $this->uri->segment(4);
+        if ($tienda == null) {
+            $tienda = 'todas';
+        }
+        $data['tienda'] = $tienda;
+
         //id del producto
         $data['producto_id'] = urldecode($this->uri->segment(3));
         //si no hay producto redirigir a listado general de productos
@@ -1707,4 +1727,39 @@ class Productos extends Base_Controller
 
         echo $this->templates->render('public/gracias_pedido', $data);
     }
+    function preempeno(){
+        $data['monstrar_banners'] = false;
+        echo $this->templates->render('public/preempeno', $data);
+    }
+    function guardar_preempeno(){
+
+
+        $datos_preemepeño = array(
+            "nombre_cliente"=>  $this->input->post('nombre_cliente'),
+            "dpi_cliente"=>  $this->input->post('dpi_cliente'),
+            "correo_cliente"=>  $this->input->post('correo_cliente'),
+            "whatsapp_cliente"=>  $this->input->post('whatsapp_cliente'),
+            "telefono_cliente"=>  $this->input->post('telefono_cliente'),
+            "accion"=>  $this->input->post('accion'),
+            "categoria"=>  $this->input->post('categoria'),
+            "nombre_producto"=>  $this->input->post('nombre_producto'),
+            "no_serie"=>  $this->input->post('no_serie'),
+            "modelo"=>  $this->input->post('modelo'),
+            "marca"=>  $this->input->post('marca'),
+            "descripcion_producto"=>  $this->input->post('descripcion_producto'),
+        );
+
+        $preempeno_id = $this->Productos_model->guardar_preempeño($datos_preemepeño);
+
+        foreach ($_POST['file'] as $file){
+            echo $file;
+        }
+        echo $preempeno_id;
+
+        print_contenido($datos_preemepeño);
+    }
+    function listar_preempenos_pendientes(){}
+    function atender_premepeno(){}
+    function guardar_resultado_preempeno(){}
+    function listar_preemepenos_atendidos(){}
 }

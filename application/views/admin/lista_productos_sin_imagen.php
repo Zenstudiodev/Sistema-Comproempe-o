@@ -90,7 +90,7 @@ $hoy = New DateTime();
                                 <?php if ($imagenes_producto) { ?>
                                 <?php } else {
                                     //datos del contrato
-                                    $dias_de_gracia_contrato =dias_de_gracia_contrato($producto->contrato_id);
+                                    $dias_de_gracia_contrato =dias_de_gracia_contrato($producto->contrato_id, $producto->tienda_id);
                                     $diferencia_en_dias = diferencia_en_dias($dias_de_gracia_contrato);
                                     ?>
                                     <tr>
@@ -99,7 +99,7 @@ $hoy = New DateTime();
                                                 imagenes</a></td>
                                         <td><?php echo $producto->nombre_producto ?></td>
                                         <td><?php echo $producto->mutuo ?></td>
-                                        <td><?php echo $dias_de_gracia_contrato ?></td>
+                                        <td><?php echo $dias_de_gracia_contrato .' - '.$producto->tienda_id ?></td>
                                         <td><?php echo $diferencia_en_dias ?> días</td>
                                         <td><?php echo $producto->producto_id ?></td>
                                         <td><?php echo $producto->contrato_id ?></td>
