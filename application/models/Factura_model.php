@@ -34,6 +34,10 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_tienda_4');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_4.cliente_id');
         }
+        elseif ($tienda == '5') {
+            $this->db->from('facturas_tienda_5');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_5.cliente_id');
+        }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -59,6 +63,10 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_tienda_4_r');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_4_r.cliente_id');
         }
+        elseif ($tienda == '5') {
+            $this->db->from('facturas_tienda_5_r');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_4_r.cliente_id');
+        }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -79,6 +87,9 @@ class Factura_model extends CI_Model
         }
         elseif ($tienda == '4') {
             $query = $this->db->get('facturas_tienda_4');
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('facturas_tienda_5');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -101,6 +112,9 @@ class Factura_model extends CI_Model
         }
         elseif ($tienda == '4') {
             $this->db->from('facturas_tienda_4_r');
+        }
+        elseif ($tienda == '5') {
+            $this->db->from('facturas_tienda_5_r');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -160,6 +174,15 @@ class Factura_model extends CI_Model
                     $query = $this->db->get('facturas_tienda_4_r');
             }
         }
+        elseif ($tienda == '5') {
+            switch ($serie) {
+                case 'T5':
+                    $query = $this->db->get('facturas_tienda_5');
+                    break;
+                case 'TR5':
+                    $query = $this->db->get('facturas_tienda_5_r');
+            }
+        }
 
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -211,7 +234,8 @@ class Factura_model extends CI_Model
             $query = $this->db->get('facturas_r');
             if ($query->num_rows() > 0) return $query;
             else return false;
-        } elseif ($tienda == '2') {
+        }
+        elseif ($tienda == '2') {
             $query = $this->db->get('facturas_tienda_2_r');
             if ($query->num_rows() > 0) return $query;
             else {
@@ -229,8 +253,17 @@ class Factura_model extends CI_Model
                 else return false;
             }
         }
-        elseif ($tienda == '3') {
+        elseif ($tienda == '4') {
             $query = $this->db->get('facturas_tienda_4_r');
+            if ($query->num_rows() > 0) return $query;
+            else {
+                $query = $this->db->get('facturas_r');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('facturas_tienda_5_r');
             if ($query->num_rows() > 0) return $query;
             else {
                 $query = $this->db->get('facturas_r');
@@ -281,10 +314,20 @@ class Factura_model extends CI_Model
         elseif ($tienda == '4') {
             switch ($serie) {
                 case 'AG':
-                    $query = $this->db->update('facturas_tienda_3_r', $datos);
+                    $query = $this->db->update('facturas_tienda_4_r', $datos);
                     break;
                 case 'AR':
-                    $query = $this->db->update('facturas_tienda_3', $datos);
+                    $query = $this->db->update('facturas_tienda_4', $datos);
+                    break;
+            }
+        }
+        elseif ($tienda == '5') {
+            switch ($serie) {
+                case 'T5':
+                    $query = $this->db->update('facturas_tienda_5_r', $datos);
+                    break;
+                case 'TR5':
+                    $query = $this->db->update('facturas_tienda_5', $datos);
                     break;
             }
         }

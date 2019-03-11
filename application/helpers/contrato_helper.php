@@ -271,7 +271,7 @@ function dato_pago_contrato($contrato_id){
 	//recuperacion
 	$recuperacion      = false;
 	$pago_recuperacion = 0;
-	if ($estado_contrato == 'vencido')
+	if ($estado_contrato == 'vencido' || $contrato->estado =='liquidado_parcial')
     {
         //echo 'cargar recuperacion';
         $recuperacion      = true;
@@ -289,7 +289,7 @@ function dato_pago_contrato($contrato_id){
     );
 	return $pago_contrato;
 
-	$total_en_letras = NumeroALetras::convertir($total_factura);
+	//$total_en_letras = NumeroALetras::convertir($total_factura);
 
 }
 

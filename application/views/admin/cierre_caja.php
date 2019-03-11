@@ -171,11 +171,13 @@ $dinero_en_caja = 0;
                         if ($caja_dia_anterior) {
                             $caja_dia_anterior = $caja_dia_anterior->row();
                             $dinero_en_caja = $caja_dia_anterior->saldo_caja;
+                            echo formato_dinero($dinero_en_caja);
                         } else {
                             $dinero_en_caja = 0;
-                        }
-                        echo formato_dinero($dinero_en_caja);
-                        ?>
+                            echo formato_dinero($dinero_en_caja);
+                            ?>
+                            <a class="btn btn-danger" href="<?php echo base_url()?>caja/ingresar_saldo_caja">Ingresar saldo de caja</a>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="row">
@@ -208,6 +210,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo display_formato_dinero($ingreso->monto); ?></td>
                                             <td><?php echo $ingreso->banco ?></td>
                                             <td><?php echo $ingreso->no_cheque ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_fondo_caja/'.$ingreso->id_fc; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -756,6 +759,7 @@ $dinero_en_caja = 0;
                                         <th>Factura</th>
                                         <th>Recibo</th>
                                         <th>monto</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -767,6 +771,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $visanet->factura_id ?></td>
                                             <td><?php echo $visanet->recibo_id ?></td>
                                             <td><?php echo display_formato_dinero($visanet->monto); ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_visanet/'.$visanet->id_visanet; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>
@@ -796,6 +801,7 @@ $dinero_en_caja = 0;
                                         <th>Tipo</th>
                                         <th>Ref</th>
                                         <th>Monto</th>
+                                        <th>Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -808,6 +814,7 @@ $dinero_en_caja = 0;
                                             <td><?php echo $deposito->tipo ?></td>
                                             <td><?php echo $deposito->tipo ?></td>
                                             <td><?php echo display_formato_dinero($deposito->monto); ?></td>
+                                            <td><a class="btn btn-danger" href="<?php echo base_url().'Caja/anular_deposito/'.$deposito->id_deposito; ?>">Anular</a> </td>
                                         </tr>
                                         <?php
                                     } ?>

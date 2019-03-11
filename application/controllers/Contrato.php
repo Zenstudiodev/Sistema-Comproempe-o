@@ -598,7 +598,7 @@ class Contrato extends Base_Controller
 
         $datos_desenpeno = array(
             'recibo_id' => $recibo_id,
-            'monto' => number_format($datos_recibo['monto_recibo'], 2),
+            'monto' => $datos_recibo['monto_recibo'],
             'id_contrato' => $datos_factura['contrato_id'],
         );
         $this->Caja_model->guardar_desenpenos($datos_desenpeno);

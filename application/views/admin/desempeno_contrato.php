@@ -328,7 +328,7 @@ if ($contrato)
                                             <td>
 												<?php display_formato_dinero($mutuo); ?>
                                                 <input type="hidden" name="monto_recibo"
-                                                       value="<?php display_formato_dinero($mutuo); ?>">
+                                                       value="<?php echo $mutuo; ?>">
                                             </td>
                                         </tr>
                                         <tr>

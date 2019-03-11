@@ -166,6 +166,11 @@ if ($producto_data) {
                                                         </small>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="telefono_cliente">NIT</label>
+                                                        <input type="text" class="form-control"
+                                                               id="nit_cliente" name="nit_cliente" placeholder="NIT">
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="telefono_cliente">Teléfono</label>
                                                         <input type="text" class="form-control"
                                                                id="telefono_cliente" name="telefono_cliente" placeholder="Teléfono">

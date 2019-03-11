@@ -24,7 +24,6 @@ class Caja extends Base_Controller
     {
 
     }
-
     function cierre()
     {
         $data = compobarSesion();
@@ -57,7 +56,6 @@ class Caja extends Base_Controller
 
         echo $this->templates->render('admin/cierre_caja', $data);
     }
-
     function guardar_cierre_de_caja()
     {
 
@@ -217,7 +215,6 @@ class Caja extends Base_Controller
         //print_contenido($_POST);
         redirect(base_url() . 'caja/reporte');
     }
-
     function reporte()
     {
         $data = compobarSesion();
@@ -259,15 +256,27 @@ class Caja extends Base_Controller
         echo $this->templates->render('admin/cierre_reporte', $data);
     }
 
-    function ingreso_deposito()
-    {
+    //saldo de caja
+    function ingresar_saldo_caja(){
         $data = compobarSesion();
         $hoy = new DateTime();
         $hoy = $hoy->format('Y-m-d');
         $data['depositos'] = $this->Caja_model->get_depositos($hoy);
+        echo $this->templates->render('admin/ingresar_saldo_caja', $data);
+    }
+    function guardar_saldo_caja(){
+        $monto = $this->input->post('monto');
+        $this->Caja_model->guardar_saldo_caja($monto);
+        redirect(base_url().'caja/cierre');
+    }
+    //depositos
+    function ingreso_deposito()
+    {
+        $data = compobarSesion();
+        $hoy = new DateTime();
+
         echo $this->templates->render('admin/ingreso_depositos', $data);
     }
-
     function guardar_deposito()
     {
         $data = compobarSesion();
@@ -284,14 +293,19 @@ class Caja extends Base_Controller
         //redirigimos a depositos
         redirect(base_url() . 'Caja/ingreso_deposito');
     }
-
+    function anular_deposito(){
+        $data = compobarSesion();
+        $deposito_id = $this->uri->segment(3);
+        $this->Caja_model->anular_deposito($deposito_id);
+        redirect(base_url().'Caja/cierre');
+    }
+    //vales
     function crear_vale()
     {
         $data = compobarSesion();
         $data['vales']= $this->Caja_model->get_vales_dia();
         echo $this->templates->render('admin/crear_vale', $data);
     }
-
     function guardar_vale()
     {
         // print_contenido($_POST);
@@ -306,7 +320,6 @@ class Caja extends Base_Controller
         //redirigimos a depositos
         redirect(base_url() . 'Caja/crear_vale');
     }
-
     function cobrar_vale()
     {
         $data = compobarSesion();
@@ -327,14 +340,12 @@ class Caja extends Base_Controller
         //redirigimos a depositos
         redirect(base_url() . 'Caja/crear_vale');
     }
-
     function lista_vales()
     {
         $data = compobarSesion();
         $data['vales'] = $this->Caja_model->get_vales_activos();
         echo $this->templates->render('admin/cobrar_vale', $data);
     }
-
     function ingreso_visanet()
     {
         $data = compobarSesion();
@@ -343,7 +354,6 @@ class Caja extends Base_Controller
         $data['visanets'] = $this->Caja_model->get_visanet($hoy);
         echo $this->templates->render('admin/ingreso_visanet', $data);
     }
-
     function guardar_visanet()
     {
         $data = compobarSesion();
@@ -357,7 +367,12 @@ class Caja extends Base_Controller
         //redirigimos a visanet
         redirect(base_url() . 'Caja/ingreso_visanet');
     }
-
+    function anular_visanet(){
+        $data = compobarSesion();
+        $visanet_id = $this->uri->segment(3);
+        $this->Caja_model->anular_visanet($visanet_id);
+        redirect(base_url().'Caja/cierre');
+    }
     function ingreso_otros_gastos()
     {
         $data = compobarSesion();
@@ -366,7 +381,6 @@ class Caja extends Base_Controller
         $data['otros_gastos'] = $this->Caja_model->get_otros_gastos($hoy);
         echo $this->templates->render('admin/ingreso_otros_gastos', $data);
     }
-
     function guardar_otros_gastos()
     {
         $data = compobarSesion();
@@ -379,7 +393,6 @@ class Caja extends Base_Controller
         //redirigimos a visanet
         redirect(base_url() . 'Caja/ingreso_otros_gastos');
     }
-
     function ingresar_fondo_caja()
     {
         $data = compobarSesion();
@@ -389,7 +402,6 @@ class Caja extends Base_Controller
         $data['ingresos'] = $this->Caja_model->get_fondos_caja($hoy);
         echo $this->templates->render('admin/ingresar_fondo_caja', $data);
     }
-
     function guardar_fondo_caja()
     {
         $data = compobarSesion();
@@ -402,6 +414,12 @@ class Caja extends Base_Controller
         $this->Caja_model->guardar_fondo_caja($datos_fondos_caja);
         //redirigimos a visanet
         redirect(base_url() . 'Caja/ingresar_fondo_caja');
+    }
+    function anular_fondo_caja(){
+        $data = compobarSesion();
+        $fondo_caja_id = $this->uri->segment(3);
+        $this->Caja_model->anular_ingreso_caja($fondo_caja_id);
+        redirect(base_url().'Caja/cierre');
     }
 
     function anular_ingreso(){
@@ -420,6 +438,5 @@ class Caja extends Base_Controller
     function anular_egresos(){
 
     }
-
 
 }

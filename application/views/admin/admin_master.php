@@ -103,6 +103,7 @@
                         <option value="2">Tienda 2</option>
                         <option value="3">Tienda 3</option>
                         <option value="4">Tienda 4</option>
+                        <option value="5">Tienda 5</option>
                     </select>
                     <!--<a class="btn btn-block btn-success"
                        href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */?>">
@@ -124,6 +125,11 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li>
+                            <a href="<?php echo base_url() ?>productos/lista_preempenos">
+                                <i class="fa fa-file
+."></i> <span>Preempeños pagina</span></a>
+                        </li>
                         <li>
                             <a href="<?php echo base_url() ?>productos/pedidos_de_pagina">
                                 <i class="fa fa-file
@@ -311,6 +317,11 @@
                                 <li>
                                     <a href="<?php echo base_url() ?>reportes/movimiento_diario">
                                         <i class="fas fa-file-download"></i> Movimiento diario
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url() ?>reportes/movimiento_diario_global">
+                                        <i class="fas fa-file-download"></i> Movimiento diario global
                                     </a>
                                 </li>
                                 <li>

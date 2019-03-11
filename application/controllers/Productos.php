@@ -182,6 +182,19 @@ class Productos extends Base_Controller
         $data['categorias'] = $this->Productos_model->get_categorias();
         echo $this->templates->render('admin/detalle_producto', $data);
     }
+    function lista_preempenos(){
+        $data = compobarSesion();
+        $data['preempenos'] = $this->Productos_model->Preempenos_pendientes();
+        echo $this->templates->render('admin/lista_preempenos', $data);
+    }
+    function antender_preempeno(){
+        $data = compobarSesion();
+        //Id de cliente desde preempeno
+        $data['preempeno_id'] = $this->uri->segment(3);
+        //datos del preempeno
+        $data['preempeno_data'] = $this->Productos_model->Preempenos_by_id($data['preempeno_id']);
+        echo $this->templates->render('admin/detalle_preempenos', $data);
+    }
 
     //liquidación
     function liquidacion()
@@ -198,24 +211,32 @@ class Productos extends Base_Controller
         $data['productos_contrato_tienda_1'] = false;
         $data['productos_contrato_tienda_2'] = false;
         $data['productos_contrato_tienda_3'] = false;
+        $data['productos_contrato_tienda_4'] = false;
 
         if ($tienda == '1') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
             $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_1_contratos_3();
-
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_1_contratos_4();
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
             $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_2_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_2_contratos_4();
         }
         elseif ($tienda == '3') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_3_contratos_2();
             $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_3_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_3_contratos_4();
+        }
+        elseif ($tienda == '4') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_4_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_4_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_4_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_4_contratos_4();
         }
         //$data['productos'] = $this->Productos_model->get_productos_liquidacion();
-
         echo $this->templates->render('admin/lista_productos_liquidacion', $data);
     }
     function liquidar()
@@ -423,10 +444,26 @@ class Productos extends Base_Controller
         if ($tienda == '1') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_1_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_1_contratos_4();
 
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_2_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_2_contratos_4();
+        }
+        elseif ($tienda == '3') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_3_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_3_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_3_contratos_4();
+        }
+        elseif ($tienda == '3') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_4_contratos_1();
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_4_contratos_2();
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_4_contratos_3();
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_4_contratos_4();
         }
         echo $this->templates->render('admin/administrar_productos_liquidacion', $data);
     }
@@ -454,20 +491,30 @@ class Productos extends Base_Controller
         $tienda = tienda_id_h();
         $productos_contrato_tienda_1 = false;
         $productos_contrato_tienda_2 = false;
+        $productos_contrato_tienda_3 = false;
+        $productos_contrato_tienda_4 = false;
 
         if ($tienda == '1') {
             $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_1_contratos_1();
             $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_1_contratos_2();
             $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_1_contratos_3();
+            $productos_contrato_tienda_4 = $this->Productos_model->get_productos_tienda_1_contratos_4();
 
         } elseif ($tienda == '2') {
             $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_2_contratos_1();
             $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_2_contratos_2();
             $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_2_contratos_3();
+            $productos_contrato_tienda_4 = $this->Productos_model->get_productos_tienda_2_contratos_4();
         } elseif ($tienda == '3') {
             $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_3_contratos_1();
             $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_3_contratos_2();
-            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_3_contratos_2();
+            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_3_contratos_3();
+            $productos_contrato_tienda_4 = $this->Productos_model->get_productos_tienda_3_contratos_4();
+        } elseif ($tienda == '4') {
+            $productos_contrato_tienda_1 = $this->Productos_model->get_productos_tienda_4_contratos_1();
+            $productos_contrato_tienda_2 = $this->Productos_model->get_productos_tienda_4_contratos_2();
+            $productos_contrato_tienda_3 = $this->Productos_model->get_productos_tienda_4_contratos_3();
+            $productos_contrato_tienda_4 = $this->Productos_model->get_productos_tienda_4_contratos_4();
         }
         if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3) {
             $productos = array();
@@ -524,6 +571,8 @@ class Productos extends Base_Controller
             "tienda_id" => $_PUT['tienda_actual'],
             "precio_venta" => $_PUT['precio_venta'],
             "precio_descuento" => $_PUT['precio_descuento'],
+            "tipo" => $_PUT['tipo'],
+            "bodega" => $_PUT['bodega'],
             //"estado"=>"perdido"
             //"fecha_avaluo"=>"2018-03-18",
             //"contrato_id"=>"3",
@@ -532,7 +581,6 @@ class Productos extends Base_Controller
             //"avaluo_ce"=>"800",
             //"nombre_producto"=>"CELULAR",
         );
-
         //actualizar producto
         $this->Productos_model->actualizar_producto_administrador($modificaciones_producto);
 
@@ -546,6 +594,7 @@ class Productos extends Base_Controller
             'fecha_avaluo' => $producto->fecha_avaluo,
             'categoria' => $producto->categoria,
             'nombre_producto' => $producto->nombre_producto,
+            'bodega' => $producto->bodega,
             'avaluo_ce' => $producto->avaluo_ce,
             'avaluo_comercial' => $producto->avaluo_comercial,
             'precio_venta' => $producto->precio_venta,
@@ -554,10 +603,8 @@ class Productos extends Base_Controller
             'tipo' => $producto->tipo,
             'tienda_id' => $producto->tienda_id,
             'tienda_actual' => $producto->tienda_actual,
-            'estado' => $_PUT['estado'],
+            //'estado' => $_PUT['estado'],
         );
-
-
         echo json_encode($datos_actualizados);
 
 
@@ -575,6 +622,7 @@ class Productos extends Base_Controller
             "tienda_id" => $_PUT['tienda_actual'],
             "precio_venta" => $_PUT['precio_venta'],
             "bodega" => $_PUT['bodega'],
+            "tipo" => $_PUT['tipo'],
             //"estado"=>"perdido"
             //"fecha_avaluo"=>"2018-03-18",
             //"contrato_id"=>"3",
@@ -605,7 +653,6 @@ class Productos extends Base_Controller
             'tienda_actual' => $producto->tienda_actual,
             'bodega' => $producto->bodega,
         );
-
 
         echo json_encode($datos_actualizados);
 
@@ -840,6 +887,8 @@ class Productos extends Base_Controller
         $detalle_factura = '';
         $detalle_recibo = '';
         $contrados_recibo = '';
+        $id_productos = '';
+        $nombre_productos = '';
         $suma_mutuos = 0;
         $numero_de_productos = $this->input->post('numero_productos');
         $i = 1;
@@ -873,6 +922,9 @@ class Productos extends Base_Controller
             $detalle_factura .= '</tr>';
             $detalle_recibo .= 'Producto: ' . $datos_producto->nombre_producto . ' | ' . $datos_producto->marca . ' | ' . $datos_producto->modelo . '<br>';
             $detalle_recibo .= 'Total de productos ' . formato_dinero($monto_producto);
+
+            $id_productos .= $this->input->post('producto_' . $i) . ', ';
+            $nombre_productos .= $datos_producto->nombre_producto . ', ';
             $i++;
         }
         //echo '<table>' . $detalle_factura . '</table>';
@@ -918,8 +970,8 @@ class Productos extends Base_Controller
                 'serie' => $this->input->post('serie_factura'),
                 'monto' => $this->input->post('total'),
                 'margen' => '0',
-                'id_producto' => '',
-                'nombre_producto' => '',
+                'id_producto' => $id_productos,
+                'nombre_producto' => $nombre_productos,
             );
             $this->Caja_model->guardar_ventas_dia($registro_venta);
 
@@ -931,8 +983,8 @@ class Productos extends Base_Controller
                 'serie' => 'recibo',
                 'recibo_id' => $recibo_id,
                 'monto' => $this->input->post('total'),
-                'id_producto' => '',
-                'nombre_producto' => '',
+                'id_producto' => $id_productos,
+                'nombre_producto' => $nombre_productos,
             );
             $this->Caja_model->guardar_ventas_dia($registro_venta);
         }
@@ -1352,9 +1404,13 @@ class Productos extends Base_Controller
 
     function guardar_imagen()
     {
-        //print_contenido($_FILES);
+       // print_contenido($_FILES);
+        //print_contenido($_GET);
         //obtenemos el id del producto desde una cabecera http enviada desde el dropzone
-        $producto_id = $_SERVER['HTTP_PRODUCTO_ID'];
+        //print_contenido($_SERVER);
+        //print_contenido($_POST);
+        $producto_id = $_GET['pid'];
+        //$producto_id = $_SERVER['HTTP_PRODUCTO_ID'];
         //echo 'el id del producto es : ' . $producto_id;
         //obtenemos los datos del producto con el id de la cabecera
         $datos_de_producto = $this->Productos_model->datos_de_producto($producto_id);
@@ -1668,6 +1724,7 @@ class Productos extends Base_Controller
             $nombre = $this->input->post('nombre_cliente');
             $correo = $this->input->post('email_cliente');
             $telefono= $this->input->post('telefono_cliente');
+            $nit= $this->input->post('nit_cliente');
             $direccion= $this->input->post('direccion_cliente');
             $codigo_producto= $this->input->post('producto_id');
             $fecha = new DateTime();
@@ -1676,6 +1733,7 @@ class Productos extends Base_Controller
                 'nombre' => $nombre,
                 'email' => $correo,
                 'telefono' => $telefono,
+                'nit' => $nit,
                 'direccion' => $direccion,
                 'codigo_producto' => $codigo_producto,
                 'fecha' => $fecha->format('Y-m-d H:i:s')
@@ -1691,8 +1749,8 @@ class Productos extends Base_Controller
             $config['mailtype'] = 'html';
             $this->email->initialize($config);
             $this->email->from('pedidos@xn--comproempeo-beb.com', 'COMPROEMPEÑO');
-            $this->email->to($correo);
-            $this->email->cc('pedidos@xn--comproempeo-beb.com');
+            //$this->email->to($correo);
+            $this->email->to('pedidos@xn--comproempeo-beb.com');
             $this->email->bcc('csamayoa@zenstudiogt.com');
             $this->email->subject('Pedido producto COD:'.$codigo_producto);
             //mensaje
@@ -1702,6 +1760,7 @@ class Productos extends Base_Controller
             $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
             $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
             $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
+            $message .= "<tr><td><strong>NIT:</strong> </td><td>" . strip_tags($nit) . "</td></tr>";
             $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($direccion) . "</td></tr>";
             $message .= "<tr><td><strong>Codigo de ptroducto:</strong> </td><td><a target='_blank' href='". base_url()."Productos/ver/".$codigo_producto."'>".strip_tags($codigo_producto) . "</a></td></tr>";
             $message .= "</table>";
@@ -1727,37 +1786,116 @@ class Productos extends Base_Controller
 
         echo $this->templates->render('public/gracias_pedido', $data);
     }
+    function correo_gracias_pedido($datos_correo){
+
+        $nombre = $this->input->post('nombre_cliente');
+        $correo = $this->input->post('email_cliente');
+        $telefono= $this->input->post('telefono_cliente');
+        $nit= $this->input->post('nit_cliente');
+        $direccion= $this->input->post('direccion_cliente');
+        $codigo_producto= $this->input->post('producto_id');
+        $fecha = new DateTime();
+
+
+        //configuracion de correo
+        $config['mailtype'] = 'html';
+        $this->email->initialize($config);
+        $this->email->from('pedidos@xn--comproempeo-beb.com', 'COMPROEMPEÑO');
+        $this->email->to($correo);
+        $this->email->cc('pedidos@xn--comproempeo-beb.com');
+        $this->email->bcc('csamayoa@zenstudiogt.com');
+        $this->email->subject('Pedido producto COD:'.$codigo_producto);
+        //mensaje
+        $message = '<html><body>';
+        $message .= '<img src="'.base_url().'ui/public/images/logo_top.png" alt="compromepeño" />';
+        $message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+        $message .= "<tr style='background: #eee;'><td><strong>nombre:</strong> </td><td>" .strip_tags($nombre) ."</td></tr>";
+        $message .= "<tr><td><strong>Email:</strong> </td><td>" . strip_tags($correo) . "</td></tr>";
+        $message .= "<tr><td><strong>Telefono:</strong> </td><td>" . strip_tags($telefono) . "</td></tr>";
+        $message .= "<tr><td><strong>NIT:</strong> </td><td>" . strip_tags($nit) . "</td></tr>";
+        $message .= "<tr><td><strong>Dirección:</strong> </td><td>" . strip_tags($direccion) . "</td></tr>";
+        $message .= "<tr><td><strong>Codigo de ptroducto:</strong> </td><td><a target='_blank' href='". base_url()."Productos/ver/".$codigo_producto."'>".strip_tags($codigo_producto) . "</a></td></tr>";
+        $message .= "</table>";
+        $message .= "</body></html>";
+
+        $this->email->message($message);
+
+        //enviar correo
+        $this->email->send();
+
+
+        echo'send';
+    }
+    function correo_pedido(){}
     function preempeno(){
         $data['monstrar_banners'] = false;
         echo $this->templates->render('public/preempeno', $data);
     }
     function guardar_preempeno(){
 
-
+        //capturamos los datos del formulario
         $datos_preemepeño = array(
-            "nombre_cliente"=>  $this->input->post('nombre_cliente'),
-            "dpi_cliente"=>  $this->input->post('dpi_cliente'),
-            "correo_cliente"=>  $this->input->post('correo_cliente'),
-            "whatsapp_cliente"=>  $this->input->post('whatsapp_cliente'),
-            "telefono_cliente"=>  $this->input->post('telefono_cliente'),
-            "accion"=>  $this->input->post('accion'),
-            "categoria"=>  $this->input->post('categoria'),
-            "nombre_producto"=>  $this->input->post('nombre_producto'),
-            "no_serie"=>  $this->input->post('no_serie'),
-            "modelo"=>  $this->input->post('modelo'),
-            "marca"=>  $this->input->post('marca'),
-            "descripcion_producto"=>  $this->input->post('descripcion_producto'),
+            "pe_nombre_cliente"=>  $this->input->post('nombre_cliente'),
+            "pe_tienda_id"=>  $this->input->post('tienda'),
+            "pe_dpi_cliente"=>  '-',
+            //"pe_dpi_cliente"=>  $this->input->post('dpi_cliente'),
+            "pe_correo_cliente"=>  $this->input->post('correo_cliente'),
+            "pe_whatsapp_cliente"=>  $this->input->post('whatsapp_cliente'),
+            "pe_telefono_cliente"=>  $this->input->post('telefono_cliente'),
+            "pe_accion"=>  $this->input->post('accion'),
+            "pe_categoria"=>  $this->input->post('categoria'),
+            "pe_nombre_producto"=>  $this->input->post('nombre_producto'),
+            "pe_no_serie"=>  $this->input->post('no_serie'),
+            "pe_modelo"=>  $this->input->post('modelo'),
+            "pe_marca"=>  $this->input->post('marca'),
+            "pe_descripcion_producto"=>  $this->input->post('descripcion_producto'),
         );
-
+        //guardamos en la base de datos y obtenemos el id del registro
         $preempeno_id = $this->Productos_model->guardar_preempeño($datos_preemepeño);
+        //guardamos las imagenes
+        $data = array();
+        // If file upload form submitted
+            $filesCount = count($_FILES['files']['name']);
+            for($i = 0; $i < $filesCount; $i++){
+                $_FILES['file']['name']     = $_FILES['files']['name'][$i];
+                $_FILES['file']['type']     = $_FILES['files']['type'][$i];
+                $_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+                $_FILES['file']['error']     = $_FILES['files']['error'][$i];
+                $_FILES['file']['size']     = $_FILES['files']['size'][$i];
+                $nombre_imagen = $preempeno_id.'_'.$i;
+                // File upload configuration
+                $uploadPath = './uploads/preempeno';
+                $config['upload_path'] = $uploadPath;
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['file_name'] = $nombre_imagen;
+                $config['overwrite'] = TRUE;
 
-        foreach ($_POST['file'] as $file){
-            echo $file;
-        }
-        echo $preempeno_id;
+                // Load and initialize upload library
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
-        print_contenido($datos_preemepeño);
+                // Upload file to server
+                if($this->upload->do_upload('file')){
+                    // Uploaded file data
+                    $fileData = $this->upload->data();
+                    $uploadData[$i]['file_name'] = $fileData['file_name'];
+                    $uploadData[$i]['uploaded_on'] = date("Y-m-d H:i:s");
+                }
+            }
+            if(!empty($uploadData)){
+                // Insert files data into the database
+                // Upload status message
+            }
+
+
     }
+    function preempeno_recibido(){
+        $data['monstrar_banners'] = false;
+        echo $this->templates->render('public/preempeno', $data);
+    }
+
+
+
     function listar_preempenos_pendientes(){}
     function atender_premepeno(){}
     function guardar_resultado_preempeno(){}

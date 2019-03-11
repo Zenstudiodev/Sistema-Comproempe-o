@@ -32,5 +32,17 @@ class Reportes extends Base_Controller
 
         echo $this->templates->render('admin/movimiento_diario', $data);
     }
+    function movimiento_diario_global(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+
+        echo $this->templates->render('admin/movimiento_diario_global', $data);
+    }
 
 }

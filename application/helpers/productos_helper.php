@@ -57,6 +57,12 @@ function tienda_id_to_nombre($tienda_id){
     if($tienda_id == '3'){
         $nombre_tienda = 'Metro Norte';
     }
+    if($tienda_id == '4'){
+        $nombre_tienda = 'Antigua Guatemala';
+    }
+    if($tienda_id == '3'){
+        $nombre_tienda = 'Metro Norte';
+    }
     return $nombre_tienda;
 }
 

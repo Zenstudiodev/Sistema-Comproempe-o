@@ -87,7 +87,13 @@ $this->layout('admin/admin_master', [
                                             <i class="fa fa-home"></i> Tienda 2
                                         </a>
                                         <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/3'; ?>">
-                                            <i class="fa fa-home"></i> Tienda 2
+                                            <i class="fa fa-home"></i> Tienda 3
+                                        </a>
+                                        <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/4'; ?>">
+                                            <i class="fa fa-home"></i> Tienda 4
+                                        </a>
+                                        <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/5'; ?>">
+                                            <i class="fa fa-home"></i> Tienda 5
                                         </a>
                                     </td>
                                 </tr>

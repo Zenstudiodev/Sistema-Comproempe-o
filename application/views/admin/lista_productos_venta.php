@@ -68,6 +68,7 @@ $this->layout('admin/admin_master', [
                                         <option value="2">Tienda 2</option>
                                         <option value="3">Tienda 3</option>
                                         <option value="4">Tienda 4</option>
+                                        <option value="5">Tienda 5</option>
                                     </select>
                                 </div>
                             </div>
@@ -94,6 +95,7 @@ $this->layout('admin/admin_master', [
                                     <th></th>
                                     <th>PRODUCTO ID</th>
                                     <th>NOMBRE</th>
+                                    <th>EXISTENCIAS</th>
                                     <th>PRECIO COMPRA</th>
                                     <th>PRECIO VENTA</th>
                                 </tr>
@@ -103,6 +105,7 @@ $this->layout('admin/admin_master', [
                                     <th></th>
                                     <th>PRODUCTO ID</th>
                                     <th>NOMBRE</th>
+                                    <th>EXISTENCIAS</th>
                                     <th>PRECIO COMPRA</th>
                                     <th>PRECIO VENTA</th>
                                 </tr>
@@ -120,6 +123,7 @@ $this->layout('admin/admin_master', [
                                         </td>
                                         <td><?php echo $producto->producto_id ?></td>
                                         <td><?php echo $producto->nombre_producto ?></td>
+                                        <td><?php echo $producto->existencias ?></td>
                                         <td>
                                             <?php echo $producto->precio_compra ?>
                                         </td>

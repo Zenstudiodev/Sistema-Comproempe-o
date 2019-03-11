@@ -51,7 +51,7 @@ $this->layout('admin/admin_master', [
 
                     ?>
 
-                    <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3) { ?>
+                    <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3 or $productos_contrato_tienda_4) { ?>
                         <?php if ($rol != 'conta') { ?>
                             <div class="row">
                                 <div class="col-md-5">
@@ -72,6 +72,7 @@ $this->layout('admin/admin_master', [
                                         <option value="2">Tienda 2</option>
                                         <option value="3">Tienda 3</option>
                                         <option value="4">Tienda 4</option>
+                                        <option value="5">Tienda 5</option>
                                     </select>
                                 </div>
                             </div>
@@ -163,6 +164,28 @@ $this->layout('admin/admin_master', [
                                 <?php } ?>
                                 <?php if ($productos_contrato_tienda_3) { ?>
                                     <?php foreach ($productos_contrato_tienda_3->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if ($productos_contrato_tienda_4) { ?>
+                                    <?php foreach ($productos_contrato_tienda_4->result() as $producto) { ?>
                                         <tr>
                                             <td>
                                                 <label>

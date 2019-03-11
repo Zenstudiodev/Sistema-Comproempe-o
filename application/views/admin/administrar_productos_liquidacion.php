@@ -130,7 +130,9 @@ $hoy = New DateTime();
                             data: item
                         }).done(function (data, textStatus, jqXHR) {
                             console.log(data);
-                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                        }).fail(function (data, jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                            console.log(data);
                             console.log('fail: status=' + jqXHR.status + ', textStatus=' + textStatus);
                         });
                     },
@@ -149,8 +151,10 @@ $hoy = New DateTime();
                     {name: "tienda_id", type: "number", readOnly: true, title: "Tienda origen"},
                     {name: "tienda_actual", type: "number", readOnly: true},
                     {name: "nombre_producto", type: "text", readOnly: true, title: "Nombre"},
+                    //{name: "estado", type: "text", readOnly: true, title: "Estado"},
                     {name: "categoria", type: "select", items: categorias, valueField: "Name", textField: "Name"},
                     <?php if(user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'jefe_tienda'){?>
+                    {name: "bodega", type: "number", readOnly: false},
                     {name: "tipo", type: "select", items: estado_producto, valueField: "Id", textField: "Name"},
                     {name: "avaluo_comercial", type: "number", readOnly: true, title: "Avaluo"},
                     {name: "precio_venta", type: "text", title: "Precio de venta"},

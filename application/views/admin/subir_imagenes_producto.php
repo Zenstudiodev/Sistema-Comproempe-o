@@ -139,7 +139,7 @@ if ($producto_data) {
         // event listeners
         var myDropzone = new Dropzone("#dpf ",
             {
-                url: "<?php echo base_url()?>Productos/guardar_imagen",
+                url: "<?php echo base_url()?>Productos/guardar_imagen?pid=<?php echo $producto->producto_id;?>",
                 paramName: "imagen_producto",
                 parallelUploads: 1,
                 maxFiles: 1,
@@ -169,7 +169,7 @@ if ($producto_data) {
             //console.log(file);
             console.log(data);
             window.navigator.vibrate(200);
-            location.reload();
+           location.reload();
             /* Maybe display some more file information on your page */
         });
 

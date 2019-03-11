@@ -69,7 +69,7 @@ if ($contrato) {
                     </thead>
                     <tbody>
                     <?php foreach ($contratos->result() as $contrato) {
-                        if($contrato->estado =='vigente' || $contrato->estado =='gracia' || $contrato->estado =='refrendado' || $contrato->estado =='perdido'){
+                        if($contrato->estado =='vigente' || $contrato->estado =='gracia' || $contrato->estado =='refrendado' || $contrato->estado =='perdido' || $contrato->estado =='liquidado_parcial'){
                         $pago_contrato = dato_pago_contrato($contrato->contrato_id);
                         $pago_contrato = (object) $pago_contrato;
                        // print_contenido($pago_contrato);

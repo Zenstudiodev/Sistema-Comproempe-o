@@ -329,6 +329,9 @@ if ($contrato)
                                     <?php } elseif ($tienda =='3'){ ?>
                                         <p>Km. 5 carretera al Atlantico zona 17 Centro comercial Metronorte Local 107,  GUATEMALA, GUATEMALA</p>
                                         <p>Teléfono: 5717-7058</p>
+                                    <?php } elseif ($tienda =='4'){ ?>
+                                        <p>Calzada Santa Lucia Norte #25, Frente a Ruinas de San Jerónimo, Antigua Guatemala 03001</p>
+                                        <p>Teléfono: 7832-7382</p>
                                     <?php }  ?>
                                 </td>
                             </tr>
@@ -382,7 +385,7 @@ if ($contrato)
                                     if($contrato->user_id == ''){
                                         echo $nombre .'-';
                                     }else{
-                                        id_to_nombre($contrato->user_id);
+                                        echo id_to_nombre($contrato->user_id);
                                     }
                                      ?></td>
                             </tr>
@@ -391,7 +394,22 @@ if ($contrato)
 
                         <table class="table table-condensed">
                             <tr>
-                                <td>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SABADO DE: 10:00 A 19:00 HORAS DOMINGO DE: 10:00 A 17:00
+                                <td>
+                                    <?php
+                                    $tienda = tienda_id_h();
+                                    // insertamon en la base de datos
+                                    if($tienda == '1'){?>
+                                        <p>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SABADO DE: 10:00 A 19:00 HORAS DOMINGO DE: 10:00 A 17:00</p>
+                                    <?php }
+                                    elseif ($tienda =='2'){ ?>
+                                        <p>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SABADO DE: 10:00 A 19:00 HORAS DOMINGO DE: 10:00 A 17:00</p>
+                                    <?php } elseif ($tienda =='3'){ ?>
+                                        <p>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SABADO DE: 2255-2251 y el horario ahí es de lunes a sábado de 9:00 a 8:00 domingos de 10;00 a 7:00</p>
+                                    <?php } elseif ($tienda =='4'){ ?>
+                                        <p>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: lunes a sábado de 8:00 a 6:00 y domingos 9:00 a 4:00</p>
+                                    <?php }  ?>
+
+
                                 </td>
                             </tr>
                         </table>
@@ -411,7 +429,6 @@ if ($contrato)
                         <input type="hidden" name="fecha_pago" id="fecha_pago">
                         <input type="hidden" name="dias_gracia" id="dias_gracia">
                         <input type="hidden" name="tipo" id="tipo" value="Empeno">
-
                     </form>
 
                 </div>

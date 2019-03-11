@@ -32,6 +32,10 @@ class Recibo_model  extends CI_Model
             $this->db->from('recibos_tienda_4');
             $this->db->join('cliente', 'cliente.id = recibos_tienda_4.cliente_id');
         }
+        elseif ($tienda == '5') {
+            $this->db->from('recibos_tienda_5');
+            $this->db->join('cliente', 'cliente.id = recibos_tienda_5.cliente_id');
+        }
 
 		$query = $this->db->get();
 		if($query->num_rows() > 0) return $query;
@@ -63,11 +67,18 @@ class Recibo_model  extends CI_Model
             $this->db->where_in('recibos_tienda_3.tipo', $tipos_de_recibo);
         }
         elseif ($tienda == '4') {
-            $this->db->select('recibos_tienda_4.recibo_id, recibos_tienda_4.estado, recibos_tienda_4.fecha_recibo, recibos_tienda_4.contrato_id, recibos_tienda_4.monto, recibos_tienda_4.tipo, contrato_tienda_3.total_mutuo');
+            $this->db->select('recibos_tienda_4.recibo_id, recibos_tienda_4.estado, recibos_tienda_4.fecha_recibo, recibos_tienda_4.contrato_id, recibos_tienda_4.monto, recibos_tienda_4.tipo, contrato_tienda_4.total_mutuo');
             $this->db->from('recibos_tienda_4');
             $this->db->join('contrato_tienda_4', 'recibos_tienda_4.contrato_id = contrato_tienda_4.contrato_id');
             $this->db->where('recibos_tienda_4.cliente_id', $cliente_id);
             $this->db->where_in('recibos_tienda_4.tipo', $tipos_de_recibo);
+        }
+        elseif ($tienda == '5') {
+            $this->db->select('recibos_tienda_5.recibo_id, recibos_tienda_5.estado, recibos_tienda_5.fecha_recibo, recibos_tienda_5.contrato_id, recibos_tienda_5.monto, recibos_tienda_5.tipo, contrato_tienda_5.total_mutuo');
+            $this->db->from('recibos_tienda_5');
+            $this->db->join('contrato_tienda_5', 'recibos_tienda_5.contrato_id = contrato_tienda_5.contrato_id');
+            $this->db->where('recibos_tienda_5.cliente_id', $cliente_id);
+            $this->db->where_in('recibos_tienda_5.tipo', $tipos_de_recibo);
         }
 
 
@@ -95,6 +106,10 @@ class Recibo_model  extends CI_Model
             $this->db->from('recibos_tienda_4');
             $this->db->where('cliente_id', $cliente_id);
         }
+        elseif ($tienda == '5') {
+            $this->db->from('recibos_tienda_5');
+            $this->db->where('cliente_id', $cliente_id);
+        }
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -119,6 +134,11 @@ class Recibo_model  extends CI_Model
         }
         elseif ($tienda == '4') {
             $this->db->from('recibos_tienda_4');
+            $this->db->where('cliente_id', $cliente_id);
+            $this->db->where_in('tipo', $tipos_de_recibo);
+        }
+        elseif ($tienda == '5') {
+            $this->db->from('recibos_tienda_5');
             $this->db->where('cliente_id', $cliente_id);
             $this->db->where_in('tipo', $tipos_de_recibo);
         }

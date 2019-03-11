@@ -92,15 +92,16 @@ $marca = array(
                 <img src="<?php echo base_url()?>/ui/public/images/billete.png" class="img-fluid">
             </div>
             <div class="col-md-8">
-                <form method="post" id="formulario_preempeno" action="<?php echo base_url()?>productos/guardar_preempeno">
+                <form method="post" id="formulario_preempeno" action="<?php echo base_url()?>productos/guardar_preempeno" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nombre_cliente">Nombre</label>
                         <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre completo" required>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="dpi_cliente">DPI</label>
                         <input type="number" class="form-control" id="dpi_cliente" name="dpi_cliente" placeholder="DPI" required>
-                    </div>
+                    </div>-->
+
                     <div class="form-group">
                         <label for="correo_cliente">Email</label>
                         <input type="email" class="form-control" id="correo_cliente" name="correo_cliente" placeholder="Email" required>
@@ -116,11 +117,20 @@ $marca = array(
                     </div>
                     <div class="form-group">
                         <label for="accion">Quiero</label>
-                        <select class="form-control" id="accion" name="accion">
+                        <select class="form-control" id="tienda" name="tienda">
                             <option>Empeñar</option>
                             <option>Vender</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="accion">Tienda en la que se empeñara</label>
+                        <select class="form-control" id="accion" name="accion">
+                            <option value="1">Centra Sur</option>
+                            <option value="3">Metro Norte</option>
+                            <option value="4">Antigua Guatemala</option>
+                        </select>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -162,7 +172,7 @@ $marca = array(
                     </div>
                     <div class="form-group">
                         <label for="imagenes">Imagenes del producto</label>
-                        <input type='file' name='file[]' multiple id="imagenes" aria-describedby="imagenes_help">
+                        <input type='file' name='files[]' multiple id="imagenes" aria-describedby="imagenes_help">
                         <small id="imagenes_help" class="form-text text-muted">Puede seleccionar varias imágenes</small>
                     </div>
 

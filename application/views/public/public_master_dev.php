@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="top">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-md-4">
                     <img src="/ui/public/images/logo_top.png" id="logo_top">
                 </div>
                 <div class="col">
@@ -57,6 +57,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>nosotros">Nosotros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo base_url(); ?>productos/preempeno">Preempeño</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?php echo base_url(); ?>anticipos/solicitud">Solicitud de anticipo de sueldo</a>
                                 </li>
                                 <!--<li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>">Tiendas</a>

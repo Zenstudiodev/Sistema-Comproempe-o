@@ -549,8 +549,12 @@ if ($cliente)
                                    <?php }
                                     elseif ($tienda =='3'){ ?>
                                         <p>Domicilio: KM 5 CARRETERA AL ALTRANTICO, XONA 17 LOCAL 107, GUATEMALA, GUATEMALA</p>
-                                        <p>Teléfono: 2233-1050</p>
-                                   <?php }  ?>
+                                        <p>Teléfono: 2255-2251</p>
+                                    <?php }
+                                    elseif ($tienda =='4'){ ?>
+                                        <p>Domicilio: CALZADA SANTA LUCIA NORTE #25, FRENTE A RUINAS SAN JERONIMO, ANTIGUA GUATEMALA 03001</p>
+                                        <p>Teléfono: 7832-7382</p>
+                                    <?php }  ?>
 
                                 </td>
                             </tr>
@@ -595,9 +599,26 @@ if ($cliente)
 
                         <table class="table table-condensed">
                             <tr>
-                                <td>EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A VIERNES DE:
-                                    10:00 A
-                                    19:00 HORAS SABADOS DE: 10:00 A 17:00 Y
+                                <td>
+                                    <?php
+                                    $tienda = tienda_id_h();
+                                    // insertamon en la base de datos
+                                    if($tienda == '1'){?>
+                                        <p> EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A VIERNES DE:
+                                            10:00 A 19:00 HORAS SABADOS DE: 10:00 A 17:00 </p>
+
+                                    <?php }
+                                    elseif ($tienda =='2'){ ?>
+                                        <p> EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A VIERNES DE:
+                                            10:00 A 19:00 HORAS SABADOS DE: 10:00 A 17:00 </p>
+                                    <?php }
+                                    elseif ($tienda =='3'){ ?>
+                                        <p> EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SÁBADO DE 9:00 A 8:00PM DOMINGOS DE 10:00 A 7:00 PM </p>
+                                    <?php }
+                                    elseif ($tienda =='4'){ ?>
+                                        <p> EL HORARIO DE SERVICIO AL PUBLICO EN ESTE ESTABLECIMIENTO ES DE: LUNES A SÁBADO DE 8:00 A 6:00 Y DOMINGOS 9:00 A 4:00</p>
+                                    <?php }  ?>
+
                                 </td>
                             </tr>
                         </table>
