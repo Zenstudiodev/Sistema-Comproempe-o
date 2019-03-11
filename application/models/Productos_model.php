@@ -435,7 +435,8 @@ class productos_model extends CI_Model
         elseif ($tienda == '4') {
             $this->db->where('tienda_actual', '4');
         }
-        $this->db->where('tipo', 'venta');
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $this->db->where('bodega', '0');
         $this->db->where('imagen', '0');
 
@@ -887,6 +888,8 @@ class productos_model extends CI_Model
 
         //productos con imagen
         $prductos_con_foto_arr = productos_con_imagen_public();
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $this->db->where('tipo', 'venta');
         $this->db->where_in('producto_id', $prductos_con_foto_arr);
         if ($categoria != 'todas')
@@ -906,7 +909,8 @@ class productos_model extends CI_Model
     function get_producto_public_numero($categoria, $tienda){
         //productos con imagen
         $prductos_con_foto_arr = productos_con_imagen_public();
-        $this->db->where('tipo', 'venta');
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $this->db->where_in('producto_id', $prductos_con_foto_arr);
         if ($categoria != 'todas')
         {
@@ -925,7 +929,8 @@ class productos_model extends CI_Model
     {
         //productos con imagen
         $prductos_con_foto_arr = productos_con_imagen_public();
-        $this->db->where('tipo', 'venta');
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $this->db->where_in('producto_id', $prductos_con_foto_arr);
         $this->db->where('categoria', urldecode($categoria));
         $this->db->from('producto');
@@ -938,7 +943,8 @@ class productos_model extends CI_Model
     {
         //productos con imagen
         $prductos_con_foto_arr = productos_con_imagen_public();
-        $this->db->where('tipo', 'venta');
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $this->db->where_in('producto_id', $prductos_con_foto_arr);
         $this->db->where('categoria', urldecode($categoria));
         $this->db->from('producto');
@@ -949,7 +955,8 @@ class productos_model extends CI_Model
     function datos_de_producto_public($id)
     {
         $this->db->where('producto_id', $id);
-        $this->db->where('tipo', 'venta');
+        $en_venta = array('venta', 'compra');
+        $this->db->where_in('tipo', $en_venta);
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
     }
