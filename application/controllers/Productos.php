@@ -214,27 +214,27 @@ class Productos extends Base_Controller
         $data['productos_contrato_tienda_4'] = false;
 
         if ($tienda == '1') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_1_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_1_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '1');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '1');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '1');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '1');
         } elseif ($tienda == '2') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_2_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_2_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '2');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '2');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '2');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '2');
         }
         elseif ($tienda == '3') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_3_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_3_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_3_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '3');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '3');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '3');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '3');
         }
         elseif ($tienda == '4') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_4_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_4_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_4_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_4_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '4');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '4');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '4');
         }
         //$data['productos'] = $this->Productos_model->get_productos_liquidacion();
         echo $this->templates->render('admin/lista_productos_liquidacion', $data);

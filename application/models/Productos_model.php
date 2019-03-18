@@ -724,6 +724,42 @@ class productos_model extends CI_Model
         else return false;
     }
 
+    function get_productos_liquidacion_inventario($tienda, $tienda_actual){
+        $contrato = "contrato";
+
+        switch ($tienda) {
+            case "1":
+                $contrato = "contrato";
+                break;
+            case "2":
+                $contrato = "contrato_tienda_2";
+                break;
+            case "3":
+                $contrato = "contrato_tienda_3";
+                break;
+            case "4":
+                $contrato = "contrato_tienda_5";
+                break;
+            case "5":
+                $contrato = "contrato_tienda_5";
+                break;
+        }
+
+        $this->db->select('producto.producto_id, producto.contrato_id, producto.bodega, producto.fecha_avaluo, producto.categoria, producto.nombre_producto, producto.avaluo_ce, producto.avaluo_comercial, producto.precio_venta, producto.precio_descuento, producto.mutuo, producto.tipo, producto.tienda_id,  producto.tienda_actual, '.$contrato.'.estado, '.$contrato.'.dias_gracia, '.$contrato.'.user_id,' );
+        $this->db->from('producto');
+        $this->db->where('producto.tipo', 'venta');
+        $this->db->where('producto.tienda_id', $tienda);
+        $this->db->where('producto.tienda_actual', $tienda_actual);
+        $this->db->where('producto.bodega', '0');
+        $en_venta = array('perdido', 'liquidado', 'liquidado_parcial');
+        $this->db->where_in($contrato.'.estado', $en_venta);
+        $this->db->join($contrato, 'producto.contrato_id = '.$contrato.'.contrato_id');
+
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
     //productos apartados
     function get_productos_apartados()
     {

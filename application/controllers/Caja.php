@@ -274,7 +274,8 @@ class Caja extends Base_Controller
     {
         $data = compobarSesion();
         $hoy = new DateTime();
-
+        $hoy = $hoy->format('Y-m-d');
+        $data['depositos'] = $this->Caja_model->get_depositos($hoy);
         echo $this->templates->render('admin/ingreso_depositos', $data);
     }
     function guardar_deposito()

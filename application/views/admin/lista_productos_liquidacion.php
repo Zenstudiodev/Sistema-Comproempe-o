@@ -101,6 +101,8 @@ $this->layout('admin/admin_master', [
                                     <th>PRODUCTO ID</th>
                                     <th>CONTRATO ID</th>
                                     <th>ESTADO CONTRATO</th>
+                                    <th>DIAS EN INVENTARIO</th>
+                                    <th>DIAS DE GRACIA</th>
                                     <th>NOMBRE</th>
                                     <th>AVALUO</th>
                                     <th>MUTUO</th>
@@ -112,6 +114,8 @@ $this->layout('admin/admin_master', [
                                     <th>PRODUCTO ID</th>
                                     <th>CONTRATO ID</th>
                                     <th>ESTADO CONTRATO</th>
+                                    <th>DIAS EN INVENTARIO</th>
+                                    <th>DIAS DE GRACIA</th>
                                     <th>NOMBRE</th>
                                     <th>AVALUO</th>
                                     <th>MUTUO</th>
@@ -132,6 +136,10 @@ $this->layout('admin/admin_master', [
                                             <td><?php echo $producto->producto_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
                                             <td>
                                                 <?php echo $producto->nombre_producto ?>
                                             </td>
@@ -154,6 +162,10 @@ $this->layout('admin/admin_master', [
                                             <td><?php echo $producto->producto_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
                                             <td>
                                                 <?php echo $producto->nombre_producto ?>
                                             </td>
@@ -176,6 +188,10 @@ $this->layout('admin/admin_master', [
                                             <td><?php echo $producto->producto_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
                                             <td>
                                                 <?php echo $producto->nombre_producto ?>
                                             </td>
@@ -198,6 +214,10 @@ $this->layout('admin/admin_master', [
                                             <td><?php echo $producto->producto_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
                                             <td>
                                                 <?php echo $producto->nombre_producto ?>
                                             </td>
@@ -216,7 +236,6 @@ $this->layout('admin/admin_master', [
             </div>
             <!-- /.box-body -->
         </div>
-
         <!-- /.box -->
         <div class="box">
             <div class="box-header">
@@ -236,7 +255,6 @@ $this->layout('admin/admin_master', [
                         }
 
                         ?>
-
 
                     <?php } ?>
 

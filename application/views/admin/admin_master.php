@@ -307,7 +307,7 @@
                     </li>
                 <?php } ?>
                 <?php
-                if (user_rol() == 'developer' || user_rol() == 'gerencia') { ?>
+                if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
                     <li class="treeview">
                         <a href="#">
                             <i class="fas fa-chart-bar"></i> <span>Reportes</span>
@@ -324,6 +324,11 @@
                                         <i class="fas fa-file-download"></i> Movimiento diario global
                                     </a>
                                 </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>reportes/inventario_global">
+                                    <i class="fas fa-file-download"></i> Inventario global
+                                </a>
+                            </li>
                                 <li>
                                     <a href="<?php echo base_url() ?>index.php/home/registros">
                                         <i class="far fa-file-alt"></i> Registros

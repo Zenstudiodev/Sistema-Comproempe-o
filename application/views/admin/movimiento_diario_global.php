@@ -1261,7 +1261,7 @@ $ci =& get_instance();
     $('#rango_movimiento').on('apply.daterangepicker', function (ev, picker) {
         from = picker.startDate.format('YYYY-MM-DD');
         to = picker.endDate.format('YYYY-MM-DD');
-        url = '<?php echo base_url();?>' + 'Reportes/movimiento_diario/' + from + '/' + to;
+        url = '<?php echo base_url();?>' + 'Reportes/movimiento_diario_global/' + from + '/' + to;
         window.location.href = url;
     });
 

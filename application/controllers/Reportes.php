@@ -13,6 +13,7 @@ class Reportes extends Base_Controller
         parent::__construct();
         // Modelos
         $this->load->model('Reportes_model');
+        $this->load->model('Productos_model');
         $this->load->model('Caja_model');
 
     }
@@ -43,6 +44,28 @@ class Reportes extends Base_Controller
 
 
         echo $this->templates->render('admin/movimiento_diario_global', $data);
+    }
+    function inventario_tienda(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+
+        echo $this->templates->render('admin/movimiento_diario_global', $data);
+    }
+    function inventario_global(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/inventario_global', $data);
     }
 
 }
