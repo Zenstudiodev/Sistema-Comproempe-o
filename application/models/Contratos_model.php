@@ -247,6 +247,7 @@ class Contratos_model extends CI_Model
             $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_4.fecha, contrato_tienda_4.estado, contrato_tienda_4.fecha_pago, contrato_tienda_4.dias_gracia, cliente.nombre, cliente.id');
             // $this->db->select('*');
             $this->db->from('contrato_tienda_4');
+            $this->db->where('producto.tienda_id', '4');
             $estados = array('perdido');
             $this->db->where_in('contrato_tienda_4.estado', $estados);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_4.contrato_id');
@@ -279,7 +280,7 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato');
             $estados = array('vigente', 'refrendado','gracia');
             $this->db->where_in('contrato.estado', $estados);
-            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->where_in('producto.tienda_id', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
@@ -290,7 +291,7 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_2');
             $estados = array('vigente', 'refrendado','gracia');
             $this->db->where_in('contrato_tienda_2.estado', $estados);
-            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->where_in('producto.tienda_id', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_2.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_2.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
@@ -301,7 +302,7 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_3');
             $estados = array('vigente', 'refrendado','gracia');
             $this->db->where_in('contrato_tienda_3.estado', $estados);
-            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->where_in('producto.tienda_id', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_3.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_3.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
@@ -312,7 +313,7 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_4');
             $estados = array('vigente', 'refrendado','gracia');
             $this->db->where_in('contrato_tienda_4.estado', $estados);
-            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->where_in('producto.tienda_id', $tienda);
             $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_4.contrato_id');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_4.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");

@@ -4869,6 +4869,7 @@ $ci =& get_instance();
             responsive           : true,
             // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio  : true,
+
             };
         //Create pie or douhnut chart
         // You can switch between pie and douhnut using the method below.
@@ -4882,91 +4883,91 @@ $ci =& get_instance();
         var total_valor_chart       = new Chart(total_valor_chart_canvas);
         var total_valorData        = [
             {
-                value    : <?php echo $total_Audio->avaluo_c; ?>,
+                value    : <?php echo $total_Audio->mutuo; ?>,
                 color    : '#f56954',
                 highlight: '#f56954',
                 label    : 'Audio'
             },
             {
-                value    : <?php echo $total_Camaras->avaluo_c; ?>,
+                value    : <?php echo $total_Camaras->mutuo; ?>,
                 color    : '#00a65a',
                 highlight: '#00a65a',
                 label    : 'Cámaras'
             },
             {
-                value    : <?php echo $total_Celulares->avaluo_c; ?>,
+                value    : <?php echo $total_Celulares->mutuo; ?>,
                 color    : '#f39c12',
                 highlight: '#f39c12',
                 label    : 'Celulares'
             },
             {
-                value    : <?php echo $total_computadoras_laptops_tablets->avaluo_c; ?>,
+                value    : <?php echo $total_computadoras_laptops_tablets->mutuo; ?>,
                 color    : '#00c0ef',
                 highlight: '#00c0ef',
                 label    : 'Computadoras Laptops y Tablets'
             },
             {
-                value    : <?php echo $total_deportes->avaluo_c; ?>,
+                value    : <?php echo $total_deportes->mutuo; ?>,
                 color    : '#3c8dbc',
                 highlight: '#3c8dbc',
                 label    : 'Deportes'
             },
             {
-                value    : <?php echo $total_electrodomesticos->avaluo_c; ?>,
+                value    : <?php echo $total_electrodomesticos->mutuo; ?>,
                 color    : '#d2d6de',
                 highlight: '#d2d6de',
                 label    : 'Electrodomésticos'
             },
             {
-                value    : <?php echo $total_herramientas->avaluo_c; ?>,
+                value    : <?php echo $total_herramientas->mutuo; ?>,
                 color    : '#8dbc3c',
                 highlight: '#8dbc3c',
                 label    : 'Herramientas'
             },
             {
-                value    : <?php echo $total_hogar->avaluo_c; ?>,
+                value    : <?php echo $total_hogar->mutuo; ?>,
                 color    : '#bc3c8d',
                 highlight: '#bc3c8d',
                 label    : 'Hogar'
             },
             {
-                value    : <?php echo $total_instrumentos_musicales->avaluo_c; ?>,
+                value    : <?php echo $total_instrumentos_musicales->mutuo; ?>,
                 color    : '#bc6b3c',
                 highlight: '#bc6b3c',
                 label    : 'Instrumentos Musicales'
             },
             {
-                value    : <?php echo $total_joyeria->avaluo_c; ?>,
+                value    : <?php echo $total_joyeria->mutuo; ?>,
                 color    : '#bcab3c',
                 highlight: '#bcab3c',
                 label    : 'Joyería'
             },
             {
-                value    : <?php echo $total_line_blanca->avaluo_c; ?>,
+                value    : <?php echo $total_line_blanca->mutuo; ?>,
                 color    : '#4dbc3c',
                 highlight: '#4dbc3c',
                 label    : 'Línea blanca'
             },
             {
-                value    : <?php echo $total_motocicletas_automoviles->avaluo_c; ?>,
+                value    : <?php echo $total_motocicletas_automoviles->mutuo; ?>,
                 color    : '#3c4dbc',
                 highlight: '#3c4dbc',
                 label    : 'Motocicletas y Automóviles'
             },
             {
-                value    : <?php echo $total_salud_belleza->avaluo_c; ?>,
+                value    : <?php echo $total_salud_belleza->mutuo; ?>,
                 color    : '#bc3c4d',
                 highlight: '#bc3c4d',
                 label    : 'Salud y belleza'
             },
             {
-                value    : <?php echo $total_video->avaluo_c; ?>,
+                value    : <?php echo $total_video->mutuo; ?>,
                 color    : '#3cbcab',
                 highlight: '#3cbcab',
                 label    : 'Video'
             },
             {
-                value    : <?php echo $total_videojuegos->avaluo_c; ?>,
+                value    : <?php echo $total_videojuegos->mutuo; ?>,
                 color    : '#ab3cbc',
                 highlight: '#ab3cbc',
                 label    : 'Video Juegos'

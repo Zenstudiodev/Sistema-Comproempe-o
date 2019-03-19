@@ -738,7 +738,7 @@ class productos_model extends CI_Model
                 $contrato = "contrato_tienda_3";
                 break;
             case "4":
-                $contrato = "contrato_tienda_5";
+                $contrato = "contrato_tienda_4";
                 break;
             case "5":
                 $contrato = "contrato_tienda_5";
@@ -751,7 +751,7 @@ class productos_model extends CI_Model
         $this->db->where('producto.tienda_id', $tienda);
         $this->db->where('producto.tienda_actual', $tienda_actual);
         $this->db->where('producto.bodega', '0');
-        $en_venta = array('perdido', 'liquidado', 'liquidado_parcial');
+        $en_venta = array('perdido', 'liquidado_parcial');
         $this->db->where_in($contrato.'.estado', $en_venta);
         $this->db->join($contrato, 'producto.contrato_id = '.$contrato.'.contrato_id');
 
