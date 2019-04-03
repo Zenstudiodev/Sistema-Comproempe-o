@@ -39,8 +39,7 @@ Serie <select id="serie_select">
 
         ?>
         <option value="A">MN</option>
-        <option value="R">RE</option>
-        <option value="A2">CN</option>
+        <option value="R">RM</option>
         <?php
     }
     ?>

@@ -68,11 +68,12 @@ $this->layout('admin/admin_master', [
                                 <div class="col-md-6">
                                     <select id="select_tienda_traslado" class="form-control" name="select_tienda_traslado">
                                         <option value=""></option>
-                                        <option value="1">Tienda 1</option>
-                                        <option value="2">Tienda 2</option>
-                                        <option value="3">Tienda 3</option>
-                                        <option value="4">Tienda 4</option>
-                                        <option value="5">Tienda 5</option>
+                                        <option value="1">Centra Sur</option>
+                                        <option value="2">Centra Norte</option>
+                                        <option value="3">Metro Norte</option>
+                                        <option value="4">Antigua</option>
+                                        <option value="5">Mixco</option>
+                                        <option value="6">Villa Nueva</option>
                                     </select>
                                 </div>
                             </div>
@@ -202,6 +203,58 @@ $this->layout('admin/admin_master', [
                                 <?php } ?>
                                 <?php if ($productos_contrato_tienda_4) { ?>
                                     <?php foreach ($productos_contrato_tienda_4->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if ($productos_contrato_tienda_5) { ?>
+                                    <?php foreach ($productos_contrato_tienda_5->result() as $producto) { ?>
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           id="<?php echo $producto->producto_id ?>"
+                                                           name="producto_<?php echo $producto->producto_id ?>"
+                                                           value="<?php echo $producto->producto_id ?>">
+                                                </label>
+                                            </td>
+                                            <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->contrato_id ?></td>
+                                            <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
+                                            <td><?php
+                                                $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                echo $diferencia_en_dias; ?> dias </td>
+                                            <td><?php echo $producto->dias_gracia ?></td>
+                                            <td>
+                                                <?php echo $producto->nombre_producto ?>
+                                            </td>
+                                            <td><?php echo $producto->avaluo_ce ?></td>
+                                            <td><?php echo $producto->mutuo ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php if ($productos_contrato_tienda_6) { ?>
+                                    <?php foreach ($productos_contrato_tienda_6->result() as $producto) { ?>
                                         <tr>
                                             <td>
                                                 <label>

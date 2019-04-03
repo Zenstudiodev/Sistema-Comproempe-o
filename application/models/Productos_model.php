@@ -490,7 +490,7 @@ class productos_model extends CI_Model
         $datos = array(
             'precio_venta' => $datos_venta_producto['precio_venta'],
             'existencias' => $datos_venta_producto['cantidad_productos'],
-            'tipo' => 'vendido',
+            //'tipo' => 'vendido',
         );
         $this->db->where('producto_id', $datos_venta_producto['id']);
         $query = $this->db->update('producto', $datos);
@@ -706,6 +706,8 @@ class productos_model extends CI_Model
         //$this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato.estado');
         $this->db->from('producto');
         $this->db->where('producto.tipo', 'compra');
+        //exsistencias mayor o igual a 1
+        $this->db->where('producto.existencias >=', '1');
         // insertamos en la base de datos
         if ($tienda == '1') {
             $this->db->where('producto.tienda_actual', '1');
@@ -717,6 +719,12 @@ class productos_model extends CI_Model
         }
         elseif ($tienda == '4') {
             $this->db->where('producto.tienda_actual', '4');
+        }
+        elseif ($tienda == '5') {
+            $this->db->where('producto.tienda_actual', '5');
+        }
+        elseif ($tienda == '6') {
+            $this->db->where('producto.tienda_actual', '6');
         }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
@@ -742,6 +750,9 @@ class productos_model extends CI_Model
                 break;
             case "5":
                 $contrato = "contrato_tienda_5";
+                break;
+            case "6":
+                $contrato = "contrato_tienda_6";
                 break;
         }
 

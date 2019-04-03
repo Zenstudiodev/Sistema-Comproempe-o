@@ -67,5 +67,15 @@ class Reportes extends Base_Controller
         }
         echo $this->templates->render('admin/inventario_global', $data);
     }
+    function inventario_global_excel(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/inventario_global_excel', $data);
+    }
 
 }

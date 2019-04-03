@@ -46,10 +46,27 @@ class Contrato extends Base_Controller
 
         $contratos_tienda_2 = $this->Contratos_model->contratos_actuaizador_t2();
         $contratos_tienda_3 = $this->Contratos_model->contratos_actuaizador_t3();
-
-        echo '<p>' . $contratos_tienda_1->num_rows() . ' Contratos en tienda 1</p>';
-        echo '<p>' . $contratos_tienda_2->num_rows() . ' Contratos en tienda 2</p>';
-        echo '<p>' . $contratos_tienda_3->num_rows() . ' Contratos en tienda 3</p>';
+        $contratos_tienda_4 = $this->Contratos_model->contratos_actuaizador_t4();
+        $contratos_tienda_5 = $this->Contratos_model->contratos_actuaizador_t5();
+        $contratos_tienda_6 = $this->Contratos_model->contratos_actuaizador_t6();
+        if ($contratos_tienda_1) {
+            echo '<p>' . $contratos_tienda_1->num_rows() . ' Contratos en tienda 1</p>';
+        }
+        if ($contratos_tienda_2) {
+            echo '<p>' . $contratos_tienda_2->num_rows() . ' Contratos en tienda 2</p>';
+        }
+        if ($contratos_tienda_3) {
+            echo '<p>' . $contratos_tienda_3->num_rows() . ' Contratos en tienda 3</p>';
+        }
+        if ($contratos_tienda_4) {
+            echo '<p>' . $contratos_tienda_4->num_rows() . ' Contratos en tienda 4</p>';
+        }
+        if ($contratos_tienda_5) {
+            echo '<p>' . $contratos_tienda_5->num_rows() . ' Contratos en tienda 5</p>';
+        }
+        if ($contratos_tienda_6) {
+            echo '<p>' . $contratos_tienda_6->num_rows() . ' Contratos en tienda 6</p>';
+        }
 
         $fecha_actual = new DateTime();
 
@@ -80,7 +97,7 @@ class Contrato extends Base_Controller
 
                             if ($diferencia_dias < 8) {
 
-                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
+                                $this->Contratos_model->actualizar_estado_contrato_t1($contrato->contrato_id, 'gracia');
 
                                 echo '<p>en dias de gracia</p>';
                             } else {
@@ -127,7 +144,7 @@ class Contrato extends Base_Controller
 
                             if ($diferencia_dias < 8) {
 
-                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
+                                $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'gracia');
 
                                 echo '<p>en dias de gracia</p>';
                             } else {
@@ -173,7 +190,7 @@ class Contrato extends Base_Controller
 
                             if ($diferencia_dias < 8) {
 
-                                $this->Contratos_model->actualizar_estado_contrato($contrato->contrato_id, 'gracia');
+                                $this->Contratos_model->actualizar_estado_contrato_t3($contrato->contrato_id, 'gracia');
 
                                 echo '<p>en dias de gracia</p>';
                             } else {
@@ -181,6 +198,147 @@ class Contrato extends Base_Controller
 
                                 $this->Contratos_model->actualizar_estado_contrato_t3($contrato->contrato_id, 'perdido');
                                 $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '3');
+                                if($productos){
+                                    foreach ($productos->result() as $producto) {
+                                        $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    echo '<hr>';
+                }
+            }
+        }
+        if ($contratos_tienda_4) {
+            echo '<h1>CONTRATOS TIENDA 4</h1>';
+
+            foreach ($contratos_tienda_4->result() as $contrato) {
+                $fecha_contrato = new DateTime($contrato->fecha_pago);
+
+                if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado') {
+                    echo '<p>' . $contrato->contrato_id . '</p>';
+                    echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
+                    echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
+
+                    if ($fecha_actual <= $fecha_contrato) {
+                        echo '<p>Aun no se ha pasado la fecha de pago</p>';
+                    } else {
+                        echo '<p>ya se paso la fecha de pago</p>';
+
+                        $interval = $fecha_contrato->diff($fecha_actual);
+                        $diferencia_dias = intval($interval->format('%R%a'));
+                        if ($contrato->tipo == 'Empeno') {
+                            //echo '<p>Es un empeño</p>';
+
+                            echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
+
+
+                            if ($diferencia_dias < 8) {
+
+                                $this->Contratos_model->actualizar_estado_contrato_t4($contrato->contrato_id, 'gracia');
+
+                                echo '<p>en dias de gracia</p>';
+                            } else {
+                                echo '<p>Contrato Vencido</p>';
+
+                                $this->Contratos_model->actualizar_estado_contrato_t4($contrato->contrato_id, 'perdido');
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '4');
+                                if($productos){
+                                    foreach ($productos->result() as $producto) {
+                                        $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    echo '<hr>';
+                }
+            }
+        }
+        if ($contratos_tienda_5) {
+            echo '<h1>CONTRATOS TIENDA 5</h1>';
+
+            foreach ($contratos_tienda_5->result() as $contrato) {
+                $fecha_contrato = new DateTime($contrato->fecha_pago);
+
+                if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado') {
+                    echo '<p>' . $contrato->contrato_id . '</p>';
+                    echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
+                    echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
+
+                    if ($fecha_actual <= $fecha_contrato) {
+                        echo '<p>Aun no se ha pasado la fecha de pago</p>';
+                    } else {
+                        echo '<p>ya se paso la fecha de pago</p>';
+
+                        $interval = $fecha_contrato->diff($fecha_actual);
+                        $diferencia_dias = intval($interval->format('%R%a'));
+                        if ($contrato->tipo == 'Empeno') {
+                            //echo '<p>Es un empeño</p>';
+
+                            echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
+
+
+                            if ($diferencia_dias < 8) {
+
+                                $this->Contratos_model->actualizar_estado_contrato_t4($contrato->contrato_id, 'gracia');
+
+                                echo '<p>en dias de gracia</p>';
+                            } else {
+                                echo '<p>Contrato Vencido</p>';
+
+                                $this->Contratos_model->actualizar_estado_contrato_t5($contrato->contrato_id, 'perdido');
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '5');
+                                if($productos){
+                                    foreach ($productos->result() as $producto) {
+                                        $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    echo '<hr>';
+                }
+            }
+        }
+        if ($contratos_tienda_6) {
+            echo '<h1>CONTRATOS TIENDA 6</h1>';
+
+            foreach ($contratos_tienda_6->result() as $contrato) {
+                $fecha_contrato = new DateTime($contrato->fecha_pago);
+
+                if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado') {
+                    echo '<p>' . $contrato->contrato_id . '</p>';
+                    echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
+                    echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
+
+                    if ($fecha_actual <= $fecha_contrato) {
+                        echo '<p>Aun no se ha pasado la fecha de pago</p>';
+                    } else {
+                        echo '<p>ya se paso la fecha de pago</p>';
+
+                        $interval = $fecha_contrato->diff($fecha_actual);
+                        $diferencia_dias = intval($interval->format('%R%a'));
+                        if ($contrato->tipo == 'Empeno') {
+                            //echo '<p>Es un empeño</p>';
+
+                            echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
+
+
+                            if ($diferencia_dias < 8) {
+
+                                $this->Contratos_model->actualizar_estado_contrato_t6($contrato->contrato_id, 'gracia');
+
+                                echo '<p>en dias de gracia</p>';
+                            } else {
+                                echo '<p>Contrato Vencido</p>';
+
+                                $this->Contratos_model->actualizar_estado_contrato_t6($contrato->contrato_id, 'perdido');
+                                $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '6');
                                 if($productos){
                                     foreach ($productos->result() as $producto) {
                                         $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);

@@ -95,6 +95,9 @@ $this->layout('admin/admin_master', [
                                         <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/5'; ?>">
                                             <i class="fa fa-home"></i> Tienda 5
                                         </a>
+                                        <a class="btn btn-app" href="<?php echo base_url() . 'user/asignar_tienda/'.$usuario->id.'/6'; ?>">
+                                            <i class="fa fa-home"></i> Tienda 6
+                                        </a>
                                     </td>
                                 </tr>
                             <?php } ?>

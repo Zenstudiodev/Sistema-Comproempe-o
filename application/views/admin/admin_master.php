@@ -99,11 +99,12 @@
                 <div id="cambiar_tienda">
                     <select id="select_tienda" class="form-control">
                         <option value=""></option>
-                        <option value="1">Tienda 1</option>
-                        <option value="2">Tienda 2</option>
-                        <option value="3">Tienda 3</option>
-                        <option value="4">Tienda 4</option>
-                        <option value="5">Tienda 5</option>
+                        <option value="1">Centra Sur</option>
+                        <option value="2">Centra Norte</option>
+                        <option value="3">Metro Norte</option>
+                        <option value="4">Antigua</option>
+                        <option value="5">Mixco</option>
+                        <option value="6">Villa Nueva</option>
                     </select>
                     <!--<a class="btn btn-block btn-success"
                        href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */?>">

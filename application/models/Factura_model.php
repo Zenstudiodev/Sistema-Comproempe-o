@@ -91,6 +91,9 @@ class Factura_model extends CI_Model
         elseif ($tienda == '5') {
             $query = $this->db->get('facturas_tienda_5');
         }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('facturas_tienda_6');
+        }
         if ($query->num_rows() > 0) return $query;
         else return false;
     }//TODO liquidacion
@@ -115,6 +118,9 @@ class Factura_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $this->db->from('facturas_tienda_5_r');
+        }
+        elseif ($tienda == '6') {
+            $this->db->from('facturas_tienda_6_r');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -798,7 +804,8 @@ class Factura_model extends CI_Model
             $this->db->join('cliente', 'cliente.id = facturas_r.cliente_id', 'Left');
 
             $this->db->order_by("facturas_r.fecha", 'ASC');
-        } elseif ($tienda == '2') {
+        }
+        elseif ($tienda == '2') {
             if ($from != null) {
                 $this->db->where('facturas_tienda_2_r.fecha  >=', $from);
             }
@@ -825,6 +832,34 @@ class Factura_model extends CI_Model
             $this->db->from('facturas_tienda_2_r');
             $this->db->join('cliente', 'cliente.id = facturas_tienda_2_r.cliente_id', 'Left');
             $this->db->order_by("facturas_tienda_2_r.fecha", 'ASC');
+        }
+        elseif ($tienda == '3') {
+            if ($from != null) {
+                $this->db->where('facturas_tienda_3_r.fecha  >=', $from);
+            }
+            if ($to != null) {
+                $this->db->where('facturas_tienda_3_r.fecha  <=', $to);
+            }
+            $this->db->select('facturas_tienda_3_r.factura_id, 
+            facturas_tienda_3_r.contrato_id, 
+            facturas_tienda_3_r.fecha, 
+            facturas_tienda_3_r.detalle, 
+            facturas_tienda_3_r.intereses, 
+            facturas_tienda_3_r.cargo_extra, 
+            facturas_tienda_3_r.almacenaje, 
+            facturas_tienda_3_r.mora, 
+            facturas_tienda_3_r.recuperacion, 
+            facturas_tienda_3_r.subtotal, 
+            facturas_tienda_3_r.descuento, 
+            facturas_tienda_3_r.total, 
+            facturas_tienda_3_r.tipo, 
+            facturas_tienda_3_r.estado, 
+            facturas_tienda_3_r.serie, 
+            cliente.id, cliente.nit, 
+            cliente.nombre');
+            $this->db->from('facturas_tienda_3_r');
+            $this->db->join('cliente', 'cliente.id = facturas_tienda_3_r.cliente_id', 'Left');
+            $this->db->order_by("facturas_tienda_3_r.fecha", 'ASC');
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;

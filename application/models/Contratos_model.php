@@ -100,6 +100,15 @@ class Contratos_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
+    function contratos_actuaizador_t6()
+    {
+        $this->db->select('contrato_tienda_6.contrato_id, contrato_tienda_6.estado, contrato_tienda_6.total_mutuo, contrato_tienda_6.fecha, contrato_tienda_6.fecha_pago, contrato_tienda_6.tipo, contrato_tienda_6.dias_gracia, contrato_tienda_6.tototal_liquidado, cliente.id, cliente.nombre');
+        $this->db->from('contrato_tienda_6');
+        $this->db->join('cliente', 'cliente.id = contrato_tienda_6.cliente_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
     function actualizar_estado_contrato_t1($contrato_id, $estado)
     {
 
@@ -141,6 +150,14 @@ class Contratos_model extends CI_Model
         );
         $this->db->where('contrato_id', $contrato_id);
         $query = $this->db->update('contrato_tienda_5', $data);
+    }
+    function actualizar_estado_contrato_t6($contrato_id, $estado)
+    {
+        $data = array(
+            'estado' => $estado,
+        );
+        $this->db->where('contrato_id', $contrato_id);
+        $query = $this->db->update('contrato_tienda_6', $data);
     }
     function listar_contratos_by_date($from, $to)
     {
@@ -471,6 +488,9 @@ class Contratos_model extends CI_Model
         elseif ($tienda == '5') {
             $this->db->insert('contrato_tienda_5', $datos_de_contrato);
         }
+        elseif ($tienda == '6') {
+            $this->db->insert('contrato_tienda_6', $datos_de_contrato);
+        }
 
 
         // if tienda id_1 intert
@@ -514,6 +534,9 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->update('contrato_tienda_5', $datos_de_contrato);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('contrato_tienda_6', $datos_de_contrato);
         }
 
 
@@ -568,7 +591,6 @@ class Contratos_model extends CI_Model
 
 
         }
-
         $datos_de_factura = array(
             //'factura_id' => $data['no_factura'],
             'cliente_id' => $data['cliente_id'],
@@ -586,8 +608,6 @@ class Contratos_model extends CI_Model
             'serie' => $serie_factura
 
         );
-
-
         // insertamon en la base de datos
         $this->db->insert($tabla_de_factura, $datos_de_factura);
         $insert_id = $this->db->insert_id();
@@ -657,6 +677,9 @@ class Contratos_model extends CI_Model
         elseif ($tienda == '5') {
             $query = $this->db->get('contrato_tienda_5');
         }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('contrato_tienda_6');
+        }
 
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -679,6 +702,9 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->get('facturas_tienda_5');
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('facturas_tienda_6');
         }
         if ($query->num_rows() > 0) return $query;
         else return false;
@@ -731,6 +757,16 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->get('contrato_tienda_5');
+            if ($query->num_rows() > 0) {
+                return $query;
+            } else {
+                $query = $this->db->get('contrato');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('contrato_tienda_6');
             if ($query->num_rows() > 0) {
                 return $query;
             } else {
@@ -835,6 +871,12 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '4') {
             $query = $this->db->update('contrato_tienda_4', $data);
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('contrato_tienda_6', $data);
         }
     }
     function actualizar_monto_contrato($contrato_id, $monto)
@@ -1001,6 +1043,9 @@ class Contratos_model extends CI_Model
         elseif ($tienda == '5') {
             $query = $this->db->get('contrato_tienda_5');
         }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('contrato_tienda_6');
+        }
         if ($query->num_rows() > 0) return $query->row();
         else return false;
     }
@@ -1044,8 +1089,26 @@ class Contratos_model extends CI_Model
     }
     function contratos_excel()
     {
+        $tienda = tienda_id_h();
         $fields = $this->db->field_data('contrato');
-        $query = $this->db->select('*')->get('contrato');
+
+        if ($tienda == '1') {
+            $query = $this->db->select('*')->get('contrato');
+        } elseif ($tienda == '2') {
+            $query = $this->db->select('*')->get('contrato_tienda_2');
+
+        }
+        elseif ($tienda == '3') {
+            $query = $this->db->select('*')->get('contrato_tienda_3');
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->select('*')->get('contrato_tienda_4');
+
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->select('*')->get('contrato_tienda_5');
+
+        }
 
         return array("fields" => $fields, "query" => $query);
     }

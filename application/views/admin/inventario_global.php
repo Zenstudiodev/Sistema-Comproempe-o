@@ -145,6 +145,9 @@ $ci =& get_instance();
                                     'mutuo' => 0
                                 );
                                 ?>
+                                <p>
+                                    <a class="btn btn-success" href="<?php echo base_url()?>reportes/inventario_global_excel">Exportar</a>
+                                </p>
 
                                 <div class="box-group" id="accordion">
                                     <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->

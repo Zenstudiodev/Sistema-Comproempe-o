@@ -135,6 +135,8 @@ class Cliente_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->get('contrato_tienda_5');
+        }elseif ($tienda == '6') {
+            $query = $this->db->get('contrato_tienda_6');
         }
 	    if($query->num_rows() > 0) return $query->num_rows();
 	    else return 0;
