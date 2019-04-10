@@ -215,11 +215,14 @@ class Contrato extends Base_Controller
 
             foreach ($contratos_tienda_4->result() as $contrato) {
                 $fecha_contrato = new DateTime($contrato->fecha_pago);
+                $inicia_dias_gracia = new DateTime($contrato->fecha_pago);
+                $inicia_dias_gracia->modify('+1 days');
 
                 if ($contrato->estado == 'vigente' || $contrato->estado == 'gracia' || $contrato->estado == 'refrendado') {
                     echo '<p>' . $contrato->contrato_id . '</p>';
                     echo '<p> estado de contrato: ' . $contrato->estado . '</p>';
                     echo 'fecha de pago: ' . $fecha_contrato->format('Y-m-d') . '<br>';
+                    echo 'Días de gracia: ' . $fecha_contrato->format('Y-m-d') . '<br>';
                     echo 'fecha de actual: ' . $fecha_actual->format('Y-m-d') . '<br>';
 
                     if ($fecha_actual <= $fecha_contrato) {
@@ -227,7 +230,7 @@ class Contrato extends Base_Controller
                     } else {
                         echo '<p>ya se paso la fecha de pago</p>';
 
-                        $interval = $fecha_contrato->diff($fecha_actual);
+                        $interval = $inicia_dias_gracia->diff($fecha_actual);
                         $diferencia_dias = intval($interval->format('%R%a'));
                         if ($contrato->tipo == 'Empeno') {
                             //echo '<p>Es un empeño</p>';

@@ -348,7 +348,6 @@ class Productos extends Base_Controller
             } else {
                 $estado_contrato = 'liquidado_parcial';
             }
-
             $nuevos_datos_de_contrato = array(
                 'contrato_id' => $datos_contrato->contrato_id,
                 'tototal_liquidado' => $resultado_liquidado,
