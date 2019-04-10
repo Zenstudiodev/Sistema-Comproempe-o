@@ -277,6 +277,15 @@ class Factura_model extends CI_Model
                 else return false;
             }
         }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('facturas_tienda_6_r');
+            if ($query->num_rows() > 0) return $query;
+            else {
+                $query = $this->db->get('facturas_r');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }
     }
 
     public function anular_factura($factura_id, $serie)//TODO facturas r
