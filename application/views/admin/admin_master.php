@@ -315,11 +315,11 @@
                             <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                                <li>
+                                <!--<li>
                                     <a href="<?php echo base_url() ?>reportes/movimiento_diario">
                                         <i class="fas fa-file-download"></i> Movimiento diario
                                     </a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="<?php echo base_url() ?>reportes/movimiento_diario_global">
                                         <i class="fas fa-file-download"></i> Movimiento diario global
@@ -328,6 +328,11 @@
                             <li>
                                 <a href="<?php echo base_url() ?>reportes/inventario_global">
                                     <i class="fas fa-file-download"></i> Inventario global
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>reportes/egresos_diarios_global">
+                                    <i class="fas fa-file-download"></i> Reporte de egresos global
                                 </a>
                             </li>
                                 <li>

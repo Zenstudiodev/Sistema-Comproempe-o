@@ -61,6 +61,7 @@ $ci =& get_instance();
                     //fecha final
                     $fecha_final = New DateTime($to);
                 } else {
+
                     $fecha = New DateTime();
                     $mes = $fecha->format('m');
                     $year = $fecha->format('Y');
