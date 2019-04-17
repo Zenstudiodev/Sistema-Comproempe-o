@@ -43,6 +43,11 @@ class Contratos_model extends CI_Model
             $this->db->from('contrato_tienda_5');
             $this->db->join('cliente', 'cliente.id = contrato_tienda_5.cliente_id');
         }
+        elseif ($tienda == '6') {
+            $this->db->select('contrato_tienda_6.contrato_id, contrato_tienda_6.estado, contrato_tienda_6.total_mutuo, contrato_tienda_6.fecha, contrato_tienda_6.fecha_pago, contrato_tienda_6.tipo, contrato_tienda_6.dias_gracia, contrato_tienda_6.tototal_liquidado, cliente.id, cliente.nombre');
+            $this->db->from('contrato_tienda_6');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_6.cliente_id');
+        }
 
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
@@ -581,12 +586,19 @@ class Contratos_model extends CI_Model
                 case 'AG':
                     $tabla_de_factura = 'facturas_tienda_4';
                     break;
-                case 'TR5':
-                    $tabla_de_factura = 'facturas_tienda_5_r';
+                case 'VN':
+                    $tabla_de_factura = 'facturas_tienda_6';
                     break;
-                case 'T5':
+                case 'VNR':
+                    $tabla_de_factura = 'facturas_tienda_6_r';
+                    break;
+                case 'MX':
                     $tabla_de_factura = 'facturas_tienda_5';
                     break;
+                case 'MXR':
+                    $tabla_de_factura = 'facturas_tienda_5_r';
+                    break;
+
             }
 
 
@@ -651,6 +663,9 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $this->db->insert('recibos_tienda_5', $datos_de_recibo);
+        }
+        elseif ($tienda == '6') {
+            $this->db->insert('recibos_tienda_6', $datos_de_recibo);
         }
 
         $insert_id = $this->db->insert_id();
@@ -993,6 +1008,9 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_4', $data);
         }
         elseif ($tienda == '5') {
+            $query = $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
             $query = $this->db->update('contrato_tienda_5', $data);
         }
     }

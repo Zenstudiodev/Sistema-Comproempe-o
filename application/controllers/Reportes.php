@@ -41,8 +41,6 @@ class Reportes extends Base_Controller
         if ($this->uri->segment(4)) {
             $data['to'] = $this->uri->segment(4);
         }
-
-
         echo $this->templates->render('admin/movimiento_diario_global', $data);
     }
     function inventario_tienda(){

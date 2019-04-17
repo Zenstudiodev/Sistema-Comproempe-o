@@ -36,6 +36,10 @@ class Recibo_model  extends CI_Model
             $this->db->from('recibos_tienda_5');
             $this->db->join('cliente', 'cliente.id = recibos_tienda_5.cliente_id');
         }
+        elseif ($tienda == '6') {
+            $this->db->from('recibos_tienda_6');
+            $this->db->join('cliente', 'cliente.id = recibos_tienda_6.cliente_id');
+        }
 
 		$query = $this->db->get();
 		if($query->num_rows() > 0) return $query;
@@ -81,9 +85,9 @@ class Recibo_model  extends CI_Model
             $this->db->where_in('recibos_tienda_5.tipo', $tipos_de_recibo);
         }
         elseif ($tienda == '6') {
-            $this->db->select('recibos_tienda_6.recibo_id, recibos_tienda_6.estado, recibos_tienda_6.fecha_recibo, recibos_tienda_6.contrato_id, recibos_tienda_6.monto, recibos_tienda_6.tipo, contrato_tienda_5.total_mutuo');
+            $this->db->select('recibos_tienda_6.recibo_id, recibos_tienda_6.estado, recibos_tienda_6.fecha_recibo, recibos_tienda_6.contrato_id, recibos_tienda_6.monto, recibos_tienda_6.tipo, contrato_tienda_6.total_mutuo');
             $this->db->from('recibos_tienda_6');
-            $this->db->join('contrato_tienda_5', 'recibos_tienda_6.contrato_id = contrato_tienda_5.contrato_id');
+            $this->db->join('contrato_tienda_6', 'recibos_tienda_6.contrato_id = contrato_tienda_6.contrato_id');
             $this->db->where('recibos_tienda_6.cliente_id', $cliente_id);
             $this->db->where_in('recibos_tienda_6.tipo', $tipos_de_recibo);
         }
@@ -185,7 +189,14 @@ class Recibo_model  extends CI_Model
             $fields = $this->db->field_data('recibos_tienda_5');
             $query  = $this->db->select('*')->get('recibos_tienda_5');
         }
-
+        elseif ($tienda == '5') {
+            $fields = $this->db->field_data('recibos_tienda_5');
+            $query  = $this->db->select('*')->get('recibos_tienda_5');
+        }
+        elseif ($tienda == '6') {
+            $fields = $this->db->field_data('recibos_tienda_6');
+            $query  = $this->db->select('*')->get('recibos_tienda_6');
+        }
 
 
         return array("fields" => $fields, "query" => $query);
@@ -203,6 +214,12 @@ class Recibo_model  extends CI_Model
         }
         elseif ($tienda == '4') {
             $query = $this->db->get('recibos_tienda_4');
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('recibos_tienda_5');
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('recibos_tienda_6');
         }
 		if($query->num_rows() > 0) return $query;
 		else return false;
@@ -223,6 +240,12 @@ class Recibo_model  extends CI_Model
         }
         elseif ($tienda == '4') {
             $query = $this->db->update('recibos_tienda_4', $datos);
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->update('recibos_tienda_5', $datos);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('recibos_tienda_6', $datos);
         }
 	}
 }
