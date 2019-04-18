@@ -44,7 +44,8 @@ $ci =& get_instance();
                         </div>
                         <input type="button" id="exportar_btn" onclick="tableToExcel('export', 'W3C Example Table')" value="Exportar a excel">
                         <table id="export">
-                            <tr><td>
+                            <tr>
+                                <td>
                                     <div class="panel box box-primary">
                                         <div class="box-header with-border">
                                             <h4 class="box-title">
@@ -1816,12 +1817,6 @@ $ci =& get_instance();
         document.getElementById("exportar_btn").click();
     });
 
-    $('#rango_movimiento').on('apply.daterangepicker', function (ev, picker) {
-        from = picker.startDate.format('YYYY-MM-DD');
-        to = picker.endDate.format('YYYY-MM-DD');
-        url = '<?php echo base_url();?>' + 'Reportes/movimiento_diario_global/' + from + '/' + to;
-        window.location.href = url;
-    });
 
     var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'

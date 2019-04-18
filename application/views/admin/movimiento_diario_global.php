@@ -87,7 +87,7 @@ $ci =& get_instance();
                 <div class="row">
                     <div class="box box-solid">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Collapsible Accordion <a class="btn btn-success" target="_blank" href="<?php echo base_url().'Reportes/movimiento_diario_global_excel/'.$from.'/'.$to; ?>">Exportar</a></h3>
+                            <h3 class="box-title">Movimiento diario <a class="btn btn-success" target="_blank" href="<?php echo base_url().'Reportes/movimiento_diario_global_excel/'.$from.'/'.$to; ?>">Exportar</a></h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

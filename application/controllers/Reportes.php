@@ -95,6 +95,15 @@ class Reportes extends Base_Controller
         }
         echo $this->templates->render('admin/egresos_diario_global', $data);
     }
-    function egresos_diarios_global_excel(){}
+    function egresos_diarios_global_excel(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/egresos_diario_global_excel', $data);
+    }
 
 }

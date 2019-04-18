@@ -799,6 +799,20 @@ class Caja_model extends CI_Model
     }
 
 
+    //get egresos globales
+    function get_egresos_global($fecha, $tienda)
+    {
+        //fecha
+        //$fecha = New DateTime();
+        $this->db->where('fecha', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('egresos');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+
+
+
     function get_datos_vale_by_id($vale_id){
         $this->db->where('vale_id', $vale_id);
         $query = $this->db->get('vales');

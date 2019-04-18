@@ -171,6 +171,8 @@ $ci =& get_instance();
                                                 $productos_en_liquidacion_tienda_2_1 = $ci->Productos_model->get_productos_liquidacion_inventario('2', '1');
                                                 $productos_en_liquidacion_tienda_3_1 = $ci->Productos_model->get_productos_liquidacion_inventario('3', '1');
                                                 $productos_en_liquidacion_tienda_4_1 = $ci->Productos_model->get_productos_liquidacion_inventario('4', '1');
+                                                $productos_en_liquidacion_tienda_5_1 = $ci->Productos_model->get_productos_liquidacion_inventario('5', '1');
+                                                $productos_en_liquidacion_tienda_6_1 = $ci->Productos_model->get_productos_liquidacion_inventario('6', '1');
 
 
                                                 ?>
@@ -1096,6 +1098,408 @@ $ci =& get_instance();
 
                                                                 } ?>
                                                             <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_5_1) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_5_1->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_6_1) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_6_1->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
 
 
                                                             </tbody>
@@ -1272,6 +1676,8 @@ $ci =& get_instance();
                                                 $productos_en_liquidacion_tienda_2_2 = $ci->Productos_model->get_productos_liquidacion_inventario('2', '2');
                                                 $productos_en_liquidacion_tienda_3_2 = $ci->Productos_model->get_productos_liquidacion_inventario('3', '2');
                                                 $productos_en_liquidacion_tienda_4_2 = $ci->Productos_model->get_productos_liquidacion_inventario('4', '2');
+                                                $productos_en_liquidacion_tienda_5_2 = $ci->Productos_model->get_productos_liquidacion_inventario('5', '2');
+                                                $productos_en_liquidacion_tienda_6_2 = $ci->Productos_model->get_productos_liquidacion_inventario('6', '2');
                                                 ?>
                                                 <div class="col-md-12">
                                                     <div class="table-responsive">
@@ -2194,6 +2600,408 @@ $ci =& get_instance();
 
                                                                 } ?>
                                                             <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_5_2) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_5_2->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_6_2) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_6_2->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
                                                             </tbody>
                                                         </table>
                                                         <?php
@@ -2366,6 +3174,8 @@ $ci =& get_instance();
                                                 $productos_en_liquidacion_tienda_2_3 = $ci->Productos_model->get_productos_liquidacion_inventario('2', '3');
                                                 $productos_en_liquidacion_tienda_3_3 = $ci->Productos_model->get_productos_liquidacion_inventario('3', '3');
                                                 $productos_en_liquidacion_tienda_4_3 = $ci->Productos_model->get_productos_liquidacion_inventario('4', '3');
+                                                $productos_en_liquidacion_tienda_5_3 = $ci->Productos_model->get_productos_liquidacion_inventario('5', '3');
+                                                $productos_en_liquidacion_tienda_6_3 = $ci->Productos_model->get_productos_liquidacion_inventario('6', '3');
                                                 ?>
                                                 <div class="col-md-12">
                                                     <div class="table-responsive">
@@ -3089,6 +3899,408 @@ $ci =& get_instance();
                                                             <?php } ?>
                                                             <?php if ($productos_en_liquidacion_tienda_4_3) { ?>
                                                                 <?php foreach ($productos_en_liquidacion_tienda_4_3->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_5_3) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_5_3->result() as $producto) { ?>
+                                                                    <?php //print_contenido($producto)?>
+                                                                    <tr>
+                                                                        <td><?php echo $numero_producto; ?></td>
+                                                                        <td><?php echo $producto->producto_id; ?></td>
+                                                                        <td><?php echo $producto->nombre_producto; ?></td>
+                                                                        <td><?php echo $producto->categoria; ?></td>
+                                                                        <td><?php echo $producto->contrato_id; ?></td>
+                                                                        <td><?php echo $producto->avaluo_comercial;
+                                                                            $total_avaluo_comercial = $total_avaluo_comercial + $producto->avaluo_comercial;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->avaluo_ce;
+                                                                            $total_avaluo_ce = $total_avaluo_ce + $producto->avaluo_ce;
+                                                                            ?></td>
+                                                                        <td><?php echo $producto->mutuo;
+                                                                            $total_mutuo = $total_mutuo + $producto->mutuo;
+                                                                            ?></td>
+                                                                        <td><?php
+                                                                            $diferencia_en_dias = diferencia_en_dias($producto->dias_gracia);
+                                                                            echo $diferencia_en_dias; ?> dias</td>
+                                                                        <td><?php echo $producto->dias_gracia; ?></td>
+                                                                        <td><?php echo id_to_nombre($producto->user_id); ?></td>
+                                                                    </tr>
+                                                                    <?php
+                                                                    $numero_producto = $numero_producto + 1;
+                                                                    //asignamos valores segun categorias a objeto de total de tienda y total global
+
+                                                                    if($producto->categoria == 'Audio'){
+
+                                                                        $Audio->numero =  $Audio->numero +1;
+                                                                        $Audio->avaluo_ce =  $Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Audio->avaluo_c =  $Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Audio->mutuo =  $Audio->mutuo + $producto->mutuo;
+
+                                                                        $total_Audio->numero =  $total_Audio->numero +1;
+                                                                        $total_Audio->avaluo_ce =  $total_Audio->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Audio->avaluo_c =  $total_Audio->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Audio->mutuo =  $total_Audio->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Cámaras'){
+                                                                        $Camaras->numero =  $Camaras->numero +1;
+                                                                        $Camaras->avaluo_ce =  $Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Camaras->avaluo_c =  $Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Camaras->mutuo =  $Camaras->mutuo + $producto->mutuo;
+
+                                                                        $total_Camaras->numero =  $total_Camaras->numero +1;
+                                                                        $total_Camaras->avaluo_ce =  $total_Camaras->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Camaras->avaluo_c =  $total_Camaras->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Camaras->mutuo =  $total_Camaras->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Celulares'){
+                                                                        $Celulares->numero =  $Celulares->numero +1;
+                                                                        $Celulares->avaluo_ce =  $Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $Celulares->avaluo_c =  $Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $Celulares->mutuo =  $Celulares->mutuo + $producto->mutuo;
+
+                                                                        $total_Celulares->numero =  $total_Celulares->numero +1;
+                                                                        $total_Celulares->avaluo_ce =  $total_Celulares->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_Celulares->avaluo_c =  $total_Celulares->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_Celulares->mutuo =  $total_Celulares->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Computadoras Laptops y Tablets'){
+                                                                        $computadoras_laptops_tablets->numero =  $computadoras_laptops_tablets->numero +1;
+                                                                        $computadoras_laptops_tablets->avaluo_ce =  $computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $computadoras_laptops_tablets->avaluo_c =  $computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $computadoras_laptops_tablets->mutuo =  $computadoras_laptops_tablets->mutuo + $producto->mutuo;
+
+                                                                        $total_computadoras_laptops_tablets->numero =  $total_computadoras_laptops_tablets->numero +1;
+                                                                        $total_computadoras_laptops_tablets->avaluo_ce =  $total_computadoras_laptops_tablets->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_computadoras_laptops_tablets->avaluo_c =  $total_computadoras_laptops_tablets->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_computadoras_laptops_tablets->mutuo =  $total_computadoras_laptops_tablets->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Deportes'){
+                                                                        $deportes->numero =  $deportes->numero +1;
+                                                                        $deportes->avaluo_ce =  $deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $deportes->avaluo_c =  $deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $deportes->mutuo =  $deportes->mutuo + $producto->mutuo;
+
+                                                                        $total_deportes->numero =  $total_deportes->numero +1;
+                                                                        $total_deportes->avaluo_ce =  $total_deportes->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_deportes->avaluo_c =  $total_deportes->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_deportes->mutuo =  $total_deportes->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Electrodomésticos'){
+                                                                        $electrodomesticos->numero =  $electrodomesticos->numero +1;
+                                                                        $electrodomesticos->avaluo_ce =  $electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $electrodomesticos->avaluo_c =  $electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $electrodomesticos->mutuo =  $electrodomesticos->mutuo + $producto->mutuo;
+
+                                                                        $total_electrodomesticos->numero =  $total_electrodomesticos->numero +1;
+                                                                        $total_electrodomesticos->avaluo_ce =  $total_electrodomesticos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_electrodomesticos->avaluo_c =  $total_electrodomesticos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_electrodomesticos->mutuo =  $total_electrodomesticos->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Herramientas'){
+                                                                        $herramientas->numero =  $herramientas->numero +1;
+                                                                        $herramientas->avaluo_ce =  $herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $herramientas->avaluo_c =  $herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $herramientas->mutuo =  $herramientas->mutuo + $producto->mutuo;
+
+                                                                        $total_herramientas->numero =  $total_herramientas->numero +1;
+                                                                        $total_herramientas->avaluo_ce =  $total_herramientas->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_herramientas->avaluo_c =  $total_herramientas->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_herramientas->mutuo =  $total_herramientas->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Hogar'){
+                                                                        $hogar->numero =  $hogar->numero +1;
+                                                                        $hogar->avaluo_ce =  $hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $hogar->avaluo_c =  $hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $hogar->mutuo =  $hogar->mutuo + $producto->mutuo;
+
+                                                                        $total_hogar->numero =  $total_hogar->numero +1;
+                                                                        $total_hogar->avaluo_ce =  $total_hogar->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_hogar->avaluo_c =  $total_hogar->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_hogar->mutuo =  $total_hogar->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Instrumentos Musicales'){
+                                                                        $instrumentos_musicales->numero =  $instrumentos_musicales->numero +1;
+                                                                        $instrumentos_musicales->avaluo_ce =  $instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $instrumentos_musicales->avaluo_c =  $instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $instrumentos_musicales->mutuo =  $instrumentos_musicales->mutuo + $producto->mutuo;
+
+                                                                        $total_instrumentos_musicales->numero =  $total_instrumentos_musicales->numero +1;
+                                                                        $total_instrumentos_musicales->avaluo_ce =  $total_instrumentos_musicales->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_instrumentos_musicales->avaluo_c =  $total_instrumentos_musicales->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_instrumentos_musicales->mutuo =  $total_instrumentos_musicales->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Joyería'){
+                                                                        $joyeria->numero =  $joyeria->numero +1;
+                                                                        $joyeria->avaluo_ce =  $joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $joyeria->avaluo_c =  $joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $joyeria->mutuo =  $joyeria->mutuo + $producto->mutuo;
+
+                                                                        $total_joyeria->numero =  $total_joyeria->numero +1;
+                                                                        $total_joyeria->avaluo_ce =  $total_joyeria->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_joyeria->avaluo_c =  $total_joyeria->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_joyeria->mutuo =  $total_joyeria->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Línea blanca'){
+                                                                        $line_blanca->numero =  $line_blanca->numero +1;
+                                                                        $line_blanca->avaluo_ce =  $line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $line_blanca->avaluo_c =  $line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $line_blanca->mutuo =  $line_blanca->mutuo + $producto->mutuo;
+
+                                                                        $total_line_blanca->numero =  $total_line_blanca->numero +1;
+                                                                        $total_line_blanca->avaluo_ce =  $total_line_blanca->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_line_blanca->avaluo_c =  $total_line_blanca->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_line_blanca->mutuo =  $total_line_blanca->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Motocicletas y Automóviles'){
+                                                                        $motocicletas_automoviles->numero =  $motocicletas_automoviles->numero +1;
+                                                                        $motocicletas_automoviles->avaluo_ce =  $motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $motocicletas_automoviles->avaluo_c =  $motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $motocicletas_automoviles->mutuo =  $motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                        $total_motocicletas_automoviles->numero =  $total_motocicletas_automoviles->numero +1;
+                                                                        $total_motocicletas_automoviles->avaluo_ce =  $total_motocicletas_automoviles->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_motocicletas_automoviles->avaluo_c =  $total_motocicletas_automoviles->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_motocicletas_automoviles->mutuo =  $total_motocicletas_automoviles->mutuo + $producto->mutuo;
+
+                                                                    }
+                                                                    if($producto->categoria == 'Salud y belleza'){
+                                                                        $salud_belleza->numero =  $salud_belleza->numero +1;
+                                                                        $salud_belleza->avaluo_ce =  $salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $salud_belleza->avaluo_c =  $salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $salud_belleza->mutuo =  $salud_belleza->mutuo + $producto->mutuo;
+
+                                                                        $total_salud_belleza->numero =  $total_salud_belleza->numero +1;
+                                                                        $total_salud_belleza->avaluo_ce =  $total_salud_belleza->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_salud_belleza->avaluo_c =  $total_salud_belleza->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_salud_belleza->mutuo =  $total_salud_belleza->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video'){
+                                                                        $video->numero =  $video->numero +1;
+                                                                        $video->avaluo_ce =  $video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $video->avaluo_c =  $video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $video->mutuo =  $video->mutuo + $producto->mutuo;
+
+                                                                        $total_video->numero =  $total_video->numero +1;
+                                                                        $total_video->avaluo_ce =  $total_video->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_video->avaluo_c =  $total_video->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_video->mutuo =  $total_video->mutuo + $producto->mutuo;
+                                                                    }
+                                                                    if($producto->categoria == 'Video Juegos'){
+                                                                        $videojuegos->numero =  $videojuegos->numero +1;
+                                                                        $videojuegos->avaluo_ce =  $videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $videojuegos->avaluo_c =  $videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $videojuegos->mutuo =  $videojuegos->mutuo + $producto->mutuo;
+
+                                                                        $total_videojuegos->numero =  $total_videojuegos->numero +1;
+                                                                        $total_videojuegos->avaluo_ce =  $total_videojuegos->avaluo_ce + $producto->avaluo_ce;
+                                                                        $total_videojuegos->avaluo_c =  $total_videojuegos->avaluo_c + $producto->avaluo_comercial;
+                                                                        $total_videojuegos->mutuo =  $total_videojuegos->mutuo + $producto->mutuo;
+                                                                    }
+
+
+
+                                                                } ?>
+                                                            <?php } ?>
+                                                            <?php if ($productos_en_liquidacion_tienda_6_3) { ?>
+                                                                <?php foreach ($productos_en_liquidacion_tienda_6_3->result() as $producto) { ?>
                                                                     <?php //print_contenido($producto)?>
                                                                     <tr>
                                                                         <td><?php echo $numero_producto; ?></td>
