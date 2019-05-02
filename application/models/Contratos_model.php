@@ -914,6 +914,12 @@ class Contratos_model extends CI_Model
         elseif ($tienda == '4') {
             $query = $this->db->update('contrato_tienda_4', $data);
         }
+        elseif ($tienda == '5') {
+            $query = $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('contrato_tienda_6', $data);
+        }
     }
     function actualizar_contrato_refrendo($datos)
     {
@@ -946,6 +952,12 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '4') {
             $this->db->update('contrato_tienda_4', $data);
+        }
+        elseif ($tienda == '5') {
+            $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
+            $this->db->update('contrato_tienda_6', $data);
         }
 
     }
@@ -980,6 +992,12 @@ class Contratos_model extends CI_Model
         elseif ($tienda == '4') {
             $query = $this->db->update('contrato_tienda_4', $data);
         }
+        elseif ($tienda == '5') {
+            $query = $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('contrato_tienda_6', $data);
+        }
     }
     function actualizar_contrato_desempeno($datos)
     {
@@ -1011,7 +1029,7 @@ class Contratos_model extends CI_Model
             $query = $this->db->update('contrato_tienda_5', $data);
         }
         elseif ($tienda == '6') {
-            $query = $this->db->update('contrato_tienda_5', $data);
+            $query = $this->db->update('contrato_tienda_6', $data);
         }
     }
     function actualizar_estado_liquidacion($datos)
@@ -1039,6 +1057,9 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->update('contrato_tienda_5', $data);
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->update('contrato_tienda_6', $data);
         }
 
     }
@@ -1125,6 +1146,10 @@ class Contratos_model extends CI_Model
         }
         elseif ($tienda == '5') {
             $query = $this->db->select('*')->get('contrato_tienda_5');
+
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->select('*')->get('contrato_tienda_6');
 
         }
 
