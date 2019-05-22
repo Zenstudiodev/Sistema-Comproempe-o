@@ -18,7 +18,8 @@
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="/ui/admin/bootstrap/css/bootstrap.min.css" type="text/css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"
           type="text/css">
@@ -107,7 +108,7 @@
                         <option value="6">Villa Nueva</option>
                     </select>
                     <!--<a class="btn btn-block btn-success"
-                       href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */?>">
+                       href="<?php /*echo base_url() . 'user/cambiar_tienda/' . $tienda_id */ ?>">
                         Cambiar tienda
                     </a>-->
 
@@ -169,13 +170,13 @@
                         </li>
                         <?php
                         if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'jefe_tienda') { ?>
-                        <li>
-                            <a href="<?php echo base_url() ?>productos/administar_bodega"><i
-                                        class="fa fa-file"></i>
-                                Bodega
-                            </a>
-                        </li>
-                        <?php }?>
+                            <li>
+                                <a href="<?php echo base_url() ?>productos/administar_bodega"><i
+                                            class="fa fa-file"></i>
+                                    Bodega
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -243,40 +244,43 @@
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">
-                        <?php if(user_rol() == 'developer' || user_rol() =='gerencia' || user_rol() == 'vendedor' || user_rol() == 'jefe_tienda' ){?>
-                        <li>
-                            <a href="#"><i class="fa fa-circle-o"></i> Vales
-                                <span class="pull-right-container">
+                        <?php if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'vendedor' || user_rol() == 'jefe_tienda') { ?>
+                            <li>
+                                <a href="#"><i class="fa fa-circle-o"></i> Vales
+                                    <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo base_url() ?>Caja/crear_vale"><i class="fa fa-circle-o"></i>
-                                        Crear vales</a></li>
-                                <li><a href="<?php echo base_url() ?>Caja/lista_vales"><i class="fa fa-circle-o"></i> Cobrar vales</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>Caja/ingresar_fondo_caja"><i class="fa fa-circle-o"></i>
-                                Ingresar fondos a caja</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>Caja/ingreso_otros_gastos"><i class="fa fa-circle-o"></i>
-                                Ingresar otros gastos</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>Caja/ingreso_deposito"><i class="fa fa-circle-o"></i>
-                                Ingresar Depósito</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>Caja/ingreso_visanet"><i class="fa fa-circle-o"></i>
-                                Ingresar Visanet</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
-                                Cierre</a>
-                        </li>
-                        <?php }?>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="<?php echo base_url() ?>Caja/crear_vale"><i class="fa fa-circle-o"></i>
+                                            Crear vales</a></li>
+                                    <li><a href="<?php echo base_url() ?>Caja/lista_vales"><i
+                                                    class="fa fa-circle-o"></i> Cobrar vales</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>Caja/ingresar_fondo_caja"><i
+                                            class="fa fa-circle-o"></i>
+                                    Ingresar fondos a caja</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>Caja/ingreso_otros_gastos"><i
+                                            class="fa fa-circle-o"></i>
+                                    Ingresar otros gastos</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>Caja/ingreso_deposito"><i class="fa fa-circle-o"></i>
+                                    Ingresar Depósito</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>Caja/ingreso_visanet"><i class="fa fa-circle-o"></i>
+                                    Ingresar Visanet</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url() ?>Caja/cierre"><i class="fa fa-circle-o"></i>
+                                    Cierre</a>
+                            </li>
+                        <?php } ?>
                         <li>
                             <a href="<?php echo base_url() ?>Caja/reporte"><i class="fa fa-circle-o"></i> reporte</a>
                         </li>
@@ -290,42 +294,47 @@
                             <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                         </a>
                         <ul class="treeview-menu">
-                            <?php if(user_rol() != 'conta'){?>
-                            <li>
-                                <a href="<?php echo base_url() ?>user/lista_de_usuarios">
-                                    <i class="fas fa-users"></i> Control de usuarios
-                                </a>
-                            </li>
-                            <?php }?>
-                            <?php if(user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' ){?>
-                            <li>
-                                <a href="<?php echo base_url() ?>index.php/home/exportar">
-                                    <i class="fas fa-file-download"></i> Exportar
-                                </a>
-                            </li>
-                            <?php }?>
+                            <?php if (user_rol() != 'conta') { ?>
+                                <li>
+                                    <a href="<?php echo base_url() ?>user/lista_de_usuarios">
+                                        <i class="fas fa-users"></i> Control de usuarios
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
+                                <li>
+                                    <a href="<?php echo base_url() ?>index.php/home/exportar">
+                                        <i class="fas fa-file-download"></i> Exportar
+                                    </a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </li>
                 <?php } ?>
-                <?php
-                if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fas fa-chart-bar"></i> <span>Reportes</span>
-                            <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
-                        </a>
-                        <ul class="treeview-menu">
-                                <!--<li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fas fa-chart-bar"></i> <span>Reportes</span>
+                        <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <!--<li>
                                     <a href="<?php echo base_url() ?>reportes/movimiento_diario">
                                         <i class="fas fa-file-download"></i> Movimiento diario
                                     </a>
                                 </li>-->
-                                <li>
-                                    <a href="<?php echo base_url() ?>reportes/movimiento_diario_global">
-                                        <i class="fas fa-file-download"></i> Movimiento diario global
-                                    </a>
-                                </li>
+                        <?php
+                        if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
                             <li>
+                                <a href="<?php echo base_url() ?>reportes/movimiento_diario_global">
+                                    <i class="fas fa-file-download"></i> Movimiento diario global
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php
+                        if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
+                            <li>
+
                                 <a href="<?php echo base_url() ?>reportes/inventario_global">
                                     <i class="fas fa-file-download"></i> Inventario global
                                 </a>
@@ -335,14 +344,15 @@
                                     <i class="fas fa-file-download"></i> Reporte de egresos global
                                 </a>
                             </li>
-                                <li>
-                                    <a href="<?php echo base_url() ?>index.php/home/registros">
-                                        <i class="far fa-file-alt"></i> Registros
-                                    </a>
-                                </li>
-                        </ul>
-                    </li>
-                <?php } ?>
+                            <li>
+                                <a href="<?php echo base_url() ?>index.php/home/registros">
+                                    <i class="far fa-file-alt"></i> Registros
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </li>
+
                 <li>
                     <a href="<?php echo base_url() ?>index.php/login/logout">
                         <i class="fas fa-file"></i>
@@ -587,7 +597,7 @@
 <script>
     $("#select_tienda").change(function () {
         var tienda_destino = $(this).val();
-        window.location.href = "<?php echo base_url() . 'user/cambiar_tienda/'?>"+tienda_destino;
+        window.location.href = "<?php echo base_url() . 'user/cambiar_tienda/'?>" + tienda_destino;
         console.log(tienda_destino);
     });
 </script>
