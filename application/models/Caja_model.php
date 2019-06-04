@@ -806,6 +806,7 @@ class Caja_model extends CI_Model
         //$fecha = New DateTime();
         $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
+        $this->db->where('tipo !=', 'contrato');
         $query = $this->db->get('egresos');
         if ($query->num_rows() > 0) return $query;
         else return false;

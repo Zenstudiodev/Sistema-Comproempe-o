@@ -105,5 +105,8 @@ class Reportes extends Base_Controller
         }
         echo $this->templates->render('admin/egresos_diario_global_excel', $data);
     }
+    function transacciones_visa(){
+        
+    }
 
 }

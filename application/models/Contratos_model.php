@@ -351,6 +351,17 @@ class Contratos_model extends CI_Model
             $this->db->join('cliente', 'cliente.id = contrato_tienda_5.cliente_id');
             $this->db->order_by("producto.contrato_id", "asc");
         }
+        elseif ($tienda == '6') {
+            $this->db->select('producto.nombre_producto, producto.categoria, producto.descripcion, producto.mutuo, producto.contrato_id,  contrato_tienda_6.fecha, contrato_tienda_6.estado, contrato_tienda_6.fecha_pago, contrato_tienda_6.dias_gracia, cliente.nombre, cliente.id, cliente.telefono, cliente.celular, cliente.email');
+            // $this->db->select('*');
+            $this->db->from('contrato_tienda_6');
+            $estados = array('vigente', 'refrendado','gracia');
+            $this->db->where_in('contrato_tienda_6.estado', $estados);
+            $this->db->where_in('producto.tienda_actual', $tienda);
+            $this->db->join('producto', 'producto.contrato_id  = contrato_tienda_6.contrato_id');
+            $this->db->join('cliente', 'cliente.id = contrato_tienda_6.cliente_id');
+            $this->db->order_by("producto.contrato_id", "asc");
+        }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;

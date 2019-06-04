@@ -345,6 +345,12 @@
                                 </a>
                             </li>
                             <li>
+
+                                <a href="<?php echo base_url() ?>reportes/transacciones_visa">
+                                    <i class="fas fa-file-download"></i> Transacciones Visa
+                                </a>
+                            </li>
+                            <li>
                                 <a href="<?php echo base_url() ?>index.php/home/registros">
                                     <i class="far fa-file-alt"></i> Registros
                                 </a>

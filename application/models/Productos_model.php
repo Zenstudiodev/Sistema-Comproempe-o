@@ -435,6 +435,13 @@ class productos_model extends CI_Model
         elseif ($tienda == '4') {
             $this->db->where('tienda_actual', '4');
         }
+            elseif ($tienda == '5') {
+                $this->db->where('tienda_actual', '5');
+            }
+            elseif ($tienda == '6') {
+                $this->db->where('tienda_actual', '6');
+            }
+
         $en_venta = array('venta', 'compra');
         $this->db->where_in('tipo', $en_venta);
         $this->db->where('bodega', '0');
@@ -591,7 +598,22 @@ class productos_model extends CI_Model
             // $this->db->where('contrato.tienda_id', '2');
             $this->db->join('contrato_tienda_4', 'producto.contrato_id = contrato_tienda_4.contrato_id');
         }
-
+        elseif ($tienda == '5') {
+            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_5.estado');
+            $this->db->from('producto');
+            $this->db->where('producto.tipo', 'venta');
+            $this->db->where('producto.tienda_id', '5');
+            // $this->db->where('contrato.tienda_id', '2');
+            $this->db->join('contrato_tienda_5', 'producto.contrato_id = contrato_tienda_5.contrato_id');
+        }
+        elseif ($tienda == '6') {
+            $this->db->select('producto.producto_id, producto.contrato_id, producto.nombre_producto, producto.avaluo_ce, producto.mutuo, producto.tipo, contrato_tienda_6.estado');
+            $this->db->from('producto');
+            $this->db->where('producto.tipo', 'venta');
+            $this->db->where('producto.tienda_id', '6');
+            // $this->db->where('contrato.tienda_id', '2');
+            $this->db->join('contrato_tienda_6', 'producto.contrato_id = contrato_tienda_6.contrato_id');
+        }
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
