@@ -813,6 +813,12 @@ class productos_model extends CI_Model
         elseif ($tienda == '4') {
             $this->db->where('producto.tienda_actual', '4');
         }
+        elseif ($tienda == '5') {
+            $this->db->where('producto.tienda_actual', '5');
+        }
+        elseif ($tienda == '6') {
+            $this->db->where('producto.tienda_actual', '6');
+        }
         //$this->db->join('contrato', 'producto.contrato_id = contrato.contrato_id');
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;

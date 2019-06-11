@@ -1026,7 +1026,6 @@ class Productos extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_apartados();
         echo $this->templates->render('admin/lista_productos_apartados', $data);
     }
-
     function productos_apartar()
     {
         $data = compobarSesion();
