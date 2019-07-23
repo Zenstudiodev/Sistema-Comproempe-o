@@ -323,7 +323,23 @@
                                         <i class="fas fa-file-download"></i> Movimiento diario
                                     </a>
                                 </li>-->
+                        <li>
+                            <a href="<?php echo base_url() ?>reportes/movimiento_diario">
+                                <i class="fas fa-file-download"></i> Movimiento diario
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>reportes/transacciones_visa">
+                                <i class="fas fa-file-download"></i> Reporte visanet
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>reportes/depositos">
+                                <i class="fas fa-file-download"></i> Reporte Depositos
+                            </a>
+                        </li>
                         <?php
+
                         if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
                             <li>
                                 <a href="<?php echo base_url() ?>reportes/movimiento_diario_global">

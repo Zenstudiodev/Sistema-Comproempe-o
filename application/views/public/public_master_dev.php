@@ -125,12 +125,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             23 CALLE 1-55 LOCAL 74PB INTERIOR CENTRAL DE MAYOREO ZONA 12, VILLA
                             NUEVA, GUATEMALA</p>
                         <p class="telefono_footer">24771855</p>
+                        <hr>
+                        <h4>Compro Empeño Antigua</h4>
+                        <p class="direccion_footer">
+                            CALZADA SANTA LUCIA NORTE #25, FRENTE A RUINAS SAN JERONIMO, ANTIGUA GUATEMALA 03001</p>
+                        <p class="telefono_footer">7832-7382</p>
                     </div>
                     <div class="col-md-4">
                         <h4>Compro Empeño Metro Norte</h4>
                         <p class="direccion_footer">
-                            KM 5 CARRETERA AL ALTRANTICO, XONA 17 LOCAL 107, GUATEMALA, GUATEMALA</p>
+                            KM 5 CARRETERA AL ALTLANTICO, ZONA 17 LOCAL 107, GUATEMALA, GUATEMALA</p>
                         <p class="telefono_footer">2255-2251</p>
+                        <hr>
+                        <h4>Compro Empeño Mixco</h4>
+                        <p class="direccion_footer">
+                            -</p>
+                        <p class="telefono_footer">-</p>
                     </div>
                     <div class="col-md-4">
                         <div class="fb-page" data-href="https://www.facebook.com/ComproEmpe%C3%B1o-613630508847711/"
@@ -141,6 +151,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         href="https://www.facebook.com/ComproEmpe%C3%B1o-613630508847711/">ComproEmpeño</a>
                             </blockquote>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+
                     </div>
                 </div>
             </div>

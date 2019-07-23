@@ -82,12 +82,23 @@ $ci =& get_instance();
                 $diferencia_numero = $diferencia_numero + 1;
                 //echo $diferencia_numero;
 
+
+                //definimos los totales globales
+                $total_ventas_global = 0;
+                $total_mutuos_global = 0;
+                $total_apartados_global = 0;
+                $total_empenos_global = 0;
+                $total_desempenos_global = 0;
+                $total_refrendo_global = 0;
+
                 ?>
                 <!-- /.form group -->
                 <div class="row">
                     <div class="box box-solid">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Movimiento diario <a class="btn btn-success" target="_blank" href="<?php echo base_url().'Reportes/movimiento_diario_global_excel/'.$from.'/'.$to; ?>">Exportar</a></h3>
+                            <h3 class="box-title">Movimiento diario <a class="btn btn-success" target="_blank"
+                                                                       href="<?php echo base_url() . 'Reportes/movimiento_diario_global_excel/' . $from . '/' . $to; ?>">Exportar</a>
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -96,12 +107,14 @@ $ci =& get_instance();
                                 <div class="panel box box-primary">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                               aria-expanded="false" class="collapsed">
                                                 Centra Sur
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;">
                                         <div class="box-body">
 
                                             <div class="col-md-12">
@@ -111,7 +124,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -119,13 +132,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -144,14 +151,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -160,13 +159,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -174,13 +173,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -193,20 +192,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -216,19 +219,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -238,55 +245,49 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th></th>
-                                                                    <?php
-                                                                    // Loop gastos
-                                                                    $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '1');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
-                                                                            $total_gastos_dia = $total_gastos_dia + $gasto->monto;
-                                                                        }
-                                                                    }
-                                                                    $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
-                                                                    ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
-                                                                    <th></th>
-                                                                    <th>Gastos</th>
-                                                                    <th>Monto</th>
-                                                                    <th>cantidad</th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                 </tr>
                                                                 <?php
                                                                 //echo $i.'<br>';
@@ -299,8 +300,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -309,45 +309,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
-
-
                                                             </tbody>
                                                         </table>
 
@@ -360,12 +350,14 @@ $ci =& get_instance();
                                 <div class="panel box box-danger">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                               class="collapsed" aria-expanded="false">
                                                 Tienda 2
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;">
                                         <div class="box-body">
                                             <?php
                                             if (isset($from)) {
@@ -402,7 +394,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -410,13 +402,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -435,14 +421,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -451,13 +429,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -465,13 +443,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -484,20 +462,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -507,19 +489,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -529,55 +515,50 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th></th>
-                                                                    <?php
-                                                                    // Loop gastos
-                                                                    $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
-                                                                            $total_gastos_dia = $total_gastos_dia + $gasto->monto;
-                                                                        }
-                                                                    }
-                                                                    $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
-                                                                    ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
-                                                                    <th></th>
-                                                                    <th>Gastos</th>
-                                                                    <th>Monto</th>
-                                                                    <th>cantidad</th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+
                                                                 </tr>
                                                                 <?php
                                                                 //echo $i.'<br>';
@@ -590,8 +571,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -600,43 +580,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
 
 
                                                             </tbody>
@@ -651,12 +623,14 @@ $ci =& get_instance();
                                 <div class="panel box box-success">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="" aria-expanded="false">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                                               class="" aria-expanded="false">
                                                 Metro Norte
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="">
+                                    <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false"
+                                         style="">
                                         <div class="box-body">
                                             <?php
                                             if (isset($from)) {
@@ -693,7 +667,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -701,13 +675,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -726,14 +694,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -742,13 +702,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -756,13 +716,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -775,20 +735,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -798,19 +762,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -820,51 +788,67 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop gastos
                                                                     $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
+                                                                    $total_gastos_dia = 0;
+                                                                    if ($gastos) {
+                                                                        foreach ($gastos->result() as $gasto) {
                                                                             $total_gastos_dia = $total_gastos_dia + $gasto->monto;
                                                                         }
                                                                     }
                                                                     $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_gastos_dia); ?></th>
+                                                                    <th><?php if ($gastos) {
+                                                                            echo $gastos->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <th>Gastos</th>
                                                                     <th>Monto</th>
@@ -881,8 +865,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -891,43 +874,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
 
 
                                                             </tbody>
@@ -942,12 +917,14 @@ $ci =& get_instance();
                                 <div class="panel box box-info">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="" aria-expanded="false">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                                               class="" aria-expanded="false">
                                                 Antigua
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseFour" class="panel-collapse collapse " aria-expanded="false" style="">
+                                    <div id="collapseFour" class="panel-collapse collapse " aria-expanded="false"
+                                         style="">
                                         <div class="box-body">
                                             <?php
                                             if (isset($from)) {
@@ -984,7 +961,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -992,13 +969,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -1017,14 +988,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -1033,13 +996,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -1047,13 +1010,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -1066,20 +1029,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -1089,19 +1056,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -1111,51 +1082,67 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop gastos
                                                                     $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
+                                                                    $total_gastos_dia = 0;
+                                                                    if ($gastos) {
+                                                                        foreach ($gastos->result() as $gasto) {
                                                                             $total_gastos_dia = $total_gastos_dia + $gasto->monto;
                                                                         }
                                                                     }
                                                                     $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_gastos_dia); ?></th>
+                                                                    <th><?php if ($gastos) {
+                                                                            echo $gastos->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <th>Gastos</th>
                                                                     <th>Monto</th>
@@ -1172,8 +1159,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -1182,45 +1168,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
-
-
                                                             </tbody>
                                                         </table>
 
@@ -1233,12 +1209,14 @@ $ci =& get_instance();
                                 <div class="panel box box-warning">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="" aria-expanded="false">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                                               class="" aria-expanded="false">
                                                 Mixco
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseFive" class="panel-collapse collapse " aria-expanded="false" style="">
+                                    <div id="collapseFive" class="panel-collapse collapse " aria-expanded="false"
+                                         style="">
                                         <div class="box-body">
                                             <?php
                                             if (isset($from)) {
@@ -1275,7 +1253,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -1283,13 +1261,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -1308,14 +1280,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -1324,13 +1288,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -1338,13 +1302,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -1357,20 +1321,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -1380,19 +1348,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -1402,51 +1374,67 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop gastos
                                                                     $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
+                                                                    $total_gastos_dia = 0;
+                                                                    if ($gastos) {
+                                                                        foreach ($gastos->result() as $gasto) {
                                                                             $total_gastos_dia = $total_gastos_dia + $gasto->monto;
                                                                         }
                                                                     }
                                                                     $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_gastos_dia); ?></th>
+                                                                    <th><?php if ($gastos) {
+                                                                            echo $gastos->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <th>Gastos</th>
                                                                     <th>Monto</th>
@@ -1463,8 +1451,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -1473,43 +1460,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
 
 
                                                             </tbody>
@@ -1524,12 +1503,14 @@ $ci =& get_instance();
                                 <div class="panel box box-warning">
                                     <div class="box-header with-border">
                                         <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="" aria-expanded="false">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
+                                               class="" aria-expanded="false">
                                                 Villa Nueva
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="collapseSix" class="panel-collapse collapse " aria-expanded="false" style="">
+                                    <div id="collapseSix" class="panel-collapse collapse " aria-expanded="false"
+                                         style="">
                                         <div class="box-body">
                                             <?php
                                             if (isset($from)) {
@@ -1566,7 +1547,7 @@ $ci =& get_instance();
                                                             <thead>
                                                             <tr>
                                                                 <th rowspan="2">Día</th>
-                                                                <th colspan="4">Ventas</th>
+                                                                <th colspan="3">Ventas</th>
                                                                 <th></th>
                                                                 <th colspan="3">Apartado</th>
                                                                 <th></th>
@@ -1574,13 +1555,7 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th colspan="2">Desempeños</th>
                                                                 <th></th>
-                                                                <th colspan="2">refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Compras</th>
-
-
+                                                                <th colspan="2" >refrendos</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>porductos</th>
@@ -1599,14 +1574,6 @@ $ci =& get_instance();
                                                                 <th></th>
                                                                 <th>Intereses</th>
                                                                 <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-                                                                <th></th>
-                                                                <th>Compreas</th>
-                                                                <th>Monto</th>
-                                                                <th>cantidad</th>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -1615,13 +1582,13 @@ $ci =& get_instance();
                                                             $i = 0; //delcaramos el puntero
 
                                                             //definimos los totales globales
-                                                            $total_ventas_periodo =0;
-                                                            $total_mutuos_periodo =0;
-                                                            $total_apartados_periodo =0;
-                                                            $total_empenos_periodo =0;
-                                                            $total_desempenos_periodo =0;
-                                                            $total_refrendo_periodo =0;
-                                                            $total_gastos_periodo =0;
+                                                            $total_ventas_periodo = 0;
+                                                            $total_mutuos_periodo = 0;
+                                                            $total_apartados_periodo = 0;
+                                                            $total_empenos_periodo = 0;
+                                                            $total_desempenos_periodo = 0;
+                                                            $total_refrendo_periodo = 0;
+                                                            $total_gastos_periodo = 0;
                                                             do {
                                                                 ?>
                                                                 <tr>
@@ -1629,13 +1596,13 @@ $ci =& get_instance();
                                                                     <?php
                                                                     // Loop ventas
                                                                     $ventas_dia = $ci->Caja_model->get_ventas_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_ventas_dia =0;
-                                                                    $total_mutuos_de_venta_dia =0;
+                                                                    $total_ventas_dia = 0;
+                                                                    $total_mutuos_de_venta_dia = 0;
                                                                     $productos = array();
-                                                                    $productos_text ='';
+                                                                    $productos_text = '';
                                                                     $numero_productos = 0;
-                                                                    if($ventas_dia){
-                                                                        foreach ($ventas_dia->result() as $venta){
+                                                                    if ($ventas_dia) {
+                                                                        foreach ($ventas_dia->result() as $venta) {
                                                                             $total_ventas_dia = $total_ventas_dia + $venta->monto;
                                                                             $total_mutuos_de_venta_dia = $total_mutuos_de_venta_dia + $venta->mutuo;
                                                                             $productos[] = $venta->id_producto;
@@ -1648,20 +1615,24 @@ $ci =& get_instance();
                                                                     $total_ventas_periodo = $total_ventas_periodo + $total_ventas_dia;
                                                                     $total_mutuos_periodo = $total_mutuos_periodo + $total_mutuos_de_venta_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos;?></th>
-                                                                    <th><?php if($ventas_dia){echo $ventas_dia->num_rows();}else{echo '0';}?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_ventas_dia); ?></th>
-                                                                    <!--<th><?php echo'Q.'. formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
+                                                                    <th><?php echo $numero_productos; ?></th>
+                                                                    <th><?php if ($ventas_dia) {
+                                                                            echo $ventas_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_ventas_dia); ?></th>
+                                                                    <!--<th><?php echo 'Q.' . formato_dinero($total_mutuos_de_venta_dia); ?></th>-->
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop apartados
                                                                     $apartados_dia = $ci->Caja_model->get_apartados_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_apartados_dia =0;
-                                                                    $numero_productos_apartados =0;
+                                                                    $total_apartados_dia = 0;
+                                                                    $numero_productos_apartados = 0;
                                                                     $productos_apartados = array();
-                                                                    $productos_apartados_text ='';
-                                                                    if($apartados_dia){
-                                                                        foreach ($apartados_dia->result() as $apartado){
+                                                                    $productos_apartados_text = '';
+                                                                    if ($apartados_dia) {
+                                                                        foreach ($apartados_dia->result() as $apartado) {
                                                                             $total_apartados_dia = $total_apartados_dia + $apartado->monto;
                                                                             $productos_apartados[] = $apartado->id_producto;
                                                                         }
@@ -1671,19 +1642,23 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_apartados_periodo = $total_apartados_periodo + $total_apartados_dia;
                                                                     ?>
-                                                                    <th><?php echo $numero_productos_apartados;?></th>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_apartados_dia); ?></th>
-                                                                    <th><?php if($apartados_dia){echo $apartados_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo $numero_productos_apartados; ?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_apartados_dia); ?></th>
+                                                                    <th><?php if ($apartados_dia) {
+                                                                            echo $apartados_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop empeños
                                                                     $empenos_dia = $ci->Caja_model->get_empenos_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_empenos_dia =0;
+                                                                    $total_empenos_dia = 0;
                                                                     //$numero_empenos =0;
                                                                     //$productos_empenados = array();
                                                                     //$productos_empenados_text ='';
-                                                                    if($empenos_dia){
-                                                                        foreach ($empenos_dia->result() as $empeno){
+                                                                    if ($empenos_dia) {
+                                                                        foreach ($empenos_dia->result() as $empeno) {
                                                                             $total_empenos_dia = $total_empenos_dia + $empeno->monto;
                                                                             //$productos_empenados[] = $empeno->id_producto;
                                                                         }
@@ -1693,51 +1668,67 @@ $ci =& get_instance();
                                                                     }
                                                                     $total_empenos_periodo = $total_empenos_periodo + $total_empenos_dia;
                                                                     ?>
-                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/?></th>-->
-                                                                    <th><?php echo'Q.'. formato_dinero($total_empenos_dia); ?></th>
-                                                                    <th><?php if($empenos_dia){echo $empenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <!--<th><?php /*echo $numero_productos_empenados;*/ ?></th>-->
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_empenos_dia); ?></th>
+                                                                    <th><?php if ($empenos_dia) {
+                                                                            echo $empenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop desempeños
                                                                     $desempenos_dia = $ci->Caja_model->get_intereses_desempeno_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_desempenos_dia =0;
-                                                                    if($desempenos_dia){
-                                                                        foreach ($desempenos_dia->result() as $desempeno){
+                                                                    $total_desempenos_dia = 0;
+                                                                    if ($desempenos_dia) {
+                                                                        foreach ($desempenos_dia->result() as $desempeno) {
                                                                             $total_desempenos_dia = $total_desempenos_dia + $desempeno->monto;
                                                                         }
                                                                     }
                                                                     $total_desempenos_periodo = $total_desempenos_periodo + $total_desempenos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_desempenos_dia); ?></th>
-                                                                    <th><?php if($desempenos_dia){echo $desempenos_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_desempenos_dia); ?></th>
+                                                                    <th><?php if ($desempenos_dia) {
+                                                                            echo $desempenos_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop refrendos
                                                                     $refrendo_dia = $ci->Caja_model->get_intereses_refrendo_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_refrendo_dia =0;
-                                                                    if($refrendo_dia){
-                                                                        foreach ($refrendo_dia->result() as $refrendo){
+                                                                    $total_refrendo_dia = 0;
+                                                                    if ($refrendo_dia) {
+                                                                        foreach ($refrendo_dia->result() as $refrendo) {
                                                                             $total_refrendo_dia = $total_refrendo_dia + $refrendo->monto;
                                                                         }
                                                                     }
                                                                     $total_refrendo_periodo = $total_refrendo_periodo + $total_refrendo_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_refrendo_dia); ?></th>
-                                                                    <th><?php if($refrendo_dia){echo $refrendo_dia->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_refrendo_dia); ?></th>
+                                                                    <th><?php if ($refrendo_dia) {
+                                                                            echo $refrendo_dia->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <?php
                                                                     // Loop gastos
                                                                     $gastos = $ci->Caja_model->get_otros_gastos_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    $total_gastos_dia =0;
-                                                                    if($gastos){
-                                                                        foreach ($gastos->result() as $gasto){
+                                                                    $total_gastos_dia = 0;
+                                                                    if ($gastos) {
+                                                                        foreach ($gastos->result() as $gasto) {
                                                                             $total_gastos_dia = $total_gastos_dia + $gasto->monto;
                                                                         }
                                                                     }
                                                                     $total_gastos_periodo = $total_gastos_periodo + $total_gastos_dia;
                                                                     ?>
-                                                                    <th><?php echo'Q.'. formato_dinero($total_gastos_dia); ?></th>
-                                                                    <th><?php if($gastos){echo $gastos->num_rows();}else{echo '0';}?></th>
+                                                                    <th><?php echo 'Q.' . formato_dinero($total_gastos_dia); ?></th>
+                                                                    <th><?php if ($gastos) {
+                                                                            echo $gastos->num_rows();
+                                                                        } else {
+                                                                            echo '0';
+                                                                        } ?></th>
                                                                     <th></th>
                                                                     <th>Gastos</th>
                                                                     <th>Monto</th>
@@ -1754,8 +1745,7 @@ $ci =& get_instance();
                                                             ?>
                                                             <tr>
                                                                 <td>totales</td>
-                                                                <td colspan="2">Total Ventas</td>
-                                                                <td >Total margenes</td>
+                                                                <td colspan="3">Total Ventas</td>
                                                                 <td></td>
                                                                 <td colspan="3">Total Apartado</td>
                                                                 <td></td>
@@ -1764,43 +1754,35 @@ $ci =& get_instance();
                                                                 <th colspan="2">Total Desempeños</th>
                                                                 <th></th>
                                                                 <th colspan="2">Total refrendos</th>
-                                                                <th></th>
-                                                                <th colspan="2">Total Gastos</th>
-                                                                <th></th>
-                                                                <th colspan="3">Total Compras</th>
-
                                                             </tr>
                                                             <tr>
-                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d');?>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
                                                                     <br>
-                                                                    a <?php echo $fecha_final->format('Y-m-d');?>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_ventas_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_periodo); ?></td>
+                                                                <?php $total_ventas_global = $total_ventas_global + $total_ventas_periodo; ?>
                                                                 <?php
 
                                                                 /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
                                                                 $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
                                                                 $margen_periodo = ($margen_periodo * 100);*/
                                                                 ?>
-                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo)?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                                <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
 
                                                                 <td></td>
-                                                                <td colspan="3"><?php echo'Q.'. formato_dinero($total_apartados_periodo); ?></td>
+                                                                <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_periodo); ?></td>
+                                                                <?php $total_apartados_global = $total_apartados_global + $total_apartados_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_empenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_periodo); ?></td>
+                                                                <?php $total_empenos_global = $total_empenos_global + $total_empenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_periodo); ?></td>
+                                                                <?php $total_desempenos_global = $total_desempenos_global + $total_desempenos_periodo; ?>
                                                                 <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_refrendo_periodo); ?></td>
-                                                                <td></td>
-                                                                <td colspan="2"><?php echo'Q.'. formato_dinero($total_gastos_periodo); ?></td>
-                                                                <td></td>
-                                                                <td>Compras</td>
-                                                                <td>Monto</td>
-                                                                <td>cantidad</td>
-                                                                <td></td>
+                                                                <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_periodo); ?></td>
+                                                                <?php $total_refrendo_global = $total_refrendo_global + $total_refrendo_periodo; ?>
                                                             </tr>
-
 
 
                                                             </tbody>
@@ -1810,6 +1792,92 @@ $ci =& get_instance();
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-primary">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">
+                                        Totales
+                                    </h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th rowspan="2">Día</th>
+                                                    <th colspan="3">Ventas</th>
+                                                    <th></th>
+                                                    <th colspan="3">Apartado</th>
+                                                    <th></th>
+                                                    <th colspan="2">Empeños</th>
+                                                    <th></th>
+                                                    <th colspan="2">Desempeños</th>
+                                                    <th></th>
+                                                    <th colspan="2" >refrendos</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>porductos</th>
+                                                    <th>facturas</th>
+                                                    <th>Monto</th>
+                                                    <th></th>
+                                                    <th>porductos</th>
+                                                    <th>facturas</th>
+                                                    <th>Monto</th>
+                                                    <th></th>
+                                                    <th>Monto</th>
+                                                    <th>cantidad</th>
+                                                    <th></th>
+                                                    <th>Intereses</th>
+                                                    <th>cantidad</th>
+                                                    <th></th>
+                                                    <th>Intereses</th>
+                                                    <th>cantidad</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr>
+                                                    <td>totales</td>
+                                                    <td colspan="3">Total Ventas</td>
+                                                    <td></td>
+                                                    <td colspan="3">Total Apartado</td>
+                                                    <td></td>
+                                                    <th colspan="2">Total Empeños</th>
+                                                    <th></th>
+                                                    <th colspan="2">Total Desempeños</th>
+                                                    <th></th>
+                                                    <th colspan="2">Total refrendos</th>
+                                                    <th></th>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                        <br>
+                                                        a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                    </td>
+                                                    <td colspan="3"><?php echo 'Q.' . formato_dinero($total_ventas_global); ?></td>
+                                                    <?php
+
+                                                    /*$margen_periodo = ($total_ventas_periodo - $total_mutuos_periodo );
+                                                    $margen_periodo = ($margen_periodo / $total_mutuos_periodo);
+                                                    $margen_periodo = ($margen_periodo * 100);*/
+                                                    ?>
+                                                    <!--<td class="<?php echo colores_de_margen($margen_periodo) ?>"><?php echo intval($margen_periodo); ?> %</td>-->
+                                                    <td></td>
+                                                    <td colspan="3"><?php echo 'Q.' . formato_dinero($total_apartados_global); ?></td>
+                                                    <td></td>
+                                                    <td colspan="2"><?php echo 'Q.' . formato_dinero($total_empenos_global); ?></td>
+                                                    <td></td>
+                                                    <td colspan="2"><?php echo 'Q.' . formato_dinero($total_desempenos_global); ?></td>
+                                                    <td></td>
+                                                    <td colspan="2"><?php echo 'Q.' . formato_dinero($total_refrendo_global); ?></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

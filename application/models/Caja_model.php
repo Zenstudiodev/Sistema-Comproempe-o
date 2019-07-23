@@ -742,24 +742,23 @@ class Caja_model extends CI_Model
         if ($query->num_rows() > 0) return $query;
         else return false;
     }
-    function get_depositos_global($fecha)
+    function get_visanet_global($fecha , $tienda)
     {
         // Get tienda data
-        $tienda = tienda_id_h();
-        $this->db->where('fecha', $fecha);
-        $this->db->where('tienda_id', $tienda);
-        $query = $this->db->get('depositos');
-        if ($query->num_rows() > 0) return $query;
-        else return false;
-    }
-    function get_visanet_global($fecha)
-    {
-
-        // Get tienda data
-        $tienda = tienda_id_h();
+        $tienda = $tienda;
         $this->db->where('fecha', $fecha);
         $this->db->where('tienda_id', $tienda);
         $query = $this->db->get('visanet');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    function get_deposito_global($fecha , $tienda)
+    {
+        // Get tienda data
+        $tienda = $tienda;
+        $this->db->where('fecha', $fecha);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('depositos');
         if ($query->num_rows() > 0) return $query;
         else return false;
     }

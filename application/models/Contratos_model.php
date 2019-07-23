@@ -847,6 +847,26 @@ class Contratos_model extends CI_Model
                 else return false;
             }
         }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('contrato_tienda_5');
+            if ($query->num_rows() > 0) {
+                return $query;
+            } else {
+                $query = $this->db->get('contrato');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('contrato_tienda_6');
+            if ($query->num_rows() > 0) {
+                return $query;
+            } else {
+                $query = $this->db->get('contrato');
+                if ($query->num_rows() > 0) return $query;
+                else return false;
+            }
+        }
     }
     function actualizar_fecha_contrato($contrato_id, $nueva_fecha)
     {

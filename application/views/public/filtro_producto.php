@@ -77,6 +77,8 @@ $categoria_d = $categoria;
                                     <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/2'?>">2</a></li>
                                     <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/3'?>">3</a></li>
                                     <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/4'?>">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/5'?>">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/6'?>">6</a></li>
                                     <li class="page-item"><a class="page-link" href="<?php echo base_url().'productos/filtro/'.$categoria_d.'/todas'?>">Todas</a></li>
                                 </ul>
                             </nav>

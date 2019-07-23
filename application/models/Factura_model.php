@@ -322,7 +322,8 @@ class Factura_model extends CI_Model
                     $query = $this->db->update('facturas', $datos);
                     break;
             }
-        } elseif ($tienda == '2') {
+        }
+        elseif ($tienda == '2') {
             switch ($serie) {
                 case 'RE':
                     $query = $this->db->update('facturas_tienda_2_r', $datos);
@@ -345,21 +346,21 @@ class Factura_model extends CI_Model
         }
         elseif ($tienda == '4') {
             switch ($serie) {
-                case 'AG':
+                case 'AR':
                     $query = $this->db->update('facturas_tienda_4_r', $datos);
                     break;
-                case 'AR':
+                case 'AG':
                     $query = $this->db->update('facturas_tienda_4', $datos);
                     break;
             }
         }
         elseif ($tienda == '5') {
             switch ($serie) {
-                case 'T5':
-                    $query = $this->db->update('facturas_tienda_5_r', $datos);
-                    break;
-                case 'TR5':
+                case 'MX':
                     $query = $this->db->update('facturas_tienda_5', $datos);
+                    break;
+                case 'MXR':
+                    $query = $this->db->update('facturas_tienda_5_r', $datos);
                     break;
             }
         }

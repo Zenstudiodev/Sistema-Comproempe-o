@@ -43,7 +43,7 @@ $ci =& get_instance();
             <div class="box-body">
                 <!-- Date range -->
                 <div class="form-group">
-                    <label>Rango de fechas:</label>
+                    <label>Rango de fechas:</label><
 
                     <div class="input-group">
                         <div class="input-group-addon">
