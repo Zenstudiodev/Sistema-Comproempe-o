@@ -30,7 +30,6 @@ class Reportes extends Base_Controller
             $data['to'] = $this->uri->segment(4);
         }
 
-
         echo $this->templates->render('admin/movimiento_diario', $data);
     }
     function movimiento_diario_global(){
@@ -41,9 +40,17 @@ class Reportes extends Base_Controller
         if ($this->uri->segment(4)) {
             $data['to'] = $this->uri->segment(4);
         }
-
-
         echo $this->templates->render('admin/movimiento_diario_global', $data);
+    }
+    function movimiento_diario_global_excel(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/movimiento_diario_global_excel', $data);
     }
     function inventario_tienda(){
         $data = compobarSesion();
@@ -76,6 +83,48 @@ class Reportes extends Base_Controller
             $data['to'] = $this->uri->segment(4);
         }
         echo $this->templates->render('admin/inventario_global_excel', $data);
+    }
+    function egresos_diarios_global(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/egresos_diario_global', $data);
+    }
+    function egresos_diarios_global_excel(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+        echo $this->templates->render('admin/egresos_diario_global_excel', $data);
+    }
+    function transacciones_visa(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+        echo $this->templates->render('admin/reporte_visa', $data);
+    }
+    function depositos(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+        echo $this->templates->render('admin/reporte_depositos', $data);
     }
 
 }

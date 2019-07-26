@@ -122,15 +122,17 @@ if ($producto_data) {
                                 <p><span class="producto_data_spec">Marca:</span> <?php echo $producto->marca; ?></p>
                                 <p><span class="producto_data_spec">Modelo:</span> <?php echo $producto->modelo; ?></p>
                                 <p><span class="producto_data_spec">Serie:</span> <?php echo $producto->no_serie; ?></p>
-                                <!-- todo precio
+
+                                <?php if($producto->tienda_actual == '1'){?>
                                 <p class="producto_data_price">Precio:
                                     Q.<?php echo display_formato_dinero_return($precio_producto); ?></p>
                                 <?php if ($producto->precio_descuento != '0') { ?>
                                     <p class="producto_data_price_descuento">Precio descuento:
                                         Q.<?php echo display_formato_dinero_return($producto->precio_descuento); ?></p>
                                 <?php } ?>
-                                <p>-->
-
+                                <p>
+                                <?php }?>
+                                <p>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#solicitar_producto">
@@ -238,17 +240,18 @@ if ($producto_data) {
         email_cliente = $("#email_cliente").val();
         telefono_cliente = $("#telefono_cliente").val();
         direccion_cliente = $("#direccion_cliente").val();
+        nit_cliente = $("#nit_cliente").val();
         producto_id = '<?php  echo $producto->producto_id; ?>';
-
-
         pedido_data = {
             nombre_cliente: nombre_cliente,
             email_cliente: email_cliente,
             telefono_cliente: telefono_cliente,
             direccion_cliente: direccion_cliente,
+            nit_cliente: nit_cliente,
             producto_id: producto_id,
         };
             console.log("form Submit");
+            console.log(pedido_data);
             $("#form_contacto_alert").hide();
             $.ajax({
                 type: 'POST',

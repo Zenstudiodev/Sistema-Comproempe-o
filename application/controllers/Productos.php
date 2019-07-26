@@ -221,7 +221,7 @@ class Productos extends Base_Controller
             $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '1');
             $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '1');
             $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '1');
-            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '1');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '1');
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '2');
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '2');
@@ -419,7 +419,7 @@ class Productos extends Base_Controller
 
 
         //si la factura es seri r no guardamos recibo solo factura
-        if ($this->input->post('serie_factura') == 'R' || $this->input->post('serie_factura') == 'RE') {
+        if ($this->input->post('serie_factura') == 'R' || $this->input->post('serie_factura') == 'RE' || $this->input->post('serie_factura') == 'RM' || $this->input->post('serie_factura') == 'AR' || $this->input->post('serie_factura') == 'VNR' || $this->input->post('serie_factura') == 'MXR' ) {
             $factura_id = $this->Contratos_model->guardar_factura($datos_factura);
         } else {
             //guardamos factura
@@ -465,30 +465,59 @@ class Productos extends Base_Controller
 
         $data['productos_contrato_tienda_1'] = false;
         $data['productos_contrato_tienda_2'] = false;
+        $data['productos_contrato_tienda_3'] = false;
+        $data['productos_contrato_tienda_4'] = false;
+        $data['productos_contrato_tienda_5'] = false;
+        $data['productos_contrato_tienda_6'] = false;
 
         if ($tienda == '1') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_1_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_1_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_1_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_1_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '1');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '1');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '1');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '1');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '1');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '1');
 
-        } elseif ($tienda == '2') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_2_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_2_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_2_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_2_contratos_4();
+        }
+        elseif ($tienda == '2') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '2');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '2');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '2');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '2');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '2');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '2');
         }
         elseif ($tienda == '3') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_3_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_3_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_3_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_3_contratos_4();
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '3');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '3');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '3');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '3');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '3');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '3');
         }
-        elseif ($tienda == '3') {
-            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_tienda_4_contratos_1();
-            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_tienda_4_contratos_2();
-            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_tienda_4_contratos_3();
-            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_tienda_4_contratos_4();
+        elseif ($tienda == '4') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '4');
+        }
+        elseif ($tienda == '5') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '5');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '5');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '5');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '5');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '5');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '5');
+        }
+        elseif ($tienda == '6') {
+            $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '6');
+            $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '6');
+            $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '6');
+            $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '6');
+            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '6');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '6');
         }
         echo $this->templates->render('admin/administrar_productos_liquidacion', $data);
     }
@@ -1026,7 +1055,6 @@ class Productos extends Base_Controller
         $data['productos'] = $this->Productos_model->get_productos_apartados();
         echo $this->templates->render('admin/lista_productos_apartados', $data);
     }
-
     function productos_apartar()
     {
         $data = compobarSesion();
@@ -1400,6 +1428,18 @@ class Productos extends Base_Controller
 
 
     //para pagina publica
+    function productos_sin_precio_de_venta(){
+
+        $data = compobarSesion();
+
+        if ($this->session->flashdata('error')) {
+            $data['error'] = $this->session->flashdata('error');
+        }
+        $data['title'] ='Productos sin imagen';
+        $data['productos_sin_foto'] = $this->Productos_model->get_productos_liquidacion_sin_foto();
+        echo $this->templates->render('admin/lista_productos_sin_imagen', $data);
+    }
+
     function productos_sin_foto()
     {
         $data = compobarSesion();
@@ -1407,6 +1447,7 @@ class Productos extends Base_Controller
         if ($this->session->flashdata('error')) {
             $data['error'] = $this->session->flashdata('error');
         }
+        $data['title'] ='Productos sin imagen';
         $data['productos_sin_foto'] = $this->Productos_model->get_productos_liquidacion_sin_foto();
         echo $this->templates->render('admin/lista_productos_sin_imagen', $data);
     }
@@ -1742,7 +1783,6 @@ class Productos extends Base_Controller
         echo $this->templates->render('public/filtro_producto', $data);
     }
     function pedido_publico(){
-
         //comprobamos que exista post
         if($this->input->post('email_cliente')){
             //leemos datos desde post
@@ -1764,11 +1804,10 @@ class Productos extends Base_Controller
                 'fecha' => $fecha->format('Y-m-d H:i:s')
             );
 
-            $this->Productos_model->prducto_a_pedido($codigo_producto);
-
             //Guardamos el pedido
             $this->Productos_model->guardar_pedido_catalogo($dataFromulario);
             //actualizar el producto para pasarlo a pedido
+            $this->Productos_model->prducto_a_pedido($codigo_producto);
 
             //configuracion de correo
             $config['mailtype'] = 'html';
@@ -1792,7 +1831,6 @@ class Productos extends Base_Controller
             $message .= "</body></html>";
 
             $this->email->message($message);
-
             //enviar correo
             $this->email->send();
 

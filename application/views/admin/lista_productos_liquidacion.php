@@ -51,7 +51,7 @@ $this->layout('admin/admin_master', [
 
                     ?>
 
-                    <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3 or $productos_contrato_tienda_4) { ?>
+                    <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3 or $productos_contrato_tienda_4 or $productos_contrato_tienda_5 or $productos_contrato_tienda_6) { ?>
                         <?php if ($rol != 'conta') { ?>
                             <div class="row">
                                 <div class="col-md-5">

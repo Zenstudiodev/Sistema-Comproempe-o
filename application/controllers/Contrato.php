@@ -244,8 +244,7 @@ class Contrato extends Base_Controller
 
                                 echo '<p>en dias de gracia</p>';
                             } else {
-                                echo '<p>Contrato Vencido</p>';
-
+                                echo $contrato->contrato_id;
                                 $this->Contratos_model->actualizar_estado_contrato_t4($contrato->contrato_id, 'perdido');
                                 $productos = $this->Productos_model->get_productos_by_contrato_actualizador($contrato->contrato_id, '4');
                                 if($productos){
@@ -253,6 +252,7 @@ class Contrato extends Base_Controller
                                         $this->Productos_model->cambiar_producto_a_venta($producto->producto_id);
                                     }
                                 }
+                                echo '<p>Contrato Vencido</p>';
                             }
                         }
                     }
@@ -287,7 +287,7 @@ class Contrato extends Base_Controller
 
                             if ($diferencia_dias < 8) {
 
-                                $this->Contratos_model->actualizar_estado_contrato_t4($contrato->contrato_id, 'gracia');
+                                $this->Contratos_model->actualizar_estado_contrato_t5($contrato->contrato_id, 'gracia');
 
                                 echo '<p>en dias de gracia</p>';
                             } else {
@@ -354,7 +354,7 @@ class Contrato extends Base_Controller
                 }
             }
         }
-
+        echo'enviar mensaje';
         $this->email->from('info@xn--comproempeo-beb.com', 'Comproempeño');
         $this->email->to('la_samayoa@hotmail.com');
         $this->email->cc('comproempeno@gmail.com');
@@ -362,9 +362,23 @@ class Contrato extends Base_Controller
         $this->email->subject('Contratos actualizados');
         $this->email->message('Se actualizaron los contratos');
         $this->email->send();
+        echo'enviado';
         //echo '<pre>';
         //print_r($data['contratos']->result());
         //echo '</pre>';
+    }
+    function test_mail(){
+        $this->email->from('info@xn--comproempeo-beb.com', 'Comproempeño');
+        $this->email->to('csamayoa@zenstudiogt.com');
+        $this->email->cc('dlatios@gmail.com');
+        //$this->email->to('la_samayoa@hotmail.com');
+        //$this->email->cc('comproempeno@gmail.com');
+        //$this->email->bcc('csamayoa@zenstudiogt.com');
+        $this->email->subject('Contratos actualizados prueba');
+        $this->email->message('Se actualizaron los contratos');
+        $this->email->send();
+        // Will only print the email headers, excluding the message subject and body
+        $this->email->print_debugger(array('headers'));
     }
     function nuevo()
     {

@@ -35,8 +35,67 @@ $monto = array(
     'step' => 'any',
     'min' => '0'
 );
+
+//tipo de documento
+$tipo_documento_select         = array(
+    'name'     => 'tipo_documento',
+    'id'       => 'tipo_documento',
+    'class'    => ' form-control',
+    'required' => 'required'
+);
+$tipo_documento_select_options = array(
+    "Factura"   => "Factura",
+    "Factura electrónica"   => "Factura electrónica",
+    "Factura pequeño contribuyente"   => "Factura pequeño contribuyente",
+);
+
+$serie = array(
+    'type' => 'text',
+    'name' => 'serie',
+    'id' => 'serie',
+    'class' => 'form-control pull-right',
+    'placeholder' => 'Serie',
+    'required' => 'required'
+);
+$no_doc = array(
+    'type' => 'text',
+    'name' => 'no_doc',
+    'id' => 'no_doc',
+    'class' => 'form-control pull-right',
+    'placeholder' => 'No. Documento',
+    'required' => 'required'
+);
+
+$nit = array(
+    'type' => 'text',
+    'name' => 'nit',
+    'id' => 'nit',
+    'class' => 'form-control pull-right',
+    'placeholder' => 'NIT',
+    'required' => 'required'
+);
+$razon_social = array(
+    'type' => 'text',
+    'name' => 'razon_social',
+    'id' => 'razon_social',
+    'class' => 'form-control pull-right',
+    'placeholder' => 'Razon Social',
+    'required' => 'required'
+);
+//tipo de compra
+$tipo_compra_select         = array(
+    'name'     => 'tipo_compra',
+    'id'       => 'tipo_compra',
+    'class'    => ' form-control',
+    'required' => 'required'
+);
+$tipo_compra_select_options = array(
+    "Compra mercaderia"   => "Compra mercaderia",
+    "Servicios"   => "Servicios",
+    "Gasolina"   => "Gasolina",
+);
 ?>
-    <!--Css Personalizadoc para vista-->
+<!--Css Personalizadoc para vista-->
 <?php $this->start('css_p') ?>
 <?php $this->stop() ?>
 
@@ -67,7 +126,27 @@ $monto = array(
                                     <label for="avaluo">Detalle</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">#</span>
-                                        <?php echo form_input($detalle); ?>
+                                        <?php echo form_input ($detalle); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="avaluo">Monto</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Q.</span>
+                                        <?php echo form_input($monto); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="avaluo">Detalle</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">#</span>
+                                        <?php echo form_dropdown($tipo_documento_select, $tipo_documento_select_options); ?>
                                     </div>
                                 </div>
                             </div>
