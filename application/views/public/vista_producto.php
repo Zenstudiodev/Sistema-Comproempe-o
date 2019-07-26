@@ -124,7 +124,6 @@ if ($producto_data) {
                                 <p><span class="producto_data_spec">Serie:</span> <?php echo $producto->no_serie; ?></p>
 
                                 <?php if($producto->tienda_actual == '1'){?>
-
                                 <p class="producto_data_price">Precio:
                                     Q.<?php echo display_formato_dinero_return($precio_producto); ?></p>
                                 <?php if ($producto->precio_descuento != '0') { ?>
@@ -134,7 +133,6 @@ if ($producto_data) {
                                 <p>
                                 <?php }?>
                                 <p>
-
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-success" data-toggle="modal"
                                             data-target="#solicitar_producto">
