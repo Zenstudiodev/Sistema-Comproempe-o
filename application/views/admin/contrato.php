@@ -591,7 +591,7 @@ if ($cliente)
                             <tr>
                                 <td></td>
                                 <td colspan="2">
-                                    <button type="submit" class="btn btn-block btn-success">Guardar</button
+                                    <button type="submit" class="btn btn-block btn-success" id="guardar_contrato">Guardar</button
                                 </td>
                             </tr>
                             </tbody>
@@ -686,6 +686,10 @@ if ($cliente)
     moment.locale('es');
 
     $(document).ready(function () {
+        $("#guardar_contrato").click(function () {
+            $(this).attr("disabled", true);
+        });
+
         //loop a los avaluos de productos seleccionado
         $(".avaluo_producto").each(function () {
             //sumamos los avaluos
