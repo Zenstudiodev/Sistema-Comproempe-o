@@ -687,7 +687,7 @@ if ($cliente)
 
     $(document).ready(function () {
         $("#guardar_contrato").click(function () {
-            $(this).attr("disabled", true);
+           // $(this).attr("disabled", true);
         });
 
         //loop a los avaluos de productos seleccionado
