@@ -779,7 +779,6 @@ $ci =& get_instance();
                                                                     // Loop deposito
                                                                     $deposito_dia = $ci->Caja_model->get_deposito_global($fecha_inicio->format('Y-m-d'), '6');
                                                                     $vinsanet_total_dia = 0;
-
                                                                     ?>
                                                                     <td colspan="6">
                                                                         <table class="table table-bordered">

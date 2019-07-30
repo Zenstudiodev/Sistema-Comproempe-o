@@ -141,12 +141,21 @@ $tipo_compra_select_options = array(
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="avaluo">Detalle</label>
+                                    <label for="avaluo">Tipo de documento</label>
                                     <div class="input-group">
                                         <span class="input-group-addon">#</span>
                                         <?php echo form_dropdown($tipo_documento_select, $tipo_documento_select_options); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="avaluo">Monto</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Q.</span>
+                                        <?php echo form_input($monto); ?>
                                     </div>
                                 </div>
                             </div>
