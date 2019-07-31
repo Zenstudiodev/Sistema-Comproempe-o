@@ -121,6 +121,64 @@ $tipo_compra_select_options = array(
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="avaluo">Tipo de documento</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">#</span>
+                                        <?php echo form_dropdown($tipo_documento_select, $tipo_documento_select_options); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="avaluo">Serie</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">.</span>
+                                        <?php echo form_input($serie); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="avaluo">No. Documento</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">#</span>
+                                        <?php echo form_input($no_doc); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="avaluo">NIT</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">#</span>
+                                        <?php echo form_input($nit); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="avaluo">Razón Social</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">-</span>
+                                        <?php echo form_input ($razon_social); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="avaluo">Tipo de compra</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">#</span>
+                                        <?php echo form_dropdown($tipo_compra_select, $tipo_compra_select_options); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="avaluo">Detalle</label>
@@ -140,35 +198,7 @@ $tipo_compra_select_options = array(
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="avaluo">Tipo de documento</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">#</span>
-                                        <?php echo form_dropdown($tipo_documento_select, $tipo_documento_select_options); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="avaluo">Monto</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-                                        <?php echo form_input($monto); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="avaluo">Monto</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Q.</span>
-                                        <?php echo form_input($monto); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">

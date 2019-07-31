@@ -99,7 +99,6 @@ $hoy = New DateTime();
         {Name: "baja_uso_interno", Id: "baja_uso_interno"},
     ];
     $(function() {
-
         $.ajax({
             type: "GET",
             url: "<?php echo base_url()?>productos/cargar_productos_en_liquidacion"
@@ -111,17 +110,17 @@ $hoy = New DateTime();
                 height: "70%",
                 width: "100%",
                 filtering: true,
-                inserting: false,
                 editing: true,
+                inserting: false,
+                deleteItem: false,
                 sorting: true,
                 paging: false,
                 autoload: true,
-                pageSize: 100,
+                pageSize: 15,
                 pageButtonCount: 5,
                 deleteConfirm: "Do you really want to delete client?",
                 data: productos,
                 controller: {
-
                     updateItem: function(item) {
                         console.log(item);
                         return $.ajax({
@@ -135,18 +134,11 @@ $hoy = New DateTime();
                             console.log(data);
                             console.log('fail: status=' + jqXHR.status + ', textStatus=' + textStatus);
                         });
-                    },
-                    deleteItem: function(item) {
-                        return $.ajax({
-                            type: "DELETE",
-                            url: "/clients/",
-                            data: item
-                        });
                     }
                 },
                 fields: [
                     {name: "fecha_avaluo", type: "text"},
-                    {name: "producto_id", type: "number", readOnly: true},
+                    {name: "producto_id", type: "number", readOnly: true, autosearch: true},
                     {name: "contrato_id", type: "number", readOnly: true},
                     {name: "tienda_id", type: "number", readOnly: true, title: "Tienda origen"},
                     {name: "tienda_actual", type: "number", readOnly: true},
@@ -157,7 +149,7 @@ $hoy = New DateTime();
                     {name: "bodega", type: "number", readOnly: false},
                     {name: "tipo", type: "select", items: estado_producto, valueField: "Id", textField: "Name"},
                     {name: "avaluo_comercial", type: "number", readOnly: true, title: "Avaluo"},
-                    {name: "precio_venta", type: "text", title: "Precio de venta"},
+                    {name: "precio_venta", type: "text", title: "Precio de venta", autosearch: true},
                     {name: "precio_descuento", type: "text", title: "Precio de descuento"},
                     <?php }?>
                     {type: "control"}
