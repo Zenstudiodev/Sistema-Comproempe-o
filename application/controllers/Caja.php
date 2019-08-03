@@ -384,11 +384,22 @@ class Caja extends Base_Controller
     }
     function guardar_otros_gastos()
     {
+        print_contenido($_POST);
+
+
         $data = compobarSesion();
         $datos_otros_gastos = array(
+            'tipo_documento' => $this->input->post('tipo_documento'),
+            'serie' => $this->input->post('serie'),
+            'no_doc' => $this->input->post('no_doc'),
+            'nit' => $this->input->post('nit'),
+            'razon_social' => $this->input->post('razon_social'),
+            'tipo_compra' => $this->input->post('tipo_compra'),
             'detalle' => $this->input->post('datalle'),
             'monto' => $this->input->post('monto'),
         );
+        /*print_contenido($datos_otros_gastos);
+        exit();*/
         //guardamos visanet
         $this->Caja_model->guardar_otros_gastos($datos_otros_gastos);
         //redirigimos a visanet
