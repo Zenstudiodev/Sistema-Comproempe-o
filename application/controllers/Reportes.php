@@ -15,6 +15,10 @@ class Reportes extends Base_Controller
         $this->load->model('Reportes_model');
         $this->load->model('Productos_model');
         $this->load->model('Caja_model');
+        $this->load->model('Contratos_model');
+        $this->load->model('Factura_model');
+        $this->load->model('Recibo_model');
+        $this->load->model('User_model');
 
     }
     function index()
@@ -125,6 +129,42 @@ class Reportes extends Base_Controller
         }
 
         echo $this->templates->render('admin/reporte_depositos', $data);
+    }
+    function contratos(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+        echo $this->templates->render('admin/reporte_contratos', $data);
+    }
+    function contratos_excel(){
+        $data = compobarSesion();
+        if ($this->uri->segment(3)) {
+            $data['from'] = $this->uri->segment(3);
+        }
+        if ($this->uri->segment(4)) {
+            $data['to'] = $this->uri->segment(4);
+        }
+
+        echo $this->templates->render('admin/reporte_contratos_excel', $data);
+    }
+    function planilla(){
+        $data = compobarSesion();
+
+        $data['empleados']= $this->User_model->listar_empleados_planilla();
+
+        echo $this->templates->render('admin/planilla', $data);
+    }
+    function reporte_planilla(){}
+    function imprimir_recibo_planilla(){}
+    function vanta_celulares(){
+        $data = compobarSesion();
+        $data['celulares_vendidos']=$this->Reportes_model->get_celulares_vendidos();
+        echo $this->templates->render('admin/celulares_vendidos', $data);
     }
 
 }

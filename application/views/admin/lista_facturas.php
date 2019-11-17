@@ -51,24 +51,56 @@ $this->layout('admin/admin_master', [
                         <li class="active"><a href="<?php echo base_url() ?>factura">
                                 <?php
                                 $tienda = tienda_id_h();
-                                // insertamon en la base de datos
-                                if ($tienda == '1') {
-                                    ?>
-                                    Serie A
-                                <?php } elseif ($tienda == '2') { ?>
-                                    Serie CN
-                                <?php } ?>
+
+                                switch ($tienda)
+                                {
+                                    case '1':
+                                        $serie = 'Serie A';
+                                        break;
+                                    case '2':
+                                        $serie = 'Serie CN';
+                                        break;
+                                    case '3':
+                                        $serie = 'Serie MN';
+                                        break;
+                                    case '4':
+                                        $serie = 'Serie AG';
+                                        break;
+                                    case '5':
+                                        $serie = 'Serie MX';
+                                        break;
+                                    case '6':
+                                        $serie = 'Serie VN';
+                                        break;
+                                }
+                                echo $serie;
+                                ?>
                             </a></li>
                         <li class=""><a href="<?php echo base_url() ?>/factura/serie_r">
                                 <?php
-                                $tienda = tienda_id_h();
-                                // insertamon en la base de datos
-                                if ($tienda == '1') {
-                                    ?>
-                                    Serie R
-                                <?php } elseif ($tienda == '2') { ?>
-                                    Serie RE
-                                <?php } ?>
+                                switch ($tienda)
+                                {
+                                    case '1':
+                                        $serier = 'Serie R';
+                                        break;
+                                    case '2':
+                                        $serier = 'Serie RE';
+                                        break;
+                                    case '3':
+                                        $serier = 'Serie RM';
+                                        break;
+                                    case '4':
+                                        $serier = 'Serie AR';
+                                        break;
+                                    case '5':
+                                        $serier = 'Serie MXR';
+                                        break;
+                                    case '6':
+                                        $serier = 'Serie VNR';
+                                        break;
+                                }
+                                echo $serier;
+                                ?>
                             </a></li>
                     </ul>
                     <!-- /.tab-content -->

@@ -102,6 +102,18 @@ class Factura extends Base_Controller
             //print_contenido($transacciones_liquidacion->result());
             foreach ($transacciones_liquidacion->result() as $transaccion) {
                 //echo 'poner producto: '.$transaccion->id_producto.' en venta <br>';
+
+                //regresar contrato a vencido
+                $producto = $this->Productos_model->datos_de_producto($transaccion->id_producto);
+                $producto= $producto->row();
+                $datos_controato = array(
+                    'contrato_id' => $producto->contrato_id,
+                    'estado' => 'perdido',
+                    'tienda' => $producto->tienda_id,
+                );
+                $this->Contratos_model->actualizar_contrato_anular_factura_liquidacion($datos_controato);
+
+               //liberar productos
                 $this->Productos_model->liberar_producto__anular_factura_liquidacion($transaccion->id_producto);
             }
 

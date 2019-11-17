@@ -141,12 +141,14 @@ $ci =& get_instance();
                                                                         <table class="table">
                                                                             <tr>
                                                                                 <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
+                                                                                <th>tipo_documento</th>
+                                                                                <th>Serie</th>
+                                                                                <th>No documento</th>
+                                                                                <th>NIT</th>
+                                                                                <th>Razon social</th>
+                                                                                <th>Tipo compra</th>
+                                                                                <th>Detalle</th>
+                                                                                <th>Monto</th>
                                                                             </tr>
                                                                             <?php
                                                                             foreach ($egresos_dia->result() as $egreso) {
@@ -154,21 +156,17 @@ $ci =& get_instance();
 
                                                                                 <tr>
                                                                                     <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
+                                                                                    <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                    <td><?php echo $egreso->serie ?></td>
+                                                                                    <td><?php echo $egreso->no_documento ?></td>
+                                                                                    <td><?php echo $egreso->nit ?></td>
+                                                                                    <td><?php echo $egreso->razon_social ?></td>
+                                                                                    <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                    <td><?php echo $egreso->detalle ?></td>
                                                                                     <td><?php
                                                                                         echo $egreso->monto;
                                                                                         $total_monto_periodo = $total_monto_periodo + $egreso->monto;
                                                                                         ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
                                                                                 </tr>
                                                                             <?php }?>
                                                                         </table>
@@ -187,8 +185,6 @@ $ci =& get_instance();
                                                             <tr>
                                                                 <td>totales</td>
                                                                 <th>monto</th>
-                                                                <th>intereses</th>
-                                                                <th>monto refrendo</th>
                                                             </tr>
                                                             <tr>
                                                                 <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
@@ -196,8 +192,6 @@ $ci =& get_instance();
                                                                     a <?php echo $fecha_final->format('Y-m-d'); ?>
                                                                 </td>
                                                                 <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                                <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                                <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
                                                             </tr>
 
 
@@ -251,96 +245,92 @@ $ci =& get_instance();
                                             ?>
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Día</th>
-                                                            <th colspan="7"></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $i = 0; //delcaramos el puntero
+                                                    <table class="table table-condensed">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Día</th>
+                                                                <th colspan="7"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php
+                                                            $i = 0; //delcaramos el puntero
 
-                                                        //definimos los totales globales
-                                                        $total_monto_periodo = 0;
-                                                        $total_intereses_periodo = 0;
-                                                        $total_refendado_periodo = 0;
-                                                        do {
+                                                            //definimos los totales globales
+                                                            $total_monto_periodo = 0;
+                                                            $total_intereses_periodo = 0;
+                                                            $total_refendado_periodo = 0;
+                                                            do {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                                    </td>
+                                                                    <td colspan="7">
+                                                                        <?php
+                                                                        // Loop del dia
+                                                                        $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '2');
+                                                                        if ($egresos_dia) { ?>
+                                                                            <table class="table">
+                                                                                <tr>
+                                                                                    <th>tipo</th>
+                                                                                    <th>tipo_documento</th>
+                                                                                    <th>Serie</th>
+                                                                                    <th>No documento</th>
+                                                                                    <th>NIT</th>
+                                                                                    <th>Razon social</th>
+                                                                                    <th>Tipo compra</th>
+                                                                                    <th>Detalle</th>
+                                                                                    <th>Monto</th>
+                                                                                </tr>
+                                                                                <?php
+                                                                                foreach ($egresos_dia->result() as $egreso) {
+                                                                                    ?>
+
+                                                                                    <tr>
+                                                                                        <td><?php echo $egreso->tipo ?></td>
+                                                                                        <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                        <td><?php echo $egreso->serie ?></td>
+                                                                                        <td><?php echo $egreso->no_documento ?></td>
+                                                                                        <td><?php echo $egreso->nit ?></td>
+                                                                                        <td><?php echo $egreso->razon_social ?></td>
+                                                                                        <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                        <td><?php echo $egreso->detalle ?></td>
+                                                                                        <td><?php
+                                                                                            echo $egreso->monto;
+                                                                                            $total_monto_periodo = $total_monto_periodo + $egreso->monto;
+                                                                                            ?></td>
+                                                                                    </tr>
+                                                                                <?php }?>
+                                                                            </table>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                //echo $i.'<br>';
+                                                                //modificamos puntero despues de ejecucion
+                                                                $i = $i + 1;
+                                                                //modificamos fecha despues de ejecucion
+                                                                $fecha_inicio->modify('+1 day');
+                                                            } while ($i < $diferencia_numero);
+
                                                             ?>
                                                             <tr>
-                                                                <td>
-                                                                    <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
-                                                                </td>
-                                                                <td colspan="7">
-                                                                    <?php
-                                                                    // Loop del dia
-                                                                    $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '2');
-                                                                    if ($egresos_dia) { ?>
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
-                                                                            </tr>
-                                                                            <?php
-                                                                            foreach ($egresos_dia->result() as $egreso) {
-                                                                                ?>
-
-                                                                                <tr>
-                                                                                    <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto;
-                                                                                        $total_monto_periodo = $total_monto_periodo + $egreso->monto;
-                                                                                        ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
-                                                                                </tr>
-                                                                            <?php }?>
-                                                                        </table>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                <td>totales</td>
+                                                                <th>monto</th>
                                                             </tr>
-                                                            <?php
-                                                            //echo $i.'<br>';
-                                                            //modificamos puntero despues de ejecucion
-                                                            $i = $i + 1;
-                                                            //modificamos fecha despues de ejecucion
-                                                            $fecha_inicio->modify('+1 day');
-                                                        } while ($i < $diferencia_numero);
-
-                                                        ?>
-                                                        <tr>
-                                                            <td>totales</td>
-                                                            <th>monto</th>
-                                                            <th>intereses</th>
-                                                            <th>monto refrendo</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
-                                                                <br>
-                                                                a <?php echo $fecha_final->format('Y-m-d'); ?>
-                                                            </td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                                    <br>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                                </td>
+                                                                <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
+                                                            </tr>
 
 
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
                                                     </table>
                                                 </div>
                                             </div>
@@ -389,96 +379,92 @@ $ci =& get_instance();
                                             ?>
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Día</th>
-                                                            <th colspan="7"></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $i = 0; //delcaramos el puntero
+                                                    <table class="table table-condensed">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Día</th>
+                                                                <th colspan="7"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php
+                                                            $i = 0; //delcaramos el puntero
 
-                                                        //definimos los totales globales
-                                                        $total_monto_periodo = 0;
-                                                        $total_intereses_periodo = 0;
-                                                        $total_refendado_periodo = 0;
-                                                        do {
+                                                            //definimos los totales globales
+                                                            $total_monto_periodo = 0;
+                                                            $total_intereses_periodo = 0;
+                                                            $total_refendado_periodo = 0;
+                                                            do {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                                    </td>
+                                                                    <td colspan="7">
+                                                                        <?php
+                                                                        // Loop del dia
+                                                                        $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '3');
+                                                                        if ($egresos_dia) { ?>
+                                                                            <table class="table">
+                                                                                <tr>
+                                                                                    <th>tipo</th>
+                                                                                    <th>tipo_documento</th>
+                                                                                    <th>Serie</th>
+                                                                                    <th>No documento</th>
+                                                                                    <th>NIT</th>
+                                                                                    <th>Razon social</th>
+                                                                                    <th>Tipo compra</th>
+                                                                                    <th>Detalle</th>
+                                                                                    <th>Monto</th>
+                                                                                </tr>
+                                                                                <?php
+                                                                                foreach ($egresos_dia->result() as $egreso) {
+                                                                                    ?>
+
+                                                                                    <tr>
+                                                                                        <td><?php echo $egreso->tipo ?></td>
+                                                                                        <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                        <td><?php echo $egreso->serie ?></td>
+                                                                                        <td><?php echo $egreso->no_documento ?></td>
+                                                                                        <td><?php echo $egreso->nit ?></td>
+                                                                                        <td><?php echo $egreso->razon_social ?></td>
+                                                                                        <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                        <td><?php echo $egreso->detalle ?></td>
+                                                                                        <td><?php
+                                                                                            echo $egreso->monto;
+                                                                                            $total_monto_periodo = $total_monto_periodo + $egreso->monto;
+                                                                                            ?></td>
+                                                                                    </tr>
+                                                                                <?php }?>
+                                                                            </table>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                //echo $i.'<br>';
+                                                                //modificamos puntero despues de ejecucion
+                                                                $i = $i + 1;
+                                                                //modificamos fecha despues de ejecucion
+                                                                $fecha_inicio->modify('+1 day');
+                                                            } while ($i < $diferencia_numero);
+
                                                             ?>
                                                             <tr>
-                                                                <td>
-                                                                    <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
-                                                                </td>
-                                                                <td colspan="7">
-                                                                    <?php
-                                                                    // Loop del dia
-                                                                    $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '3');
-                                                                    if ($egresos_dia) { ?>
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
-                                                                            </tr>
-                                                                            <?php
-                                                                            foreach ($egresos_dia->result() as $egreso) {
-                                                                                ?>
-
-                                                                                <tr>
-                                                                                    <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto;
-                                                                                        $total_monto_periodo = $total_monto_periodo + $egreso->monto;
-                                                                                        ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
-                                                                                </tr>
-                                                                            <?php }?>
-                                                                        </table>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                <td>totales</td>
+                                                                <th>monto</th>
                                                             </tr>
-                                                            <?php
-                                                            //echo $i.'<br>';
-                                                            //modificamos puntero despues de ejecucion
-                                                            $i = $i + 1;
-                                                            //modificamos fecha despues de ejecucion
-                                                            $fecha_inicio->modify('+1 day');
-                                                        } while ($i < $diferencia_numero);
-
-                                                        ?>
-                                                        <tr>
-                                                            <td>totales</td>
-                                                            <th>monto</th>
-                                                            <th>intereses</th>
-                                                            <th>monto refrendo</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
-                                                                <br>
-                                                                a <?php echo $fecha_final->format('Y-m-d'); ?>
-                                                            </td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                                    <br>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                                </td>
+                                                                <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
+                                                            </tr>
 
 
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
                                                     </table>
                                                 </div>
                                             </div>
@@ -527,96 +513,92 @@ $ci =& get_instance();
                                             ?>
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Día</th>
-                                                            <th colspan="7"></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $i = 0; //delcaramos el puntero
+                                                    <table class="table table-condensed">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Día</th>
+                                                                <th colspan="7"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php
+                                                            $i = 0; //delcaramos el puntero
 
-                                                        //definimos los totales globales
-                                                        $total_monto_periodo = 0;
-                                                        $total_intereses_periodo = 0;
-                                                        $total_refendado_periodo = 0;
-                                                        do {
+                                                            //definimos los totales globales
+                                                            $total_monto_periodo = 0;
+                                                            $total_intereses_periodo = 0;
+                                                            $total_refendado_periodo = 0;
+                                                            do {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                                    </td>
+                                                                    <td colspan="7">
+                                                                        <?php
+                                                                        // Loop del dia
+                                                                        $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '4');
+                                                                        if ($egresos_dia) { ?>
+                                                                            <table class="table">
+                                                                                <tr>
+                                                                                    <th>tipo</th>
+                                                                                    <th>tipo_documento</th>
+                                                                                    <th>Serie</th>
+                                                                                    <th>No documento</th>
+                                                                                    <th>NIT</th>
+                                                                                    <th>Razon social</th>
+                                                                                    <th>Tipo compra</th>
+                                                                                    <th>Detalle</th>
+                                                                                    <th>Monto</th>
+                                                                                </tr>
+                                                                                <?php
+                                                                                foreach ($egresos_dia->result() as $egreso) {
+                                                                                    ?>
+
+                                                                                    <tr>
+                                                                                        <td><?php echo $egreso->tipo ?></td>
+                                                                                        <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                        <td><?php echo $egreso->serie ?></td>
+                                                                                        <td><?php echo $egreso->no_documento ?></td>
+                                                                                        <td><?php echo $egreso->nit ?></td>
+                                                                                        <td><?php echo $egreso->razon_social ?></td>
+                                                                                        <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                        <td><?php echo $egreso->detalle ?></td>
+                                                                                        <td><?php
+                                                                                            echo $egreso->monto;
+                                                                                            $total_monto_periodo = $total_monto_periodo + $egreso->monto;
+                                                                                            ?></td>
+                                                                                    </tr>
+                                                                                <?php }?>
+                                                                            </table>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                //echo $i.'<br>';
+                                                                //modificamos puntero despues de ejecucion
+                                                                $i = $i + 1;
+                                                                //modificamos fecha despues de ejecucion
+                                                                $fecha_inicio->modify('+1 day');
+                                                            } while ($i < $diferencia_numero);
+
                                                             ?>
                                                             <tr>
-                                                                <td>
-                                                                    <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
-                                                                </td>
-                                                                <td colspan="7">
-                                                                    <?php
-                                                                    // Loop del dia
-                                                                    $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '4');
-                                                                    if ($egresos_dia) { ?>
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
-                                                                            </tr>
-                                                                            <?php
-                                                                            foreach ($egresos_dia->result() as $egreso) {
-                                                                                ?>
-
-                                                                                <tr>
-                                                                                    <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto;
-                                                                                        $total_monto_periodo = $total_monto_periodo + $egreso->monto;
-                                                                                        ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
-                                                                                </tr>
-                                                                            <?php }?>
-                                                                        </table>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                <td>totales</td>
+                                                                <th>monto</th>
                                                             </tr>
-                                                            <?php
-                                                            //echo $i.'<br>';
-                                                            //modificamos puntero despues de ejecucion
-                                                            $i = $i + 1;
-                                                            //modificamos fecha despues de ejecucion
-                                                            $fecha_inicio->modify('+1 day');
-                                                        } while ($i < $diferencia_numero);
-
-                                                        ?>
-                                                        <tr>
-                                                            <td>totales</td>
-                                                            <th>monto</th>
-                                                            <th>intereses</th>
-                                                            <th>monto refrendo</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
-                                                                <br>
-                                                                a <?php echo $fecha_final->format('Y-m-d'); ?>
-                                                            </td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                                    <br>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                                </td>
+                                                                <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
+                                                            </tr>
 
 
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
                                                     </table>
                                                 </div>
                                             </div>
@@ -665,96 +647,92 @@ $ci =& get_instance();
                                             ?>
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Día</th>
-                                                            <th colspan="7"></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $i = 0; //delcaramos el puntero
+                                                    <table class="table table-condensed">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Día</th>
+                                                                <th colspan="7"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php
+                                                            $i = 0; //delcaramos el puntero
 
-                                                        //definimos los totales globales
-                                                        $total_monto_periodo = 0;
-                                                        $total_intereses_periodo = 0;
-                                                        $total_refendado_periodo = 0;
-                                                        do {
+                                                            //definimos los totales globales
+                                                            $total_monto_periodo = 0;
+                                                            $total_intereses_periodo = 0;
+                                                            $total_refendado_periodo = 0;
+                                                            do {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                                    </td>
+                                                                    <td colspan="7">
+                                                                        <?php
+                                                                        // Loop del dia
+                                                                        $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '5');
+                                                                        if ($egresos_dia) { ?>
+                                                                            <table class="table">
+                                                                                <tr>
+                                                                                    <th>tipo</th>
+                                                                                    <th>tipo_documento</th>
+                                                                                    <th>Serie</th>
+                                                                                    <th>No documento</th>
+                                                                                    <th>NIT</th>
+                                                                                    <th>Razon social</th>
+                                                                                    <th>Tipo compra</th>
+                                                                                    <th>Detalle</th>
+                                                                                    <th>Monto</th>
+                                                                                </tr>
+                                                                                <?php
+                                                                                foreach ($egresos_dia->result() as $egreso) {
+                                                                                    ?>
+
+                                                                                    <tr>
+                                                                                        <td><?php echo $egreso->tipo ?></td>
+                                                                                        <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                        <td><?php echo $egreso->serie ?></td>
+                                                                                        <td><?php echo $egreso->no_documento ?></td>
+                                                                                        <td><?php echo $egreso->nit ?></td>
+                                                                                        <td><?php echo $egreso->razon_social ?></td>
+                                                                                        <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                        <td><?php echo $egreso->detalle ?></td>
+                                                                                        <td><?php
+                                                                                            echo $egreso->monto;
+                                                                                            $total_monto_periodo = $total_monto_periodo + $egreso->monto;
+                                                                                            ?></td>
+                                                                                    </tr>
+                                                                                <?php }?>
+                                                                            </table>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                //echo $i.'<br>';
+                                                                //modificamos puntero despues de ejecucion
+                                                                $i = $i + 1;
+                                                                //modificamos fecha despues de ejecucion
+                                                                $fecha_inicio->modify('+1 day');
+                                                            } while ($i < $diferencia_numero);
+
                                                             ?>
                                                             <tr>
-                                                                <td>
-                                                                    <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
-                                                                </td>
-                                                                <td colspan="7">
-                                                                    <?php
-                                                                    // Loop del dia
-                                                                    $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '5');
-                                                                    if ($egresos_dia) { ?>
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
-                                                                            </tr>
-                                                                            <?php
-                                                                            foreach ($egresos_dia->result() as $egreso) {
-                                                                                ?>
-
-                                                                                <tr>
-                                                                                    <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto;
-                                                                                        $total_monto_periodo = $total_monto_periodo + $egreso->monto;
-                                                                                        ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
-                                                                                </tr>
-                                                                            <?php }?>
-                                                                        </table>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                <td>totales</td>
+                                                                <th>monto</th>
                                                             </tr>
-                                                            <?php
-                                                            //echo $i.'<br>';
-                                                            //modificamos puntero despues de ejecucion
-                                                            $i = $i + 1;
-                                                            //modificamos fecha despues de ejecucion
-                                                            $fecha_inicio->modify('+1 day');
-                                                        } while ($i < $diferencia_numero);
-
-                                                        ?>
-                                                        <tr>
-                                                            <td>totales</td>
-                                                            <th>monto</th>
-                                                            <th>intereses</th>
-                                                            <th>monto refrendo</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
-                                                                <br>
-                                                                a <?php echo $fecha_final->format('Y-m-d'); ?>
-                                                            </td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                                    <br>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                                </td>
+                                                                <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
+                                                            </tr>
 
 
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
                                                     </table>
                                                 </div>
                                             </div>
@@ -803,96 +781,92 @@ $ci =& get_instance();
                                             ?>
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Día</th>
-                                                            <th colspan="7"></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php
-                                                        $i = 0; //delcaramos el puntero
+                                                    <table class="table table-condensed">
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Día</th>
+                                                                <th colspan="7"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php
+                                                            $i = 0; //delcaramos el puntero
 
-                                                        //definimos los totales globales
-                                                        $total_monto_periodo = 0;
-                                                        $total_intereses_periodo = 0;
-                                                        $total_refendado_periodo = 0;
-                                                        do {
+                                                            //definimos los totales globales
+                                                            $total_monto_periodo = 0;
+                                                            $total_intereses_periodo = 0;
+                                                            $total_refendado_periodo = 0;
+                                                            do {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
+                                                                    </td>
+                                                                    <td colspan="7">
+                                                                        <?php
+                                                                        // Loop del dia
+                                                                        $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '6');
+                                                                        if ($egresos_dia) { ?>
+                                                                            <table class="table">
+                                                                                <tr>
+                                                                                    <th>tipo</th>
+                                                                                    <th>tipo_documento</th>
+                                                                                    <th>Serie</th>
+                                                                                    <th>No documento</th>
+                                                                                    <th>NIT</th>
+                                                                                    <th>Razon social</th>
+                                                                                    <th>Tipo compra</th>
+                                                                                    <th>Detalle</th>
+                                                                                    <th>Monto</th>
+                                                                                </tr>
+                                                                                <?php
+                                                                                foreach ($egresos_dia->result() as $egreso) {
+                                                                                    ?>
+
+                                                                                    <tr>
+                                                                                        <td><?php echo $egreso->tipo ?></td>
+                                                                                        <td><?php echo $egreso->tipo_documento ?></td>
+                                                                                        <td><?php echo $egreso->serie ?></td>
+                                                                                        <td><?php echo $egreso->no_documento ?></td>
+                                                                                        <td><?php echo $egreso->nit ?></td>
+                                                                                        <td><?php echo $egreso->razon_social ?></td>
+                                                                                        <td><?php echo $egreso->tipo_compra ?></td>
+                                                                                        <td><?php echo $egreso->detalle ?></td>
+                                                                                        <td><?php
+                                                                                            echo $egreso->monto;
+                                                                                            $total_monto_periodo = $total_monto_periodo + $egreso->monto;
+                                                                                            ?></td>
+                                                                                    </tr>
+                                                                                <?php }?>
+                                                                            </table>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
+                                                                //echo $i.'<br>';
+                                                                //modificamos puntero despues de ejecucion
+                                                                $i = $i + 1;
+                                                                //modificamos fecha despues de ejecucion
+                                                                $fecha_inicio->modify('+1 day');
+                                                            } while ($i < $diferencia_numero);
+
                                                             ?>
                                                             <tr>
-                                                                <td>
-                                                                    <?php echo $fecha_inicio->format('Y-m-d'); ?></td>
-                                                                </td>
-                                                                <td colspan="7">
-                                                                    <?php
-                                                                    // Loop del dia
-                                                                    $egresos_dia = $ci->Caja_model->get_egresos_global($fecha_inicio->format('Y-m-d'), '6');
-                                                                    if ($egresos_dia) { ?>
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <th>tipo</th>
-                                                                                <th>contrato</th>
-                                                                                <th>Intereses</th>
-                                                                                <th>dias</th>
-                                                                                <th>monto</th>
-                                                                                <th>monto refrendo</th>
-                                                                                <th>detalle</th>
-                                                                            </tr>
-                                                                            <?php
-                                                                            foreach ($egresos_dia->result() as $egreso) {
-                                                                                ?>
-
-                                                                                <tr>
-                                                                                    <td><?php echo $egreso->tipo ?></td>
-                                                                                    <td><?php echo $egreso->contrato_id ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->intereses;
-                                                                                        $total_intereses_periodo = $total_intereses_periodo + $egreso->intereses;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->dias ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto;
-                                                                                        $total_monto_periodo = $total_monto_periodo + $egreso->monto;
-                                                                                        ?></td>
-                                                                                    <td><?php
-                                                                                        echo $egreso->monto_refrendo;
-                                                                                        $total_refendado_periodo = $total_refendado_periodo + $egreso->monto_refrendo;
-                                                                                        ?></td>
-                                                                                    <td><?php echo $egreso->detalle ?></td>
-                                                                                </tr>
-                                                                            <?php }?>
-                                                                        </table>
-                                                                    <?php } ?>
-                                                                </td>
+                                                                <td>totales</td>
+                                                                <th>monto</th>
                                                             </tr>
-                                                            <?php
-                                                            //echo $i.'<br>';
-                                                            //modificamos puntero despues de ejecucion
-                                                            $i = $i + 1;
-                                                            //modificamos fecha despues de ejecucion
-                                                            $fecha_inicio->modify('+1 day');
-                                                        } while ($i < $diferencia_numero);
-
-                                                        ?>
-                                                        <tr>
-                                                            <td>totales</td>
-                                                            <th>monto</th>
-                                                            <th>intereses</th>
-                                                            <th>monto refrendo</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
-                                                                <br>
-                                                                a <?php echo $fecha_final->format('Y-m-d'); ?>
-                                                            </td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_intereses_periodo); ?></td>
-                                                            <td><?php echo 'Q.' . formato_dinero($total_refendado_periodo); ?></td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td>de <?php echo $fecha_inicio_t->format('Y-m-d'); ?>
+                                                                    <br>
+                                                                    a <?php echo $fecha_final->format('Y-m-d'); ?>
+                                                                </td>
+                                                                <td><?php echo 'Q.' . formato_dinero($total_monto_periodo); ?></td>
+                                                            </tr>
 
 
-                                                        </tbody>
+                                                            </tbody>
+                                                        </table>
                                                     </table>
                                                 </div>
                                             </div>

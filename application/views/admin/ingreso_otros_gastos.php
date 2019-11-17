@@ -209,7 +209,7 @@ $tipo_compra_select_options = array(
             <!-- /.box -->
             <div class="box">
                 <div class="box-header">
-                    Depositos del dia - <?php $hoy = New DateTime();
+                    Gastos del dia - <?php $hoy = New DateTime();
                     echo $hoy->format('Y-m-d') ?>
                 </div>
                 <!-- /.box-header -->

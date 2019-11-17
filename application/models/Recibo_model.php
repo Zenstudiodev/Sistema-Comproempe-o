@@ -248,4 +248,56 @@ class Recibo_model  extends CI_Model
             $query = $this->db->update('recibos_tienda_6', $datos);
         }
 	}
+	public function get_abonos_a_contrato_reporte($contrato_id, $tienda){
+        $this->db->where('contrato_id',$contrato_id);
+        $this->db->where('tipo','abono');
+
+        if ($tienda == '1') {
+            $query = $this->db->get('recibos');
+        }
+        elseif ($tienda == '2') {
+            $query = $this->db->get('recibos_tienda_2');
+        }
+        elseif ($tienda == '3') {
+            $query = $this->db->get('recibos_tienda_3');
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->get('recibos_tienda_4');
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('recibos_tienda_5');
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('recibos_tienda_6');
+        }
+
+        if($query->num_rows() > 0) return $query;
+        else return false;
+    }
+    public function get_apartado_reporte($recibo_id, $tienda){
+        $this->db->where('recibo_id',$recibo_id);
+        $this->db->where('tipo','apartado');
+
+        if ($tienda == '1') {
+            $query = $this->db->get('recibos');
+        }
+        elseif ($tienda == '2') {
+            $query = $this->db->get('recibos_tienda_2');
+        }
+        elseif ($tienda == '3') {
+            $query = $this->db->get('recibos_tienda_3');
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->get('recibos_tienda_4');
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('recibos_tienda_5');
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('recibos_tienda_6');
+        }
+
+        if($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }

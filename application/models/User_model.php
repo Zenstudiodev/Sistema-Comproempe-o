@@ -37,4 +37,10 @@ class User_model extends CI_Model
         $this->db->where('id', $user_id);
         $query = $this->db->update('users',$datos);
     }
+    function listar_empleados_planilla(){
+        $this->db->where('en_planilla','1');
+        $query = $this->db->get('users');
+        if($query->num_rows() > 0) return $query;
+        else return false;
+    }
 }

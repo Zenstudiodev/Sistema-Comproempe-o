@@ -362,6 +362,13 @@ class Caja extends Base_Controller
             'factura_id' => $this->input->post('factura_id'),
             'recibo_id' => $this->input->post('recibo_id'),
             'monto' => $this->input->post('monto'),
+            'forma_pago' => $this->input->post('forma_pago'),
+            'cuotas' => $this->input->post('cuotas'),
+            'iva' => $this->input->post('iva'),
+            'comision' => $this->input->post('comision'),
+            'iva_comision' => $this->input->post('iva_comision'),
+            'retension_iva' => $this->input->post('retension_iva'),
+            'liquido' => $this->input->post('liquido'),
         );
         //guardamos visanet
         $this->Caja_model->guardar_visanet($datos_visanet);
@@ -384,7 +391,7 @@ class Caja extends Base_Controller
     }
     function guardar_otros_gastos()
     {
-        print_contenido($_POST);
+        //print_contenido($_POST);
 
 
         $data = compobarSesion();

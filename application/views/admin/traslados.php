@@ -62,6 +62,7 @@ $this->layout('admin/admin_master', [
                                 <th>DE TIENDA</th>
                                 <th>A TIENDA</th>
                                 <th>OPERADOR</th>
+                                <th>PRODUCTOS</th>
                                 <th>ACCION</th>
                             </tr>
                             </thead>
@@ -72,7 +73,8 @@ $this->layout('admin/admin_master', [
                                 <th>DE TIENDA</th>
                                 <th>A TIENDA</th>
                                 <th>OPERADOR</th>
-
+                                <th>PRODUCTOS</th>
+                                <th></th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -83,6 +85,7 @@ $this->layout('admin/admin_master', [
                                     <td><?php echo $traslado->traslado_tienda_actual ?></td>
                                     <td><?php echo $traslado->traslado_tienda_destino ?></td>
                                     <td><?php echo id_to_nombre($traslado->user_id) ?></td>
+                                    <td><?php echo $traslado->traslado_productos ?></td>
                                     <td><a class="btn btn-success" href="<?php echo base_url().'productos/imprimir_trslado/'.$traslado->traslado_id ?>">Imprimir</a> </td>
                                 </tr>
                             <?php } ?>

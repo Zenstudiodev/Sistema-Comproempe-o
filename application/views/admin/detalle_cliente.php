@@ -788,6 +788,10 @@ $this->layout('admin/admin_master', [
                                                        href="<?php echo base_url() . 'productos/abonar_apartado/' . $cliente->id . '/' . $producto->producto_id; ?>">
                                                         <i class="fa fa-pencil-square-o"></i> abonar
                                                     </a>
+                                                    <a type="button" class="btn btn-default"
+                                                       href="<?php echo base_url() . 'productos/liberar_apartado/'. $producto->producto_id; ?>">
+                                                        <i class="fa fa-pencil-square-o"></i> Liberar producto
+                                                    </a>
                                                 </td>
 
 

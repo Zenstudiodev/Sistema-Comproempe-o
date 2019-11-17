@@ -45,12 +45,7 @@ $this->layout('admin/admin_master', [
         <div class="box">
             <!-- /.box-header -->
             <div class="box-body">
-                <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>"
-                      id="productList_form">
-                    <?php
-
-                    ?>
-
+                <form method="post" action="<? echo base_url() . 'index.php/Productos/liquidar/' ?>" id="productList_form">
                     <?php if ($productos_contrato_tienda_1 or $productos_contrato_tienda_2 or $productos_contrato_tienda_3 or $productos_contrato_tienda_4 or $productos_contrato_tienda_5 or $productos_contrato_tienda_6) { ?>
                         <?php if ($rol != 'conta') { ?>
                             <div class="row">
@@ -100,6 +95,7 @@ $this->layout('admin/admin_master', [
                                 <tr>
                                     <th></th>
                                     <th>PRODUCTO ID</th>
+                                    <th>TIENDA ORIGEN</th>
                                     <th>CONTRATO ID</th>
                                     <th>ESTADO CONTRATO</th>
                                     <th>DIAS EN INVENTARIO</th>
@@ -107,12 +103,17 @@ $this->layout('admin/admin_master', [
                                     <th>NOMBRE</th>
                                     <th>AVALUO</th>
                                     <th>MUTUO</th>
+                                    <th>PRECIO VENTA</th>
+                                    <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                    <th>EDITAR</th>
+                                    <?php }?>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th></th>
                                     <th>PRODUCTO ID</th>
+                                    <th>TIENDA ORIGEN</th>
                                     <th>CONTRATO ID</th>
                                     <th>ESTADO CONTRATO</th>
                                     <th>DIAS EN INVENTARIO</th>
@@ -120,6 +121,10 @@ $this->layout('admin/admin_master', [
                                     <th>NOMBRE</th>
                                     <th>AVALUO</th>
                                     <th>MUTUO</th>
+                                    <th>PRECIO VENTA</th>
+                                    <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                        <th></th>
+                                    <?php }?>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -135,6 +140,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -146,6 +152,10 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
@@ -161,6 +171,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -172,6 +183,11 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
+
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
@@ -187,6 +203,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -198,6 +215,10 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
@@ -213,6 +234,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -224,6 +246,10 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
@@ -239,6 +265,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -250,6 +277,10 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
@@ -265,6 +296,7 @@ $this->layout('admin/admin_master', [
                                                 </label>
                                             </td>
                                             <td><?php echo $producto->producto_id ?></td>
+                                            <td><?php echo $producto->tienda_id ?></td>
                                             <td><?php echo $producto->contrato_id ?></td>
                                             <td class="<?php color_por_estaado($producto->estado); ?>"><?php echo $producto->estado ?></td>
                                             <td><?php
@@ -276,6 +308,10 @@ $this->layout('admin/admin_master', [
                                             </td>
                                             <td><?php echo $producto->avaluo_ce ?></td>
                                             <td><?php echo $producto->mutuo ?></td>
+                                            <td><?php echo $producto->precio_venta ?></td>
+                                            <?php   if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta' || user_rol() == 'jefe_tienda') { ?>
+                                                <td><a href="<?php echo base_url().'productos/editar_producto_liquidacion/'.$producto->producto_id ?>" target="_blank">editar</a></td>
+                                            <?php }?>
                                         </tr>
                                     <?php } ?>
                                 <?php } ?>
