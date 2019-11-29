@@ -253,6 +253,13 @@ class Caja_model extends CI_Model
             'factura_id' => $data['factura_id'],
             'recibo_id' => $data['recibo_id'],
             'monto' => $data['monto'],
+            'forma_pago' => $data['forma_pago'],
+            'cuotas' => $data['cuotas'],
+            'iva' => $data['iva'],
+            'comision' => $data['comision'],
+            'iva_comision' => $data['iva_comision'],
+            'retencion_iva' => $data['retension_iva'],
+            'liquido' => $data['liquido'],
             'tienda_id' => $tienda,
             'user_id' => $user_id
         );
@@ -277,6 +284,12 @@ class Caja_model extends CI_Model
         $datos_venta = array(
             'fecha' => $fecha->format('Y-m-d'),
             'tipo' => 'otros_gastos',
+            'tipo_documento' => $data['tipo_documento'],
+            'serie' => $data['serie'],
+            'no_documento' => $data['no_doc'],
+            'nit' => $data['nit'],
+            'razon_social' => $data['razon_social'],
+            'tipo_compra' => $data['tipo_compra'],
             'detalle' => $data['detalle'],
             'monto' => $data['monto'],
             'tienda_id' => $tienda,

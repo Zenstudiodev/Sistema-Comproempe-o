@@ -33,6 +33,13 @@ class productos_model extends CI_Model
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
     }
+    function datos_de_producto_by_contrato($contrato, $tienda)
+    {
+        $this->db->where('contrato_id', $contrato);
+        $this->db->where('tienda_id', $tienda);
+        $query = $this->db->get('producto');
+        if ($query->num_rows() > 0) return $query;
+    }
 
     function datos_de_productos($productos)
     {
@@ -40,6 +47,12 @@ class productos_model extends CI_Model
         $this->db->where_in('producto_id', $productos);
         $query = $this->db->get('producto');
         if ($query->num_rows() > 0) return $query;
+    }
+    function liquidacion_de_producto($producto_id){
+        $this->db->where('id_producto', $producto_id);
+        $query = $this->db->get('liquidacion_factura_producto');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
     }
 
     function guardar_producto($data)
@@ -505,7 +518,7 @@ class productos_model extends CI_Model
     function guardar_precio_venta($producto_id, $precio_venta)
     {
         $datos = array(
-            'precio_venta' => $precio_venta,
+            'precio_vendido' => $precio_venta,
             'tipo' => 'vendido',
         );
         $this->db->where('producto_id', $producto_id);

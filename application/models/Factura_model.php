@@ -305,7 +305,7 @@ class Factura_model extends CI_Model
         }
     }
 
-    public function anular_factura($factura_id, $serie)//TODO facturas r
+    public function anular_factura($factura_id, $serie)
     {
         $datos = array(
             'estado' => 'anulada'
@@ -361,6 +361,16 @@ class Factura_model extends CI_Model
                     break;
                 case 'MXR':
                     $query = $this->db->update('facturas_tienda_5_r', $datos);
+                    break;
+            }
+        }
+        elseif ($tienda == '6') {
+            switch ($serie) {
+                case 'VN':
+                    $query = $this->db->update('facturas_tienda_6', $datos);
+                    break;
+                case 'VNR':
+                    $query = $this->db->update('facturas_tienda_6_r', $datos);
                     break;
             }
         }
@@ -1261,5 +1271,135 @@ class Factura_model extends CI_Model
         $query = $this->db->get();
         if ($query->num_rows() > 0) return $query;
         else return false;
+    }
+    //reporte
+    public function get_factura_liquidacion_by_producto_id($producto_id){
+        $this->db->where('id_producto', $producto_id);
+        $query = $this->db->get('liquidacion_factura_producto');
+        if ($query->num_rows() > 0){
+            $query = $query->row();
+            return $query->id_factura;
+        }
+        else{return false;}
+
+
+    }
+    public function get_factura_liquidacion_reporte($factura, $tienda){
+        $this->db->where('factura_id', $factura);
+        if ($tienda == '1') {
+            $query = $this->db->get('facturas_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+        elseif ($tienda == '2') {
+            $query = $this->db->get('facturas_tienda_2_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas_tienda_2');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+        elseif ($tienda == '3') {
+            $query = $this->db->get('facturas_tienda_3_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas_tienda_3');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->get('facturas_tienda_4_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas_tienda_4');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('facturas_tienda_5_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas_tienda_5');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('facturas_tienda_6_r');
+
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{
+                $query = $this->db->get('facturas_tienda_6');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+            }
+        }
+
+    }
+    public function get_factura_desempeno_reporte($contrato_id, $tienda){
+        $this->db->where('contrato_id', $contrato_id);
+        $this->db->where('tipo', 'desenmpeno');
+
+        if ($tienda == '1') {
+                $query = $this->db->get('facturas');
+                if ($query->num_rows() > 0){
+                    return $query;
+                } else{return false;}
+        }
+        elseif ($tienda == '2') {
+            $query = $this->db->get('facturas_tienda_2');
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{return false;}
+        }
+        elseif ($tienda == '3') {
+            $query = $this->db->get('facturas_tienda_3');
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{return false;}
+        }
+        elseif ($tienda == '4') {
+            $query = $this->db->get('facturas_tienda_4');
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{return false;}
+        }
+        elseif ($tienda == '5') {
+            $query = $this->db->get('facturas_tienda_5');
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{return false;}
+        }
+        elseif ($tienda == '6') {
+            $query = $this->db->get('facturas_tienda_6');
+            if ($query->num_rows() > 0){
+                return $query;
+            } else{return false;}
+        }
+
     }
 }

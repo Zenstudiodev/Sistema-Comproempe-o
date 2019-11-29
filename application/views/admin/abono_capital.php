@@ -146,7 +146,7 @@ if ($contrato)
                                 <td>Abono</td>
                                 <td>
                                     <input class="form-control " type="number" id="descuento" name="descuento"
-                                           value="0">
+                                           value="0" step="any">
                                 </td>
                             </tr>
                             <tr>

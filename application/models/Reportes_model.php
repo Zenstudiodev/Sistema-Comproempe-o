@@ -16,5 +16,13 @@ class Reportes_model extends CI_Model
     function get_ventas_dia($fecha){
 
     }
+    function get_celulares_vendidos(){
+
+        $this->db->like('categoria', 'CELULARES');
+        $this->db->where('tipo', 'vendido');
+        $query = $this->db->get('producto');
+        if ($query->num_rows() > 0) return $query;
+        else return false;
+    }
 
 }

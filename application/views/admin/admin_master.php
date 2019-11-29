@@ -351,6 +351,24 @@
                         if (user_rol() == 'developer' || user_rol() == 'gerencia' || user_rol() == 'conta') { ?>
                             <li>
 
+                                <a href="<?php echo base_url() ?>reportes/planilla">
+                                    <i class="fas fa-file-download"></i> Planilla
+                                </a>
+                            </li>
+                            <li>
+
+                                <a href="<?php echo base_url() ?>reportes/reporte_planilla">
+                                    <i class="fas fa-file-download"></i> Reporte de planilla
+                                </a>
+                            </li>
+                            <li>
+
+                                <a href="<?php echo base_url() ?>reportes/contratos">
+                                    <i class="fas fa-file-download"></i> Reporte de contratos
+                                </a>
+                            </li>
+                            <li>
+
                                 <a href="<?php echo base_url() ?>reportes/inventario_global">
                                     <i class="fas fa-file-download"></i> Inventario global
                                 </a>
