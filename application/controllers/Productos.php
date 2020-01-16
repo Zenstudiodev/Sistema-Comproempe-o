@@ -238,7 +238,7 @@ class Productos extends Base_Controller
             $data['productos_contrato_tienda_3'] = $this->Productos_model->get_productos_liquidacion_inventario('3', '1');
             $data['productos_contrato_tienda_4'] = $this->Productos_model->get_productos_liquidacion_inventario('4', '1');
             $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('5', '1');
-            $data['productos_contrato_tienda_5'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '1');
+            $data['productos_contrato_tienda_6'] = $this->Productos_model->get_productos_liquidacion_inventario('6', '1');
         } elseif ($tienda == '2') {
             $data['productos_contrato_tienda_1'] = $this->Productos_model->get_productos_liquidacion_inventario('1', '2');
             $data['productos_contrato_tienda_2'] = $this->Productos_model->get_productos_liquidacion_inventario('2', '2');
