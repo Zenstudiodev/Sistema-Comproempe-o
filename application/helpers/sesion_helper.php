@@ -45,7 +45,6 @@ function id_to_nombre($id){
     }else{
         $user_name =0;
     }
-
     return$user_name;
 }
 function mostrar_tienda(){
@@ -53,7 +52,6 @@ function mostrar_tienda(){
     $tienda_id = $ci->session->userdata['logged_in']['tienda_id'];
     echo'Tienda '.$tienda_id;
 }
-
 function tienda_id_h(){
 
     $ci =& get_instance();

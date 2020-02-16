@@ -95,7 +95,7 @@ class Contrato extends Base_Controller
                             echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
 
 
-                            if ($diferencia_dias < 8) {
+                            if ($diferencia_dias < 10) {
 
                                 $this->Contratos_model->actualizar_estado_contrato_t1($contrato->contrato_id, 'gracia');
 
@@ -142,7 +142,7 @@ class Contrato extends Base_Controller
                             echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
 
 
-                            if ($diferencia_dias < 8) {
+                            if ($diferencia_dias < 10) {
 
                                 $this->Contratos_model->actualizar_estado_contrato_t2($contrato->contrato_id, 'gracia');
 
@@ -188,7 +188,7 @@ class Contrato extends Base_Controller
                             echo '<p>diferencia de dias = ' . $diferencia_dias . '</p>';
 
 
-                            if ($diferencia_dias < 8) {
+                            if ($diferencia_dias < 10) {
 
                                 $this->Contratos_model->actualizar_estado_contrato_t3($contrato->contrato_id, 'gracia');
 

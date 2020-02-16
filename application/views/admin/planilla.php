@@ -172,7 +172,7 @@ $hoy = New DateTime();
 
                                 </td>
                                 <td>
-                                    <?php $valor_iggs = $empleado->sueldo_base * 0.0485;
+                                    <?php $valor_iggs = $empleado->sueldo_base * 0.0483;
                                     $total_iggs = $valor_iggs +$total_iggs;
                                     ?>
                                     <div class="form-group">

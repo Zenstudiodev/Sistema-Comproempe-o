@@ -541,7 +541,7 @@ if ($cliente)
                                         <p>Domicilio: 23 CALLE 1-55 LOCAL 74PB INTERIOR CENTRAL DE MAYOREO ZONA 12, VILLA
                                             NUEVA,
                                             GUATEMALA</p>
-                                        <p>Teléfono: 24771855</p>
+                                        <p>Teléfono: 24797615</p>
                                    <?php }
                                     elseif ($tienda =='2'){ ?>
                                         <p>Domicilio: RUTA AL ATLANTICO 4-26, ZONA 17, CENTRA NORTE, LOCAL U-15,  GUATEMALA, GUATEMALA</p>
