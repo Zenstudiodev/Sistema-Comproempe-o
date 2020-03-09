@@ -68,8 +68,6 @@ if ($contrato)
 		$pago_mora    = $intereses + $almacenaje;
 		$pago_mora    = $pago_mora / $plazo;
 		$pago_mora    = $pago_mora * $dias_pasados;
-
-
 	}
 	//recuperacion
 	$recuperacion      = false;
@@ -80,11 +78,8 @@ if ($contrato)
 		$recuperacion      = true;
 		$pago_recuperacion = $contrato->referendo;
 	}
-
 	$total = floatval($intereses + $almacenaje + $pago_mora + $pago_recuperacion);
-
 	$total_en_letras = NumeroALetras::convertir($total);
-
 	$cargos_extra = array(
 		'type'        => 'number',
 		'name'        => 'cargos_extra',
@@ -96,7 +91,6 @@ if ($contrato)
 		'step'        => 'any'
 		//'disabled'    => 'disabled'
 	);
-
 	$descuento = array(
 		'type'        => 'number',
 		'name'        => 'descuento',
@@ -136,8 +130,6 @@ if ($contrato)
     }
 
 	?>
-
-
 	<?php if ($productos) { ?>
         <!-- Main content -->
         <section class="invoice">

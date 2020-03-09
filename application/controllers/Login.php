@@ -135,7 +135,7 @@ class Login extends Base_Controller
         );
         $this->session->unset_userdata('logged_in', $sess_array);
         $data['message_display'] = 'Successfully Logout';
-        redirect('login', 'refresh');
+        redirect(base_url().'login', 'refresh');
     }
 
 }
